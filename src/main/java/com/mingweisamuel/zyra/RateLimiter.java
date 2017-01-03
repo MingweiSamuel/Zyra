@@ -1,0 +1,175 @@
+package com.mingweisamuel.zyra;
+
+import com.mingweisamuel.zyra.util.Singleton;
+
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * Rate limiter.
+ */
+public class RateLimiter {
+    /** A scheduler used to wait for async delays. */
+    private static final Singleton<ScheduledExecutorService> executor =
+            new Singleton<>(() -> new ScheduledThreadPoolExecutor(1));
+
+    /** Provides current date (Allows for fast debugging). */
+    private final DateTimeProvider dateTimeProvider;
+
+    /** Lock to prevent multiple threads from entering the block. */
+    private final Object lock = new Object();
+
+    /** Readonly map of timespan to max requests. */
+    private final ConcurrentMap<Long, Integer> rateLimits;
+    /** Map of timespan to when the timespan started. */
+    private final ConcurrentMap<Long, Long> initialRequests = new ConcurrentHashMap<>();
+    /** Map of timespan to the number of requests since the initial request. */
+    private final ConcurrentMap<Long, Integer> requestCounts = new ConcurrentHashMap<>();
+
+    /** Retry after delay. */
+    private volatile long retryAfterTimestamp = 0;
+
+    /**
+     * Creates a RateLimiter with the specified rate limits. DateTimeProvider defaults to System::currentTimeMillis.
+     * @param rateLimits A map where the keys represent time spans in milliseconds and the values represent the maximum
+     *                   number of requests allowed to pass through during the time span.
+     */
+    RateLimiter(ConcurrentMap<Long, Integer> rateLimits) {
+        this(rateLimits, System::currentTimeMillis);
+    }
+
+    /** Creates a RateLimiter with the specified rate limits and dateTimeProvider.
+     * @param rateLimits A map where the keys represent time spans in milliseconds and the values represent the maximum
+     *                   number of requests allowed to pass through during the time span.
+     * @param dateTimeProvider A dateTimeProvider to provide the current time. Useful for debugging/unit testing.
+     */
+    RateLimiter(ConcurrentMap<Long, Integer> rateLimits, DateTimeProvider dateTimeProvider) {
+        this.rateLimits = rateLimits;
+        this.dateTimeProvider = dateTimeProvider;
+    }
+
+    /**
+     * @return A CompletableFuture that will complete when the request can continue.
+     */
+    public CompletableFuture<Void> rateLimitAsync() {
+        CompletableFuture<Void> result = new CompletableFuture<>();
+        rateLimitAsyncInternal(result);
+        return result;
+    }
+
+    /**
+     * Completes RESULT when the request can continue.
+     * @param result
+     */
+    private void rateLimitAsyncInternal(CompletableFuture<Void> result) {
+        long delay;
+        // get lock so getDelay() and updateDelay() will be sequential.
+        // do not put any blocking or asynchronous operations inside of synchronized (lock)
+        synchronized (lock) {
+            delay = getDelay();
+            if (delay <= 0) {
+                updateDelay();
+                result.complete(null);
+                return;
+            }
+        }
+        executor.get().schedule(() -> rateLimitAsyncInternal(result), delay, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Blocks until no rate limits will be violated.
+     * @throws InterruptedException If the thread was interrupted.
+     */
+    public void rateLimit() throws InterruptedException {
+        long delay;
+        while ((delay = getDelay()) > 0) {
+            Thread.sleep(delay);
+        }
+        updateDelay();
+    }
+
+    /**
+     * Sets the RateLimiter to block for the specified delay.
+     * @param delay Amount of time to block for.
+     */
+    public void setRetryAfter(long delay) {
+        synchronized (lock) {
+            retryAfterTimestamp = dateTimeProvider.now() + delay;
+        }
+    }
+
+    /**
+     * @return The minimum delay in milliseconds needed to respect rate limits.
+     */
+    private long getDelay() {
+        synchronized (lock) {
+            long now = dateTimeProvider.now();
+            long delay = 0;
+
+            // update delay to match retryAfterTimestamp if applicable.
+            long retryDelay = retryAfterTimestamp - now;
+            if (retryDelay > delay)
+                delay = retryDelay;
+
+            for (Map.Entry<Long, Integer> requestCountPair : requestCounts.entrySet()) {
+                // for each timespan rule.
+                long timespan = requestCountPair.getKey();
+                int requestCount = requestCountPair.getValue();
+                int limit = rateLimits.get(timespan);
+
+                // if requestCount is at the limit, update the delay to match.
+                if (requestCount >= limit) {
+                    // initialRequest should exist if requestCount exists.
+                    long initialRequest = initialRequests.get(timespan);
+                    long newDelay = initialRequest + timespan - now;
+                    if (newDelay > delay)
+                        delay = newDelay;
+                }
+            }
+
+            return delay;
+        }
+    }
+
+    /**
+     * Updates the rate limit counters after getDelay() has been waited.
+     */
+    private void updateDelay() {
+        synchronized (lock) {
+            long now = dateTimeProvider.now();
+
+            // Operations on the ConcurrentHashMaps don't need to be atomic because only one thread can access the maps at
+            // a time because of the Semaphore lock.
+            for (Map.Entry<Long, Integer> rateLimit : rateLimits.entrySet()) {
+                long timespan = rateLimit.getKey();
+
+                Long initialRequest = initialRequests.get(timespan);
+                Integer requestCount = requestCounts.get(timespan);
+
+                if (requestCount == null || initialRequest == null || initialRequest < now - timespan) {
+                    requestCounts.put(timespan, 0);
+                    initialRequests.put(timespan, now);
+                    requestCount = 0;
+                }
+
+                requestCounts.put(timespan, requestCount + 1);
+            }
+        }
+    }
+
+    /**
+     * Interface for getting the time. Useful to implement for debugging/unit testing.
+     */
+    @FunctionalInterface
+    interface DateTimeProvider {
+        /**
+         * @return The current time in milliseconds.
+         */
+        long now();
+    }
+}
