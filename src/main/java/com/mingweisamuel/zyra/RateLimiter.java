@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -16,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class RateLimiter {
     /** A scheduler used to wait for async delays. */
     private static final Singleton<ScheduledExecutorService> executor =
-            new Singleton<>(() -> new ScheduledThreadPoolExecutor(1));
+            new Singleton<>(() -> new ScheduledThreadPoolExecutor(2));
 
     /** Provides current date (Allows for fast debugging). */
     private final DateTimeProvider dateTimeProvider;
@@ -34,39 +35,71 @@ public class RateLimiter {
     /** Retry after delay. */
     private volatile long retryAfterTimestamp = 0;
 
+    /** Number of milliseconds to retry after if the concurrent request limit is reached. */
+    private static final int CONCURRENT_REQUESTS_RETRY_INTERVAL = 20;
+    /** The default number of concurrent requests allowed. */
+    private static final int CONCURRENT_REQUESTS_DEFAULT_MAX = 25;
+    /** The semaphore for limiting the number of concurrent requests. */
+    private final Semaphore concurrentRequestSemaphore;
+
     /**
      * Creates a RateLimiter with the specified rate limits. DateTimeProvider defaults to System::currentTimeMillis.
      * @param rateLimits A map where the keys represent time spans in milliseconds and the values represent the maximum
      *                   number of requests allowed to pass through during the time span.
      */
     RateLimiter(ConcurrentMap<Long, Integer> rateLimits) {
-        this(rateLimits, System::currentTimeMillis);
+        this(rateLimits, CONCURRENT_REQUESTS_DEFAULT_MAX);
+    }
+
+    /**
+     * Creates a RateLimiter with the specified rate limits. DateTimeProvider defaults to System::currentTimeMillis.
+     * @param rateLimits A map where the keys represent time spans in milliseconds and the values represent the maximum
+     *                   number of requests allowed to pass through during the time span.
+     * @param maxConcurrentRequests The maximum number of concurrent requests allowed.
+     */
+    RateLimiter(ConcurrentMap<Long, Integer> rateLimits, int maxConcurrentRequests) {
+        this(rateLimits, maxConcurrentRequests, System::currentTimeMillis);
     }
 
     /** Creates a RateLimiter with the specified rate limits and dateTimeProvider.
      * @param rateLimits A map where the keys represent time spans in milliseconds and the values represent the maximum
      *                   number of requests allowed to pass through during the time span.
+     * @param maxConcurrentRequests The maximum number of concurrent requests allowed.
      * @param dateTimeProvider A dateTimeProvider to provide the current time. Useful for debugging/unit testing.
      */
-    RateLimiter(ConcurrentMap<Long, Integer> rateLimits, DateTimeProvider dateTimeProvider) {
+    RateLimiter(ConcurrentMap<Long, Integer> rateLimits, int maxConcurrentRequests, DateTimeProvider dateTimeProvider) {
         this.rateLimits = rateLimits;
+        this.concurrentRequestSemaphore = new Semaphore(maxConcurrentRequests);
         this.dateTimeProvider = dateTimeProvider;
     }
 
     /**
      * @return A CompletableFuture that will complete when the request can continue.
      */
-    public CompletableFuture<Void> rateLimitAsync() {
+    public CompletableFuture<Void> acquireAsync() {
         CompletableFuture<Void> result = new CompletableFuture<>();
-        rateLimitAsyncInternal(result);
+        acquireAsyncInternal1(result);
         return result;
+    }
+
+    /**
+     * Passes RESULT to acquireAsyncInternal2 when a lock has been acquired.
+     * @param result
+     */
+    private void acquireAsyncInternal1(CompletableFuture<Void> result) {
+        if (concurrentRequestSemaphore.tryAcquire()) {
+            acquireAsyncInternal2(result);
+            return;
+        }
+        executor.get().schedule(() -> acquireAsyncInternal1(result),
+                CONCURRENT_REQUESTS_RETRY_INTERVAL, TimeUnit.MILLISECONDS);
     }
 
     /**
      * Completes RESULT when the request can continue.
      * @param result
      */
-    private void rateLimitAsyncInternal(CompletableFuture<Void> result) {
+    private void acquireAsyncInternal2(CompletableFuture<Void> result) {
         long delay;
         // get lock so getDelay() and updateDelay() will be sequential.
         // do not put any blocking or asynchronous operations inside of synchronized (lock)
@@ -78,19 +111,28 @@ public class RateLimiter {
                 return;
             }
         }
-        executor.get().schedule(() -> rateLimitAsyncInternal(result), delay, TimeUnit.MILLISECONDS);
+        executor.get().schedule(() -> acquireAsyncInternal2(result), delay, TimeUnit.MILLISECONDS);
     }
 
     /**
      * Blocks until no rate limits will be violated.
      * @throws InterruptedException If the thread was interrupted.
      */
-    public void rateLimit() throws InterruptedException {
+    public void acquire() throws InterruptedException {
         long delay;
+        concurrentRequestSemaphore.acquire();
         while ((delay = getDelay()) > 0) {
             Thread.sleep(delay);
         }
         updateDelay();
+    }
+
+
+    /**
+     * Releases a lock obtained by acquire() or acquireAsync().
+     */
+    public void release() {
+        concurrentRequestSemaphore.release();
     }
 
     /**

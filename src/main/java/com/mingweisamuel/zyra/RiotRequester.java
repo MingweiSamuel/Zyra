@@ -55,17 +55,25 @@ public class RiotRequester extends Requester {
     }
 
     public Response getRequestRateLimited(String relativeUrl, Region region) throws RiotRequestException {
+        final RateLimiter limiter = getRateLimiter(region);
         try {
-            getRateLimiter(region).rateLimit();
+            limiter.acquire();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        return super.getRequest(String.format(RIOT_ROOT_URL, region), relativeUrl);
+        Response result = super.getRequest(String.format(RIOT_ROOT_URL, region), relativeUrl);
+        limiter.release();
+        return result;
     }
 
     public CompletableFuture<Response> getRequestRateLimitedAsync(String relativeUrl, Region region) {
-        return getRateLimiter(region).rateLimitAsync()
-                .thenCompose(v -> super.getRequestAsync(String.format(RIOT_ROOT_URL, region), relativeUrl));
+        final RateLimiter limiter = getRateLimiter(region);
+        return limiter.acquireAsync()
+                .thenCompose(v -> super.getRequestAsync(String.format(RIOT_ROOT_URL, region), relativeUrl))
+                .thenApply(r -> {
+                    limiter.release();
+                    return r;
+                });
     }
 
     private RateLimiter getRateLimiter(Region region) {

@@ -6,9 +6,6 @@ import com.robrua.orianna.api.core.RiotAPI;
 import com.robrua.orianna.type.api.LoadPolicy;
 import com.robrua.orianna.type.api.RateLimit;
 import org.junit.Test;
-import org.junit.runner.Description;
-
-import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Mingw on 2017-01-01.
@@ -144,7 +141,11 @@ public class RiotApiTest {
         RiotAPI.setAPIKey("86cddb9d-e5e4-4a1e-b7eb-24d74685ef1b");
 
         List<com.robrua.orianna.type.core.summoner.Summoner> summoners =
-                RiotAPI.getSummonersByID(SUMMONER_IDS_NA.subList(0, 1000));
+                RiotAPI.getSummonersByID(SUMMONER_IDS_NA);
+
+        System.out.println(summoners.size());
+
+        //System.out.println(summoners.stream().mapToLong(s -> s.getID()).distinct().count());
 
 //        assertEquals(expectedNames.size(), summoners.size());
 //        for (com.robrua.orianna.type.core.summoner.Summoner summoner : summoners) {
@@ -174,9 +175,9 @@ public class RiotApiTest {
 
     @Test
     public void getSummonersAsync() throws ExecutionException, InterruptedException {
-        CompletableFuture<Map<Long, Summoner>> task = riotApi.getSummonersAsync(Region.NA,
-                SUMMONER_IDS_NA.subList(0, 1000));
+        CompletableFuture<Map<Long, Summoner>> task = riotApi.getSummonersAsync(Region.NA, SUMMONER_IDS_NA);
         task.thenAccept(summoners -> {
+            System.out.println(summoners.size());
 //            assertEquals("Wrong number of summoners fetched", expectedNames.size(), summoners.size());
 //            for (Map.Entry<Long, Summoner> kvp : summoners.entrySet()) {
 //                assertEquals("Summoner wrong name. Id: " + kvp.getKey(),
