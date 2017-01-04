@@ -1,15 +1,17 @@
-package com.mingweisamuel.zyra;
+package com.mingweisamuel.zyra.test;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import com.mingweisamuel.zyra.model.Summoner;
-import com.mingweisamuel.zyra.util.RiotRequestException;
-import com.mingweisamuel.zyra.util.Singleton;
+import com.mingweisamuel.zyra.test.model.Summoner;
+import com.mingweisamuel.zyra.test.util.RiotResponseException;
+import com.mingweisamuel.zyra.test.util.Singleton;
 import org.asynchttpclient.Response;
 
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,27 +52,12 @@ public class RiotApi {
         requester = new Singleton<>(() -> new RiotRequester(apiKey, requestsPer10Seconds, requestPer10Minutes));
     }
 
-//    private Object getApi(Region region, String url, Type type) throws RiotRequestException {
-//        Response response = requester.get().getRequestRateLimited(url, region);
-//        return gson.fromJson(response.getResponseBody(), type);
-//    }
-//
-//    private Object getApiAsync(Region region, String url, Type type) {
-//        CompletableFuture<Response> requestTask = requester.get()
-//                .getRequestRateLimitedAsync(url, region);
-//        return requestTask.thenApply(Response::getResponseBody).thenApply(j -> gson.fromJson(j, type));
-//    }
-
+    //region Summoner
     /**
-     * Get summoner objects mapped by summoner ID for a given iterable of summoner IDs.
-     *
-     * @param region Region to query.
-     * @param summonerIds Summoner IDs.
-     * @return Map from summoner ID (Long) to Summoner.
-     * @throws RiotRequestException
+     * @see #getSummoners(Region, Iterable)
      */
-    public Map<Long, Summoner> getSummoners(Region region, long... summonerIds) {
-        return getSummoners(region, summonerIds);
+    public Map<Long, Summoner> getSummoners(Region region, Long... summonerIds) throws RiotResponseException {
+        return getSummoners(region, Arrays.asList(summonerIds));
     }
 
     /**
@@ -79,10 +66,9 @@ public class RiotApi {
      * @param region Region to query.
      * @param summonerIds Summoner IDs.
      * @return Map from summoner ID (Long) to Summoner.
-     * @throws RiotRequestException
+     * @throws RiotResponseException
      */
-    public Map<Long, Summoner> getSummoners(Region region, Iterable<Long> summonerIds)
-            throws RiotRequestException {
+    public Map<Long, Summoner> getSummoners(Region region, Iterable<Long> summonerIds) throws RiotResponseException {
         Map<Long, Summoner> result = new HashMap<>();
         for (Iterable<Long> summonerIdGroup : Iterables.partition(summonerIds, GROUP_SUMMONER)) {
             Response response = requester.get().getRequestRateLimited(
@@ -93,13 +79,20 @@ public class RiotApi {
         return result;
     }
 
+    @SuppressWarnings("checkstyle:javadoctype")
+    /**
+     * @see #getSummonersAsync(Region, Iterable)
+     */
+    public CompletableFuture<Map<Long, Summoner>> getSummonersAsync(Region region, Long... summonerIds) {
+        return getSummonersAsync(region, Arrays.asList(summonerIds));
+    }
+
     /**
      * Asynchronously get summoner objects mapped by summoner ID for a given iterable of summoner IDs.
      *
      * @param region Region to query.
      * @param summonerIds Summoner IDs.
      * @return CompletableFuture of Map from summoner ID (Long) to Summoner.
-     * @throws RiotRequestException
      */
     public CompletableFuture<Map<Long, Summoner>> getSummonersAsync(Region region, Iterable<Long> summonerIds) {
         Iterable<List<Long>> groups = Iterables.partition(summonerIds, GROUP_SUMMONER);
@@ -108,10 +101,19 @@ public class RiotApi {
         final RiotRequester requester = this.requester.get();
         CompletableFuture[] groupTasks = StreamSupport.stream(groups.spliterator(), false).map(group ->
                 requester.getRequestRateLimitedAsync(String.format(URL_SUMMONER, region) + joiner.join(group), region)
-                        .thenApply(Response::getResponseBody)
-                        .<Map<Long, Summoner>>thenApply(j -> gson.fromJson(j, TYPE_SUMMONER_MAP_LONG))
+                        .<Map<Long, Summoner>>thenApply(r ->
+                                {
+                                    try {
+                                        return gson.fromJson(r.getResponseBody(), TYPE_SUMMONER_MAP_LONG);
+                                    }
+                                    catch(JsonSyntaxException e) {
+                                        throw new RiotResponseException("JSON parse failed", e, r);
+                                    }
+                                })
                         .thenAccept(result::putAll))
                 .toArray(CompletableFuture[]::new);
         return CompletableFuture.allOf(groupTasks).thenApply(v -> result);
     }
+
+    //endregion
 }

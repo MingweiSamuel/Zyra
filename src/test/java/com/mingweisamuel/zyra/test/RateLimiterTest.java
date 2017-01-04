@@ -1,4 +1,4 @@
-package com.mingweisamuel.zyra;
+package com.mingweisamuel.zyra.test;
 
 import org.junit.Assert;
 import org.junit.Before;

@@ -1,6 +1,6 @@
-package com.mingweisamuel.zyra;
+package com.mingweisamuel.zyra.test;
 
-import com.mingweisamuel.zyra.util.RiotRequestException;
+import com.mingweisamuel.zyra.test.util.RiotResponseException;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
 import org.asynchttpclient.Response;
@@ -11,22 +11,32 @@ import java.util.concurrent.ExecutionException;
 /**
  * Requester for sending requests to the wherever.
  */
-public class Requester {
+class Requester {
 
-    /** The query parameter name used to specify the api key in requests. */
+    /**
+     * The query parameter name used to specify the api key in requests.
+     */
     private static final String API_KEY_PARAMETER = "api_key";
 
-    /** Riot API key. */
+    /**
+     * Riot API key.
+     */
     private final String apiKey;
-    /** Client used to send requests. */
+    /**
+     * Client used to send requests.
+     */
     private final AsyncHttpClient client;
 
-    /** Creates a requester with APIKEY and new DefaultAsyncHttpClient. */
+    /**
+     * Creates a requester with APIKEY and new DefaultAsyncHttpClient.
+     */
     Requester(String apiKey) {
         this(apiKey, new DefaultAsyncHttpClient());
     }
 
-    /** Creates a requester with APIKEY and specified CLIENT. */
+    /**
+     * Creates a requester with APIKEY and specified CLIENT.
+     */
     Requester(String apiKey, AsyncHttpClient client) {
         this.apiKey = apiKey;
         this.client = client;
@@ -34,29 +44,29 @@ public class Requester {
 
     /**
      * Sends a get request to rootUrl + relativeUrl (synchronous).
+     *
+     * @param rootUrl
+     * @param relativeUrl
      * @return The response
-     * */
-    public Response getRequest(String rootUrl, String relativeUrl) throws RiotRequestException {
+     */
+    public Response getRequest(String rootUrl, String relativeUrl) throws RiotResponseException {
         String url = String.format("https://%s%s", rootUrl, relativeUrl);
         try {
-            for (int i = 0; i < 3; i++) {
-                Response response = client.prepareGet(url).addQueryParam(API_KEY_PARAMETER, apiKey)
-                        .execute().get();
-                if (response.getStatusCode() == 200)
-                    return response;
-                if (response.getStatusCode() != 429)
-                    break;
-            }
+            return client.prepareGet(url).addQueryParam(API_KEY_PARAMETER, apiKey)
+                    .execute().get();
         } catch (ExecutionException e) {
-            throw new RiotRequestException("Request failed: " + url, e);
+            throw new RiotResponseException("Request failed: " + url, e, null);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+            throw new IllegalStateException();
         }
-        throw new RiotRequestException("Request failed after retries: " + url);
     }
 
     /**
      * Sends a get request to rootUrl + relativeUrl asynchronously.
+     *
+     * @param rootUrl
+     * @param relativeUrl
      * @return a CompletableFuture of the response
      */
     public CompletableFuture<Response> getRequestAsync(String rootUrl, String relativeUrl) {

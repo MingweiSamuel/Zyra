@@ -1,7 +1,7 @@
-package com.mingweisamuel.zyra;
+package com.mingweisamuel.zyra.test;
 
-import com.mingweisamuel.zyra.model.Summoner;
-import com.mingweisamuel.zyra.util.RiotRequestException;
+import com.mingweisamuel.zyra.test.model.Summoner;
+import com.mingweisamuel.zyra.test.util.RiotResponseException;
 import com.robrua.orianna.api.core.RiotAPI;
 import com.robrua.orianna.type.api.LoadPolicy;
 import com.robrua.orianna.type.api.RateLimit;
@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,7 +23,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class RiotApiTest {
 
-    public static final RiotApi riotApi = new RiotApi("86cddb9d-e5e4-4a1e-b7eb-24d74685ef1b", 3_000, 180_000);
+    public static final RiotApi riotApi = new RiotApi("RGAPI-5D344965-AACB-4615-8998-20B3519F3403");
+    //new RiotApi("86cddb9d-e5e4-4a1e-b7eb-24d74685ef1b", 3_000, 180_000);
 
     // 23902591 is in there a bunch of times
     public static final List<Long> SUMMONER_IDS = Arrays.asList(
@@ -154,7 +157,22 @@ public class RiotApiTest {
     }
 
     @Test
-    public void getSummoners_() throws RiotRequestException {
+    public void getSummonersOriannaAsync() {
+
+        ExecutorService exec = Executors.newCachedThreadPool();
+
+        RiotAPI.setLoadPolicy(LoadPolicy.LAZY);
+        RiotAPI.setRegion(com.robrua.orianna.type.core.common.Region.NA);
+        RiotAPI.setAPIKey("86cddb9d-e5e4-4a1e-b7eb-24d74685ef1b");
+
+        List<com.robrua.orianna.type.core.summoner.Summoner> summoners =
+                RiotAPI.getSummonersByID(SUMMONER_IDS_NA);
+
+        System.out.println(summoners.size());
+    }
+
+    @Test
+    public void getSummoners_() throws RiotResponseException {
         Map<Long, Summoner> summoners = riotApi.getSummoners(Region.NA, SUMMONER_IDS_NA.subList(0, 10));
 //        assertEquals("Wrong number of summoners fetched", expectedNames.size(), summoners.size());
 //        for (Map.Entry<Long, Summoner> kvp : summoners.entrySet()) {
@@ -164,7 +182,7 @@ public class RiotApiTest {
     }
 
     @Test
-    public void getSummoners() throws RiotRequestException {
+    public void getSummoners() throws RiotResponseException {
         Map<Long, Summoner> summoners = riotApi.getSummoners(Region.NA, SUMMONER_IDS_NA);
 //        assertEquals("Wrong number of summoners fetched", expectedNames.size(), summoners.size());
 //        for (Map.Entry<Long, Summoner> kvp : summoners.entrySet()) {
@@ -176,13 +194,17 @@ public class RiotApiTest {
     @Test
     public void getSummonersAsync() throws ExecutionException, InterruptedException {
         CompletableFuture<Map<Long, Summoner>> task = riotApi.getSummonersAsync(Region.NA, SUMMONER_IDS_NA);
-        task.thenAccept(summoners -> {
-            System.out.println(summoners.size());
-//            assertEquals("Wrong number of summoners fetched", expectedNames.size(), summoners.size());
-//            for (Map.Entry<Long, Summoner> kvp : summoners.entrySet()) {
-//                assertEquals("Summoner wrong name. Id: " + kvp.getKey(),
-//                        expectedNames.get(kvp.getKey()), kvp.getValue().name);
-//            }
-        }).get();
+
+        try {
+            task.thenAccept(summoners -> {
+                System.out.println(summoners.size());
+            }).get();
+        }
+        catch(ExecutionException e) {
+            RiotResponseException rre = (RiotResponseException) e.getCause();
+            System.out.println(rre.getResponse().getStatusCode());
+            System.out.println(rre.getResponse().getHeaders().entries());
+            System.out.println(rre.getResponse().getResponseBody());
+        }
     }
 }

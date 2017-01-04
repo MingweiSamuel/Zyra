@@ -1,6 +1,6 @@
-package com.mingweisamuel.zyra;
+package com.mingweisamuel.zyra.test;
 
-import com.mingweisamuel.zyra.util.Singleton;
+import com.mingweisamuel.zyra.test.util.Singleton;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;

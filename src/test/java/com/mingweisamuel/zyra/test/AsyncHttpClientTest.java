@@ -1,11 +1,10 @@
-package com.mingweisamuel.zyra;
+package com.mingweisamuel.zyra.test;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.mingweisamuel.zyra.model.Summoner;
+import com.mingweisamuel.zyra.test.model.Summoner;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
-import org.asynchttpclient.DefaultAsyncHttpClientConfig;
 import org.asynchttpclient.Response;
 import org.junit.Test;
 
@@ -15,11 +14,9 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**

@@ -1,4 +1,4 @@
-package com.mingweisamuel.zyra;
+package com.mingweisamuel.zyra.test;
 
 /**
  * Created by Mingw on 2017-01-01.
