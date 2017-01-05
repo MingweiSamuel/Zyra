@@ -1,4 +1,4 @@
-package com.mingweisamuel.zyra.test.util;
+package com.mingweisamuel.zyra.util;
 
 import java.util.function.Supplier;
 

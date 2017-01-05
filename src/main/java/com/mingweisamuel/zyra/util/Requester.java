@@ -1,6 +1,5 @@
-package com.mingweisamuel.zyra.test;
+package com.mingweisamuel.zyra.util;
 
-import com.mingweisamuel.zyra.test.util.RiotResponseException;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
 import org.asynchttpclient.Response;
@@ -11,7 +10,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Requester for sending requests to the wherever.
  */
-class Requester {
+public class Requester {
 
     /**
      * The query parameter name used to specify the api key in requests.
@@ -30,14 +29,14 @@ class Requester {
     /**
      * Creates a requester with APIKEY and new DefaultAsyncHttpClient.
      */
-    Requester(String apiKey) {
+    public Requester(String apiKey) {
         this(apiKey, new DefaultAsyncHttpClient());
     }
 
     /**
      * Creates a requester with APIKEY and specified CLIENT.
      */
-    Requester(String apiKey, AsyncHttpClient client) {
+    public Requester(String apiKey, AsyncHttpClient client) {
         this.apiKey = apiKey;
         this.client = client;
     }
@@ -47,6 +46,7 @@ class Requester {
      *
      * @param rootUrl
      * @param relativeUrl
+     * @throws RiotResponseException
      * @return The response
      */
     public Response getRequest(String rootUrl, String relativeUrl) throws RiotResponseException {

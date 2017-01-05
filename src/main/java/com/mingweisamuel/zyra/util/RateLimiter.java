@@ -1,6 +1,6 @@
-package com.mingweisamuel.zyra.test;
+package com.mingweisamuel.zyra.util;
 
-import com.mingweisamuel.zyra.test.util.Singleton;
+import com.mingweisamuel.zyra.util.Singleton;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -39,6 +39,8 @@ public class RateLimiter {
     private static final int CONCURRENT_REQUESTS_RETRY_INTERVAL = 20;
     /** The default number of concurrent requests allowed. */
     private static final int CONCURRENT_REQUESTS_DEFAULT_MAX = 25;
+    /** The maximum number of concurrent requests. */
+    private final int concurrentRequestsMax;
     /** The semaphore for limiting the number of concurrent requests. */
     private final Semaphore concurrentRequestSemaphore;
 
@@ -47,7 +49,7 @@ public class RateLimiter {
      * @param rateLimits A map where the keys represent time spans in milliseconds and the values represent the maximum
      *                   number of requests allowed to pass through during the time span.
      */
-    RateLimiter(ConcurrentMap<Long, Integer> rateLimits) {
+    public RateLimiter(ConcurrentMap<Long, Integer> rateLimits) {
         this(rateLimits, CONCURRENT_REQUESTS_DEFAULT_MAX);
     }
 
@@ -57,19 +59,20 @@ public class RateLimiter {
      *                   number of requests allowed to pass through during the time span.
      * @param maxConcurrentRequests The maximum number of concurrent requests allowed.
      */
-    RateLimiter(ConcurrentMap<Long, Integer> rateLimits, int maxConcurrentRequests) {
+    public RateLimiter(ConcurrentMap<Long, Integer> rateLimits, int maxConcurrentRequests) {
         this(rateLimits, maxConcurrentRequests, System::currentTimeMillis);
     }
 
     /** Creates a RateLimiter with the specified rate limits and dateTimeProvider.
      * @param rateLimits A map where the keys represent time spans in milliseconds and the values represent the maximum
      *                   number of requests allowed to pass through during the time span.
-     * @param maxConcurrentRequests The maximum number of concurrent requests allowed.
+     * @param concurrentRequestsMax The maximum number of concurrent requests allowed.
      * @param dateTimeProvider A dateTimeProvider to provide the current time. Useful for debugging/unit testing.
      */
-    RateLimiter(ConcurrentMap<Long, Integer> rateLimits, int maxConcurrentRequests, DateTimeProvider dateTimeProvider) {
+    public RateLimiter(ConcurrentMap<Long, Integer> rateLimits, int concurrentRequestsMax, DateTimeProvider dateTimeProvider) {
         this.rateLimits = rateLimits;
-        this.concurrentRequestSemaphore = new Semaphore(maxConcurrentRequests);
+        this.concurrentRequestsMax = concurrentRequestsMax;
+        this.concurrentRequestSemaphore = new Semaphore(concurrentRequestsMax);
         this.dateTimeProvider = dateTimeProvider;
     }
 

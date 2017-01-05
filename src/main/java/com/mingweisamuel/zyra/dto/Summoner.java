@@ -1,7 +1,7 @@
-package com.mingweisamuel.zyra.test.model;
+package com.mingweisamuel.zyra.dto;
 
 /**
- * Created by Mingw on 2017-01-01.
+ * This object contains summoner information.
  */
 public class Summoner {
     /** Summoner ID. */
@@ -19,6 +19,6 @@ public class Summoner {
 
     @Override
     public String toString() {
-        return String.format("[%d:%s]", id, name);
+        return String.format("[summoner %d:%s]", id, name);
     }
 }

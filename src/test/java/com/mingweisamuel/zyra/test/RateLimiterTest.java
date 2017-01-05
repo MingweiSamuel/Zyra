@@ -1,5 +1,6 @@
 package com.mingweisamuel.zyra.test;
 
+import com.mingweisamuel.zyra.util.RateLimiter;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

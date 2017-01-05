@@ -2,7 +2,7 @@ package com.mingweisamuel.zyra.test;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.mingweisamuel.zyra.test.model.Summoner;
+import com.mingweisamuel.zyra.dto.Summoner;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
 import org.asynchttpclient.Response;

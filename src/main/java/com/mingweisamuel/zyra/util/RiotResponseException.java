@@ -1,8 +1,6 @@
-package com.mingweisamuel.zyra.test.util;
+package com.mingweisamuel.zyra.util;
 
 import org.asynchttpclient.Response;
-
-import java.io.IOException;
 
 /**
  * Created by Mingw on 2017-01-02.

@@ -1,10 +1,16 @@
 package com.mingweisamuel.zyra.test;
 
-import com.mingweisamuel.zyra.test.model.Summoner;
-import com.mingweisamuel.zyra.test.util.RiotResponseException;
+import com.mingweisamuel.zyra.dto.ChampionMastery;
+import com.mingweisamuel.zyra.enums.ChampionId;
+import com.mingweisamuel.zyra.enums.Region;
+import com.mingweisamuel.zyra.RiotApi;
+import com.mingweisamuel.zyra.dto.MasteryPages;
+import com.mingweisamuel.zyra.dto.Summoner;
+import com.mingweisamuel.zyra.util.RiotResponseException;
 import com.robrua.orianna.api.core.RiotAPI;
 import com.robrua.orianna.type.api.LoadPolicy;
 import com.robrua.orianna.type.api.RateLimit;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -15,6 +21,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.IntStream;
 
 import static org.junit.Assert.assertEquals;
 
@@ -23,8 +30,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class RiotApiTest {
 
-    public static final RiotApi riotApi = new RiotApi("RGAPI-5D344965-AACB-4615-8998-20B3519F3403");
-    //new RiotApi("86cddb9d-e5e4-4a1e-b7eb-24d74685ef1b", 3_000, 180_000);
+    public static final RiotApi riotApi = //new RiotApi("RGAPI-5D344965-AACB-4615-8998-20B3519F3403");
+            new RiotApi("86cddb9d-e5e4-4a1e-b7eb-24d74685ef1b", 3_000, 180_000);
 
     // 23902591 is in there a bunch of times
     public static final List<Long> SUMMONER_IDS = Arrays.asList(
@@ -147,13 +154,6 @@ public class RiotApiTest {
                 RiotAPI.getSummonersByID(SUMMONER_IDS_NA);
 
         System.out.println(summoners.size());
-
-        //System.out.println(summoners.stream().mapToLong(s -> s.getID()).distinct().count());
-
-//        assertEquals(expectedNames.size(), summoners.size());
-//        for (com.robrua.orianna.type.core.summoner.Summoner summoner : summoners) {
-//            assertEquals(expectedNames.get(summoner.getID()), summoner.getName());
-//        }
     }
 
     @Test
@@ -201,10 +201,79 @@ public class RiotApiTest {
             }).get();
         }
         catch(ExecutionException e) {
+            handleExecutionException(e);
+        }
+    }
+
+    @Test
+    public void getSummonersMasteriesAsync() throws ExecutionException, InterruptedException {
+        CompletableFuture<Map<Long, MasteryPages>> task =
+                riotApi.getSummonersMasteriesAsync(Region.NA, SUMMONER_IDS_NA.subList(0, 1000));
+
+        try {
+            Map<Long, MasteryPages> result = task.get();
+            System.out.println(result.size());
+        }
+        catch(ExecutionException e) {
+            handleExecutionException(e);
+        }
+    }
+
+    @Test
+    public void getSummonersMasteriesOrianna() {
+        // LAZY -> 1:33:246
+        // UPFRONT -> 1:32:781
+        RiotAPI.setLoadPolicy(LoadPolicy.UPFRONT);
+        RiotAPI.setRegion(com.robrua.orianna.type.core.common.Region.NA);
+        RiotAPI.setAPIKey("86cddb9d-e5e4-4a1e-b7eb-24d74685ef1b");
+
+        List<com.robrua.orianna.type.core.summoner.Summoner> summoners =
+                RiotAPI.getSummonersByID(SUMMONER_IDS_NA);
+
+        summoners.stream().flatMap(s -> s.getMasteryPages().stream());
+
+        System.out.println(summoners.size());
+    }
+
+    public void handleExecutionException(ExecutionException e) throws ExecutionException {
+        RiotResponseException rre = (RiotResponseException) e.getCause();
+        System.out.println(rre.getResponse().getStatusCode());
+        System.out.println(rre.getResponse().getHeaders().entries());
+        System.out.println(rre.getResponse().getResponseBody());
+        throw e;
+    }
+
+    @Test
+    public void getSummonersAsyncSpam() throws ExecutionException, InterruptedException {
+        riotApi.getSummonersAsync(Region.NA, 69009277L).get();
+        CompletableFuture[] tasks =
+                IntStream.range(0, 30).mapToObj(i -> riotApi.getSummonersAsync(Region.NA, SUMMONER_IDS_NA))
+                .toArray(CompletableFuture[]::new);
+        try {
+            CompletableFuture.allOf(tasks).get();
+        }
+        catch(ExecutionException e) {
             RiotResponseException rre = (RiotResponseException) e.getCause();
-            System.out.println(rre.getResponse().getStatusCode());
             System.out.println(rre.getResponse().getHeaders().entries());
             System.out.println(rre.getResponse().getResponseBody());
+            System.out.println(rre.getResponse().getUri());
+            throw e;
         }
+    }
+
+    @Test
+    public void getSummonerChampionMastery() {
+        ChampionMastery result = riotApi.getSummonerChampionMastery(Region.NA, 69009277L, ChampionId.ZYRA);
+        assertEquals(7, result.championLevel);
+        assertTrue(result.championPoints > 244_000);
+    }
+
+    @Test
+    public void getSummonerChampionMasteryAsync() throws ExecutionException, InterruptedException {
+        riotApi.getSummonerChampionMasteryAsync(Region.NA, 69009277L, ChampionId.ZYRA)
+                .thenAccept(result -> {
+                    assertEquals(7, result.championLevel);
+                    assertTrue(result.championPoints > 244_000);
+                }).get();
     }
 }
