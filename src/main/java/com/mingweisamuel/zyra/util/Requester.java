@@ -2,8 +2,10 @@ package com.mingweisamuel.zyra.util;
 
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
+import org.asynchttpclient.Param;
 import org.asynchttpclient.Response;
 
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -49,10 +51,11 @@ public class Requester {
      * @throws RiotResponseException
      * @return The response
      */
-    public Response getRequest(String rootUrl, String relativeUrl) throws RiotResponseException {
+    public Response getRequest(String rootUrl, String relativeUrl, Param... params) throws RiotResponseException {
         String url = String.format("https://%s%s", rootUrl, relativeUrl);
         try {
             return client.prepareGet(url).addQueryParam(API_KEY_PARAMETER, apiKey)
+                    .addQueryParams(Arrays.asList(params))
                     .execute().get();
         } catch (ExecutionException e) {
             throw new RiotResponseException("Request failed: " + url, e, null);
@@ -69,9 +72,10 @@ public class Requester {
      * @param relativeUrl
      * @return a CompletableFuture of the response
      */
-    public CompletableFuture<Response> getRequestAsync(String rootUrl, String relativeUrl) {
+    public CompletableFuture<Response> getRequestAsync(String rootUrl, String relativeUrl, Param... params) {
         return client.prepareGet(String.format("https://%s%s", rootUrl, relativeUrl))
                 .addQueryParam(API_KEY_PARAMETER, apiKey)
+                .addQueryParams(Arrays.asList(params))
                 .execute().toCompletableFuture();
     }
 }

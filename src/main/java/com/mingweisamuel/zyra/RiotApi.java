@@ -3,19 +3,14 @@ package com.mingweisamuel.zyra;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.mingweisamuel.zyra.dto.ChampionMastery;
-import com.mingweisamuel.zyra.dto.MasteryPages;
-import com.mingweisamuel.zyra.dto.RunePages;
-import com.mingweisamuel.zyra.dto.Summoner;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.util.RateLimitedRequester;
 import com.mingweisamuel.zyra.util.Singleton;
 import org.asynchttpclient.AsyncHttpClient;
+import org.asynchttpclient.Param;
 import org.asynchttpclient.Response;
 
 import java.lang.reflect.Type;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -23,8 +18,6 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.ExecutionException;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.stream.StreamSupport;
@@ -50,6 +43,9 @@ public class RiotApi {
 
     /** League API. */
     public final LeagueEndpoint leagues = new LeagueEndpoint(this);
+
+    /** Stats API. */
+    public final StatsEndpoint stats = new StatsEndpoint(this);
 
     public RiotApi(String apiKey) {
         requester = new Singleton<>(() -> new RateLimitedRequester(apiKey));
@@ -77,8 +73,8 @@ public class RiotApi {
      * @param <T> Type to be returned.
      * @return Result.
      */
-    <T> T getBasic(Region region, String url, Type type) {
-        Response response = requester.get().getRequestRateLimited(url, region);
+    <T> T getBasic(Region region, String url, Type type, Param... params) {
+        Response response = requester.get().getRequestRateLimited(url, region, params);
         if (response.getStatusCode() == 204 || response.getStatusCode() == 404)
             return null;
         return gson.fromJson(response.getResponseBody(), type);
@@ -93,8 +89,8 @@ public class RiotApi {
      * @param <T> Type to be returned.
      * @return Async result.
      */
-    <T> CompletableFuture<T> getBasicAsync(Region region, String url, Type type) {
-        return requester.get().getRequestRateLimitedAsync(url, region)
+    <T> CompletableFuture<T> getBasicAsync(Region region, String url, Type type, Param... params) {
+        return requester.get().getRequestRateLimitedAsync(url, region, params)
                 .thenApply(r -> r.getStatusCode() == 204 || r.getStatusCode() == 404 ? null :
                         gson.fromJson(r.getResponseBody(), type));
     }

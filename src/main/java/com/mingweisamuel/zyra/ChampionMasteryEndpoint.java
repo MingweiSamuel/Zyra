@@ -14,8 +14,8 @@ import java.util.concurrent.CompletableFuture;
  * Riot API Champion Mastery Endpoint (unversioned).
  *
  * This class provides access to summoner champion mastery information. In addition to the single-champion queries
- * which provide one-to-one correspondence to the Riot API, this class also contains "batch" methods to query a large
- * number of summoners at once.
+ * which provide one-to-one correspondence to the Riot API, this class also contains methods suffixed with "batch" to
+ * query a large number of summoners at once.
  *
  * @see RiotApi#championMasteries
  */

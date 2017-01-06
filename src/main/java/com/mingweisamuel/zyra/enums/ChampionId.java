@@ -5,6 +5,14 @@ package com.mingweisamuel.zyra.enums;
  */
 public class ChampionId {
     private ChampionId() {}
+
+    /**
+     * ID for combined statistics in the {@link com.mingweisamuel.zyra.StatsEndpoint}.
+     *
+     * @see com.mingweisamuel.zyra.dto.ChampionStats#id
+     */
+    public static final long ALL = 0;
+
     public static final long AATROX = 266;
     public static final long AHRI = 103;
     public static final long AKALI = 84;

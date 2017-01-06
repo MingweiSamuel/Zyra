@@ -54,9 +54,9 @@ public class LeagueEndpoint {
      * each summoner and related teams) will be included in the returned leagues data, whether or not the participant
      * is inactive. However, no entries for other inactive summoners or teams in the leagues will be included.
      *
-     * This differs from {@link #getEntries} by (TODO).
+     * This differs from {@link #getEntries(Region, Long...)} by (TODO).
      *
-     * @see #getEntries
+     * @see #getEntries(Region, Long...)
      *
      * @param region Region to query.
      * @param summonerIds Summoner IDs to query.
@@ -73,9 +73,9 @@ public class LeagueEndpoint {
      * each summoner and related teams) will be included in the returned leagues data, whether or not the participant
      * is inactive. However, no entries for other inactive summoners or teams in the leagues will be included.
      *
-     * This differs from {@link #getEntries} by (TODO).
+     * This differs from {@link #getEntries(Region, Iterable)} by (TODO).
      *
-     * @see #getEntries
+     * @see #getEntries(Region, Iterable)
      *
      * @param region Region to query.
      * @param summonerIds Summoner IDs to query.
@@ -93,9 +93,9 @@ public class LeagueEndpoint {
      * each summoner and related teams) will be included in the returned leagues data, whether or not the participant
      * is inactive. However, no entries for other inactive summoners or teams in the leagues will be included.
      *
-     * This differs from {@link #getEntriesAsync} by (TODO).
+     * This differs from {@link #getEntriesAsync(Region, Long...)} by (TODO).
      *
-     * @see #getEntriesAsync
+     * @see #getEntriesAsync(Region, Long...)
      *
      * @param region Region to query.
      * @param summonerIds Summoner IDs to query.
@@ -112,9 +112,9 @@ public class LeagueEndpoint {
      * each summoner and related teams) will be included in the returned leagues data, whether or not the participant
      * is inactive. However, no entries for other inactive summoners or teams in the leagues will be included.
      *
-     * This differs from {@link #getEntriesAsync} by (TODO).
+     * This differs from {@link #getEntriesAsync(Region, Iterable)} by (TODO).
      *
-     * @see #getEntriesAsync
+     * @see #getEntriesAsync(Region, Iterable)
      *
      * @param region Region to query.
      * @param summonerIds Summoner IDs to query.
@@ -132,9 +132,9 @@ public class LeagueEndpoint {
      *
      * Returns all league entries for specified summoners and summoners' teams.
      *
-     * This differs from {@link #get} by (TODO).
+     * This differs from {@link #get(Region, Long...)} by (TODO).
      *
-     * @see #get
+     * @see #
      *
      * @param region Region to query.
      * @param summonerIds Summoner IDs to query.
@@ -149,9 +149,9 @@ public class LeagueEndpoint {
      *
      * Returns all league entries for specified summoners and summoners' teams.
      *
-     * This differs from {@link #get} by (TODO).
+     * This differs from {@link #get(Region, Iterable)} by (TODO).
      *
-     * @see #get
+     * @see #get(Region, Iterable)
      *
      * @param region Region to query.
      * @param summonerIds Summoner IDs to query.
@@ -167,9 +167,9 @@ public class LeagueEndpoint {
      *
      * Returns all league entries for specified summoners and summoners' teams.
      *
-     * This differs from {@link #get} by (TODO).
+     * This differs from {@link #getAsync(Region, Long...)} by (TODO).
      *
-     * @see #get
+     * @see #get(Region, Long...)
      *
      * @param region Region to query.
      * @param summonerIds Summoner IDs to query.
@@ -184,9 +184,9 @@ public class LeagueEndpoint {
      *
      * Returns all league entries for specified summoners and summoners' teams.
      *
-     * This differs from {@link #get} by (TODO).
+     * This differs from {@link #getAsync(Region, Iterable)} by (TODO).
      *
-     * @see #get
+     * @see #get(Region, Iterable)
      *
      * @param region Region to query.
      * @param summonerIds Summoner IDs to query.

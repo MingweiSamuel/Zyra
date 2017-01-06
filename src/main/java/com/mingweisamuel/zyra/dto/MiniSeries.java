@@ -24,6 +24,6 @@ public class MiniSeries {
 
     @Override
     public String toString() {
-        return String.format("[miniSeries %dW:%dL/%d]", wins, losses, target);
+        return String.format("[miniSeries %s]", progress);
     }
 }

@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture;
  * @see RiotApi#summoners
  */
 public class SummonerEndpoint {
+
     /** Relative URL for the summoner endpoint. */
     private static final String URL_BASE = "api/lol/%s/v1.4/summoner/";
     /** URL prefix for summoner by-name endpoint. */

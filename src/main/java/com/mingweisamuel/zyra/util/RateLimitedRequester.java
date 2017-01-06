@@ -2,6 +2,7 @@ package com.mingweisamuel.zyra.util;
 
 import com.mingweisamuel.zyra.enums.Region;
 import org.asynchttpclient.AsyncHttpClient;
+import org.asynchttpclient.Param;
 import org.asynchttpclient.Response;
 
 import java.util.Arrays;
@@ -79,7 +80,8 @@ public class RateLimitedRequester extends Requester {
         this.concurrentRequestsMax = concurrentRequestsMax;
     }
 
-    public Response getRequestRateLimited(String relativeUrl, Region region) throws RiotResponseException {
+    public Response getRequestRateLimited(String relativeUrl, Region region, Param... params)
+            throws RiotResponseException {
         final RateLimiter limiter = getRateLimiter(region);
         try {
             limiter.acquire();
@@ -90,15 +92,19 @@ public class RateLimitedRequester extends Requester {
         int i = 0;
         try {
             for (; i < retries; i++) {
-                result = super.getRequest(String.format(RIOT_ROOT_URL, region), relativeUrl);
+                result = super.getRequest(String.format(RIOT_ROOT_URL, region), relativeUrl, params);
+                // if response was successful, return response
                 if (Arrays.binarySearch(STATUS_SUCCESS, result.getStatusCode()) >= 0)
                     return result;
+                // if response has Retry-After header, set rateLimiter's retry after.
                 String retryAfter = result.getHeader(HEADER_RETRY_AFTER);
                 System.out.println("RetryAfter: " + retryAfter + ", " + result.getHeader("X-Rate-Limit-Count"));
                 if (retryAfter != null)
                     limiter.setRetryAfter(Long.parseLong(retryAfter) * 1000 + 50);
+                // if the status code is not 429 and not a 5**, or if we are out of retries, throw an exception.
                 if (result.getStatusCode() != 429 && result.getStatusCode() < 500)
                     break;
+                // otherwise retry request.
             }
         }
         finally {
@@ -109,14 +115,14 @@ public class RateLimitedRequester extends Requester {
                 i, result == null ? -1 : result.getStatusCode()), result);
     }
 
-    public CompletableFuture<Response> getRequestRateLimitedAsync(String relativeUrl, Region region) {
-        return getRequestRateLimitedAsyncInternal(relativeUrl, region, 0);
+    public CompletableFuture<Response> getRequestRateLimitedAsync(String relativeUrl, Region region, Param... params) {
+        return getRequestRateLimitedAsyncInternal(relativeUrl, region, 0, params);
     }
     private CompletableFuture<Response> getRequestRateLimitedAsyncInternal(
-            final String relativeUrl, final Region region, final int retryCount) {
+            final String relativeUrl, final Region region, final int retryCount, final Param... params) {
         final RateLimiter limiter = getRateLimiter(region);
         return limiter.acquireAsync()
-                .thenCompose(v -> super.getRequestAsync(String.format(RIOT_ROOT_URL, region), relativeUrl))
+                .thenCompose(v -> super.getRequestAsync(String.format(RIOT_ROOT_URL, region), relativeUrl, params))
                 .whenComplete((r, e) -> limiter.release()) // release limiter regardless of success or failure.
                 .thenCompose(r -> {
                     // if response was successful, return response
