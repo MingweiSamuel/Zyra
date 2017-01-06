@@ -1,5 +1,7 @@
 package com.mingweisamuel.zyra.dto;
 
+import java.util.List;
+
 /**
  * This object contains league information.
  *
@@ -26,6 +28,8 @@ public class League {
     /**
      * The league's queue type. (Legal values: RANKED_FLEX_SR, RANKED_FLEX_TT, RANKED_SOLO_5x5, RANKED_TEAM_3x3,
      * RANKED_TEAM_5x5).
+     *
+     * @see com.mingweisamuel.zyra.enums.Queue
      */
     public String queue;
 
@@ -40,6 +44,6 @@ public class League {
 
     @Override
     public String toString() {
-        return String.format("[summoner %d:%s]", id, name);
+        return String.format("[league %s:%s]", name, entries.toString());
     }
 }

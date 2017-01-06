@@ -48,6 +48,9 @@ public class RiotApi {
     /** ChampionMastery API. */
     public final ChampionMasteryEndpoint championMasteries = new ChampionMasteryEndpoint(this);
 
+    /** League API. */
+    public final LeagueEndpoint leagues = new LeagueEndpoint(this);
+
     public RiotApi(String apiKey) {
         requester = new Singleton<>(() -> new RateLimitedRequester(apiKey));
     }
