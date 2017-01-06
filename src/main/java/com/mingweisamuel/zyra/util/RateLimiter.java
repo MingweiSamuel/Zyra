@@ -1,7 +1,5 @@
 package com.mingweisamuel.zyra.util;
 
-import com.mingweisamuel.zyra.util.Singleton;
-
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -36,11 +34,9 @@ public class RateLimiter {
     private volatile long retryAfterTimestamp = 0;
 
     /** Number of milliseconds to retry after if the concurrent request limit is reached. */
-    private static final int CONCURRENT_REQUESTS_RETRY_INTERVAL = 20;
+    public static final int CONCURRENT_REQUESTS_RETRY_INTERVAL = 20;
     /** The default number of concurrent requests allowed. */
-    private static final int CONCURRENT_REQUESTS_DEFAULT_MAX = 25;
-    /** The maximum number of concurrent requests. */
-    private final int concurrentRequestsMax;
+    public static final int CONCURRENT_REQUESTS_DEFAULT_MAX = 25;
     /** The semaphore for limiting the number of concurrent requests. */
     private final Semaphore concurrentRequestSemaphore;
 
@@ -71,7 +67,6 @@ public class RateLimiter {
      */
     public RateLimiter(ConcurrentMap<Long, Integer> rateLimits, int concurrentRequestsMax, DateTimeProvider dateTimeProvider) {
         this.rateLimits = rateLimits;
-        this.concurrentRequestsMax = concurrentRequestsMax;
         this.concurrentRequestSemaphore = new Semaphore(concurrentRequestsMax);
         this.dateTimeProvider = dateTimeProvider;
     }

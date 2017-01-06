@@ -26,12 +26,12 @@ import java.util.stream.IntStream;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by Mingw on 2017-01-01.
+ * Integration tests for {@link com.mingweisamuel.zyra.RiotApi}.
  */
 public class RiotApiTest {
 
-    public static final RiotApi riotApi = //new RiotApi("RGAPI-5D344965-AACB-4615-8998-20B3519F3403");
-            new RiotApi("86cddb9d-e5e4-4a1e-b7eb-24d74685ef1b", 3_000, 180_000);
+    public static final RiotApi riotApi = new RiotApi("RGAPI-5D344965-AACB-4615-8998-20B3519F3403");
+            //new RiotApi("86cddb9d-e5e4-4a1e-b7eb-24d74685ef1b", 3_000, 180_000);
 
     // 23902591 is in there a bunch of times
     public static final List<Long> SUMMONER_IDS = Arrays.asList(
@@ -173,7 +173,7 @@ public class RiotApiTest {
 
     @Test
     public void getSummoners_() throws RiotResponseException {
-        Map<Long, Summoner> summoners = riotApi.getSummoners(Region.NA, SUMMONER_IDS_NA.subList(0, 10));
+        Map<Long, Summoner> summoners = riotApi.summoners.get(Region.NA, SUMMONER_IDS_NA.subList(0, 10));
 //        assertEquals("Wrong number of summoners fetched", expectedNames.size(), summoners.size());
 //        for (Map.Entry<Long, Summoner> kvp : summoners.entrySet()) {
 //            assertEquals("Summoner wrong name. Id: " + kvp.getKey(),
@@ -183,7 +183,7 @@ public class RiotApiTest {
 
     @Test
     public void getSummoners() throws RiotResponseException {
-        Map<Long, Summoner> summoners = riotApi.getSummoners(Region.NA, SUMMONER_IDS_NA);
+        Map<Long, Summoner> summoners = riotApi.summoners.get(Region.NA, SUMMONER_IDS_NA);
 //        assertEquals("Wrong number of summoners fetched", expectedNames.size(), summoners.size());
 //        for (Map.Entry<Long, Summoner> kvp : summoners.entrySet()) {
 //            assertEquals("Summoner wrong name. Id: " + kvp.getKey(),
@@ -193,7 +193,7 @@ public class RiotApiTest {
 
     @Test
     public void getSummonersAsync() throws ExecutionException, InterruptedException {
-        CompletableFuture<Map<Long, Summoner>> task = riotApi.getSummonersAsync(Region.NA, SUMMONER_IDS_NA);
+        CompletableFuture<Map<Long, Summoner>> task = riotApi.summoners.getAsync(Region.NA, SUMMONER_IDS_NA);
 
         try {
             task.thenAccept(summoners -> {
@@ -208,7 +208,7 @@ public class RiotApiTest {
     @Test
     public void getSummonersMasteriesAsync() throws ExecutionException, InterruptedException {
         CompletableFuture<Map<Long, MasteryPages>> task =
-                riotApi.getSummonersMasteriesAsync(Region.NA, SUMMONER_IDS_NA.subList(0, 1000));
+                riotApi.summoners.getMasteriesAsync(Region.NA, SUMMONER_IDS_NA.subList(0, 1000));
 
         try {
             Map<Long, MasteryPages> result = task.get();
@@ -245,9 +245,9 @@ public class RiotApiTest {
 
     @Test
     public void getSummonersAsyncSpam() throws ExecutionException, InterruptedException {
-        riotApi.getSummonersAsync(Region.NA, 69009277L).get();
+        riotApi.summoners.getAsync(Region.NA, 69009277L).get();
         CompletableFuture[] tasks =
-                IntStream.range(0, 30).mapToObj(i -> riotApi.getSummonersAsync(Region.NA, SUMMONER_IDS_NA))
+                IntStream.range(0, 30).mapToObj(i -> riotApi.summoners.getAsync(Region.NA, SUMMONER_IDS_NA))
                 .toArray(CompletableFuture[]::new);
         try {
             CompletableFuture.allOf(tasks).get();
@@ -263,14 +263,14 @@ public class RiotApiTest {
 
     @Test
     public void getSummonerChampionMastery() {
-        ChampionMastery result = riotApi.getSummonerChampionMastery(Region.NA, 69009277L, ChampionId.ZYRA);
+        ChampionMastery result = riotApi.championMasteries.getChampion(Region.NA, 69009277L, ChampionId.ZYRA);
         assertEquals(7, result.championLevel);
         assertTrue(result.championPoints > 244_000);
     }
 
     @Test
     public void getSummonerChampionMasteryAsync() throws ExecutionException, InterruptedException {
-        riotApi.getSummonerChampionMasteryAsync(Region.NA, 69009277L, ChampionId.ZYRA)
+        riotApi.championMasteries.getChampionAsync(Region.NA, 69009277L, ChampionId.ZYRA)
                 .thenAccept(result -> {
                     assertEquals(7, result.championLevel);
                     assertTrue(result.championPoints > 244_000);
