@@ -5,8 +5,10 @@ import com.google.common.collect.Iterables;
 import com.google.gson.Gson;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.util.RateLimitedRequester;
+import com.mingweisamuel.zyra.util.RateLimiter;
 import com.mingweisamuel.zyra.util.Singleton;
 import org.asynchttpclient.AsyncHttpClient;
+import org.asynchttpclient.DefaultAsyncHttpClient;
 import org.asynchttpclient.Param;
 import org.asynchttpclient.Response;
 
@@ -47,14 +49,126 @@ public class RiotApi {
     /** Stats API. */
     public final StatsEndpoint stats = new StatsEndpoint(this);
 
-    public RiotApi(String apiKey) {
-        requester = new Singleton<>(() -> new RateLimitedRequester(apiKey));
+    /** Riot API builder for obtaining instances of the Riot API. */
+    public static class RiotApiBuilder {
+
+        /** Riot Games API key. */
+        private final String apiKey;
+
+        /** API rate limits. Key is time span in milliseconds, value is max number of requests allowed during that
+         * timespan. */
+        private Map<Long, Integer> rateLimits = new HashMap<>();
+        {
+            rateLimits.put(RateLimitedRequester.TEN_SECONDS, 10);
+            rateLimits.put(RateLimitedRequester.TEN_MINUTES, 500);
+        }
+
+        /** The number of times to retry a request. */
+        private int retries = RateLimitedRequester.RETRIES_DEFAULT;
+
+        /** The number of concurrent requests allowed (per-region). */
+        private int concurrentRequestsMax = RateLimiter.CONCURRENT_REQUESTS_DEFAULT_MAX;
+
+        /** AsyncHttpClient to use. Null for default client. */
+        private AsyncHttpClient client = null;
+
+        /**
+         * Creates a builder for a RiotApi instance with the specified API key.
+         *
+         * The rate limits default to the standard development api key rate limits. 10 requests every 10 seconds, 500
+         * requests every ten minutes.
+         *
+         * @param apiKey Riot Games API Key. Go <a href="https://developer.riotgames.com/">here</a> to obtain a key.
+         */
+        public RiotApiBuilder(String apiKey) {
+            this.apiKey = apiKey;
+        }
+
+        /**
+         * Builds the RiotApi instance.
+         * @return RiotApi instance.
+         */
+        public RiotApi build() {
+            return new RiotApi(apiKey, rateLimits, client == null ? new DefaultAsyncHttpClient() : client, retries,
+                    concurrentRequestsMax);
+        }
+
+        /**
+         * Set arbitrary rate limits.
+         * @param rateLimits Map from long representing time span in milliseconds to int max requests per that time
+         *                   span.
+         * @return This, for chaining.
+         */
+        public RiotApiBuilder setRateLimits(Map<Long, Integer> rateLimits) {
+            this.rateLimits = rateLimits;
+            return this;
+        }
+
+        /**
+         * Sets max requests per 10 seconds and 10 minutes rate limits.
+         * @param rateLimitPer10Seconds
+         * @param rateLimitPer10Minutes
+         * @return This, for chaining.
+         */
+        public RiotApiBuilder setRateLimits(int rateLimitPer10Seconds, int rateLimitPer10Minutes) {
+            rateLimits = new HashMap<>();
+            rateLimits.put(RateLimitedRequester.TEN_SECONDS, rateLimitPer10Seconds);
+            rateLimits.put(RateLimitedRequester.TEN_MINUTES, rateLimitPer10Minutes);
+            return this;
+        }
+
+        /**
+         * Set the rate limits to the default limits for a production API key. 3,000 requests per 10 seconds, 180,000
+         * requests per 10 minutes.
+         * @return This, for chaining.
+         */
+        public RiotApiBuilder setRateLimitsDefaultProduction() {
+            rateLimits = new HashMap<>();
+            rateLimits.put(RateLimitedRequester.TEN_SECONDS, 3_000);
+            rateLimits.put(RateLimitedRequester.TEN_MINUTES, 180_000);
+            return this;
+        }
+
+        /**
+         * Set times to retry failed requests.
+         * @param retries
+         * @return This, for chaining.
+         */
+        public RiotApiBuilder setRetries(int retries) {
+            this.retries = retries;
+            return this;
+        }
+
+        /**
+         * Set the maximum number of concurrent requests allowed per region.
+         * @param concurrentRequestsMax
+         * @return This, for chaining.
+         */
+        public RiotApiBuilder setConcurrentRequestsMax(int concurrentRequestsMax) {
+            this.concurrentRequestsMax = concurrentRequestsMax;
+            return this;
+        }
+
+        /**
+         * Sets the AsyncHttpClient to use.
+         * @param client
+         * @return
+         */
+        public RiotApiBuilder setClient(AsyncHttpClient client) {
+            this.client = client;
+            return this;
+        }
     }
 
-    public RiotApi(String apiKey, int requestsPer10Seconds, int requestPer10Minutes) {
-        requester = new Singleton<>(() -> new RateLimitedRequester(apiKey, requestsPer10Seconds, requestPer10Minutes));
-    }
-
+    /**
+     * Creates a RiotApi instance.
+     *
+     * @param apiKey Riot Games API key.
+     * @param rateLimits
+     * @param client AsyncHttpClient
+     * @param retries
+     * @param maxConcurrentRequests
+     */
     private RiotApi(String apiKey, Map<Long, Integer> rateLimits, AsyncHttpClient client, int retries,
             int maxConcurrentRequests) {
         requester = new Singleton<>(

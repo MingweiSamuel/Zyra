@@ -30,11 +30,12 @@ import static org.junit.Assert.assertEquals;
  */
 public class RiotApiTest {
 
-    public static final RiotApi riotApi = new RiotApi("RGAPI-5D344965-AACB-4615-8998-20B3519F3403");
+    public static final RiotApi riotApi =
+            new RiotApi.RiotApiBuilder("RGAPI-5D344965-AACB-4615-8998-20B3519F3403").build();
             //new RiotApi("86cddb9d-e5e4-4a1e-b7eb-24d74685ef1b", 3_000, 180_000);
 
     // 23902591 is in there a bunch of times
-    public static final List<Long> SUMMONER_IDS = Arrays.asList(
+    public static final List<Long> SUMMONER_IDS_EUW = Arrays.asList(
             23902591L, 19676775L, 22653737L, 21759506L, 22209505L, 29299341L, 19101354L, 22166284L, 31730794L,
             39974593L, 23902591L, 22790011L, 65450936L, 67592203L, 39637575L, 31272097L, 23460015L, 38627529L,
             23902591L, 44027682L, 20148263L, 61138162L, 52450898L, 31944743L, 22926530L, 45019487L, 19395392L,
