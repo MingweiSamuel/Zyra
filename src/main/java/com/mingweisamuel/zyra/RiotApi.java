@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.stream.StreamSupport;
@@ -50,7 +51,7 @@ public class RiotApi {
     public final StatsEndpoint stats = new StatsEndpoint(this);
 
     /** Riot API builder for obtaining instances of the Riot API. */
-    public static class RiotApiBuilder {
+    public static class Builder {
 
         /** Riot Games API key. */
         private final String apiKey;
@@ -80,7 +81,7 @@ public class RiotApi {
          *
          * @param apiKey Riot Games API Key. Go <a href="https://developer.riotgames.com/">here</a> to obtain a key.
          */
-        public RiotApiBuilder(String apiKey) {
+        public Builder(String apiKey) {
             this.apiKey = apiKey;
         }
 
@@ -99,18 +100,18 @@ public class RiotApi {
          *                   span.
          * @return This, for chaining.
          */
-        public RiotApiBuilder setRateLimits(Map<Long, Integer> rateLimits) {
+        public Builder setRateLimits(Map<Long, Integer> rateLimits) {
             this.rateLimits = rateLimits;
             return this;
         }
 
         /**
          * Sets max requests per 10 seconds and 10 minutes rate limits.
-         * @param rateLimitPer10Seconds
-         * @param rateLimitPer10Minutes
+         * @param rateLimitPer10Seconds Requests per 10 seconds.
+         * @param rateLimitPer10Minutes Requests per 10 minutes.
          * @return This, for chaining.
          */
-        public RiotApiBuilder setRateLimits(int rateLimitPer10Seconds, int rateLimitPer10Minutes) {
+        public Builder setRateLimits(int rateLimitPer10Seconds, int rateLimitPer10Minutes) {
             rateLimits = new HashMap<>();
             rateLimits.put(RateLimitedRequester.TEN_SECONDS, rateLimitPer10Seconds);
             rateLimits.put(RateLimitedRequester.TEN_MINUTES, rateLimitPer10Minutes);
@@ -122,7 +123,7 @@ public class RiotApi {
          * requests per 10 minutes.
          * @return This, for chaining.
          */
-        public RiotApiBuilder setRateLimitsDefaultProduction() {
+        public Builder setRateLimitsDefaultProduction() {
             rateLimits = new HashMap<>();
             rateLimits.put(RateLimitedRequester.TEN_SECONDS, 3_000);
             rateLimits.put(RateLimitedRequester.TEN_MINUTES, 180_000);
@@ -134,7 +135,7 @@ public class RiotApi {
          * @param retries
          * @return This, for chaining.
          */
-        public RiotApiBuilder setRetries(int retries) {
+        public Builder setRetries(int retries) {
             this.retries = retries;
             return this;
         }
@@ -144,7 +145,7 @@ public class RiotApi {
          * @param concurrentRequestsMax
          * @return This, for chaining.
          */
-        public RiotApiBuilder setConcurrentRequestsMax(int concurrentRequestsMax) {
+        public Builder setConcurrentRequestsMax(int concurrentRequestsMax) {
             this.concurrentRequestsMax = concurrentRequestsMax;
             return this;
         }
@@ -154,7 +155,7 @@ public class RiotApi {
          * @param client
          * @return
          */
-        public RiotApiBuilder setClient(AsyncHttpClient client) {
+        public Builder setClient(AsyncHttpClient client) {
             this.client = client;
             return this;
         }
@@ -261,6 +262,45 @@ public class RiotApi {
         return CompletableFuture.allOf(groupTasks).thenApply(v -> result);
     }
     //endregion
+
+    //region util2
+    <I, K, V> Map<K, V> getMap2(
+            String url, Region region, Iterable<I> input, int groupSize, Type type)
+            throws ExecutionException {
+        try {
+            return this.<I, K, V>getMapAsync2(url, region, input, groupSize, type).get();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException();
+        }
+    }
+    /**
+     * Async helper for map-based requests.
+     *
+     * @param region Region to send request to.
+     * @param input Iterable of the input type.
+     * @param groupSize Max size per group.
+     * @param urlFunction Function that takes a String of comma-separated input group and returns a url.
+     * @param type TypeToken.getType() for gson.
+     * @param <I> Input type.
+     * @param <K> Result key type.
+     * @param <V> Result value type.
+     * @return Async result.
+     */
+    <I, K, V> CompletableFuture<Map<K, V>> getMapAsync2(
+            String url, Region region, Iterable<I> input, int groupSize, Type type) {
+        Iterable<List<I>> groups = Iterables.partition(input, groupSize);
+        Map<K, V> result = new ConcurrentHashMap<>();
+        final RateLimitedRequester requester = this.requester.get();
+        CompletableFuture[] groupTasks = StreamSupport.stream(groups.spliterator(), false).map(group ->
+                requester.getRequestRateLimitedAsync(url.replace("@", joiner.join(group)), region)
+                        .<Map<K, V>>thenApply(r -> r.getStatusCode() == 204 || r.getStatusCode() == 404 ?
+                                Collections.emptyMap() : gson.fromJson(r.getResponseBody(), type))
+                        .thenAccept(result::putAll))
+                .toArray(CompletableFuture[]::new);
+        return CompletableFuture.allOf(groupTasks).thenApply(v -> result);
+    }
+    //endreigon
 
     //region util-static
     /**

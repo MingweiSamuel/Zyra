@@ -31,7 +31,7 @@ import static org.junit.Assert.assertEquals;
 public class RiotApiTest {
 
     public static final RiotApi riotApi =
-            new RiotApi.RiotApiBuilder("RGAPI-5D344965-AACB-4615-8998-20B3519F3403").build();
+            new RiotApi.Builder("RGAPI-5D344965-AACB-4615-8998-20B3519F3403").build();
             //new RiotApi("86cddb9d-e5e4-4a1e-b7eb-24d74685ef1b", 3_000, 180_000);
 
     // 23902591 is in there a bunch of times
