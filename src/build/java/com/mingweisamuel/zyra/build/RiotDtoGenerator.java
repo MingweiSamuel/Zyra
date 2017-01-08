@@ -124,7 +124,7 @@ public class RiotDtoGenerator {
 
                         FieldSpec.Builder fieldBuilder = FieldSpec.builder(type, fieldName, Modifier.PUBLIC);
                         if (FIELD_DOCSTRINGS.containsKey(key))
-                            fieldDesc = (fieldDesc + "\n\n" + FIELD_DOCSTRINGS.get(key)).toLowerCase();
+                            fieldDesc = (fieldDesc + "\n\n" + FIELD_DOCSTRINGS.get(key)).trim();
                         if (!fieldDesc.isEmpty())
                             fieldBuilder.addJavadoc(fieldDesc);
                         typeSpecBuilder.addField(fieldBuilder.build());

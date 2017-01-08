@@ -161,7 +161,6 @@ public class SummonerEndpoint {
      * @param region Region to query.
      * @param summonerNames Summoner names (whitespace and case independent).
      * @return CompletableFuture of map from normalized summoner name to Summoner.
-     * @
      */
     public CompletableFuture<Map<String, Summoner>> getByNameAsync(Region region, String... summonerNames) {
         return getByNameAsync(region, Arrays.asList(summonerNames));
@@ -180,7 +179,6 @@ public class SummonerEndpoint {
      * @param region Region to query.
      * @param summonerNames Summoner names (whitespace and case independent).
      * @return CompletableFuture of map from normalized summoner name to Summoner.
-     * @
      */
     public CompletableFuture<Map<String, Summoner>> getByNameAsync(
             Region region, Iterable<String> summonerNames) {

@@ -134,7 +134,7 @@ public class LeagueEndpoint {
      *
      * This differs from {@link #get(Region, Long...)} by (TODO).
      *
-     * @see #
+     * @see #get(Region, Long...)
      *
      * @param region Region to query.
      * @param summonerIds Summoner IDs to query.
