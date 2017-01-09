@@ -20,6 +20,11 @@ public class Singleton<T> {
         this.supplier = supplier;
     }
 
+    /** @return true if instance has been created. */
+    public boolean created() {
+        return supplier == null;
+    }
+
     /** @return the instance. Creates it if needed. */
     public synchronized T get() {
         if (value == null) {

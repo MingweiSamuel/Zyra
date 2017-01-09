@@ -1,9 +1,6 @@
 package com.mingweisamuel.zyra.test;
 
 import com.mingweisamuel.zyra.RiotApi;
-import com.mingweisamuel.zyra.dto.FeaturedGameInfo;
-import com.mingweisamuel.zyra.dto.FeaturedGames;
-import com.mingweisamuel.zyra.dto.Participant;
 import com.mingweisamuel.zyra.dto.Summoner;
 import com.mingweisamuel.zyra.enums.Region;
 import org.junit.Test;
@@ -94,6 +91,6 @@ public class ApiSummonerTest {
         for(Map.Entry<String, Summoner> kvp : summoners.entrySet())
             assertEquals(kvp.getKey(), RiotApi.standardizeName(kvp.getValue().name));
         int missing = summonerNames.size() - summoners.size();
-        assertTrue("Too many summoners missing. ", missing < 10);
+        assertTrue("Too many summoners missing.", missing < 10);
     }
 }

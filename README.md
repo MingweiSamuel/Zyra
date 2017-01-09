@@ -1,17 +1,20 @@
 # Zyra
 [![Build Status](https://travis-ci.org/MingweiSamuel/Zyra.svg?branch=develop)](https://travis-ci.org/MingweiSamuel/Zyra)
 
-Java Wrapper for the [Riot Games API](https://developer.riotgames.com/)
+Java Library for the [Riot Games API](https://developer.riotgames.com/)
 
-
-## Goals
-
-Zyra's primary goals are *speed* and *reliability* with usability and features as only secondary goals.
+Zyra's goals are *speed* and *reliability*. Zyra has built-in behind-the-scenes multi-threading which
+makes Zyra 6+ times faster than other libraries for large queries. Zyra handles rate limits and large
+requests seamlessly.
 
 
 ## Features
 
-WIP
+* Fast
+* Out-of-the-box multi-threading
+* Thread-safe
+* Asynchronous chaining with CompletableFuture
+* Highly-configurable
 
 
 ## Setup

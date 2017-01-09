@@ -5,6 +5,8 @@ import org.asynchttpclient.DefaultAsyncHttpClient;
 import org.asynchttpclient.Param;
 import org.asynchttpclient.Response;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -12,7 +14,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Requester for sending requests to the wherever.
  */
-public class Requester {
+public class Requester implements Closeable {
 
     /**
      * The query parameter name used to specify the api key in requests.
@@ -77,5 +79,10 @@ public class Requester {
                 .addQueryParam(API_KEY_PARAMETER, apiKey)
                 .addQueryParams(Arrays.asList(params))
                 .execute().toCompletableFuture();
+    }
+
+    @Override
+    public void close() throws IOException {
+        client.close();
     }
 }

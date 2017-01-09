@@ -107,6 +107,76 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <!-- http://stackoverflow.com/a/574650/2398020 -->
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>assembly</id>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!--<appendAssemblyId>false</appendAssemblyId>-->
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.wvengen</groupId>
+                <artifactId>proguard-maven-plugin</artifactId>
+                <version>2.0.13</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals><goal>proguard</goal></goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <obfuscate>false</obfuscate>
+                    <injar>${project.build.finalName}-jar-with-dependencies.jar</injar>
+                    <outjar>${project.build.finalName}-standalone.jar</outjar>
+                    <includeDependency>false</includeDependency>
+                    <outputDirectory>${project.build.directory}</outputDirectory>
+                    <options>
+                        <option>-keep class com.mingweisamuel.** {*;}</option>
+                        <option>-dontoptimize</option>
+
+                        <option>-dontnote !com.mingweisamuel.**</option>
+                        <option>-dontwarn !com.mingweisamuel.**</option>
+                    </options>
+                    <libs>
+                        <lib>${java.home}/lib/rt.jar</lib>
+                        <lib>${java.home}/lib/jce.jar</lib>
+                    </libs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.coderplus.maven.plugins</groupId>
+                <artifactId>copy-rename-maven-plugin</artifactId>
+                <version>1.0.1</version>
+                <executions>
+                    <execution>
+                        <id>rename-file</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>rename</goal>
+                        </goals>
+                        <configuration>
+                            <sourceFile>
+                                ${project.build.directory}/${project.build.finalName}-jar-with-dependencies.jar
+                            </sourceFile>
+                            <destinationFile>
+                                ${project.build.directory}/${project.build.finalName}-standalone-full.jar
+                            </destinationFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>

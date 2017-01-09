@@ -2,6 +2,7 @@ package com.mingweisamuel.zyra;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.gson.Gson;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.util.RateLimitedRequester;
@@ -9,8 +10,11 @@ import com.mingweisamuel.zyra.util.RateLimiter;
 import com.mingweisamuel.zyra.util.Singleton;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
+import org.asynchttpclient.DefaultAsyncHttpClientConfig;
 import org.asynchttpclient.Param;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,7 +30,7 @@ import java.util.stream.StreamSupport;
 /**
  * Riot API.
  */ //TODO
-public class RiotApi {
+public class RiotApi implements Closeable {
 
     /** Joins stuff with commas. */
     private final Joiner joiner = Joiner.on(',');
@@ -35,7 +39,6 @@ public class RiotApi {
     private final Gson gson = new Gson();
     /** Web requester. */
     private final Singleton<RateLimitedRequester> requester;
-
 
     public final ChampionEndpoints champions = new ChampionEndpoints(this);
     public final ChampionMasteryEndpoints championMasteries = new ChampionMasteryEndpoints(this);
@@ -58,7 +61,7 @@ public class RiotApi {
      * @param apiKey Development API key.
      * @return Builder instance. Call {@link Builder#build()} to get RiotApi instance.
      */
-    public static Builder build(String apiKey) {
+    public static Builder builder(String apiKey) {
         return new Builder(apiKey);
     }
 
@@ -69,7 +72,7 @@ public class RiotApi {
      * @param apiKey Production API key.
      * @return Builder instance. Call {@link Builder#build()} to get RiotApi instance.
      */
-    public static Builder buildProduction(String apiKey) {
+    public static Builder productionBuilder(String apiKey) {
         return new Builder(apiKey).setRateLimitsDefaultProduction()
                 .setConcurrentRequestsMax(RateLimiter.CONCURRENT_REQUESTS_PRODUCTION_MAX);
     }
@@ -114,8 +117,12 @@ public class RiotApi {
          * @return RiotApi instance.
          */
         public RiotApi build() {
-            return new RiotApi(apiKey, rateLimits, client == null ? new DefaultAsyncHttpClient() : client, retries,
-                    concurrentRequestsMax);
+            if (client == null) {
+                client = new DefaultAsyncHttpClient(
+                        new DefaultAsyncHttpClientConfig.Builder().setThreadFactory(
+                                new ThreadFactoryBuilder().setDaemon(true).build()).build());
+            }
+            return new RiotApi(apiKey, rateLimits, client, retries, concurrentRequestsMax);
         }
 
         /**
@@ -207,6 +214,12 @@ public class RiotApi {
      */
     public static String standardizeName(String name) {
         return name.replaceAll("\\s", "").toLowerCase();
+    }
+
+    @Override
+    public void close() throws IOException {
+        if (requester.created())
+            requester.get().close();
     }
 
     //region util
