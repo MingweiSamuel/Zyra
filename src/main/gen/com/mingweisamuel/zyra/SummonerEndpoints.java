@@ -25,28 +25,28 @@ public class SummonerEndpoints {
 
   private static final String GET_BY_NAME__URL = "/api/lol/%1s/v1.4/summoner/by-name/@";
 
-  private static final Type GET__TYPE = new TypeToken<Map<String, Summoner>>() {
+  private static final Type GET__TYPE = new TypeToken<Map<Long, Summoner>>() {
   }.getType();
 
   private static final int GET__GROUP = 40;
 
   private static final String GET__URL = "/api/lol/%1s/v1.4/summoner/@";
 
-  private static final Type GET_MASTERIES__TYPE = new TypeToken<Map<String, MasteryPages>>() {
+  private static final Type GET_MASTERIES__TYPE = new TypeToken<Map<Long, MasteryPages>>() {
   }.getType();
 
   private static final int GET_MASTERIES__GROUP = 40;
 
   private static final String GET_MASTERIES__URL = "/api/lol/%1s/v1.4/summoner/@/masteries";
 
-  private static final Type GET_NAMES__TYPE = new TypeToken<Map<String, String>>() {
+  private static final Type GET_NAMES__TYPE = new TypeToken<Map<Long, String>>() {
   }.getType();
 
   private static final int GET_NAMES__GROUP = 40;
 
   private static final String GET_NAMES__URL = "/api/lol/%1s/v1.4/summoner/@/name";
 
-  private static final Type GET_RUNES__TYPE = new TypeToken<Map<String, RunePages>>() {
+  private static final Type GET_RUNES__TYPE = new TypeToken<Map<Long, RunePages>>() {
   }.getType();
 
   private static final int GET_RUNES__GROUP = 40;
@@ -76,49 +76,49 @@ public class SummonerEndpoints {
 
   /**
    * @param input Riot API description: list of summoner IDs associated with summoners to retrieve. */
-  public Map<String, Summoner> get(final Region region, final Collection<Long> input) throws
+  public Map<Long, Summoner> get(final Region region, final Collection<Long> input) throws
       ExecutionException {
     return riotApi.getMap(String.format(GET__URL, region), region, input, GET__GROUP, GET__TYPE);}
 
   /**
    * @param input Riot API description: list of summoner IDs associated with summoners to retrieve. */
-  public CompletableFuture<Map<String, Summoner>> getAsync(final Region region,
+  public CompletableFuture<Map<Long, Summoner>> getAsync(final Region region,
       final Collection<Long> input) {
     return riotApi.getMapAsync(String.format(GET__URL, region), region, input, GET__GROUP, GET__TYPE);}
 
   /**
    * @param input Riot API description: list of summoner IDs associated with masteries to retrieve. */
-  public Map<String, MasteryPages> getMasteries(final Region region, final Collection<Long> input)
+  public Map<Long, MasteryPages> getMasteries(final Region region, final Collection<Long> input)
       throws ExecutionException {
     return riotApi.getMap(String.format(GET_MASTERIES__URL, region), region, input, GET_MASTERIES__GROUP, GET_MASTERIES__TYPE);}
 
   /**
    * @param input Riot API description: list of summoner IDs associated with masteries to retrieve. */
-  public CompletableFuture<Map<String, MasteryPages>> getMasteriesAsync(final Region region,
+  public CompletableFuture<Map<Long, MasteryPages>> getMasteriesAsync(final Region region,
       final Collection<Long> input) {
     return riotApi.getMapAsync(String.format(GET_MASTERIES__URL, region), region, input, GET_MASTERIES__GROUP, GET_MASTERIES__TYPE);}
 
   /**
    * @param input Riot API description: list of summoner IDs associated with summoner names to retrieve. */
-  public Map<String, String> getNames(final Region region, final Collection<Long> input) throws
+  public Map<Long, String> getNames(final Region region, final Collection<Long> input) throws
       ExecutionException {
     return riotApi.getMap(String.format(GET_NAMES__URL, region), region, input, GET_NAMES__GROUP, GET_NAMES__TYPE);}
 
   /**
    * @param input Riot API description: list of summoner IDs associated with summoner names to retrieve. */
-  public CompletableFuture<Map<String, String>> getNamesAsync(final Region region,
+  public CompletableFuture<Map<Long, String>> getNamesAsync(final Region region,
       final Collection<Long> input) {
     return riotApi.getMapAsync(String.format(GET_NAMES__URL, region), region, input, GET_NAMES__GROUP, GET_NAMES__TYPE);}
 
   /**
    * @param input Riot API description: list of summoner IDs associated with runes to retrieve. */
-  public Map<String, RunePages> getRunes(final Region region, final Collection<Long> input) throws
+  public Map<Long, RunePages> getRunes(final Region region, final Collection<Long> input) throws
       ExecutionException {
     return riotApi.getMap(String.format(GET_RUNES__URL, region), region, input, GET_RUNES__GROUP, GET_RUNES__TYPE);}
 
   /**
    * @param input Riot API description: list of summoner IDs associated with runes to retrieve. */
-  public CompletableFuture<Map<String, RunePages>> getRunesAsync(final Region region,
+  public CompletableFuture<Map<Long, RunePages>> getRunesAsync(final Region region,
       final Collection<Long> input) {
     return riotApi.getMapAsync(String.format(GET_RUNES__URL, region), region, input, GET_RUNES__GROUP, GET_RUNES__TYPE);}
 }

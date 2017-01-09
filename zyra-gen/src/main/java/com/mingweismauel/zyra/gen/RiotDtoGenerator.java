@@ -160,6 +160,12 @@ class RiotDtoGenerator {
         System.out.println("  - returns " + returnDtoName);
 
         TypeName returnType = getTypeFromString(returnDtoName).box();
+        // special cases for Map<Long, ?> for summoners, leagues by summoner
+        if (endpointDesc.contains("mapped by summoner ID for a given list of summoner IDs")) {
+            ParameterizedTypeName stringMap = (ParameterizedTypeName) returnType;
+            TypeName valueType = stringMap.typeArguments.get(1);
+            returnType = ParameterizedTypeName.get(ClassName.get(Map.class), TypeName.LONG.box(), valueType);
+        }
 
         String typeField = endpointNameConsts + "__TYPE";
         if (returnType instanceof ParameterizedTypeName) {

@@ -200,6 +200,15 @@ public class RiotApi {
                 () -> new RateLimitedRequester(apiKey, rateLimits, client, retries, maxConcurrentRequests));
     }
 
+    /**
+     * Standardizes the supplied summoner name by removing whitespace and converting all uppercase letters to lowercase.
+     * @param name Summoner name.
+     * @return Standardized summoner name.
+     */
+    public static String standardizeName(String name) {
+        return name.replaceAll("\\s", "").toLowerCase();
+    }
+
     //region util
     <T> T getBasic(String url, Region region, Type type, Param... params) throws ExecutionException {
         try {
