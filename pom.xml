@@ -86,7 +86,7 @@
                     <execution>
                         <id>attach-sources</id>
                         <goals>
-                            <goal>jar-no-fork</goal>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -144,7 +144,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!--<appendAssemblyId>false</appendAssemblyId>-->
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <finalName>${project.build.finalName}-standalone-full</finalName>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
@@ -162,7 +163,7 @@
                 </executions>
                 <configuration>
                     <obfuscate>false</obfuscate>
-                    <injar>${project.build.finalName}-jar-with-dependencies.jar</injar>
+                    <injar>${project.build.finalName}-standalone-full.jar</injar>
                     <outjar>${project.build.finalName}-standalone.jar</outjar>
                     <includeDependency>false</includeDependency>
                     <outputDirectory>${project.build.directory}</outputDirectory>
@@ -178,28 +179,6 @@
                         <lib>${java.home}/lib/jce.jar</lib>
                     </libs>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.coderplus.maven.plugins</groupId>
-                <artifactId>copy-rename-maven-plugin</artifactId>
-                <version>1.0.1</version>
-                <executions>
-                    <execution>
-                        <id>rename-file</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>rename</goal>
-                        </goals>
-                        <configuration>
-                            <sourceFile>
-                                ${project.build.directory}/${project.build.finalName}-jar-with-dependencies.jar
-                            </sourceFile>
-                            <destinationFile>
-                                ${project.build.directory}/${project.build.finalName}-standalone-full.jar
-                            </destinationFile>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
