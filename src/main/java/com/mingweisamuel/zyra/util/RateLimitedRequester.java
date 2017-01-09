@@ -108,9 +108,8 @@ public class RateLimitedRequester extends Requester {
                         limiter.setRetryAfter(Long.parseLong(retryAfter) * 1000 + 50);
                     // if the status code is not 429 and not a 5**, or if we are out of retries, throw an exception.
                     if (r.getStatusCode() != 429 && r.getStatusCode() < 500 || retryCount >= retries) {
-                        throw new RiotResponseException(String.format("Async request failed after %d retries (%d).%n" +
-                                "URL: %s",
-                                retryCount, r.getStatusCode(), r.getUri()), r);
+                        throw new RiotResponseException(String.format("Async request failed after %d retries (%d).",
+                                retryCount, r.getStatusCode()), r);
                     }
                     // otherwise retry request.
                     return getRequestRateLimitedAsyncInternal(relativeUrl, region, retryCount + 1);
