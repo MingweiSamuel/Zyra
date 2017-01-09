@@ -43,7 +43,7 @@ class RiotDtoGenerator {
     private static final String PACKAGE = "com.mingweisamuel.zyra";
     private static final String PACKAGE_DTO = PACKAGE + ".dto";
 
-    private static final File SOURCE_DESTINATION = new File("../src/gen/java/");
+    private static final File SOURCE_DESTINATION = new File("src/gen/java/");
 
     private static final String DOCSTRING_GENERATED = "This class is automagically generated from " +
             "the <a href=\"https://developer.riotgames.com/api/methods\">Riot API reference</a> " +
