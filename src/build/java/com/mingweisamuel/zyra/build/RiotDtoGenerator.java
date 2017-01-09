@@ -92,6 +92,7 @@ class RiotDtoGenerator {
             TypeSpec.Builder endpointsTypeBuilder = TypeSpec
                     .classBuilder(endpointTitleNormalized + "Endpoints")
                     .addModifiers(Modifier.PUBLIC)
+                    .addJavadoc(DOCSTRING_GENERATED + "\n\n@version " + endpointTitle)
                     .addField(ClassName.bestGuess("com.mingweisamuel.zyra.RiotApi"), "riotApi",
                             Modifier.PRIVATE, Modifier.FINAL);
             MethodSpec.Builder endpointsTypeConstructorBuilder = MethodSpec.constructorBuilder()
