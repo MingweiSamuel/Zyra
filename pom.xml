@@ -6,7 +6,34 @@
     <groupId>com.mingweisamuel.zyra</groupId>
     <artifactId>zyra</artifactId>
     <packaging>jar</packaging>
-    <version>0.1</version>
+    <version>0.1-SNAPSHOT</version>
+
+    <name>zyra</name>
+    <description>Riot Games League of Legends API Library for Java</description>
+    <url>https://github.com/MingweiSamuel/Zyra/</url>
+
+    <licenses>
+        <license>
+            <name>GPLv2</name>
+            <url>https://www.gnu.org/licenses/gpl-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Mingwei Samuel</name>
+            <email>mingwei@berkeley.edu</email>
+            <organization>Mingwei Samuel</organization>
+            <organizationUrl>http://www.mingweisamuel.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/MingweiSamuel/Zyra.git</connection>
+        <developerConnection>scm:git:ssh://github.com:MingweiSamuel/Zyra.git</developerConnection>
+        <url>https://github.com/MingweiSamuel/Zyra/</url>
+    </scm>
+
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
