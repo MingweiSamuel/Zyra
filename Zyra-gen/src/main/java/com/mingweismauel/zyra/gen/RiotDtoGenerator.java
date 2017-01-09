@@ -282,7 +282,8 @@ class RiotDtoGenerator {
             endpointPathNormalized = endpointPathNormalized.replaceFirst("\\{\\S+?}", "@");
 
             addGroupMethods(endpointsTypeBuilder, endpointName, returnType, endpointNameConsts, endpointPathNormalized,
-                    groupField, typeField, requiredParameters, optionalParameters, javadocParams, endpointNotes);
+                    groupField, typeField, requiredParameters, optionalParameters, hasPlatformId, javadocParams,
+                    endpointNotes);
         }
         else {
             endpointPathNormalized = endpointPathNormalized
@@ -290,7 +291,8 @@ class RiotDtoGenerator {
                     .replaceFirst("\\{\\S+?}", "%3s");
 
             addBasicMethods(endpointsTypeBuilder, endpointName, returnType, endpointNameConsts, endpointPathNormalized,
-                    groupField, typeField, requiredParameters, optionalParameters, javadocParams, endpointNotes,
+                    groupField, typeField, requiredParameters, optionalParameters, hasPlatformId, javadocParams,
+                    endpointNotes,
                     formatExtension);
         }
 
@@ -299,9 +301,8 @@ class RiotDtoGenerator {
 
     private static void addBasicMethods(TypeSpec.Builder builder, String endpointName, TypeName returnType,
             String endpointNameConsts, String endpointPathNormalized, String groupField, String typeField,
-            List<ParameterSpec> required, List<ParameterSpec> optional, List<String> javadocParams, String
-                                                endpointNotes,
-            StringBuilder formatExtension) {
+            List<ParameterSpec> required, List<ParameterSpec> optional, boolean hasPlatformId,
+            List<String> javadocParams, String endpointNotes, StringBuilder formatExtension) {
 
         String urlField = endpointNameConsts + "__URL";
 
@@ -349,11 +350,13 @@ class RiotDtoGenerator {
             methodAsyncBuilder.addJavadoc(javadoc.toString().trim());
 
             if (i == optional.size()) {
-                methodBuilder.addCode("return riotApi.getBasic(String.format($L, region$L), region, $L$L);",
-                        urlField, formatExtension.toString(), typeField, buildOptionalParams(optional));
+                methodBuilder.addCode("return riotApi.getBasic(String.format($L, region$L$L), region, $L$L);",
+                        urlField, hasPlatformId ? ".platform" : "",
+                        formatExtension.toString(), typeField, buildOptionalParams(optional));
                 methodAsyncBuilder.addCode(
-                        "return riotApi.getBasicAsync(String.format($L, region$L), region, $L$L);",
-                urlField, formatExtension.toString(), typeField, buildOptionalParams(optional));
+                        "return riotApi.getBasicAsync(String.format($L, region$L$L), region, $L$L);",
+                        urlField, hasPlatformId ? ".platform" : "",
+                        formatExtension.toString(), typeField, buildOptionalParams(optional));
             }
             else {
                 methodBuilder.addCode("return $L(region, $Lnull);", endpointName, params.toString());
@@ -366,9 +369,9 @@ class RiotDtoGenerator {
     }
 
     private static void addGroupMethods(TypeSpec.Builder builder, String endpointName, TypeName returnType,
-                                       String endpointNameConsts, String endpointPathNormalized, String groupField, String typeField,
-                                       List<ParameterSpec> required, List<ParameterSpec>
-                                                optional, List<String> javadocParams, String endpointNotes) {
+            String endpointNameConsts, String endpointPathNormalized, String groupField, String typeField,
+            List<ParameterSpec> required, List<ParameterSpec>optional, boolean hasPlatformId, List<String>
+            javadocParams, String endpointNotes) {
 
         String urlField = endpointNameConsts + "__URL";
 
@@ -416,11 +419,13 @@ class RiotDtoGenerator {
 
             if (i == optional.size()) {
                 methodBuilder.addCode(
-                        "return riotApi.getMap(String.format($L, region), region, input, $L, $L$L);",
-                        urlField, groupField, typeField, buildOptionalParams(optional));
+                        "return riotApi.getMap(String.format($L, region$L), region, input, $L, $L$L);",
+                        urlField, hasPlatformId ? ".platform" : "",
+                        groupField, typeField, buildOptionalParams(optional));
                 methodAsyncBuilder.addCode(
-                        "return riotApi.getMapAsync(String.format($L, region), region, input, $L, $L$L);",
-                        urlField, groupField, typeField, buildOptionalParams(optional));
+                        "return riotApi.getMapAsync(String.format($L, region$L), region, input, $L, $L$L);",
+                        urlField, hasPlatformId ? ".platform" : "",
+                        groupField, typeField, buildOptionalParams(optional));
             }
             else {
                 methodBuilder.addCode("return $L($Lnull);", endpointName, params.toString());

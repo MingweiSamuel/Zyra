@@ -20,7 +20,7 @@ public class RateLimitedRequester extends Requester {
     public static final int RETRIES_DEFAULT = 3;
 
     /** Root url for Riot API requests. */
-    private static final String RIOT_ROOT_URL = "%s.api.pvp.net/";
+    private static final String RIOT_ROOT_URL = "%s.api.pvp.net";
 
     /** Retry-After header name. */
     private static final String HEADER_RETRY_AFTER = "Retry-After";
@@ -70,7 +70,7 @@ public class RateLimitedRequester extends Requester {
                     return result;
                 // if response has Retry-After header, set rateLimiter's retry after.
                 String retryAfter = result.getHeader(HEADER_RETRY_AFTER);
-                System.out.println("RetryAfter: " + retryAfter + ", " + result.getHeader("X-Rate-Limit-Count"));
+                //System.out.println("RetryAfter: " + retryAfter + ", " + result.getHeader("X-Rate-Limit-Count"));
                 if (retryAfter != null)
                     limiter.setRetryAfter(Long.parseLong(retryAfter) * 1000 + 200);
                 // if the status code is not 429 and not a 5**, or if we are out of retries, throw an exception.
@@ -102,14 +102,15 @@ public class RateLimitedRequester extends Requester {
                         return CompletableFuture.completedFuture(r);
                     // if response has Retry-After header, set rateLimiter's retry after.
                     String retryAfter = r.getHeader(HEADER_RETRY_AFTER);
-                    System.out.println(System.currentTimeMillis() + " - RetryAfter: " + retryAfter + ", " + r.getHeader
-                            ("X-Rate-Limit-Count"));
+                    //System.out.println(System.currentTimeMillis() + " - RetryAfter: " + retryAfter + ", " +
+                    //        r.getHeader("X-Rate-Limit-Count"));
                     if (retryAfter != null)
                         limiter.setRetryAfter(Long.parseLong(retryAfter) * 1000 + 50);
                     // if the status code is not 429 and not a 5**, or if we are out of retries, throw an exception.
                     if (r.getStatusCode() != 429 && r.getStatusCode() < 500 || retryCount >= retries) {
-                        throw new RiotResponseException(String.format("Async request failed after %d retries (%d).",
-                                retryCount, r.getStatusCode()), r);
+                        throw new RiotResponseException(String.format("Async request failed after %d retries (%d).%n" +
+                                "URL: %s",
+                                retryCount, r.getStatusCode(), r.getUri()), r);
                     }
                     // otherwise retry request.
                     return getRequestRateLimitedAsyncInternal(relativeUrl, region, retryCount + 1);
