@@ -13,17 +13,17 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.IntStream;
 
 /**
- * Created by Mingw on 2017-01-01.
+ * Basic RateLimiter tests
  */
 public class RateLimiterTest {
 
-    public static final ConcurrentMap<Long, Integer> limits = new ConcurrentHashMap();
+    private static final ConcurrentMap<Long, Integer> limits = new ConcurrentHashMap<>();
     static {
         limits.put(2_000L, 5);
         limits.put(4_000L, 8);
     }
-    public static RateLimiter rateLimiter;
-    public static volatile long startTime;
+    private static RateLimiter rateLimiter;
+    private static volatile long startTime;
 
     @Before
     public void before() {
@@ -35,6 +35,7 @@ public class RateLimiterTest {
     public void test1() throws InterruptedException {
         rateLimiter.acquire();
         assertDelayed(0, 0);
+        rateLimiter.release();
     }
 
     @Test(timeout=5_000)
@@ -43,14 +44,17 @@ public class RateLimiterTest {
         for (; i < 5; i++) {
             rateLimiter.acquire();
             assertDelayed(0, i);
+            rateLimiter.release();
         }
         for (; i < 8; i++) {
             rateLimiter.acquire();
             assertDelayed(2_000, i);
+            rateLimiter.release();
         }
         for (; i < 10; i++) {
             rateLimiter.acquire();
             assertDelayed(4_000, i);
+            rateLimiter.release();
         }
     }
 
@@ -59,7 +63,8 @@ public class RateLimiterTest {
         int[] delays = new int[5];
 
         CompletableFuture[] tasks = IntStream.range(0, 10)
-                .mapToObj(i -> rateLimiter.acquireAsync().thenAccept(v -> delays[(int) getDelay() / 1000]++))
+                .mapToObj(i -> rateLimiter.acquireAsync().whenComplete((v, t) -> rateLimiter.release())
+                        .thenAccept(v -> delays[(int) getDelay() / 1000]++))
                 .toArray(CompletableFuture[]::new);
         CompletableFuture.allOf(tasks).get();
 
