@@ -33,7 +33,7 @@ public class StatsEndpoints {
    * @param season Riot API description: If specified, stats for the given season are returned. Otherwise, stats for the current season are returned. */
   public RankedStats getRanked(final Region region, final long summonerId, final String season)
       throws ExecutionException {
-    return riotApi.getBasic2(String.format(GET_RANKED__URL, region, summonerId), region, GET_RANKED__TYPE,
+    return riotApi.getBasic(String.format(GET_RANKED__URL, region, summonerId), region, GET_RANKED__TYPE,
     RiotApi.makeParams("season", season));}
 
   /**
@@ -43,7 +43,7 @@ public class StatsEndpoints {
    * @param season Riot API description: If specified, stats for the given season are returned. Otherwise, stats for the current season are returned. */
   public CompletableFuture<RankedStats> getRankedAsync(final Region region, final long summonerId,
       final String season) {
-    return riotApi.getBasicAsync2(String.format(GET_RANKED__URL, region, summonerId), region, GET_RANKED__TYPE,
+    return riotApi.getBasicAsync(String.format(GET_RANKED__URL, region, summonerId), region, GET_RANKED__TYPE,
     RiotApi.makeParams("season", season));}
 
   /**
@@ -68,7 +68,7 @@ public class StatsEndpoints {
    * @param season Riot API description: If specified, stats for the given season are returned. Otherwise, stats for the current season are returned. */
   public PlayerStatsSummaryList getSummary(final Region region, final long summonerId,
       final String season) throws ExecutionException {
-    return riotApi.getBasic2(String.format(GET_SUMMARY__URL, region, summonerId), region, GET_SUMMARY__TYPE,
+    return riotApi.getBasic(String.format(GET_SUMMARY__URL, region, summonerId), region, GET_SUMMARY__TYPE,
     RiotApi.makeParams("season", season));}
 
   /**
@@ -78,7 +78,7 @@ public class StatsEndpoints {
    * @param season Riot API description: If specified, stats for the given season are returned. Otherwise, stats for the current season are returned. */
   public CompletableFuture<PlayerStatsSummaryList> getSummaryAsync(final Region region,
       final long summonerId, final String season) {
-    return riotApi.getBasicAsync2(String.format(GET_SUMMARY__URL, region, summonerId), region, GET_SUMMARY__TYPE,
+    return riotApi.getBasicAsync(String.format(GET_SUMMARY__URL, region, summonerId), region, GET_SUMMARY__TYPE,
     RiotApi.makeParams("season", season));}
 
   /**

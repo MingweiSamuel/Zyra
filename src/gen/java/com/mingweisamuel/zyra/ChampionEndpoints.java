@@ -31,14 +31,14 @@ public class ChampionEndpoints {
    * @param freeToPlay Riot API description: Optional filter param to retrieve only free to play champions. */
   public ChampionList getAll(final Region region, final Boolean freeToPlay) throws
       ExecutionException {
-    return riotApi.getBasic2(String.format(GET_ALL__URL, region, freeToPlay), region, GET_ALL__TYPE,
+    return riotApi.getBasic(String.format(GET_ALL__URL, region, freeToPlay), region, GET_ALL__TYPE,
     RiotApi.makeParams("freeToPlay", freeToPlay));}
 
   /**
    * @param freeToPlay Riot API description: Optional filter param to retrieve only free to play champions. */
   public CompletableFuture<ChampionList> getAllAsync(final Region region,
       final Boolean freeToPlay) {
-    return riotApi.getBasicAsync2(String.format(GET_ALL__URL, region, freeToPlay), region, GET_ALL__TYPE,
+    return riotApi.getBasicAsync(String.format(GET_ALL__URL, region, freeToPlay), region, GET_ALL__TYPE,
     RiotApi.makeParams("freeToPlay", freeToPlay));}
 
   public ChampionList getAll(final Region region) throws ExecutionException {
@@ -50,10 +50,10 @@ public class ChampionEndpoints {
   /**
    * @param id Riot API description: ID of the champion to retrieve. */
   public Champion get(final Region region, final int id) throws ExecutionException {
-    return riotApi.getBasic2(String.format(GET__URL, region, id), region, GET__TYPE);}
+    return riotApi.getBasic(String.format(GET__URL, region, id), region, GET__TYPE);}
 
   /**
    * @param id Riot API description: ID of the champion to retrieve. */
   public CompletableFuture<Champion> getAsync(final Region region, final int id) {
-    return riotApi.getBasicAsync2(String.format(GET__URL, region, id), region, GET__TYPE);}
+    return riotApi.getBasicAsync(String.format(GET__URL, region, id), region, GET__TYPE);}
 }

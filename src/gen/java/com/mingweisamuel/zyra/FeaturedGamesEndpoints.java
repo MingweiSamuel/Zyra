@@ -22,8 +22,8 @@ public class FeaturedGamesEndpoints {
     this.riotApi = riotApi;}
 
   public FeaturedGames get(final Region region) throws ExecutionException {
-    return riotApi.getBasic2(String.format(GET__URL, region), region, GET__TYPE);}
+    return riotApi.getBasic(String.format(GET__URL, region), region, GET__TYPE);}
 
   public CompletableFuture<FeaturedGames> getAsync(final Region region) {
-    return riotApi.getBasicAsync2(String.format(GET__URL, region), region, GET__TYPE);}
+    return riotApi.getBasicAsync(String.format(GET__URL, region), region, GET__TYPE);}
 }

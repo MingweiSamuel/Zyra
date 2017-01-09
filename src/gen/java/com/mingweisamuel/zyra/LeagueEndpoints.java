@@ -50,7 +50,7 @@ public class LeagueEndpoints {
    * @param summonerIds Riot API description: list of summoner IDs. */
   public Map<String, List<League>> getBySummoner(final Region region, final Collection<Long> input)
       throws ExecutionException {
-    return riotApi.getMap2(String.format(GET_BY_SUMMONER__URL, region), region, input, GET_BY_SUMMONER__GROUP, GET_BY_SUMMONER__TYPE);}
+    return riotApi.getMap(String.format(GET_BY_SUMMONER__URL, region), region, input, GET_BY_SUMMONER__GROUP, GET_BY_SUMMONER__TYPE);}
 
   /**
    * Returns all leagues for specified summoners and summoners' teams. Entries for each requested participant (i.e., each summoner and related teams) will be included in the returned leagues data, whether or not the participant is inactive. However, no entries for other inactive summoners or teams in the leagues will be included.
@@ -58,7 +58,7 @@ public class LeagueEndpoints {
    * @param summonerIds Riot API description: list of summoner IDs. */
   public CompletableFuture<Map<String, List<League>>> getBySummonerAsync(final Region region,
       final Collection<Long> input) {
-    return riotApi.getMapAsync2(String.format(GET_BY_SUMMONER__URL, region), region, input, GET_BY_SUMMONER__GROUP, GET_BY_SUMMONER__TYPE);}
+    return riotApi.getMapAsync(String.format(GET_BY_SUMMONER__URL, region), region, input, GET_BY_SUMMONER__GROUP, GET_BY_SUMMONER__TYPE);}
 
   /**
    * Returns all league entries for specified summoners and summoners' teams.
@@ -66,7 +66,7 @@ public class LeagueEndpoints {
    * @param summonerIds Riot API description: list of summoner IDs. */
   public Map<String, List<League>> getEntries(final Region region, final Collection<Long> input)
       throws ExecutionException {
-    return riotApi.getMap2(String.format(GET_ENTRIES__URL, region), region, input, GET_ENTRIES__GROUP, GET_ENTRIES__TYPE);}
+    return riotApi.getMap(String.format(GET_ENTRIES__URL, region), region, input, GET_ENTRIES__GROUP, GET_ENTRIES__TYPE);}
 
   /**
    * Returns all league entries for specified summoners and summoners' teams.
@@ -74,18 +74,18 @@ public class LeagueEndpoints {
    * @param summonerIds Riot API description: list of summoner IDs. */
   public CompletableFuture<Map<String, List<League>>> getEntriesAsync(final Region region,
       final Collection<Long> input) {
-    return riotApi.getMapAsync2(String.format(GET_ENTRIES__URL, region), region, input, GET_ENTRIES__GROUP, GET_ENTRIES__TYPE);}
+    return riotApi.getMapAsync(String.format(GET_ENTRIES__URL, region), region, input, GET_ENTRIES__GROUP, GET_ENTRIES__TYPE);}
 
   /**
    * @param type Riot API description: Game queue type. */
   public League getChallengers(final Region region, final String type) throws ExecutionException {
-    return riotApi.getBasic2(String.format(GET_CHALLENGERS__URL, region), region, GET_CHALLENGERS__TYPE,
+    return riotApi.getBasic(String.format(GET_CHALLENGERS__URL, region), region, GET_CHALLENGERS__TYPE,
     RiotApi.makeParams("type", type));}
 
   /**
    * @param type Riot API description: Game queue type. */
   public CompletableFuture<League> getChallengersAsync(final Region region, final String type) {
-    return riotApi.getBasicAsync2(String.format(GET_CHALLENGERS__URL, region), region, GET_CHALLENGERS__TYPE,
+    return riotApi.getBasicAsync(String.format(GET_CHALLENGERS__URL, region), region, GET_CHALLENGERS__TYPE,
     RiotApi.makeParams("type", type));}
 
   public League getChallengers(final Region region) throws ExecutionException {
@@ -97,13 +97,13 @@ public class LeagueEndpoints {
   /**
    * @param type Riot API description: Game queue type. */
   public League getMasters(final Region region, final String type) throws ExecutionException {
-    return riotApi.getBasic2(String.format(GET_MASTERS__URL, region), region, GET_MASTERS__TYPE,
+    return riotApi.getBasic(String.format(GET_MASTERS__URL, region), region, GET_MASTERS__TYPE,
     RiotApi.makeParams("type", type));}
 
   /**
    * @param type Riot API description: Game queue type. */
   public CompletableFuture<League> getMastersAsync(final Region region, final String type) {
-    return riotApi.getBasicAsync2(String.format(GET_MASTERS__URL, region), region, GET_MASTERS__TYPE,
+    return riotApi.getBasicAsync(String.format(GET_MASTERS__URL, region), region, GET_MASTERS__TYPE,
     RiotApi.makeParams("type", type));}
 
   public League getMasters(final Region region) throws ExecutionException {

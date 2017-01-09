@@ -24,10 +24,10 @@ public class CurrentGameEndpoints {
   /**
    * @param summonerId Riot API description: The ID of the summoner. */
   public CurrentGameInfo get(final Region region, final long summonerId) throws ExecutionException {
-    return riotApi.getBasic2(String.format(GET__URL, region, summonerId), region, GET__TYPE);}
+    return riotApi.getBasic(String.format(GET__URL, region, summonerId), region, GET__TYPE);}
 
   /**
    * @param summonerId Riot API description: The ID of the summoner. */
   public CompletableFuture<CurrentGameInfo> getAsync(final Region region, final long summonerId) {
-    return riotApi.getBasicAsync2(String.format(GET__URL, region, summonerId), region, GET__TYPE);}
+    return riotApi.getBasicAsync(String.format(GET__URL, region, summonerId), region, GET__TYPE);}
 }

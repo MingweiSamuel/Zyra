@@ -349,10 +349,10 @@ class RiotDtoGenerator {
             methodAsyncBuilder.addJavadoc(javadoc.toString().trim());
 
             if (i == optional.size()) {
-                methodBuilder.addCode("return riotApi.getBasic2(String.format($L, region$L), region, $L$L);",
+                methodBuilder.addCode("return riotApi.getBasic(String.format($L, region$L), region, $L$L);",
                         urlField, formatExtension.toString(), typeField, buildOptionalParams(optional));
                 methodAsyncBuilder.addCode(
-                        "return riotApi.getBasicAsync2(String.format($L, region$L), region, $L$L);",
+                        "return riotApi.getBasicAsync(String.format($L, region$L), region, $L$L);",
                 urlField, formatExtension.toString(), typeField, buildOptionalParams(optional));
             }
             else {
@@ -416,10 +416,10 @@ class RiotDtoGenerator {
 
             if (i == optional.size()) {
                 methodBuilder.addCode(
-                        "return riotApi.getMap2(String.format($L, region), region, input, $L, $L$L);",
+                        "return riotApi.getMap(String.format($L, region), region, input, $L, $L$L);",
                         urlField, groupField, typeField, buildOptionalParams(optional));
                 methodAsyncBuilder.addCode(
-                        "return riotApi.getMapAsync2(String.format($L, region), region, input, $L, $L$L);",
+                        "return riotApi.getMapAsync(String.format($L, region), region, input, $L, $L$L);",
                         urlField, groupField, typeField, buildOptionalParams(optional));
             }
             else {

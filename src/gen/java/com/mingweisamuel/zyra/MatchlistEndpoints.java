@@ -39,7 +39,7 @@ public class MatchlistEndpoints {
       final Collection<String> championIds, final Collection<String> rankedQueues,
       final Collection<String> seasons, final Long beginTime, final Long endTime,
       final Integer beginIndex, final Integer endIndex) throws ExecutionException {
-    return riotApi.getBasic2(String.format(GET__URL, region, summonerId, beginTime, endTime, beginIndex, endIndex), region, GET__TYPE,
+    return riotApi.getBasic(String.format(GET__URL, region, summonerId, beginTime, endTime, beginIndex, endIndex), region, GET__TYPE,
     RiotApi.makeParams("championIds", championIds, "rankedQueues", rankedQueues, "seasons", seasons, "beginTime", beginTime, "endTime", endTime, "beginIndex", beginIndex, "endIndex", endIndex));}
 
   /**
@@ -57,7 +57,7 @@ public class MatchlistEndpoints {
       final Collection<String> championIds, final Collection<String> rankedQueues,
       final Collection<String> seasons, final Long beginTime, final Long endTime,
       final Integer beginIndex, final Integer endIndex) {
-    return riotApi.getBasicAsync2(String.format(GET__URL, region, summonerId, beginTime, endTime, beginIndex, endIndex), region, GET__TYPE,
+    return riotApi.getBasicAsync(String.format(GET__URL, region, summonerId, beginTime, endTime, beginIndex, endIndex), region, GET__TYPE,
     RiotApi.makeParams("championIds", championIds, "rankedQueues", rankedQueues, "seasons", seasons, "beginTime", beginTime, "endTime", endTime, "beginIndex", beginIndex, "endIndex", endIndex));}
 
   /**
