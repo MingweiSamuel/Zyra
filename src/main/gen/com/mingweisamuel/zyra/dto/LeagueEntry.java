@@ -5,7 +5,7 @@ import java.lang.String;
 /**
  * LeagueEntry - This object contains league participant information representing a summoner or team.
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a> using {@link RiotDtoGenerator}.
+ * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version league-v2.5 */
 public class LeagueEntry {

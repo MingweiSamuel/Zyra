@@ -209,14 +209,13 @@ class RiotDtoGenerator {
                         String pathParameterType = pathParameterRow.child(2).child(0).text();
                         String pathParameterDesc = pathParameterRow.child(3).text();
 
-                        javadocParams.add(
-                                "@param " + pathParameterName + " Riot API description: " +
-                                        processEndpointDesc(pathParameterDesc));
-
                         TypeName type = getTypeFromString(pathParameterType);
                         if (type.isPrimitive()) {
                             formatExtension.append(", ").append(pathParameterName);
                             requiredParameters.add(ParameterSpec.builder(type, pathParameterName, Modifier.FINAL).build());
+                            javadocParams.add(
+                                    "@param " + pathParameterName + " Riot API description: " +
+                                            processEndpointDesc(pathParameterDesc));
                             continue;
                         }
                         // type is string
@@ -234,6 +233,9 @@ class RiotDtoGenerator {
                             requiredParameters.add(ParameterSpec.builder(
                                     ParameterizedTypeName.get(ClassName.get(Collection.class), listType),
                                     "input", Modifier.FINAL).build());
+                            javadocParams.add(
+                                    "@param input Riot API description: " +
+                                            processEndpointDesc(pathParameterDesc));
                             continue;
                         }
                         throw new IllegalStateException();

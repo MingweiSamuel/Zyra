@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 /**
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a> using {@link RiotDtoGenerator}.
+ * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version lol-status-v1.0 */
 public class LolStatusEndpoints {

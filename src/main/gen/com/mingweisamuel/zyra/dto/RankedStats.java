@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * RankedStats - This object contains ranked stats information.
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a> using {@link RiotDtoGenerator}.
+ * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version stats-v1.3 */
 public class RankedStats {

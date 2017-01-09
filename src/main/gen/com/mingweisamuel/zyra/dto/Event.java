@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Event - This object contains game event information. Note that not all legal type values documented below are valid for all games. Event data evolves over time and certain values may be relevant only for older or newer games.
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a> using {@link RiotDtoGenerator}.
+ * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version match-v2.2 */
 public class Event {

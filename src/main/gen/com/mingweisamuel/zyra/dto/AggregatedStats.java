@@ -3,7 +3,7 @@ package com.mingweisamuel.zyra.dto;
 /**
  * AggregatedStats - This object contains aggregated stat information.
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a> using {@link RiotDtoGenerator}.
+ * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version stats-v1.3 */
 public class AggregatedStats {

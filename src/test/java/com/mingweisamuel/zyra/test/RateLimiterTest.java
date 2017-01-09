@@ -2,7 +2,6 @@ package com.mingweisamuel.zyra.test;
 
 import com.mingweisamuel.zyra.util.RateLimiter;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -22,60 +21,61 @@ public class RateLimiterTest {
         limits.put(2_000L, 5);
         limits.put(4_000L, 8);
     }
-    private static RateLimiter rateLimiter;
-    private static volatile long startTime;
-
-    @Before
-    public void before() {
-        rateLimiter = new RateLimiter(limits);
-        startTime = System.currentTimeMillis();
-    }
 
     @Test(timeout=1_000)
     public void test1() throws InterruptedException {
+        final RateLimiter rateLimiter = new RateLimiter(limits);
+        final long startTime = System.currentTimeMillis();
+
         rateLimiter.acquire();
-        assertDelayed(0, 0);
+        assertDelayed(startTime, 0, 0);
         rateLimiter.release();
     }
 
     @Test(timeout=5_000)
     public void test10() throws InterruptedException {
+        final RateLimiter rateLimiter = new RateLimiter(limits);
+        final long startTime = System.currentTimeMillis();
+
         int i = 0;
         for (; i < 5; i++) {
             rateLimiter.acquire();
-            assertDelayed(0, i);
+            assertDelayed(startTime, 0, i);
             rateLimiter.release();
         }
         for (; i < 8; i++) {
             rateLimiter.acquire();
-            assertDelayed(2_000, i);
+            assertDelayed(startTime, 2_000, i);
             rateLimiter.release();
         }
         for (; i < 10; i++) {
             rateLimiter.acquire();
-            assertDelayed(4_000, i);
+            assertDelayed(startTime, 4_000, i);
             rateLimiter.release();
         }
     }
 
     @Test(timeout=5_000)
     public void test10async() throws ExecutionException, InterruptedException {
+        final RateLimiter rateLimiter = new RateLimiter(limits);
+        final long startTime = System.currentTimeMillis();
+
         int[] delays = new int[5];
 
         CompletableFuture[] tasks = IntStream.range(0, 10)
                 .mapToObj(i -> rateLimiter.acquireAsync().whenComplete((v, t) -> rateLimiter.release())
-                        .thenAccept(v -> delays[(int) getDelay() / 1000]++))
+                        .thenAccept(v -> delays[(int) getDelay(startTime) / 1000]++))
                 .toArray(CompletableFuture[]::new);
         CompletableFuture.allOf(tasks).get();
 
         Assert.assertArrayEquals(Arrays.toString(delays), new int[]{5, 0, 3, 0, 2}, delays);
     }
 
-    public static long getDelay() {
+    public static long getDelay(long startTime) {
         return System.currentTimeMillis() - startTime;
     }
 
-    public static void assertDelayed(long expected, int i) {
-        Assert.assertEquals(i + " failed.", expected * 1.001, getDelay(), 50);
+    public static void assertDelayed(long startTime, long expected, int i) {
+        Assert.assertEquals(i + " failed.", expected * 1.001, getDelay(startTime), 50);
     }
 }

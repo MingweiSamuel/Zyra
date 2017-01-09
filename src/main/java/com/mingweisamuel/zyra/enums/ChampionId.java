@@ -7,7 +7,7 @@ public class ChampionId {
     private ChampionId() {}
 
     /**
-     * ID for combined statistics in the {@link com.mingweisamuel.zyra.StatsEndpoint}.
+     * ID for combined statistics in the {@link com.mingweisamuel.zyra.StatsEndpoints}.
      *
      * @see com.mingweisamuel.zyra.dto.ChampionStats#id
      */

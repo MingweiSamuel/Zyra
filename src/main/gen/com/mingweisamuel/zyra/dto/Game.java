@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Game - This object contains game information.
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a> using {@link RiotDtoGenerator}.
+ * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version game-v1.3 */
 public class Game {

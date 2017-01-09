@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 /**
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a> using {@link RiotDtoGenerator}.
+ * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version league-v2.5 */
 public class LeagueEndpoints {
@@ -47,7 +47,7 @@ public class LeagueEndpoints {
   /**
    * Returns all leagues for specified summoners and summoners' teams. Entries for each requested participant (i.e., each summoner and related teams) will be included in the returned leagues data, whether or not the participant is inactive. However, no entries for other inactive summoners or teams in the leagues will be included.
    *
-   * @param summonerIds Riot API description: list of summoner IDs. */
+   * @param input Riot API description: list of summoner IDs. */
   public Map<String, List<League>> getBySummoner(final Region region, final Collection<Long> input)
       throws ExecutionException {
     return riotApi.getMap(String.format(GET_BY_SUMMONER__URL, region), region, input, GET_BY_SUMMONER__GROUP, GET_BY_SUMMONER__TYPE);}
@@ -55,7 +55,7 @@ public class LeagueEndpoints {
   /**
    * Returns all leagues for specified summoners and summoners' teams. Entries for each requested participant (i.e., each summoner and related teams) will be included in the returned leagues data, whether or not the participant is inactive. However, no entries for other inactive summoners or teams in the leagues will be included.
    *
-   * @param summonerIds Riot API description: list of summoner IDs. */
+   * @param input Riot API description: list of summoner IDs. */
   public CompletableFuture<Map<String, List<League>>> getBySummonerAsync(final Region region,
       final Collection<Long> input) {
     return riotApi.getMapAsync(String.format(GET_BY_SUMMONER__URL, region), region, input, GET_BY_SUMMONER__GROUP, GET_BY_SUMMONER__TYPE);}
@@ -63,7 +63,7 @@ public class LeagueEndpoints {
   /**
    * Returns all league entries for specified summoners and summoners' teams.
    *
-   * @param summonerIds Riot API description: list of summoner IDs. */
+   * @param input Riot API description: list of summoner IDs. */
   public Map<String, List<League>> getEntries(final Region region, final Collection<Long> input)
       throws ExecutionException {
     return riotApi.getMap(String.format(GET_ENTRIES__URL, region), region, input, GET_ENTRIES__GROUP, GET_ENTRIES__TYPE);}
@@ -71,7 +71,7 @@ public class LeagueEndpoints {
   /**
    * Returns all league entries for specified summoners and summoners' teams.
    *
-   * @param summonerIds Riot API description: list of summoner IDs. */
+   * @param input Riot API description: list of summoner IDs. */
   public CompletableFuture<Map<String, List<League>>> getEntriesAsync(final Region region,
       final Collection<Long> input) {
     return riotApi.getMapAsync(String.format(GET_ENTRIES__URL, region), region, input, GET_ENTRIES__GROUP, GET_ENTRIES__TYPE);}

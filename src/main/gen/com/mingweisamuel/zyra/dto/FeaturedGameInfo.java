@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * FeaturedGameInfo
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a> using {@link RiotDtoGenerator}.
+ * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version featured-games-v1.0 */
 public class FeaturedGameInfo {

@@ -3,7 +3,7 @@ package com.mingweisamuel.zyra.dto;
 /**
  * Stats - This object contains champion stats data.
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a> using {@link RiotDtoGenerator}.
+ * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version lol-static-data-v1.2 */
 public class Stats {

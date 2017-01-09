@@ -37,7 +37,9 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <testThreads>4</testThreads>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.asynchttpclient</groupId>
@@ -75,6 +77,18 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <parallel>both</parallel>
+                    <threadCount>${testThreads}</threadCount>
+                    <systemPropertyVariables>
+                        <testThreadCount>${testThreads}</testThreadCount>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
             <plugin>
