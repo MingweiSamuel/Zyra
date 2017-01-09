@@ -8,6 +8,10 @@ import java.lang.reflect.Type;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a> using {@link com.mingweisamuel.zyra.build.RiotDtoGenerator}.
+ *
+ * @version match-v2.2 */
 public class MatchEndpoints {
   private static final Type GET__TYPE = MatchDetail.class;
 

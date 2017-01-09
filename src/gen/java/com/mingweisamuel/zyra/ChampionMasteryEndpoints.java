@@ -10,6 +10,10 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a> using {@link com.mingweisamuel.zyra.build.RiotDtoGenerator}.
+ *
+ * @version championmastery */
 public class ChampionMasteryEndpoints {
   private static final Type GET_CHAMPION__TYPE = ChampionMastery.class;
 

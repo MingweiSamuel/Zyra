@@ -13,6 +13,10 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a> using {@link com.mingweisamuel.zyra.build.RiotDtoGenerator}.
+ *
+ * @version summoner-v1.4 */
 public class SummonerEndpoints {
   private static final Type GET_BY_NAME__TYPE = new TypeToken<Map<String, Summoner>>() {
   }.getType();

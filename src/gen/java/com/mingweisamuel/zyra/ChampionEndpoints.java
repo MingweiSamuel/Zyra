@@ -9,6 +9,10 @@ import java.lang.reflect.Type;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a> using {@link com.mingweisamuel.zyra.build.RiotDtoGenerator}.
+ *
+ * @version champion-v1.2 */
 public class ChampionEndpoints {
   private static final Type GET_ALL__TYPE = ChampionList.class;
 
