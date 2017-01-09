@@ -1,6 +1,6 @@
 package com.mingweisamuel.zyra;
 
-import com.mingweisamuel.zyra.dto!.PlayerStatsSummaryList;
+import com.mingweisamuel.zyra.dto.PlayerStatsSummaryList;
 import com.mingweisamuel.zyra.dto.RankedStats;
 import com.mingweisamuel.zyra.enums.Region;
 import org.asynchttpclient.Param;

@@ -5,6 +5,7 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
@@ -18,30 +19,37 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RiotDtoGenerator {
+/**
+ * This is perhaps the most disgusting piece of code ever created.
+ */
+class RiotDtoGenerator {
 
-    public static final Set<String> IGNORED_API_BLOCKS =
+    private static final Set<String> IGNORED_API_BLOCKS =
             new HashSet<>(Arrays.asList("Implementation Notes", "Rate Limit Notes"));
 
-    public static final String PACKAGE = "com.mingweisamuel.zyra";
-    public static final String PACKAGE_DTO = PACKAGE + ".dto";
+    private static final String PACKAGE = "com.mingweisamuel.zyra";
+    private static final String PACKAGE_DTO = PACKAGE + ".dto";
 
-    public static final File SOURCE_DESTINATION = new File("src/gen/java/");
+    private static final File SOURCE_DESTINATION = new File("src/gen/java/");
 
-    public static final String DOCSTRING_GENERATED = "This class is automagically generated from " +
+    private static final String DOCSTRING_GENERATED = "This class is automagically generated from " +
             "the <a href=\"https://developer.riotgames.com/api/methods\">Riot API reference</a> " +
             "using {@link com.mingweisamuel.zyra.build.RiotDtoGenerator}.";
 
-    public static final Map<String, TypeName> FIELD_TYPES = new HashMap<>();
+    private static final Map<String, TypeName> FIELD_TYPES = new HashMap<>();
     static {
         FIELD_TYPES.put("ChampionSpell.effect", ParameterizedTypeName.get(ClassName.get(List.class),
                 ParameterizedTypeName.get(List.class, Double.class)));
@@ -50,7 +58,7 @@ public class RiotDtoGenerator {
                 ParameterizedTypeName.get(List.class, Double.class)));
         FIELD_TYPES.put("SummonerSpell.range", ParameterizedTypeName.get(List.class, Integer.class));
     }
-    public static final Map<String, String> FIELD_DOCSTRINGS = new HashMap<>();
+    private static final Map<String, String> FIELD_DOCSTRINGS = new HashMap<>();
     static {
         FIELD_DOCSTRINGS.put("ChampionSpell.range", "Will be null instead of 'self'.");
         FIELD_DOCSTRINGS.put("SummonerSpell.range", "Will be null instead of 'self'.");
@@ -59,16 +67,10 @@ public class RiotDtoGenerator {
                 "{@link com.mingweisamuel.zyra.enums.Tier#UNRANKED}.\n\n@see com.mingweisamuel.zyra.enums.Tier");
     }
 
-    public static final Map<String, String> PATH_NAME = new HashMap<>();
-    static {
-
-    }
-
-    public static final Set<String> readDtos = new HashSet<>();
+    private static final Set<String> readDtos = new HashSet<>();
 
     public static void main(String... args) throws IOException, ClassNotFoundException {
 
-        //SOURCE_DESTINATION.delete();
         SOURCE_DESTINATION.mkdirs();
 
         Document doc = Jsoup.connect("https://developer.riotgames.com/api/methods").get();
@@ -90,7 +92,6 @@ public class RiotDtoGenerator {
             TypeSpec.Builder endpointsTypeBuilder = TypeSpec
                     .classBuilder(endpointTitleNormalized + "Endpoints")
                     .addModifiers(Modifier.PUBLIC)
-                    .addJavadoc(DOCSTRING_GENERATED + "\n\n@version " + endpointTitle)
                     .addField(ClassName.bestGuess("com.mingweisamuel.zyra.RiotApi"), "riotApi",
                             Modifier.PRIVATE, Modifier.FINAL);
             MethodSpec.Builder endpointsTypeConstructorBuilder = MethodSpec.constructorBuilder()
@@ -104,13 +105,19 @@ public class RiotDtoGenerator {
 
             for (Element endpoint : endpoints) {
 
+                String endpointNotes = "";
+
                 Element apiBlock = endpoint.getElementsByClass("api_block").first();
-                while(IGNORED_API_BLOCKS.contains(apiBlock.child(0).text()))
+                while(IGNORED_API_BLOCKS.contains(apiBlock.child(0).text())) {
+                    if ("Implementation Notes".equals(apiBlock.child(0).text()))
+                        endpointNotes = apiBlock.child(1).text();
                     apiBlock = apiBlock.nextElementSibling();
+                }
 
                 Elements dtoContainers = apiBlock.children();
 
-                if (!parseEndpointMethod(endpointsTypeBuilder, endpoint, dtoContainers, endpointTitleNormalized))
+                if (!parseEndpointMethod(endpointsTypeBuilder, endpoint, dtoContainers, endpointTitleNormalized,
+                        endpointNotes))
                     continue;
 
                 for (int i = dtoContainers.size() - 1; i >= 2; i--) {
@@ -125,8 +132,8 @@ public class RiotDtoGenerator {
         }
     }
 
-    public static boolean parseEndpointMethod(TypeSpec.Builder endpointsTypeBuilder, Element endpoint,
-            Elements dtoContainers, String endpointTitleNormalized) {
+    private static boolean parseEndpointMethod(TypeSpec.Builder endpointsTypeBuilder, Element endpoint,
+            Elements dtoContainers, String endpointTitleNormalized, String endpointNotes) {
 
         String endpointPath = endpoint.getElementsByClass("path").first().child(0).text();
         if (endpointPath.contains("tournament")) {
@@ -171,82 +178,277 @@ public class RiotDtoGenerator {
                         Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
                         .initializer("$T.class", returnType).build());
 
-        MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(endpointName)
-                .addModifiers(Modifier.PUBLIC)
-                .addException(ExecutionException.class)
-                .addParameter(ClassName.bestGuess("com.mingweisamuel.zyra.enums.Region"), "region", Modifier.FINAL)
-                .returns(returnType.box());
-
         Element parametersContainer = dtoContainers.first().parent().nextElementSibling().nextElementSibling()
                 .getElementsByClass("api_block").first();
 
 
+        List<ParameterSpec> requiredParameters = new LinkedList<>();
+        List<ParameterSpec> optionalParameters = new LinkedList<>();
+
         // null if not grouped.
         String groupField = null;
+        // for not grouped.
+        StringBuilder formatExtension = new StringBuilder();
+        // @param
+        List<String> javadocParams = new LinkedList<>();
 
         if (!parametersContainer.children().isEmpty()) {
             Element parameterWalker = parametersContainer.child(0);
 
-            if ("Path Parameters".equals(parameterWalker.text())) {
+            do {
+                if ("Path Parameters".equals(parameterWalker.text())) {
 
-                Element pathParametersTable = parameterWalker.nextElementSibling().getElementsByTag("tbody").first();
-                Elements pathParameterRows = pathParametersTable.getElementsByTag("tr");
+                    Element pathParametersTable = parameterWalker.nextElementSibling().getElementsByTag("tbody").first();
+                    Elements pathParameterRows = pathParametersTable.getElementsByTag("tr");
 
-                for (int i = 0; i < pathParameterRows.size(); i++) {
-                    Element pathParameterRow = pathParameterRows.get(i);
+                    for (int i = 0; i < pathParameterRows.size(); i++) {
+                        Element pathParameterRow = pathParameterRows.get(i);
 
-                    String pathParameterName = pathParameterRow.child(0).ownText();
-                    if ("shard".equals(pathParameterName)) continue;
-                    String pathParameterType = pathParameterRow.child(2).child(0).text();
-                    String pathParameterDesc = pathParameterRow.child(3).text();
+                        String pathParameterName = pathParameterRow.child(0).ownText();
+                        if ("shard".equals(pathParameterName)) continue;
+                        String pathParameterType = pathParameterRow.child(2).child(0).text();
+                        String pathParameterDesc = pathParameterRow.child(3).text();
 
-                    TypeName type = getTypeFromString(pathParameterType);
-                    if (type.isPrimitive()) {
-                        methodBuilder.addParameter(type, pathParameterName, Modifier.FINAL);
-                        continue;
+                        javadocParams.add(
+                                "@param " + pathParameterName + " Riot API description: " +
+                                        processEndpointDesc(pathParameterDesc));
+
+                        TypeName type = getTypeFromString(pathParameterType);
+                        if (type.isPrimitive()) {
+                            formatExtension.append(", ").append(pathParameterName);
+                            requiredParameters.add(ParameterSpec.builder(type, pathParameterName, Modifier.FINAL).build());
+                            continue;
+                        }
+                        // type is string
+                        Pattern pattern = Pattern.compile(
+                                "Comma-separated list of summoner (IDs|names).*\\. Maximum allowed at once is (\\d+)\\.");
+                        Matcher matcher = pattern.matcher(pathParameterDesc);
+
+                        if (matcher.find()) {
+                            groupField = endpointNameConsts + "__GROUP";
+                            endpointsTypeBuilder.addField(FieldSpec.builder(TypeName.INT, groupField,
+                                    Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
+                                    .initializer("$L", Integer.parseInt(matcher.group(2))).build());
+                            TypeName listType = "IDs".equals(matcher.group(1))
+                                    ? TypeName.LONG.box() : TypeName.get(String.class);
+                            requiredParameters.add(ParameterSpec.builder(
+                                    ParameterizedTypeName.get(ClassName.get(Collection.class), listType),
+                                    "input", Modifier.FINAL).build());
+                            continue;
+                        }
+                        throw new IllegalStateException();
                     }
-                    // type is string
-                    Pattern pattern = Pattern.compile(
-                            "Comma-separated list of summoner (IDs|names).*\\. Maximum allowed at once is (\\d+)\\.");
-                    Matcher matcher = pattern.matcher(pathParameterDesc);
+                } else if ("Query Parameters".equals(parameterWalker.text())) {
 
-                    if (matcher.find()) {
-                        groupField = endpointNameConsts + "__GROUP";
-                        endpointsTypeBuilder.addField(FieldSpec.builder(TypeName.INT, groupField,
-                                Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
-                                .initializer("$L", Integer.parseInt(matcher.group(2))).build());
-                        TypeName listType = "IDs".equals(matcher.group(1))
-                                ? TypeName.LONG.box() : TypeName.get(String.class);
-                        methodBuilder.addParameter(ParameterizedTypeName.get(ClassName.get(Iterable.class), listType),
-                                "input", Modifier.FINAL);
-                        continue;
+                    Element queryParametersTable = parameterWalker.nextElementSibling().getElementsByTag("tbody").first();
+                    Elements queryParameterRows = queryParametersTable.getElementsByTag("tr");
+
+                    for (int i = 0; i < queryParameterRows.size(); i++) {
+                        Element queryParameterRow = queryParameterRows.get(i);
+
+                        String queryParameterName = queryParameterRow.child(0).ownText();
+                        String queryParameterType = queryParameterRow.child(2).child(0).text();
+                        String queryParameterDesc = queryParameterRow.child(3).text();
+
+                        javadocParams.add(
+                                "@param " + queryParameterName + " Riot API description: " +
+                                        processEndpointDesc(queryParameterDesc));
+
+                        TypeName type = getTypeFromString(queryParameterType);
+                        if (type.isPrimitive()) {
+                            formatExtension.append(", ").append(queryParameterName);
+                            optionalParameters.add(ParameterSpec.builder(
+                                    type.box(), queryParameterName, Modifier.FINAL).build());
+                            continue;
+                        }
+                        // type is string
+                        if (queryParameterDesc.startsWith("Comma-separated")) {
+                            TypeName listType = TypeName.get(String.class);
+                            optionalParameters.add(ParameterSpec.builder(
+                                    ParameterizedTypeName.get(ClassName.get(Collection.class), listType),
+                                    queryParameterName, Modifier.FINAL).build());
+                            continue;
+                        }
+                        optionalParameters.add(ParameterSpec.builder(
+                                String.class, queryParameterName, Modifier.FINAL).build());
                     }
-                    throw new IllegalStateException();
-                    //methodBuilder.addParameter(type, pathParameterName, Modifier.FINAL);
                 }
-            }
+            } while(parameterWalker.nextElementSibling() != null &&
+                    (parameterWalker = parameterWalker.nextElementSibling().nextElementSibling()) != null);
         }
 
-        if (groupField != null)
+        if (groupField != null) {
             endpointPathNormalized = endpointPathNormalized.replaceFirst("\\{\\S+?}", "@");
-        else
+
+            addGroupMethods(endpointsTypeBuilder, endpointName, returnType, endpointNameConsts, endpointPathNormalized,
+                    groupField, typeField, requiredParameters, optionalParameters, javadocParams, endpointNotes);
+        }
+        else {
             endpointPathNormalized = endpointPathNormalized
                     .replaceFirst("\\{\\S+?}", "%2s")
                     .replaceFirst("\\{\\S+?}", "%3s");
 
-        String urlField = endpointNameConsts + "__URL";
-        endpointsTypeBuilder.addField(FieldSpec.builder(String.class, urlField,
-                Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
-                .initializer("$S", endpointPathNormalized).build());
-
-        methodBuilder.addCode("return riotApi.getMap2(String.format($L, region), region, input, $L, $L);",
-                urlField, groupField, typeField);
-        endpointsTypeBuilder.addMethod(methodBuilder.build());
+            addBasicMethods(endpointsTypeBuilder, endpointName, returnType, endpointNameConsts, endpointPathNormalized,
+                    groupField, typeField, requiredParameters, optionalParameters, javadocParams, endpointNotes,
+                    formatExtension);
+        }
 
         return true;
     }
 
-    public static String determineEndpointName(String endpointPath, String endpointTitleNormalized) {
+    private static void addBasicMethods(TypeSpec.Builder builder, String endpointName, TypeName returnType,
+            String endpointNameConsts, String endpointPathNormalized, String groupField, String typeField,
+            List<ParameterSpec> required, List<ParameterSpec> optional, List<String> javadocParams, String
+                                                endpointNotes,
+            StringBuilder formatExtension) {
+
+        String urlField = endpointNameConsts + "__URL";
+
+        builder.addField(FieldSpec.builder(String.class, urlField,
+                Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
+                .initializer("$S", endpointPathNormalized).build());
+
+        for (int i = optional.size(); i >= 0; i--) {
+
+            MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(endpointName)
+                    .addModifiers(Modifier.PUBLIC)
+                    .addException(ExecutionException.class)
+                    .addParameter(ClassName.bestGuess("com.mingweisamuel.zyra.enums.Region"), "region", Modifier.FINAL)
+                    .returns(returnType.box());
+
+            MethodSpec.Builder methodAsyncBuilder = MethodSpec.methodBuilder(endpointName + "Async")
+                    .addModifiers(Modifier.PUBLIC)
+                    .addParameter(ClassName.bestGuess("com.mingweisamuel.zyra.enums.Region"), "region", Modifier.FINAL)
+                    .returns(ParameterizedTypeName.get(ClassName.get(CompletableFuture.class), returnType.box()));
+
+            StringBuilder params = new StringBuilder();
+
+            for (ParameterSpec requiredParam : required) {
+                methodBuilder.addParameter(requiredParam);
+                methodAsyncBuilder.addParameter(requiredParam);
+                params.append(requiredParam.name).append(", ");
+            }
+            Iterator<ParameterSpec> iter = optional.iterator();
+            for (int j = 0; j < i; j++) {
+                ParameterSpec optionalParam = iter.next();
+                methodBuilder.addParameter(optionalParam);
+                methodAsyncBuilder.addParameter(optionalParam);
+                params.append(optionalParam.name).append(", ");
+            }
+
+            StringBuilder javadoc = new StringBuilder(endpointNotes).append('\n');
+            Iterator<String> paramIter = javadocParams.iterator();
+            for (int j = 0; j < required.size(); j++)
+                javadoc.append('\n').append(paramIter.next());
+            for (int j = 0; j < i; j++)
+                javadoc.append('\n').append(paramIter.next());
+
+
+            methodBuilder.addJavadoc(javadoc.toString().trim());
+            methodAsyncBuilder.addJavadoc(javadoc.toString().trim());
+
+            if (i == optional.size()) {
+                methodBuilder.addCode("return riotApi.getBasic2(String.format($L, region$L), region, $L$L);",
+                        urlField, formatExtension.toString(), typeField, buildOptionalParams(optional));
+                methodAsyncBuilder.addCode(
+                        "return riotApi.getBasicAsync2(String.format($L, region$L), region, $L$L);",
+                urlField, formatExtension.toString(), typeField, buildOptionalParams(optional));
+            }
+            else {
+                methodBuilder.addCode("return $L(region, $Lnull);", endpointName, params.toString());
+                methodAsyncBuilder.addCode("return $LAsync(region, $Lnull);", endpointName, params.toString());
+            }
+
+            builder.addMethod(methodBuilder.build());
+            builder.addMethod(methodAsyncBuilder.build());
+        }
+    }
+
+    private static void addGroupMethods(TypeSpec.Builder builder, String endpointName, TypeName returnType,
+                                       String endpointNameConsts, String endpointPathNormalized, String groupField, String typeField,
+                                       List<ParameterSpec> required, List<ParameterSpec>
+                                                optional, List<String> javadocParams, String endpointNotes) {
+
+        String urlField = endpointNameConsts + "__URL";
+
+        builder.addField(FieldSpec.builder(String.class, urlField,
+                Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
+                .initializer("$S", endpointPathNormalized).build());
+
+        for (int i = optional.size(); i >= 0; i--) {
+
+            MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(endpointName)
+                    .addModifiers(Modifier.PUBLIC)
+                    .addException(ExecutionException.class)
+                    .addParameter(ClassName.bestGuess("com.mingweisamuel.zyra.enums.Region"), "region", Modifier.FINAL)
+                    .returns(returnType.box());
+
+            MethodSpec.Builder methodAsyncBuilder = MethodSpec.methodBuilder(endpointName + "Async")
+                    .addModifiers(Modifier.PUBLIC)
+                    .addParameter(ClassName.bestGuess("com.mingweisamuel.zyra.enums.Region"), "region", Modifier.FINAL)
+                    .returns(ParameterizedTypeName.get(ClassName.get(CompletableFuture.class), returnType.box()));
+
+            StringBuilder params = new StringBuilder();
+
+            for (ParameterSpec requiredParam : required) {
+                methodBuilder.addParameter(requiredParam);
+                methodAsyncBuilder.addParameter(requiredParam);
+                params.append(requiredParam.name).append(", ");
+            }
+            Iterator<ParameterSpec> iter = optional.iterator();
+            for (int j = 0; j < i; j++) {
+                ParameterSpec optionalParam = iter.next();
+                methodBuilder.addParameter(optionalParam);
+                methodAsyncBuilder.addParameter(optionalParam);
+                params.append(optionalParam.name).append(", ");
+            }
+
+            StringBuilder javadoc = new StringBuilder(endpointNotes).append('\n');
+            Iterator<String> paramIter = javadocParams.iterator();
+            for (int j = 0; j < required.size(); j++)
+                javadoc.append('\n').append(paramIter.next());
+            for (int j = 0; j < i; j++)
+                javadoc.append('\n').append(paramIter.next());
+
+            methodBuilder.addJavadoc(javadoc.toString().trim());
+            methodAsyncBuilder.addJavadoc(javadoc.toString().trim());
+
+            if (i == optional.size()) {
+                methodBuilder.addCode(
+                        "return riotApi.getMap2(String.format($L, region), region, input, $L, $L$L);",
+                        urlField, groupField, typeField, buildOptionalParams(optional));
+                methodAsyncBuilder.addCode(
+                        "return riotApi.getMapAsync2(String.format($L, region), region, input, $L, $L$L);",
+                        urlField, groupField, typeField, buildOptionalParams(optional));
+            }
+            else {
+                methodBuilder.addCode("return $L($Lnull);", endpointName, params.toString());
+                methodAsyncBuilder.addCode("return $LAsync($Lnull);", endpointName, params.toString());
+            }
+
+            builder.addMethod(methodBuilder.build());
+            builder.addMethod(methodAsyncBuilder.build());
+        }
+    }
+
+    private static String processEndpointDesc(String desc) {
+        return desc.replaceFirst("^Comma-separated ", "").replaceAll(" Maximum allowed at once is \\d+.", "");
+    }
+
+    private static String buildOptionalParams(List<ParameterSpec> optional) {
+        StringBuilder paramsBuilder = new StringBuilder();
+        if (!optional.isEmpty()) {
+            paramsBuilder.append(",\nRiotApi.makeParams(");
+            for (ParameterSpec optionalParam : optional)
+                paramsBuilder.append("\"").append(optionalParam.name)
+                        .append("\", ").append(optionalParam.name).append(", ");
+            paramsBuilder.setLength(paramsBuilder.length() - 2);
+            paramsBuilder.append(")");
+        }
+        return paramsBuilder.toString();
+    }
+
+    private static String determineEndpointName(String endpointPath, String endpointTitleNormalized) {
 
         // special cases
         if ("CurrentGame".equals(endpointTitleNormalized) || "FeaturedGames".equals(endpointTitleNormalized)
@@ -290,7 +492,7 @@ public class RiotDtoGenerator {
                 endpointName.toString().replace("topchampions", "top-champions"));
     }
 
-    public static void parseDto(Element dtoContainer, String endpointName) throws IOException {
+    private static void parseDto(Element dtoContainer, String endpointName) throws IOException {
 
         Element dto = dtoContainer.getElementsByTag("b").first();
         String dtoName = dto.text();
@@ -341,17 +543,17 @@ public class RiotDtoGenerator {
         readDtos.add(dtoNameNormalized);
     }
 
-    public static String normalizeEndpointName(String endpoint) {
+    private static String normalizeEndpointName(String endpoint) {
         return CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, endpoint)
                 .replaceAll("V(\\d+)\\.(\\d+)", "")
                 .replace("Championmastery", "ChampionMastery");
     }
 
-    public static String normalizeDtoName(String dtoName) {
+    private static String normalizeDtoName(String dtoName) {
         return dtoName.toLowerCase().endsWith("dto") ? dtoName.substring(0, dtoName.length() - 3) : dtoName;
     }
 
-    public static TypeName getTypeFromString(String in) {
+    private static TypeName getTypeFromString(String in) {
         switch(in) {
         case "boolean":
             return TypeName.BOOLEAN;

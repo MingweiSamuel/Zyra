@@ -3,14 +3,12 @@ package com.mingweisamuel.zyra;
 import com.mingweisamuel.zyra.dto.Champion;
 import com.mingweisamuel.zyra.dto.ChampionList;
 import com.mingweisamuel.zyra.enums.Region;
+import java.lang.Boolean;
 import java.lang.String;
 import java.lang.reflect.Type;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-/**
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a> using {@link com.mingweisamuel.zyra.build.RiotDtoGenerator}.
- *
- * @version champion-v1.2 */
 public class ChampionEndpoints {
   private static final Type GET_ALL__TYPE = ChampionList.class;
 
@@ -25,9 +23,33 @@ public class ChampionEndpoints {
   public ChampionEndpoints(final RiotApi riotApi) {
     this.riotApi = riotApi;}
 
-  public ChampionList getAll(final Region region) throws ExecutionException {
-    return riotApi.getMap2(String.format(GET_ALL__URL, region), region, input, null, GET_ALL__TYPE);}
+  /**
+   * @param freeToPlay Riot API description: Optional filter param to retrieve only free to play champions. */
+  public ChampionList getAll(final Region region, final Boolean freeToPlay) throws
+      ExecutionException {
+    return riotApi.getBasic2(String.format(GET_ALL__URL, region, freeToPlay), region, GET_ALL__TYPE,
+    RiotApi.makeParams("freeToPlay", freeToPlay));}
 
+  /**
+   * @param freeToPlay Riot API description: Optional filter param to retrieve only free to play champions. */
+  public CompletableFuture<ChampionList> getAllAsync(final Region region,
+      final Boolean freeToPlay) {
+    return riotApi.getBasicAsync2(String.format(GET_ALL__URL, region, freeToPlay), region, GET_ALL__TYPE,
+    RiotApi.makeParams("freeToPlay", freeToPlay));}
+
+  public ChampionList getAll(final Region region) throws ExecutionException {
+    return getAll(region, null);}
+
+  public CompletableFuture<ChampionList> getAllAsync(final Region region) {
+    return getAllAsync(region, null);}
+
+  /**
+   * @param id Riot API description: ID of the champion to retrieve. */
   public Champion get(final Region region, final int id) throws ExecutionException {
-    return riotApi.getMap2(String.format(GET__URL, region), region, input, null, GET__TYPE);}
+    return riotApi.getBasic2(String.format(GET__URL, region, id), region, GET__TYPE);}
+
+  /**
+   * @param id Riot API description: ID of the champion to retrieve. */
+  public CompletableFuture<Champion> getAsync(final Region region, final int id) {
+    return riotApi.getBasicAsync2(String.format(GET__URL, region, id), region, GET__TYPE);}
 }

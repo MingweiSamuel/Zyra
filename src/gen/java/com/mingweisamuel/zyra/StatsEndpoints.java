@@ -5,12 +5,9 @@ import com.mingweisamuel.zyra.dto.RankedStats;
 import com.mingweisamuel.zyra.enums.Region;
 import java.lang.String;
 import java.lang.reflect.Type;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-/**
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a> using {@link com.mingweisamuel.zyra.build.RiotDtoGenerator}.
- *
- * @version stats-v1.3 */
 public class StatsEndpoints {
   private static final Type GET_RANKED__TYPE = RankedStats.class;
 
@@ -25,11 +22,74 @@ public class StatsEndpoints {
   public StatsEndpoints(final RiotApi riotApi) {
     this.riotApi = riotApi;}
 
+  /**
+   * Includes ranked stats for Twisted Treeline and Summoner's Rift.
+   *
+   * @param summonerId Riot API description: ID of the summoner for which to retrieve ranked stats.
+   * @param season Riot API description: If specified, stats for the given season are returned. Otherwise, stats for the current season are returned. */
+  public RankedStats getRanked(final Region region, final long summonerId, final String season)
+      throws ExecutionException {
+    return riotApi.getBasic2(String.format(GET_RANKED__URL, region, summonerId), region, GET_RANKED__TYPE,
+    RiotApi.makeParams("season", season));}
+
+  /**
+   * Includes ranked stats for Twisted Treeline and Summoner's Rift.
+   *
+   * @param summonerId Riot API description: ID of the summoner for which to retrieve ranked stats.
+   * @param season Riot API description: If specified, stats for the given season are returned. Otherwise, stats for the current season are returned. */
+  public CompletableFuture<RankedStats> getRankedAsync(final Region region, final long summonerId,
+      final String season) {
+    return riotApi.getBasicAsync2(String.format(GET_RANKED__URL, region, summonerId), region, GET_RANKED__TYPE,
+    RiotApi.makeParams("season", season));}
+
+  /**
+   * Includes ranked stats for Twisted Treeline and Summoner's Rift.
+   *
+   * @param summonerId Riot API description: ID of the summoner for which to retrieve ranked stats. */
   public RankedStats getRanked(final Region region, final long summonerId) throws
       ExecutionException {
-    return riotApi.getMap2(String.format(GET_RANKED__URL, region), region, input, null, GET_RANKED__TYPE);}
+    return getRanked(region, summonerId, null);}
 
+  /**
+   * Includes ranked stats for Twisted Treeline and Summoner's Rift.
+   *
+   * @param summonerId Riot API description: ID of the summoner for which to retrieve ranked stats. */
+  public CompletableFuture<RankedStats> getRankedAsync(final Region region, final long summonerId) {
+    return getRankedAsync(region, summonerId, null);}
+
+  /**
+   * One summary is returned per queue type.
+   *
+   * @param summonerId Riot API description: ID of the summoner for which to retrieve player stats.
+   * @param season Riot API description: If specified, stats for the given season are returned. Otherwise, stats for the current season are returned. */
+  public PlayerStatsSummaryList getSummary(final Region region, final long summonerId,
+      final String season) throws ExecutionException {
+    return riotApi.getBasic2(String.format(GET_SUMMARY__URL, region, summonerId), region, GET_SUMMARY__TYPE,
+    RiotApi.makeParams("season", season));}
+
+  /**
+   * One summary is returned per queue type.
+   *
+   * @param summonerId Riot API description: ID of the summoner for which to retrieve player stats.
+   * @param season Riot API description: If specified, stats for the given season are returned. Otherwise, stats for the current season are returned. */
+  public CompletableFuture<PlayerStatsSummaryList> getSummaryAsync(final Region region,
+      final long summonerId, final String season) {
+    return riotApi.getBasicAsync2(String.format(GET_SUMMARY__URL, region, summonerId), region, GET_SUMMARY__TYPE,
+    RiotApi.makeParams("season", season));}
+
+  /**
+   * One summary is returned per queue type.
+   *
+   * @param summonerId Riot API description: ID of the summoner for which to retrieve player stats. */
   public PlayerStatsSummaryList getSummary(final Region region, final long summonerId) throws
       ExecutionException {
-    return riotApi.getMap2(String.format(GET_SUMMARY__URL, region), region, input, null, GET_SUMMARY__TYPE);}
+    return getSummary(region, summonerId, null);}
+
+  /**
+   * One summary is returned per queue type.
+   *
+   * @param summonerId Riot API description: ID of the summoner for which to retrieve player stats. */
+  public CompletableFuture<PlayerStatsSummaryList> getSummaryAsync(final Region region,
+      final long summonerId) {
+    return getSummaryAsync(region, summonerId, null);}
 }

@@ -264,6 +264,21 @@ public class RiotApi {
     //endregion
 
     //region util2
+    <T> T getBasic2(String url, Region region, Type type, Param... params) throws ExecutionException {
+        try {
+            return this.<T>getBasicAsync2(url, region, type, params).get();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException();
+        }
+    }
+
+    <T> CompletableFuture<T> getBasicAsync2(String url, Region region, Type type, Param... params) {
+        return requester.get().getRequestRateLimitedAsync(url, region, params)
+                .thenApply(r -> r.getStatusCode() == 204 || r.getStatusCode() == 404 ? null :
+                        gson.fromJson(r.getResponseBody(), type));
+    }
+
     <I, K, V> Map<K, V> getMap2(
             String url, Region region, Iterable<I> input, int groupSize, Type type)
             throws ExecutionException {
@@ -274,19 +289,7 @@ public class RiotApi {
             throw new IllegalStateException();
         }
     }
-    /**
-     * Async helper for map-based requests.
-     *
-     * @param region Region to send request to.
-     * @param input Iterable of the input type.
-     * @param groupSize Max size per group.
-     * @param urlFunction Function that takes a String of comma-separated input group and returns a url.
-     * @param type TypeToken.getType() for gson.
-     * @param <I> Input type.
-     * @param <K> Result key type.
-     * @param <V> Result value type.
-     * @return Async result.
-     */
+
     <I, K, V> CompletableFuture<Map<K, V>> getMapAsync2(
             String url, Region region, Iterable<I> input, int groupSize, Type type) {
         Iterable<List<I>> groups = Iterables.partition(input, groupSize);
@@ -300,7 +303,11 @@ public class RiotApi {
                 .toArray(CompletableFuture[]::new);
         return CompletableFuture.allOf(groupTasks).thenApply(v -> result);
     }
-    //endreigon
+
+    String join(Object... objects) {
+        return join(objects);
+    }
+    //endregion
 
     //region util-static
     /**
@@ -337,6 +344,28 @@ public class RiotApi {
                 .map(i -> func.apply(i).thenAccept(t -> result.put(i, t)))
                 .toArray(CompletableFuture[]::new);
         return CompletableFuture.allOf(tasks).thenApply(v -> result);
+    }
+
+    /**
+     * Creates params from each pair of elements. Must be an even number of elements. Key values must be non-null.
+     * @param paired
+     * @return
+     */
+    static Param[] makeParams(Object... paired) {
+
+        int nulls = 0;
+        for (Object obj : paired)
+            if (obj == null)
+                nulls++;
+
+        Param[] result = new Param[paired.length / 2 - nulls];
+        int j = 0;
+        for (int i = 0; i < paired.length; i += 2) {
+            if (paired[i + 1] == null)
+                continue;
+            result[j++] = new Param(paired[i].toString(), paired[i + 1].toString());
+        }
+        return result;
     }
     //endregion
 }
