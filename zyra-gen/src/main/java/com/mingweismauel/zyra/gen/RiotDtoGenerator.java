@@ -46,8 +46,7 @@ class RiotDtoGenerator {
     private static final File SOURCE_DESTINATION = new File("src/main/gen/");
 
     private static final String DOCSTRING_GENERATED = "This class is automagically generated from " +
-            "the <a href=\"https://developer.riotgames.com/api/methods\">Riot API reference</a> " +
-            "using {@link RiotDtoGenerator}.";
+            "the <a href=\"https://developer.riotgames.com/api/methods\">Riot API reference</a>.";
 
     private static final Map<String, TypeName> FIELD_TYPES = new HashMap<>();
     static {
