@@ -70,7 +70,8 @@ public class RiotApi {
      * @return Builder instance. Call {@link Builder#build()} to get RiotApi instance.
      */
     public static Builder buildProduction(String apiKey) {
-        return new Builder(apiKey).setRateLimitsDefaultProduction();
+        return new Builder(apiKey).setRateLimitsDefaultProduction()
+                .setConcurrentRequestsMax(RateLimiter.CONCURRENT_REQUESTS_PRODUCTION_MAX);
     }
 
     /** Riot API builder for obtaining instances of the Riot API. */
