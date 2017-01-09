@@ -9,4 +9,16 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>zyra-gen</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.squareup</groupId>
+            <artifactId>javapoet</artifactId>
+            <version>1.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.10.2</version>
+        </dependency>
+    </dependencies>
 </project>
