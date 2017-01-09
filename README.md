@@ -1,4 +1,5 @@
 # Zyra
+[![Build Status](https://travis-ci.org/MingweiSamuel/Zyra.svg?branch=develop)](https://travis-ci.org/MingweiSamuel/Zyra)
 
 Java Wrapper for the [Riot Games API](https://developer.riotgames.com/)
 
