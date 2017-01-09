@@ -10,7 +10,6 @@ import com.mingweisamuel.zyra.util.Singleton;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
 import org.asynchttpclient.Param;
-import org.asynchttpclient.Response;
 
 import java.lang.reflect.Type;
 import java.util.Collections;
@@ -22,7 +21,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
-import java.util.function.UnaryOperator;
 import java.util.stream.StreamSupport;
 
 /**
@@ -38,17 +36,42 @@ public class RiotApi {
     /** Web requester. */
     private final Singleton<RateLimitedRequester> requester;
 
-    /** Summoner API. */
-    public final SummonerEndpoint summoners = new SummonerEndpoint(this);
 
-    /** ChampionMastery API. */
-    public final ChampionMasteryEndpoint championMasteries = new ChampionMasteryEndpoint(this);
+    public final ChampionEndpoints champions = new ChampionEndpoints(this);
+    public final ChampionMasteryEndpoints championMasteries = new ChampionMasteryEndpoints(this);
+    public final CurrentGameEndpoints currentGame = new CurrentGameEndpoints(this);
+    public final FeaturedGamesEndpoints featuredGames = new FeaturedGamesEndpoints(this);
+    public final GameEndpoints games = new GameEndpoints(this);
+    public final LeagueEndpoints leagues = new LeagueEndpoints(this);
+    public final LolStaticDataEndpoints staticData = new LolStaticDataEndpoints(this);
+    public final LolStatusEndpoints status = new LolStatusEndpoints(this);
+    public final MatchEndpoints matches = new MatchEndpoints(this);
+    public final MatchlistEndpoints matchlist = new MatchlistEndpoints(this);
+    public final StatsEndpoints stats = new StatsEndpoints(this);
+    public final SummonerEndpoints summoners = new SummonerEndpoints(this);
 
-    /** League API. */
-    public final LeagueEndpoint leagues = new LeagueEndpoint(this);
 
-    /** Stats API. */
-    public final StatsEndpoint stats = new StatsEndpoint(this);
+    /**
+     * Creates a RiotApi.Builder with default development rate limits (10 requests per 10 seconds, 500 requests
+     * per 10 minutes).
+     *
+     * @param apiKey Development API key.
+     * @return Builder instance. Call {@link Builder#build()} to get RiotApi instance.
+     */
+    public static Builder build(String apiKey) {
+        return new Builder(apiKey);
+    }
+
+    /**
+     * Creates a RiotApi.Builder with default production rate limits (3_000 requests per 10 seconds, 180_000 requests
+     * per 10 minutes).
+     *
+     * @param apiKey Production API key.
+     * @return Builder instance. Call {@link Builder#build()} to get RiotApi instance.
+     */
+    public static Builder buildProduction(String apiKey) {
+        return new Builder(apiKey).setRateLimitsDefaultProduction();
+    }
 
     /** Riot API builder for obtaining instances of the Riot API. */
     public static class Builder {
@@ -81,7 +104,7 @@ public class RiotApi {
          *
          * @param apiKey Riot Games API Key. Go <a href="https://developer.riotgames.com/">here</a> to obtain a key.
          */
-        public Builder(String apiKey) {
+        private Builder(String apiKey) {
             this.apiKey = apiKey;
         }
 
@@ -176,121 +199,34 @@ public class RiotApi {
                 () -> new RateLimitedRequester(apiKey, rateLimits, client, retries, maxConcurrentRequests));
     }
 
-
-
     //region util
-    /**
-     * Helper for general single-unit requests.
-     *
-     * @param region Region to send requests to.
-     * @param url URL to send the request to.
-     * @param type TypeToken.getType() for gson.
-     * @param <T> Type to be returned.
-     * @return Result.
-     */
-    <T> T getBasic(Region region, String url, Type type, Param... params) {
-        Response response = requester.get().getRequestRateLimited(url, region, params);
-        if (response.getStatusCode() == 204 || response.getStatusCode() == 404)
-            return null;
-        return gson.fromJson(response.getResponseBody(), type);
-    }
-
-    /**
-     * Async helper for general single-unit requests.
-     *
-     * @param region Region to send requests to.
-     * @param url URL to send the request to.
-     * @param type TypeToken.getType() for gson.
-     * @param <T> Type to be returned.
-     * @return Async result.
-     */
-    <T> CompletableFuture<T> getBasicAsync(Region region, String url, Type type, Param... params) {
-        return requester.get().getRequestRateLimitedAsync(url, region, params)
-                .thenApply(r -> r.getStatusCode() == 204 || r.getStatusCode() == 404 ? null :
-                        gson.fromJson(r.getResponseBody(), type));
-    }
-
-    /**
-     * Helper for map-based requests.
-     *
-     * @param region Region to send request to.
-     * @param input Iterable of the input type.
-     * @param groupSize Max size per group.
-     * @param urlFunction Function that takes a String of comma-separated input group and returns a url.
-     * @param type TypeToken.getType() for gson.
-     * @param <I> Input type
-     * @param <K> Result key type
-     * @param <V> Result value type
-     * @return Result
-     */
-    <I, K, V> Map<K, V> getMap(
-            Region region, Iterable<I> input, int groupSize, UnaryOperator<String> urlFunction, Type type) {
-        Map<K, V> result = new HashMap<>();
-        for (Iterable<I> group : Iterables.partition(input, groupSize)) {
-            Response response = requester.get().getRequestRateLimited(urlFunction.apply(joiner.join(group)), region);
-            if (response.getStatusCode() == 204 || response.getStatusCode() == 404)
-                continue;
-            result.putAll(gson.fromJson(response.getResponseBody(), type));
-        }
-        return result;
-    }
-
-    /**
-     * Async helper for map-based requests.
-     *
-     * @param region Region to send request to.
-     * @param input Iterable of the input type.
-     * @param groupSize Max size per group.
-     * @param urlFunction Function that takes a String of comma-separated input group and returns a url.
-     * @param type TypeToken.getType() for gson.
-     * @param <I> Input type.
-     * @param <K> Result key type.
-     * @param <V> Result value type.
-     * @return Async result.
-     */
-    <I, K, V> CompletableFuture<Map<K, V>> getMapAsync(
-            Region region, Iterable<I> input, int groupSize, UnaryOperator<String> urlFunction, Type type) {
-        Iterable<List<I>> groups = Iterables.partition(input, groupSize);
-        Map<K, V> result = new ConcurrentHashMap<>();
-        final RateLimitedRequester requester = this.requester.get();
-        CompletableFuture[] groupTasks = StreamSupport.stream(groups.spliterator(), false).map(group ->
-                requester.getRequestRateLimitedAsync(urlFunction.apply(joiner.join(group)), region)
-                    .<Map<K, V>>thenApply(r -> r.getStatusCode() == 204 || r.getStatusCode() == 404 ?
-                            Collections.emptyMap() : gson.fromJson(r.getResponseBody(), type))
-                    .thenAccept(result::putAll))
-                .toArray(CompletableFuture[]::new);
-        return CompletableFuture.allOf(groupTasks).thenApply(v -> result);
-    }
-    //endregion
-
-    //region util2
-    <T> T getBasic2(String url, Region region, Type type, Param... params) throws ExecutionException {
+    <T> T getBasic(String url, Region region, Type type, Param... params) throws ExecutionException {
         try {
-            return this.<T>getBasicAsync2(url, region, type, params).get();
+            return this.<T>getBasicAsync(url, region, type, params).get();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new IllegalStateException();
         }
     }
 
-    <T> CompletableFuture<T> getBasicAsync2(String url, Region region, Type type, Param... params) {
+    <T> CompletableFuture<T> getBasicAsync(String url, Region region, Type type, Param... params) {
         return requester.get().getRequestRateLimitedAsync(url, region, params)
                 .thenApply(r -> r.getStatusCode() == 204 || r.getStatusCode() == 404 ? null :
                         gson.fromJson(r.getResponseBody(), type));
     }
 
-    <I, K, V> Map<K, V> getMap2(
+    <I, K, V> Map<K, V> getMap(
             String url, Region region, Iterable<I> input, int groupSize, Type type)
             throws ExecutionException {
         try {
-            return this.<I, K, V>getMapAsync2(url, region, input, groupSize, type).get();
+            return this.<I, K, V>getMapAsync(url, region, input, groupSize, type).get();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new IllegalStateException();
         }
     }
 
-    <I, K, V> CompletableFuture<Map<K, V>> getMapAsync2(
+    <I, K, V> CompletableFuture<Map<K, V>> getMapAsync(
             String url, Region region, Iterable<I> input, int groupSize, Type type) {
         Iterable<List<I>> groups = Iterables.partition(input, groupSize);
         Map<K, V> result = new ConcurrentHashMap<>();
@@ -303,16 +239,12 @@ public class RiotApi {
                 .toArray(CompletableFuture[]::new);
         return CompletableFuture.allOf(groupTasks).thenApply(v -> result);
     }
-
-    String join(Object... objects) {
-        return join(objects);
-    }
     //endregion
 
     //region util-static
     /**
-     * Applies a function multiple times, mapping the input of the function to the result of calling the function on
-     * that input.
+     * Applies an API function multiple times, mapping the input of the function to the result of calling the
+     * function on that input.
      *
      * @param func Function to apply.
      * @param inputs Inputs to send to the function.
@@ -328,8 +260,8 @@ public class RiotApi {
     }
 
     /**
-     * Asynchronously applies a function multiple times, mapping the input of the function to the result of calling the
-     * function on that input.
+     * Asynchronously applies an API function multiple times, mapping the input of the function to the result of calling
+     * the function on that input.
      *
      * @param func Function to apply.
      * @param inputs Inputs to send to the function.
