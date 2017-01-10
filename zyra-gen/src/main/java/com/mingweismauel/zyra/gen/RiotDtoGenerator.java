@@ -86,6 +86,9 @@ class RiotDtoGenerator {
 
             String endpointTitle = heading.getElementsByTag("span").first().text();
             String endpointTitleNormalized = normalizeEndpointName(endpointTitle);
+            // status api is done manually
+            if ("lol-status-v1.0".equals(endpointTitle))
+                continue;;
             System.out.println(endpointTitle + ": " + endpointTitleNormalized);
 
             TypeSpec.Builder endpointsTypeBuilder = TypeSpec

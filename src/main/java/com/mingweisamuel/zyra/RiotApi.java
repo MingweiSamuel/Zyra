@@ -262,6 +262,20 @@ public class RiotApi implements Closeable {
                 .toArray(CompletableFuture[]::new);
         return CompletableFuture.allOf(groupTasks).thenApply(v -> result);
     }
+
+    <T> T getNonApi(String fullUrl, Type type, Param... params) throws ExecutionException {
+        try {
+            return this.<T>getNonApiAsync(fullUrl, type, params).get();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException();
+        }
+    }
+
+    <T> CompletableFuture<T> getNonApiAsync(String fullUrl, Type type, Param... params) {
+        return requester.get().getRequestAsync(fullUrl, "", params)
+                .thenApply(r -> gson.fromJson(r.getResponseBody(), type));
+    }
     //endregion
 
     //region util-static
