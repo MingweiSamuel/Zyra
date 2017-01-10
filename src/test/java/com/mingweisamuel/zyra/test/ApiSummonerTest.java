@@ -1,11 +1,16 @@
 package com.mingweisamuel.zyra.test;
 
 import com.mingweisamuel.zyra.RiotApi;
+import com.mingweisamuel.zyra.dto.MasteryPage;
+import com.mingweisamuel.zyra.dto.MasteryPages;
+import com.mingweisamuel.zyra.dto.RunePage;
+import com.mingweisamuel.zyra.dto.RunePages;
 import com.mingweisamuel.zyra.dto.Summoner;
 import com.mingweisamuel.zyra.enums.Region;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,6 +20,7 @@ import java.util.concurrent.ExecutionException;
 
 import static com.mingweisamuel.zyra.test.Api.api;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -56,12 +62,10 @@ public class ApiSummonerTest {
     public void get() throws ExecutionException {
         checkGet(api.summoners.get(Region.NA, summonerIds));
     }
-
     @Test
     public void getAsync() throws ExecutionException, InterruptedException {
         api.summoners.getAsync(Region.NA, summonerIds).thenAccept(this::checkGet).get();
     }
-
     private void checkGet(Map<Long, Summoner> summoners) {
         assertEquals(summonerIds, summoners.keySet());
         assertEquals(summonerNames.size(), summoners.size());
@@ -80,17 +84,69 @@ public class ApiSummonerTest {
     public void getByName() throws ExecutionException {
         checkGetByName(api.summoners.getByName(Region.NA, summonerNames));
     }
-
     @Test
     public void getByNameAsync() throws ExecutionException, InterruptedException {
         api.summoners.getByNameAsync(Region.NA, summonerNames).thenAccept(this::checkGetByName).get();
     }
-
     private void checkGetByName(Map<String, Summoner> summoners) {
         assertTrue(summonerNames.containsAll(summoners.keySet()));
         for(Map.Entry<String, Summoner> kvp : summoners.entrySet())
             assertEquals(kvp.getKey(), RiotApi.standardizeName(kvp.getValue().name));
         int missing = summonerNames.size() - summoners.size();
         assertTrue("Too many summoners missing.", missing < 10);
+    }
+
+    @Test
+    public void getMasteries() throws ExecutionException {
+        checkGetMasteries(api.summoners.getMasteries(Region.NA, Collections.singletonList(51405L)));
+    }
+    @Test
+    public void getMasteriesAsync() throws ExecutionException, InterruptedException {
+        api.summoners.getMasteriesAsync(Region.NA, Collections.singletonList(51405L))
+            .thenAccept(this::checkGetMasteries).get();
+    }
+    private void checkGetMasteries(Map<Long, MasteryPages> result) {
+        long expectedId = 34621190;
+        for (MasteryPage page : result.get(51405L).pages) {
+            assertFalse(page.name.isEmpty());
+            assertEquals(expectedId++, page.id);
+        }
+    }
+
+    @Test
+    public void getName() throws ExecutionException {
+        checkGetName(api.summoners.getNames(Region.NA, Arrays.asList(69009277L, 76723437L)));
+    }
+    @Test
+    public void getNameAsync() throws ExecutionException, InterruptedException {
+        api.summoners.getNamesAsync(Region.NA, Arrays.asList(69009277L, 76723437L))
+                .thenAccept(this::checkGetName).get();
+    }
+    private void checkGetName(Map<Long, String> results) {
+        Set<String> expected = new HashSet<>(Arrays.asList("LugnutsK", "0x5A79"));
+        for (String name : results.values())
+            assertTrue(expected.remove(name));
+        assertTrue(expected.isEmpty());
+    }
+
+    @Test
+    public void getRunes() throws ExecutionException {
+        checkGetRunes(api.summoners.getRunes(Region.NA, Collections.singletonList(51405L)));
+    }
+    @Test
+    public void getRunesAsync() throws ExecutionException, InterruptedException {
+        api.summoners.getRunesAsync(Region.NA, Collections.singletonList(51405L))
+                .thenAccept(this::checkGetRunes).get();
+    }
+    private void checkGetRunes(Map<Long, RunePages> result) {
+        Set<Long> expected = new HashSet<>(Arrays.asList(
+                2706294L, 2706295L, 5526340L, 28433182L, 28433184L, 28433185L, 28433186L, 28433187L, 28433188L,
+                41178176L, 55520448L, 55520449L, 55520450L, 55520451L, 55520452L, 55520453L, 55520454L, 55520455L,
+                55520456L, 55520457L));
+        for (RunePage page : result.get(51405L).pages) {
+            assertFalse(page.name, page.name.isEmpty());
+            assertTrue("" + page.id, expected.remove(page.id));
+        }
+        assertTrue(expected.toString(), expected.isEmpty());
     }
 }
