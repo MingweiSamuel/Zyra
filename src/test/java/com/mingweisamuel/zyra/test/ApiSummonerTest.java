@@ -1,11 +1,11 @@
 package com.mingweisamuel.zyra.test;
 
 import com.mingweisamuel.zyra.RiotApi;
-import com.mingweisamuel.zyra.dto.MasteryPage;
-import com.mingweisamuel.zyra.dto.MasteryPages;
-import com.mingweisamuel.zyra.dto.RunePage;
-import com.mingweisamuel.zyra.dto.RunePages;
-import com.mingweisamuel.zyra.dto.Summoner;
+import com.mingweisamuel.zyra.summoner.MasteryPage;
+import com.mingweisamuel.zyra.summoner.MasteryPages;
+import com.mingweisamuel.zyra.summoner.RunePage;
+import com.mingweisamuel.zyra.summoner.RunePages;
+import com.mingweisamuel.zyra.summoner.Summoner;
 import com.mingweisamuel.zyra.enums.Region;
 import org.junit.Test;
 

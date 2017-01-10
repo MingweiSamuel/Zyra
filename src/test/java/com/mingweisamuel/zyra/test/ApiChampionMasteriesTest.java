@@ -1,6 +1,6 @@
 package com.mingweisamuel.zyra.test;
 
-import com.mingweisamuel.zyra.dto.ChampionMastery;
+import com.mingweisamuel.zyra.championMastery.ChampionMastery;
 import com.mingweisamuel.zyra.enums.Region;
 import org.junit.Test;
 import static com.mingweisamuel.zyra.enums.ChampionId.*;

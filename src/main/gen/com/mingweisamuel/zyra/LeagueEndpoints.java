@@ -1,8 +1,8 @@
 package com.mingweisamuel.zyra;
 
 import com.google.gson.reflect.TypeToken;
-import com.mingweisamuel.zyra.dto.League;
 import com.mingweisamuel.zyra.enums.Region;
+import com.mingweisamuel.zyra.league.League;
 import java.lang.Long;
 import java.lang.String;
 import java.lang.reflect.Type;

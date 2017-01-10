@@ -1,6 +1,6 @@
 package com.mingweisamuel.zyra;
 
-import com.mingweisamuel.zyra.dto.CurrentGameInfo;
+import com.mingweisamuel.zyra.currentGame.CurrentGameInfo;
 import com.mingweisamuel.zyra.enums.Region;
 import java.lang.String;
 import java.lang.reflect.Type;

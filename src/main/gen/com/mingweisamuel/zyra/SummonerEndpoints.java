@@ -1,10 +1,10 @@
 package com.mingweisamuel.zyra;
 
 import com.google.gson.reflect.TypeToken;
-import com.mingweisamuel.zyra.dto.MasteryPages;
-import com.mingweisamuel.zyra.dto.RunePages;
-import com.mingweisamuel.zyra.dto.Summoner;
 import com.mingweisamuel.zyra.enums.Region;
+import com.mingweisamuel.zyra.summoner.MasteryPages;
+import com.mingweisamuel.zyra.summoner.RunePages;
+import com.mingweisamuel.zyra.summoner.Summoner;
 import java.lang.Long;
 import java.lang.String;
 import java.lang.reflect.Type;

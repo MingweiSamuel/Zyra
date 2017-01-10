@@ -1,7 +1,7 @@
 package com.mingweisamuel.zyra;
 
-import com.mingweisamuel.zyra.dto.MatchList;
 import com.mingweisamuel.zyra.enums.Region;
+import com.mingweisamuel.zyra.matchlist.MatchList;
 import java.lang.Integer;
 import java.lang.Long;
 import java.lang.String;

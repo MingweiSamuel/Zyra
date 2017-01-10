@@ -1,7 +1,7 @@
 package com.mingweisamuel.zyra;
 
-import com.mingweisamuel.zyra.dto.Champion;
-import com.mingweisamuel.zyra.dto.ChampionList;
+import com.mingweisamuel.zyra.champion.Champion;
+import com.mingweisamuel.zyra.champion.ChampionList;
 import com.mingweisamuel.zyra.enums.Region;
 import java.lang.Boolean;
 import java.lang.String;

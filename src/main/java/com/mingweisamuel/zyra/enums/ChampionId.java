@@ -9,7 +9,7 @@ public class ChampionId {
     /**
      * ID for combined statistics in the {@link com.mingweisamuel.zyra.StatsEndpoints}.
      *
-     * @see com.mingweisamuel.zyra.dto.ChampionStats#id
+     * @see com.mingweisamuel.zyra.stats.ChampionStats#id
      */
     public static final long ALL = 0;
 

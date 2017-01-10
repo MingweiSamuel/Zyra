@@ -1,7 +1,7 @@
 package com.mingweisamuel.zyra;
 
-import com.mingweisamuel.zyra.dto.FeaturedGames;
 import com.mingweisamuel.zyra.enums.Region;
+import com.mingweisamuel.zyra.featuredGames.FeaturedGames;
 import java.lang.String;
 import java.lang.reflect.Type;
 import java.util.concurrent.CompletableFuture;

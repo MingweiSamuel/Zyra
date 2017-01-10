@@ -1,7 +1,7 @@
 package com.mingweisamuel.zyra;
 
 import com.google.gson.reflect.TypeToken;
-import com.mingweisamuel.zyra.dto.ChampionMastery;
+import com.mingweisamuel.zyra.championMastery.ChampionMastery;
 import com.mingweisamuel.zyra.enums.Region;
 import java.lang.Integer;
 import java.lang.String;

@@ -86,9 +86,8 @@ class RiotDtoGenerator {
 
             String endpointTitle = heading.getElementsByTag("span").first().text();
             String endpointTitleNormalized = normalizeEndpointName(endpointTitle);
-            // status api is done manually
-            if ("lol-status-v1.0".equals(endpointTitle))
-                continue;;
+            String endpointPackage = CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, endpointTitleNormalized);
+
             System.out.println(endpointTitle + ": " + endpointTitleNormalized);
 
             TypeSpec.Builder endpointsTypeBuilder = TypeSpec
@@ -120,14 +119,18 @@ class RiotDtoGenerator {
                 Elements dtoContainers = apiBlock.children();
 
                 if (!parseEndpointMethod(endpointsTypeBuilder, endpoint, dtoContainers, endpointTitleNormalized,
-                        endpointNotes))
+                        endpointNotes, endpointPackage))
                     continue;
 
                 for (int i = dtoContainers.size() - 1; i >= 2; i--) {
                     Element dtoContainer = dtoContainers.get(i);
-                    parseDto(dtoContainer, endpointTitle);
+                    parseDto(dtoContainer, endpointTitle, endpointPackage);
                 }
             }
+
+            // status api enpoints class is done manually
+            if ("lol-status-v1.0".equals(endpointTitle))
+                continue;
 
             TypeSpec endpointsType = endpointsTypeBuilder.build();
             JavaFile javaFile = JavaFile.builder(PACKAGE, endpointsType).build();
@@ -136,7 +139,7 @@ class RiotDtoGenerator {
     }
 
     private static boolean parseEndpointMethod(TypeSpec.Builder endpointsTypeBuilder, Element endpoint,
-            Elements dtoContainers, String endpointTitleNormalized, String endpointNotes) {
+            Elements dtoContainers, String endpointTitleNormalized, String endpointNotes, String endpointPackage) {
 
         String endpointPath = endpoint.getElementsByClass("path").first().child(0).text();
         if (endpointPath.contains("tournament")) {
@@ -162,7 +165,7 @@ class RiotDtoGenerator {
         System.out.println("  " + endpointName + ": " + endpointPath + ": " + endpointDesc);
         System.out.println("  - returns " + returnDtoName);
 
-        TypeName returnType = getTypeFromString(returnDtoName).box();
+        TypeName returnType = getTypeFromString(returnDtoName, PACKAGE + '.' + endpointPackage).box();
         // special cases for Map<Long, ?> for summoners, leagues by summoner
         if (endpointDesc.contains("mapped by summoner ID for a given list of summoner IDs")) {
             ParameterizedTypeName stringMap = (ParameterizedTypeName) returnType;
@@ -508,13 +511,13 @@ class RiotDtoGenerator {
                 endpointName.toString().replace("topchampions", "top-champions"));
     }
 
-    private static void parseDto(Element dtoContainer, String endpointName) throws IOException {
+    private static void parseDto(Element dtoContainer, String endpointName, String endpointPackage) throws IOException {
 
         Element dto = dtoContainer.getElementsByTag("b").first();
         String dtoName = dto.text();
         String dtoNameNormalized = normalizeDtoName(dtoName);
 
-        if (readDtos.contains(dtoNameNormalized))
+        if (readDtos.contains(endpointPackage + '.' + dtoNameNormalized))
             return;
 
         String dtoDescription = dto.parent().ownText();
@@ -543,7 +546,7 @@ class RiotDtoGenerator {
             if (FIELD_TYPES.containsKey(key))
                 type = FIELD_TYPES.get(key);
             else
-                type = getTypeFromString(normalizeDtoName(fieldType));
+                type = getTypeFromString(normalizeDtoName(fieldType), PACKAGE + '.' + endpointPackage);
 
             FieldSpec.Builder fieldBuilder = FieldSpec.builder(type, fieldName, Modifier.PUBLIC);
             if (FIELD_DOCSTRINGS.containsKey(key))
@@ -554,9 +557,9 @@ class RiotDtoGenerator {
         }
 
         TypeSpec typeSpec = typeSpecBuilder.build();
-        JavaFile javaFile = JavaFile.builder(PACKAGE_DTO, typeSpec).build();
+        JavaFile javaFile = JavaFile.builder(PACKAGE + '.' + endpointPackage, typeSpec).build();
         javaFile.writeTo(SOURCE_DESTINATION);
-        readDtos.add(dtoNameNormalized);
+        readDtos.add(endpointPackage + '.' + dtoNameNormalized);
     }
 
     private static String normalizeEndpointName(String endpoint) {
@@ -570,6 +573,10 @@ class RiotDtoGenerator {
     }
 
     private static TypeName getTypeFromString(String in) {
+        return getTypeFromString(in, "");
+    }
+
+    private static TypeName getTypeFromString(String in, String defaultPackage) {
         switch(in) {
         case "boolean":
             return TypeName.BOOLEAN;
@@ -584,16 +591,17 @@ class RiotDtoGenerator {
         }
         if (in.startsWith("List["))
             return ParameterizedTypeName.get(ClassName.get(List.class),
-                    getTypeFromString(normalizeDtoName(in.substring(5, in.length() - 1))).box());
+                    getTypeFromString(normalizeDtoName(in.substring(5, in.length() - 1)), defaultPackage).box());
         if (in.startsWith("Set["))
             return ParameterizedTypeName.get(ClassName.get(List.class),
-                    getTypeFromString(normalizeDtoName(in.substring(4, in.length() - 1))).box());
+                    getTypeFromString(normalizeDtoName(in.substring(4, in.length() - 1)), defaultPackage).box());
         if (in.startsWith("Map[")) {
             int comma = in.indexOf(',');
             return ParameterizedTypeName.get(ClassName.get(Map.class),
-                    getTypeFromString(normalizeDtoName(in.substring(4, comma))).box(),
-                    getTypeFromString(normalizeDtoName(in.substring(comma + 2, in.length() - 1))).box());
+                    getTypeFromString(normalizeDtoName(in.substring(4, comma)), defaultPackage).box(),
+                    getTypeFromString(normalizeDtoName(in.substring(comma + 2, in.length() - 1)),
+                            defaultPackage).box());
         }
-        return ClassName.bestGuess(PACKAGE_DTO + '.' + normalizeDtoName(in));
+        return ClassName.bestGuess(defaultPackage + '.' + normalizeDtoName(in));
     }
 }

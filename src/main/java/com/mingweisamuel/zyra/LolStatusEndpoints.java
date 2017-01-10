@@ -1,8 +1,8 @@
 package com.mingweisamuel.zyra;
 
 import com.google.gson.reflect.TypeToken;
-import com.mingweisamuel.zyra.dto.Shard;
-import com.mingweisamuel.zyra.dto.ShardStatus;
+import com.mingweisamuel.zyra.lolStatus.Shard;
+import com.mingweisamuel.zyra.lolStatus.ShardStatus;
 import com.mingweisamuel.zyra.enums.Region;
 
 import java.lang.String;

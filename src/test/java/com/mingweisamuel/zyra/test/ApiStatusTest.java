@@ -1,10 +1,7 @@
 package com.mingweisamuel.zyra.test;
 
-import com.mingweisamuel.zyra.dto.FeaturedGameInfo;
-import com.mingweisamuel.zyra.dto.FeaturedGames;
-import com.mingweisamuel.zyra.dto.Participant;
-import com.mingweisamuel.zyra.dto.Shard;
-import com.mingweisamuel.zyra.dto.ShardStatus;
+import com.mingweisamuel.zyra.lolStatus.Shard;
+import com.mingweisamuel.zyra.lolStatus.ShardStatus;
 import com.mingweisamuel.zyra.enums.Region;
 import org.junit.Test;
 

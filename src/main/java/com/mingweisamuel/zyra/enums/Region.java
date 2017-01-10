@@ -26,6 +26,13 @@ public enum Region {
     TR("TR1"),
     /** Japan. */
     JP("JP1"),
+
+    /** Public beta environment. Only functional is certain endpoints. */
+    PBE("PBE1"),
+    /** Garena publisher - South east asia regions. Not functional in endpoints. */
+    GARENA(null),
+    /** Tencent publisher - China. Not functional in endpoints. */
+    TENCENT(null),
     /** Global. */
     GLOBAL(null);
 

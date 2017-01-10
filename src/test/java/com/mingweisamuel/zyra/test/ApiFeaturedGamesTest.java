@@ -1,8 +1,8 @@
 package com.mingweisamuel.zyra.test;
 
-import com.mingweisamuel.zyra.dto.FeaturedGameInfo;
-import com.mingweisamuel.zyra.dto.FeaturedGames;
-import com.mingweisamuel.zyra.dto.Participant;
+import com.mingweisamuel.zyra.featuredGames.FeaturedGameInfo;
+import com.mingweisamuel.zyra.featuredGames.FeaturedGames;
+import com.mingweisamuel.zyra.featuredGames.Participant;
 import com.mingweisamuel.zyra.enums.Region;
 import org.junit.Test;
 

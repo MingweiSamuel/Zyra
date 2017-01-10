@@ -1,8 +1,8 @@
 package com.mingweisamuel.zyra;
 
-import com.mingweisamuel.zyra.dto.PlayerStatsSummaryList;
-import com.mingweisamuel.zyra.dto.RankedStats;
 import com.mingweisamuel.zyra.enums.Region;
+import com.mingweisamuel.zyra.stats.PlayerStatsSummaryList;
+import com.mingweisamuel.zyra.stats.RankedStats;
 import java.lang.String;
 import java.lang.reflect.Type;
 import java.util.concurrent.CompletableFuture;

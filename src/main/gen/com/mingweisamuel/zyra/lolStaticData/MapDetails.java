@@ -1,0 +1,21 @@
+package com.mingweisamuel.zyra.lolStaticData;
+
+import java.lang.Long;
+import java.lang.String;
+import java.util.List;
+
+/**
+ * MapDetails - This object contains map details data.
+ *
+ * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ *
+ * @version lol-static-data-v1.2 */
+public class MapDetails {
+  public Image image;
+
+  public long mapId;
+
+  public String mapName;
+
+  public List<Long> unpurchasableItemList;
+}
