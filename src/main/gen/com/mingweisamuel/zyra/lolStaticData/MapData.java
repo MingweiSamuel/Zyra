@@ -1,5 +1,6 @@
 package com.mingweisamuel.zyra.lolStaticData;
 
+import java.lang.Long;
 import java.lang.String;
 import java.util.Map;
 
@@ -10,7 +11,7 @@ import java.util.Map;
  *
  * @version lol-static-data-v1.2 */
 public class MapData {
-  public Map<String, MapDetails> data;
+  public Map<Long, MapDetails> data;
 
   public String type;
 

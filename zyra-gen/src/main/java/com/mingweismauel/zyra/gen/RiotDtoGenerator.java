@@ -57,6 +57,8 @@ class RiotDtoGenerator {
         FIELD_TYPES.put("SummonerSpell.range", ParameterizedTypeName.get(List.class, Integer.class));
         FIELD_TYPES.put("ItemList.data", ParameterizedTypeName.get(ClassName.get(Map.class), TypeName.INT.box(),
                 ClassName.bestGuess("com.mingweisamuel.zyra.lolStaticData.Item")));
+        FIELD_TYPES.put("MapData.data", ParameterizedTypeName.get(ClassName.get(Map.class), TypeName.LONG.box(),
+                ClassName.bestGuess("com.mingweisamuel.zyra.lolStaticData.MapDetails")));
     }
     private static final Map<String, String> FIELD_DOCSTRINGS = new HashMap<>();
     static {
