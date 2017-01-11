@@ -16,11 +16,11 @@ import java.util.concurrent.ExecutionException;
 public class ChampionEndpoints {
   private static final Type GET_ALL__TYPE = ChampionList.class;
 
-  private static final String GET_ALL__URL = "/api/lol/%1s/v1.2/champion";
+  private static final String GET_ALL__URL = "/api/lol/%1$s/v1.2/champion";
 
   private static final Type GET__TYPE = Champion.class;
 
-  private static final String GET__URL = "/api/lol/%1s/v1.2/champion/%2s";
+  private static final String GET__URL = "/api/lol/%1$s/v1.2/champion/%2$s";
 
   private final RiotApi riotApi;
 
@@ -32,14 +32,14 @@ public class ChampionEndpoints {
   public ChampionList getAll(final Region region, final Boolean freeToPlay) throws
       ExecutionException {
     return riotApi.getBasic(String.format(GET_ALL__URL, region, freeToPlay), region, GET_ALL__TYPE,
-    riotApi.makeParams("freeToPlay", freeToPlay));}
+        riotApi.makeParams("freeToPlay", freeToPlay));}
 
   /**
    * @param freeToPlay Riot API description: Optional filter param to retrieve only free to play champions. */
   public CompletableFuture<ChampionList> getAllAsync(final Region region,
       final Boolean freeToPlay) {
     return riotApi.getBasicAsync(String.format(GET_ALL__URL, region, freeToPlay), region, GET_ALL__TYPE,
-    riotApi.makeParams("freeToPlay", freeToPlay));}
+        riotApi.makeParams("freeToPlay", freeToPlay));}
 
   public ChampionList getAll(final Region region) throws ExecutionException {
     return getAll(region, null);}

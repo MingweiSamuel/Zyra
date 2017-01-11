@@ -47,6 +47,7 @@ class RiotDtoGenerator {
     private static final String DOCSTRING_GENERATED = "This class is automagically generated from " +
             "the <a href=\"https://developer.riotgames.com/api/methods\">Riot API reference</a>.";
 
+    /** DTO field type overrides. */
     private static final Map<String, TypeName> FIELD_TYPES = new HashMap<>();
     static {
         FIELD_TYPES.put("ChampionSpell.effect", ParameterizedTypeName.get(ClassName.get(List.class),
@@ -57,8 +58,15 @@ class RiotDtoGenerator {
         FIELD_TYPES.put("SummonerSpell.range", ParameterizedTypeName.get(List.class, Integer.class));
         FIELD_TYPES.put("ItemList.data", ParameterizedTypeName.get(ClassName.get(Map.class), TypeName.INT.box(),
                 ClassName.bestGuess("com.mingweisamuel.zyra.lolStaticData.Item")));
+        FIELD_TYPES.put("Item.maps", ParameterizedTypeName.get(Map.class, Integer.class, Boolean.class));
         FIELD_TYPES.put("MapData.data", ParameterizedTypeName.get(ClassName.get(Map.class), TypeName.LONG.box(),
                 ClassName.bestGuess("com.mingweisamuel.zyra.lolStaticData.MapDetails")));
+        FIELD_TYPES.put("MasteryList.data", ParameterizedTypeName.get(ClassName.get(Map.class), TypeName.INT.box(),
+                ClassName.bestGuess("com.mingweisamuel.zyra.lolStaticData.Mastery")));
+        FIELD_TYPES.put("RuneList.data", ParameterizedTypeName.get(ClassName.get(Map.class), TypeName.INT.box(),
+                ClassName.bestGuess("com.mingweisamuel.zyra.lolStaticData.Rune")));
+        FIELD_TYPES.put("SummonerSpellList.data", ParameterizedTypeName.get(ClassName.get(Map.class),
+                TypeName.INT.box(), ClassName.bestGuess("com.mingweisamuel.zyra.lolStaticData.SummonerSpell")));
     }
     private static final Map<String, String> FIELD_DOCSTRINGS = new HashMap<>();
     static {
@@ -134,7 +142,7 @@ class RiotDtoGenerator {
             }
 
             // status api enpoints class is done manually
-            if ("lol-status-v1.0".equals(endpointTitle))
+            if (endpointTitle.startsWith("lol-status"))
                 continue;
 
             TypeSpec endpointsType = endpointsTypeBuilder.build();
@@ -163,9 +171,10 @@ class RiotDtoGenerator {
         boolean hasPlatformId = endpointPath.contains("{platformId}") || endpointPath.contains("{location}");
         String endpointPathNormalized = endpointPath;
         if (hasRegion)
-            endpointPathNormalized = endpointPathNormalized.replace("{region}", "%1s").replace("{shard}", "%1s");
+            endpointPathNormalized = endpointPathNormalized.replace("{region}", "%1$s").replace("{shard}", "%1$s");
         if (hasPlatformId)
-            endpointPathNormalized = endpointPathNormalized.replace("{platformId}", "%1s").replace("{location}", "%1s");
+            endpointPathNormalized = endpointPathNormalized.replace("{platformId}", "%1$s")
+                    .replace("{location}", "%1$s");
 
         System.out.println("  " + endpointName + ": " + endpointPath + ": " + endpointDesc);
         System.out.println("  - returns " + returnDtoName);
@@ -239,8 +248,8 @@ class RiotDtoGenerator {
                             continue;
                         }
                         // type is string
-                        Pattern pattern = Pattern.compile(
-                                "Comma-separated list of summoner (IDs|names).*\\. Maximum allowed at once is (\\d+)\\.");
+                        Pattern pattern = Pattern.compile("Comma-separated list of summoner (IDs|names).*\\. " +
+                                        "Maximum allowed at once is (\\d+)\\.");
                         Matcher matcher = pattern.matcher(pathParameterDesc);
 
                         if (matcher.find()) {
@@ -311,19 +320,18 @@ class RiotDtoGenerator {
         if (groupField != null) {
             endpointPathNormalized = endpointPathNormalized.replaceFirst("\\{\\S+?}", "@");
 
-            addGroupMethods(endpointsTypeBuilder, endpointName, returnType, endpointNameConsts, endpointPathNormalized,
+            addMapMethods(endpointsTypeBuilder, endpointName, returnType, endpointNameConsts, endpointPathNormalized,
                     groupField, typeField, requiredParameters, optionalParameters, hasPlatformId, javadocParams,
                     endpointNotes);
         }
         else {
             endpointPathNormalized = endpointPathNormalized
-                    .replaceFirst("\\{\\S+?}", "%2s")
-                    .replaceFirst("\\{\\S+?}", "%3s");
+                    .replaceFirst("\\{\\S+?}", "%2\\$s")
+                    .replaceFirst("\\{\\S+?}", "%3\\$s");
 
             addBasicMethods(endpointsTypeBuilder, endpointName, returnType, endpointNameConsts, endpointPathNormalized,
                     groupField, typeField, requiredParameters, optionalParameters, hasPlatformId, javadocParams,
-                    endpointNotes,
-                    formatExtension);
+                    endpointNotes, formatExtension, "LolStaticData".equals(endpointTitleNormalized));
         }
 
         return true;
@@ -332,7 +340,7 @@ class RiotDtoGenerator {
     private static void addBasicMethods(TypeSpec.Builder builder, String endpointName, TypeName returnType,
             String endpointNameConsts, String endpointPathNormalized, String groupField, String typeField,
             List<ParameterSpec> required, List<ParameterSpec> optional, boolean hasPlatformId,
-            List<String> javadocParams, String endpointNotes, StringBuilder formatExtension) {
+            List<String> javadocParams, String endpointNotes, StringBuilder formatExtension, boolean nonRateLimited) {
 
         String urlField = endpointNameConsts + "__URL";
 
@@ -380,11 +388,13 @@ class RiotDtoGenerator {
             methodAsyncBuilder.addJavadoc(javadoc.toString().trim());
 
             if (i == optional.size()) {
-                methodBuilder.addCode("return riotApi.getBasic(String.format($L, region$L$L), region, $L$L);",
+                methodBuilder.addCode("return riotApi.getBasic$L(String.format($L, region$L$L), region, $L$L);",
+                        nonRateLimited ? "NonRateLimited" : "",
                         urlField, hasPlatformId ? ".platform" : "",
                         formatExtension.toString(), typeField, buildOptionalParams(optional));
                 methodAsyncBuilder.addCode(
-                        "return riotApi.getBasicAsync(String.format($L, region$L$L), region, $L$L);",
+                        "return riotApi.getBasic$LAsync(String.format($L, region$L$L), region, $L$L);",
+                        nonRateLimited ? "NonRateLimited" : "",
                         urlField, hasPlatformId ? ".platform" : "",
                         formatExtension.toString(), typeField, buildOptionalParams(optional));
             }
@@ -398,7 +408,7 @@ class RiotDtoGenerator {
         }
     }
 
-    private static void addGroupMethods(TypeSpec.Builder builder, String endpointName, TypeName returnType,
+    private static void addMapMethods(TypeSpec.Builder builder, String endpointName, TypeName returnType,
             String endpointNameConsts, String endpointPathNormalized, String groupField, String typeField,
             List<ParameterSpec> required, List<ParameterSpec>optional, boolean hasPlatformId, List<String>
             javadocParams, String endpointNotes) {
@@ -474,7 +484,7 @@ class RiotDtoGenerator {
     private static String buildOptionalParams(List<ParameterSpec> optional) {
         StringBuilder paramsBuilder = new StringBuilder();
         if (!optional.isEmpty()) {
-            paramsBuilder.append(",\nriotApi.makeParams(");
+            paramsBuilder.append(",\n    riotApi.makeParams(");
             for (ParameterSpec optionalParam : optional)
                 paramsBuilder.append("\"").append(optionalParam.name)
                         .append("\", ").append(optionalParam.name).append(", ");
@@ -510,7 +520,7 @@ class RiotDtoGenerator {
                 endpointName.append('-').append("all");
             else {
                 StringBuilder end = new StringBuilder(tail);
-                if (!"recent".equals(tail) && !"score".equals(tail) &&
+                if (!"recent".equals(tail) && !"score".equals(tail) && !"realm".equals(tail) &&
                         !"stats".equalsIgnoreCase(endpointTitleNormalized)) {
                     char lastChar = end.charAt(end.length() - 1);
                     if ('s' != lastChar) {

@@ -46,28 +46,6 @@ public class Requester implements Closeable {
     }
 
     /**
-     * Sends a get request to rootUrl + relativeUrl (synchronous).
-     *
-     * @param rootUrl
-     * @param relativeUrl
-     * @throws RiotResponseException
-     * @return The response
-     */
-    public Response getRequest(String rootUrl, String relativeUrl, Param... params) throws RiotResponseException {
-        String url = String.format("https://%s%s", rootUrl, relativeUrl);
-        try {
-            return client.prepareGet(url).addQueryParam(API_KEY_PARAMETER, apiKey)
-                    .addQueryParams(Arrays.asList(params))
-                    .execute().get();
-        } catch (ExecutionException e) {
-            throw new RiotResponseException("Request failed: " + url, e, null);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new IllegalStateException();
-        }
-    }
-
-    /**
      * Sends a get request to rootUrl + relativeUrl asynchronously.
      *
      * @param rootUrl

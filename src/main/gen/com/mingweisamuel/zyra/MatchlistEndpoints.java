@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 public class MatchlistEndpoints {
   private static final Type GET__TYPE = MatchList.class;
 
-  private static final String GET__URL = "/api/lol/%1s/v2.2/matchlist/by-summoner/%2s";
+  private static final String GET__URL = "/api/lol/%1$s/v2.2/matchlist/by-summoner/%2$s";
 
   private final RiotApi riotApi;
 
@@ -40,7 +40,7 @@ public class MatchlistEndpoints {
       final Collection<String> seasons, final Long beginTime, final Long endTime,
       final Integer beginIndex, final Integer endIndex) throws ExecutionException {
     return riotApi.getBasic(String.format(GET__URL, region, summonerId, beginTime, endTime, beginIndex, endIndex), region, GET__TYPE,
-    riotApi.makeParams("championIds", championIds, "rankedQueues", rankedQueues, "seasons", seasons, "beginTime", beginTime, "endTime", endTime, "beginIndex", beginIndex, "endIndex", endIndex));}
+        riotApi.makeParams("championIds", championIds, "rankedQueues", rankedQueues, "seasons", seasons, "beginTime", beginTime, "endTime", endTime, "beginIndex", beginIndex, "endIndex", endIndex));}
 
   /**
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested summoner, otherwise, no matches may be returned. If either of the beginTime or endTime parameters is set, they must both be set, although there is no maximum limit on their range. If the beginTime parameter is specified on its own, endTime is assumed to be the current time. If the endTime parameter is specified on its own, beginTime is assumed to be the start of the summoner's match history.
@@ -58,7 +58,7 @@ public class MatchlistEndpoints {
       final Collection<String> seasons, final Long beginTime, final Long endTime,
       final Integer beginIndex, final Integer endIndex) {
     return riotApi.getBasicAsync(String.format(GET__URL, region, summonerId, beginTime, endTime, beginIndex, endIndex), region, GET__TYPE,
-    riotApi.makeParams("championIds", championIds, "rankedQueues", rankedQueues, "seasons", seasons, "beginTime", beginTime, "endTime", endTime, "beginIndex", beginIndex, "endIndex", endIndex));}
+        riotApi.makeParams("championIds", championIds, "rankedQueues", rankedQueues, "seasons", seasons, "beginTime", beginTime, "endTime", endTime, "beginIndex", beginIndex, "endIndex", endIndex));}
 
   /**
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested summoner, otherwise, no matches may be returned. If either of the beginTime or endTime parameters is set, they must both be set, although there is no maximum limit on their range. If the beginTime parameter is specified on its own, endTime is assumed to be the current time. If the endTime parameter is specified on its own, beginTime is assumed to be the start of the summoner's match history.

@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutionException;
 public class CurrentGameEndpoints {
   private static final Type GET__TYPE = CurrentGameInfo.class;
 
-  private static final String GET__URL = "/observer-mode/rest/consumer/getSpectatorGameInfo/%1s/%2s";
+  private static final String GET__URL = "/observer-mode/rest/consumer/getSpectatorGameInfo/%1$s/%2$s";
 
   private final RiotApi riotApi;
 

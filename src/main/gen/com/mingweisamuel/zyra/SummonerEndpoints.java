@@ -23,35 +23,35 @@ public class SummonerEndpoints {
 
   private static final int GET_BY_NAME__GROUP = 40;
 
-  private static final String GET_BY_NAME__URL = "/api/lol/%1s/v1.4/summoner/by-name/@";
+  private static final String GET_BY_NAME__URL = "/api/lol/%1$s/v1.4/summoner/by-name/@";
 
   private static final Type GET__TYPE = new TypeToken<Map<Long, Summoner>>() {
   }.getType();
 
   private static final int GET__GROUP = 40;
 
-  private static final String GET__URL = "/api/lol/%1s/v1.4/summoner/@";
+  private static final String GET__URL = "/api/lol/%1$s/v1.4/summoner/@";
 
   private static final Type GET_MASTERIES__TYPE = new TypeToken<Map<Long, MasteryPages>>() {
   }.getType();
 
   private static final int GET_MASTERIES__GROUP = 40;
 
-  private static final String GET_MASTERIES__URL = "/api/lol/%1s/v1.4/summoner/@/masteries";
+  private static final String GET_MASTERIES__URL = "/api/lol/%1$s/v1.4/summoner/@/masteries";
 
   private static final Type GET_NAMES__TYPE = new TypeToken<Map<Long, String>>() {
   }.getType();
 
   private static final int GET_NAMES__GROUP = 40;
 
-  private static final String GET_NAMES__URL = "/api/lol/%1s/v1.4/summoner/@/name";
+  private static final String GET_NAMES__URL = "/api/lol/%1$s/v1.4/summoner/@/name";
 
   private static final Type GET_RUNES__TYPE = new TypeToken<Map<Long, RunePages>>() {
   }.getType();
 
   private static final int GET_RUNES__GROUP = 40;
 
-  private static final String GET_RUNES__URL = "/api/lol/%1s/v1.4/summoner/@/runes";
+  private static final String GET_RUNES__URL = "/api/lol/%1$s/v1.4/summoner/@/runes";
 
   private final RiotApi riotApi;
 

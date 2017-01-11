@@ -1,5 +1,6 @@
 package com.mingweisamuel.zyra.lolStaticData;
 
+import java.lang.Integer;
 import java.lang.String;
 import java.util.Map;
 
@@ -10,7 +11,7 @@ import java.util.Map;
  *
  * @version lol-static-data-v1.2 */
 public class MasteryList {
-  public Map<String, Mastery> data;
+  public Map<Integer, Mastery> data;
 
   public MasteryTree tree;
 

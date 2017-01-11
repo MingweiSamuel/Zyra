@@ -239,6 +239,20 @@ public class RiotApi implements Closeable {
                         gson.fromJson(r.getResponseBody(), type));
     }
 
+    <T> T getBasicNonRateLimited(String url, Region region, Type type, Param... params) throws ExecutionException {
+        try {
+            return this.<T>getBasicNonRateLimitedAsync(url, region, type, params).get();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException();
+        }
+    }
+
+    <T> CompletableFuture<T> getBasicNonRateLimitedAsync(String url, Region region, Type type, Param... params) {
+        return requester.get().getRequestNonRateLimitedAsync(url, region, params)
+                .thenApply(r -> gson.fromJson(r.getResponseBody(), type));
+    }
+
     <I, K, V> Map<K, V> getMap(
             String url, Region region, Iterable<I> input, int groupSize, Type type)
             throws ExecutionException {

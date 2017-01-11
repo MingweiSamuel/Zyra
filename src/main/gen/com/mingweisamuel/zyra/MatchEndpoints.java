@@ -15,7 +15,7 @@ import java.util.concurrent.ExecutionException;
 public class MatchEndpoints {
   private static final Type GET__TYPE = MatchDetail.class;
 
-  private static final String GET__URL = "/api/lol/%1s/v2.2/match/%2s";
+  private static final String GET__URL = "/api/lol/%1$s/v2.2/match/%2$s";
 
   private final RiotApi riotApi;
 
@@ -30,7 +30,7 @@ public class MatchEndpoints {
   public MatchDetail get(final Region region, final long matchId, final Boolean includeTimeline)
       throws ExecutionException {
     return riotApi.getBasic(String.format(GET__URL, region, matchId, includeTimeline), region, GET__TYPE,
-    riotApi.makeParams("includeTimeline", includeTimeline));}
+        riotApi.makeParams("includeTimeline", includeTimeline));}
 
   /**
    * Not all matches have timeline data. If timeline data is requested, but doesn't exist, then the response won't include it.
@@ -40,7 +40,7 @@ public class MatchEndpoints {
   public CompletableFuture<MatchDetail> getAsync(final Region region, final long matchId,
       final Boolean includeTimeline) {
     return riotApi.getBasicAsync(String.format(GET__URL, region, matchId, includeTimeline), region, GET__TYPE,
-    riotApi.makeParams("includeTimeline", includeTimeline));}
+        riotApi.makeParams("includeTimeline", includeTimeline));}
 
   /**
    * Not all matches have timeline data. If timeline data is requested, but doesn't exist, then the response won't include it.

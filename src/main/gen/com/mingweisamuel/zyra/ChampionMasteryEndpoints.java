@@ -17,21 +17,21 @@ import java.util.concurrent.ExecutionException;
 public class ChampionMasteryEndpoints {
   private static final Type GET_CHAMPION__TYPE = ChampionMastery.class;
 
-  private static final String GET_CHAMPION__URL = "/championmastery/location/%1s/player/%2s/champion/%3s";
+  private static final String GET_CHAMPION__URL = "/championmastery/location/%1$s/player/%2$s/champion/%3$s";
 
   private static final Type GET_CHAMPIONS__TYPE = new TypeToken<List<ChampionMastery>>() {
   }.getType();
 
-  private static final String GET_CHAMPIONS__URL = "/championmastery/location/%1s/player/%2s/champions";
+  private static final String GET_CHAMPIONS__URL = "/championmastery/location/%1$s/player/%2$s/champions";
 
   private static final Type GET_SCORE__TYPE = Integer.class;
 
-  private static final String GET_SCORE__URL = "/championmastery/location/%1s/player/%2s/score";
+  private static final String GET_SCORE__URL = "/championmastery/location/%1$s/player/%2$s/score";
 
   private static final Type GET_TOP_CHAMPIONS__TYPE = new TypeToken<List<ChampionMastery>>() {
   }.getType();
 
-  private static final String GET_TOP_CHAMPIONS__URL = "/championmastery/location/%1s/player/%2s/topchampions";
+  private static final String GET_TOP_CHAMPIONS__URL = "/championmastery/location/%1$s/player/%2$s/topchampions";
 
   private final RiotApi riotApi;
 
@@ -80,7 +80,7 @@ public class ChampionMasteryEndpoints {
   public List<ChampionMastery> getTopChampions(final Region region, final long playerId,
       final Integer count) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_TOP_CHAMPIONS__URL, region.platform, playerId, count), region, GET_TOP_CHAMPIONS__TYPE,
-    riotApi.makeParams("count", count));}
+        riotApi.makeParams("count", count));}
 
   /**
    * @param playerId Riot API description: Summoner ID associated with the player
@@ -88,7 +88,7 @@ public class ChampionMasteryEndpoints {
   public CompletableFuture<List<ChampionMastery>> getTopChampionsAsync(final Region region,
       final long playerId, final Integer count) {
     return riotApi.getBasicAsync(String.format(GET_TOP_CHAMPIONS__URL, region.platform, playerId, count), region, GET_TOP_CHAMPIONS__TYPE,
-    riotApi.makeParams("count", count));}
+        riotApi.makeParams("count", count));}
 
   /**
    * @param playerId Riot API description: Summoner ID associated with the player */

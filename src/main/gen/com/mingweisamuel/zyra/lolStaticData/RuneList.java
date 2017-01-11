@@ -1,5 +1,6 @@
 package com.mingweisamuel.zyra.lolStaticData;
 
+import java.lang.Integer;
 import java.lang.String;
 import java.util.Map;
 
@@ -12,7 +13,7 @@ import java.util.Map;
 public class RuneList {
   public BasicData basic;
 
-  public Map<String, Rune> data;
+  public Map<Integer, Rune> data;
 
   public String type;
 

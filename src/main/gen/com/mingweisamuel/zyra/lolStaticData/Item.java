@@ -1,6 +1,7 @@
 package com.mingweisamuel.zyra.lolStaticData;
 
 import java.lang.Boolean;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class Item {
 
   public List<String> into;
 
-  public Map<String, Boolean> maps;
+  public Map<Integer, Boolean> maps;
 
   public String name;
 

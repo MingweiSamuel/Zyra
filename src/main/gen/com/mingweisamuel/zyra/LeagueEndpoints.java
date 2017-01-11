@@ -22,22 +22,22 @@ public class LeagueEndpoints {
 
   private static final int GET_BY_SUMMONER__GROUP = 10;
 
-  private static final String GET_BY_SUMMONER__URL = "/api/lol/%1s/v2.5/league/by-summoner/@";
+  private static final String GET_BY_SUMMONER__URL = "/api/lol/%1$s/v2.5/league/by-summoner/@";
 
   private static final Type GET_ENTRIES__TYPE = new TypeToken<Map<Long, List<League>>>() {
   }.getType();
 
   private static final int GET_ENTRIES__GROUP = 10;
 
-  private static final String GET_ENTRIES__URL = "/api/lol/%1s/v2.5/league/by-summoner/@/entry";
+  private static final String GET_ENTRIES__URL = "/api/lol/%1$s/v2.5/league/by-summoner/@/entry";
 
   private static final Type GET_CHALLENGERS__TYPE = League.class;
 
-  private static final String GET_CHALLENGERS__URL = "/api/lol/%1s/v2.5/league/challenger";
+  private static final String GET_CHALLENGERS__URL = "/api/lol/%1$s/v2.5/league/challenger";
 
   private static final Type GET_MASTERS__TYPE = League.class;
 
-  private static final String GET_MASTERS__URL = "/api/lol/%1s/v2.5/league/master";
+  private static final String GET_MASTERS__URL = "/api/lol/%1$s/v2.5/league/master";
 
   private final RiotApi riotApi;
 
@@ -80,13 +80,13 @@ public class LeagueEndpoints {
    * @param type Riot API description: Game queue type. */
   public League getChallengers(final Region region, final String type) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_CHALLENGERS__URL, region), region, GET_CHALLENGERS__TYPE,
-    riotApi.makeParams("type", type));}
+        riotApi.makeParams("type", type));}
 
   /**
    * @param type Riot API description: Game queue type. */
   public CompletableFuture<League> getChallengersAsync(final Region region, final String type) {
     return riotApi.getBasicAsync(String.format(GET_CHALLENGERS__URL, region), region, GET_CHALLENGERS__TYPE,
-    riotApi.makeParams("type", type));}
+        riotApi.makeParams("type", type));}
 
   public League getChallengers(final Region region) throws ExecutionException {
     return getChallengers(region, null);}
@@ -98,13 +98,13 @@ public class LeagueEndpoints {
    * @param type Riot API description: Game queue type. */
   public League getMasters(final Region region, final String type) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_MASTERS__URL, region), region, GET_MASTERS__TYPE,
-    riotApi.makeParams("type", type));}
+        riotApi.makeParams("type", type));}
 
   /**
    * @param type Riot API description: Game queue type. */
   public CompletableFuture<League> getMastersAsync(final Region region, final String type) {
     return riotApi.getBasicAsync(String.format(GET_MASTERS__URL, region), region, GET_MASTERS__TYPE,
-    riotApi.makeParams("type", type));}
+        riotApi.makeParams("type", type));}
 
   public League getMasters(final Region region) throws ExecutionException {
     return getMasters(region, null);}

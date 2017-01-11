@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutionException;
 public class GameEndpoints {
   private static final Type GET_RECENT__TYPE = RecentGames.class;
 
-  private static final String GET_RECENT__URL = "/api/lol/%1s/v1.3/game/by-summoner/%2s/recent";
+  private static final String GET_RECENT__URL = "/api/lol/%1$s/v1.3/game/by-summoner/%2$s/recent";
 
   private final RiotApi riotApi;
 

@@ -15,11 +15,11 @@ import java.util.concurrent.ExecutionException;
 public class StatsEndpoints {
   private static final Type GET_RANKED__TYPE = RankedStats.class;
 
-  private static final String GET_RANKED__URL = "/api/lol/%1s/v1.3/stats/by-summoner/%2s/ranked";
+  private static final String GET_RANKED__URL = "/api/lol/%1$s/v1.3/stats/by-summoner/%2$s/ranked";
 
   private static final Type GET_SUMMARY__TYPE = PlayerStatsSummaryList.class;
 
-  private static final String GET_SUMMARY__URL = "/api/lol/%1s/v1.3/stats/by-summoner/%2s/summary";
+  private static final String GET_SUMMARY__URL = "/api/lol/%1$s/v1.3/stats/by-summoner/%2$s/summary";
 
   private final RiotApi riotApi;
 
@@ -34,7 +34,7 @@ public class StatsEndpoints {
   public RankedStats getRanked(final Region region, final long summonerId, final String season)
       throws ExecutionException {
     return riotApi.getBasic(String.format(GET_RANKED__URL, region, summonerId), region, GET_RANKED__TYPE,
-    riotApi.makeParams("season", season));}
+        riotApi.makeParams("season", season));}
 
   /**
    * Includes ranked stats for Twisted Treeline and Summoner's Rift.
@@ -44,7 +44,7 @@ public class StatsEndpoints {
   public CompletableFuture<RankedStats> getRankedAsync(final Region region, final long summonerId,
       final String season) {
     return riotApi.getBasicAsync(String.format(GET_RANKED__URL, region, summonerId), region, GET_RANKED__TYPE,
-    riotApi.makeParams("season", season));}
+        riotApi.makeParams("season", season));}
 
   /**
    * Includes ranked stats for Twisted Treeline and Summoner's Rift.
@@ -69,7 +69,7 @@ public class StatsEndpoints {
   public PlayerStatsSummaryList getSummary(final Region region, final long summonerId,
       final String season) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_SUMMARY__URL, region, summonerId), region, GET_SUMMARY__TYPE,
-    riotApi.makeParams("season", season));}
+        riotApi.makeParams("season", season));}
 
   /**
    * One summary is returned per queue type.
@@ -79,7 +79,7 @@ public class StatsEndpoints {
   public CompletableFuture<PlayerStatsSummaryList> getSummaryAsync(final Region region,
       final long summonerId, final String season) {
     return riotApi.getBasicAsync(String.format(GET_SUMMARY__URL, region, summonerId), region, GET_SUMMARY__TYPE,
-    riotApi.makeParams("season", season));}
+        riotApi.makeParams("season", season));}
 
   /**
    * One summary is returned per queue type.
