@@ -16,7 +16,7 @@ public class CurrentGameParticipant {
 
   /**
    * The ID of the champion played by this participant */
-  public long championId;
+  public int championId;
 
   /**
    * The masteries used by this participant */

@@ -41,15 +41,15 @@ public class ChampionMasteryEndpoints {
   /**
    * @param playerId Riot API description: Summoner ID associated with the player
    * @param championId Riot API description: Champion ID to retrieve Champion Mastery for */
-  public ChampionMastery getChampion(final Region region, final long playerId,
-      final long championId) throws ExecutionException {
+  public ChampionMastery getChampion(final Region region, final long playerId, final int championId)
+      throws ExecutionException {
     return riotApi.getBasic(String.format(GET_CHAMPION__URL, region.platform, playerId, championId), region, GET_CHAMPION__TYPE);}
 
   /**
    * @param playerId Riot API description: Summoner ID associated with the player
    * @param championId Riot API description: Champion ID to retrieve Champion Mastery for */
   public CompletableFuture<ChampionMastery> getChampionAsync(final Region region,
-      final long playerId, final long championId) {
+      final long playerId, final int championId) {
     return riotApi.getBasicAsync(String.format(GET_CHAMPION__URL, region.platform, playerId, championId), region, GET_CHAMPION__TYPE);}
 
   /**
@@ -80,7 +80,7 @@ public class ChampionMasteryEndpoints {
   public List<ChampionMastery> getTopChampions(final Region region, final long playerId,
       final Integer count) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_TOP_CHAMPIONS__URL, region.platform, playerId, count), region, GET_TOP_CHAMPIONS__TYPE,
-    RiotApi.makeParams("count", count));}
+    riotApi.makeParams("count", count));}
 
   /**
    * @param playerId Riot API description: Summoner ID associated with the player
@@ -88,7 +88,7 @@ public class ChampionMasteryEndpoints {
   public CompletableFuture<List<ChampionMastery>> getTopChampionsAsync(final Region region,
       final long playerId, final Integer count) {
     return riotApi.getBasicAsync(String.format(GET_TOP_CHAMPIONS__URL, region.platform, playerId, count), region, GET_TOP_CHAMPIONS__TYPE,
-    RiotApi.makeParams("count", count));}
+    riotApi.makeParams("count", count));}
 
   /**
    * @param playerId Riot API description: Summoner ID associated with the player */

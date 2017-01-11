@@ -9,7 +9,7 @@ package com.mingweisamuel.zyra.championMastery;
 public class ChampionMastery {
   /**
    * Champion ID for this entry. */
-  public long championId;
+  public int championId;
 
   /**
    * Champion level for specified player and champion combination. */

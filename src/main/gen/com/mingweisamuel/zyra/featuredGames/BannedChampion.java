@@ -9,7 +9,7 @@ package com.mingweisamuel.zyra.featuredGames;
 public class BannedChampion {
   /**
    * The ID of the banned champion */
-  public long championId;
+  public int championId;
 
   /**
    * The turn during which the champion was banned */

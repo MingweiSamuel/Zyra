@@ -18,6 +18,7 @@ import com.mingweisamuel.zyra.lolStaticData.SummonerSpellList;
 import java.lang.Boolean;
 import java.lang.String;
 import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -102,9 +103,9 @@ public class LolStaticDataEndpoints {
    * @param dataById Riot API description: If specified as true, the returned data map will use the champions' IDs as the keys. If not specified or specified as false, the returned data map will use the champions' keys instead.
    * @param champData Riot API description: Tags to return additional data. Only type, version, data, id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public ChampionList getChampions(final Region region, final String locale, final String version,
-      final Boolean dataById, final String champData) throws ExecutionException {
+      final Boolean dataById, final Collection<String> champData) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_CHAMPIONS__URL, region, dataById), region, GET_CHAMPIONS__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "dataById", dataById, "champData", champData));}
+    riotApi.makeParams("locale", locale, "version", version, "dataById", dataById, "champData", champData));}
 
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
@@ -114,9 +115,9 @@ public class LolStaticDataEndpoints {
    * @param dataById Riot API description: If specified as true, the returned data map will use the champions' IDs as the keys. If not specified or specified as false, the returned data map will use the champions' keys instead.
    * @param champData Riot API description: Tags to return additional data. Only type, version, data, id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public CompletableFuture<ChampionList> getChampionsAsync(final Region region, final String locale,
-      final String version, final Boolean dataById, final String champData) {
+      final String version, final Boolean dataById, final Collection<String> champData) {
     return riotApi.getBasicAsync(String.format(GET_CHAMPIONS__URL, region, dataById), region, GET_CHAMPIONS__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "dataById", dataById, "champData", champData));}
+    riotApi.makeParams("locale", locale, "version", version, "dataById", dataById, "champData", champData));}
 
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
@@ -190,9 +191,9 @@ public class LolStaticDataEndpoints {
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param champData Riot API description: Tags to return additional data. Only id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public Champion getChampion(final Region region, final int id, final String locale,
-      final String version, final String champData) throws ExecutionException {
+      final String version, final Collection<String> champData) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_CHAMPION__URL, region, id), region, GET_CHAMPION__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "champData", champData));}
+    riotApi.makeParams("locale", locale, "version", version, "champData", champData));}
 
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
@@ -202,9 +203,9 @@ public class LolStaticDataEndpoints {
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param champData Riot API description: Tags to return additional data. Only id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public CompletableFuture<Champion> getChampionAsync(final Region region, final int id,
-      final String locale, final String version, final String champData) {
+      final String locale, final String version, final Collection<String> champData) {
     return riotApi.getBasicAsync(String.format(GET_CHAMPION__URL, region, id), region, GET_CHAMPION__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "champData", champData));}
+    riotApi.makeParams("locale", locale, "version", version, "champData", champData));}
 
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
@@ -265,9 +266,9 @@ public class LolStaticDataEndpoints {
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param itemListData Riot API description: Tags to return additional data. Only type, version, basic, data, id, name, plaintext, group, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public ItemList getItems(final Region region, final String locale, final String version,
-      final String itemListData) throws ExecutionException {
+      final Collection<String> itemListData) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_ITEMS__URL, region), region, GET_ITEMS__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "itemListData", itemListData));}
+    riotApi.makeParams("locale", locale, "version", version, "itemListData", itemListData));}
 
   /**
    * Not all data specified below is returned by default. See the itemListData parameter for more information.
@@ -276,9 +277,9 @@ public class LolStaticDataEndpoints {
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param itemListData Riot API description: Tags to return additional data. Only type, version, basic, data, id, name, plaintext, group, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public CompletableFuture<ItemList> getItemsAsync(final Region region, final String locale,
-      final String version, final String itemListData) {
+      final String version, final Collection<String> itemListData) {
     return riotApi.getBasicAsync(String.format(GET_ITEMS__URL, region), region, GET_ITEMS__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "itemListData", itemListData));}
+    riotApi.makeParams("locale", locale, "version", version, "itemListData", itemListData));}
 
   /**
    * Not all data specified below is returned by default. See the itemListData parameter for more information.
@@ -330,9 +331,9 @@ public class LolStaticDataEndpoints {
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param itemData Riot API description: Tags to return additional data. Only id, name, plaintext, group, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public Item getItem(final Region region, final int id, final String locale, final String version,
-      final String itemData) throws ExecutionException {
+      final Collection<String> itemData) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_ITEM__URL, region, id), region, GET_ITEM__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "itemData", itemData));}
+    riotApi.makeParams("locale", locale, "version", version, "itemData", itemData));}
 
   /**
    * Not all data specified below is returned by default. See the itemData parameter for more information.
@@ -342,9 +343,9 @@ public class LolStaticDataEndpoints {
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param itemData Riot API description: Tags to return additional data. Only id, name, plaintext, group, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public CompletableFuture<Item> getItemAsync(final Region region, final int id,
-      final String locale, final String version, final String itemData) {
+      final String locale, final String version, final Collection<String> itemData) {
     return riotApi.getBasicAsync(String.format(GET_ITEM__URL, region, id), region, GET_ITEM__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "itemData", itemData));}
+    riotApi.makeParams("locale", locale, "version", version, "itemData", itemData));}
 
   /**
    * Not all data specified below is returned by default. See the itemData parameter for more information.
@@ -404,7 +405,7 @@ public class LolStaticDataEndpoints {
   public LanguageStrings getLanguageStrings(final Region region, final String locale,
       final String version) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_LANGUAGE_STRINGS__URL, region), region, GET_LANGUAGE_STRINGS__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version));}
+    riotApi.makeParams("locale", locale, "version", version));}
 
   /**
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
@@ -412,7 +413,7 @@ public class LolStaticDataEndpoints {
   public CompletableFuture<LanguageStrings> getLanguageStringsAsync(final Region region,
       final String locale, final String version) {
     return riotApi.getBasicAsync(String.format(GET_LANGUAGE_STRINGS__URL, region), region, GET_LANGUAGE_STRINGS__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version));}
+    riotApi.makeParams("locale", locale, "version", version));}
 
   /**
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
@@ -444,7 +445,7 @@ public class LolStaticDataEndpoints {
   public MapData getMaps(final Region region, final String locale, final String version) throws
       ExecutionException {
     return riotApi.getBasic(String.format(GET_MAPS__URL, region), region, GET_MAPS__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version));}
+    riotApi.makeParams("locale", locale, "version", version));}
 
   /**
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
@@ -452,7 +453,7 @@ public class LolStaticDataEndpoints {
   public CompletableFuture<MapData> getMapsAsync(final Region region, final String locale,
       final String version) {
     return riotApi.getBasicAsync(String.format(GET_MAPS__URL, region), region, GET_MAPS__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version));}
+    riotApi.makeParams("locale", locale, "version", version));}
 
   /**
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
@@ -477,9 +478,9 @@ public class LolStaticDataEndpoints {
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param masteryListData Riot API description: Tags to return additional data. Only type, version, data, id, name, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public MasteryList getMasteries(final Region region, final String locale, final String version,
-      final String masteryListData) throws ExecutionException {
+      final Collection<String> masteryListData) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_MASTERIES__URL, region), region, GET_MASTERIES__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "masteryListData", masteryListData));}
+    riotApi.makeParams("locale", locale, "version", version, "masteryListData", masteryListData));}
 
   /**
    * Not all data specified below is returned by default. See the masteryListData parameter for more information.
@@ -488,9 +489,9 @@ public class LolStaticDataEndpoints {
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param masteryListData Riot API description: Tags to return additional data. Only type, version, data, id, name, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public CompletableFuture<MasteryList> getMasteriesAsync(final Region region, final String locale,
-      final String version, final String masteryListData) {
+      final String version, final Collection<String> masteryListData) {
     return riotApi.getBasicAsync(String.format(GET_MASTERIES__URL, region), region, GET_MASTERIES__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "masteryListData", masteryListData));}
+    riotApi.makeParams("locale", locale, "version", version, "masteryListData", masteryListData));}
 
   /**
    * Not all data specified below is returned by default. See the masteryListData parameter for more information.
@@ -544,9 +545,9 @@ public class LolStaticDataEndpoints {
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param masteryData Riot API description: Tags to return additional data. Only id, name, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public Mastery getMastery(final Region region, final int id, final String locale,
-      final String version, final String masteryData) throws ExecutionException {
+      final String version, final Collection<String> masteryData) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_MASTERY__URL, region, id), region, GET_MASTERY__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "masteryData", masteryData));}
+    riotApi.makeParams("locale", locale, "version", version, "masteryData", masteryData));}
 
   /**
    * Not all data specified below is returned by default. See the masteryData parameter for more information.
@@ -556,9 +557,9 @@ public class LolStaticDataEndpoints {
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param masteryData Riot API description: Tags to return additional data. Only id, name, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public CompletableFuture<Mastery> getMasteryAsync(final Region region, final int id,
-      final String locale, final String version, final String masteryData) {
+      final String locale, final String version, final Collection<String> masteryData) {
     return riotApi.getBasicAsync(String.format(GET_MASTERY__URL, region, id), region, GET_MASTERY__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "masteryData", masteryData));}
+    riotApi.makeParams("locale", locale, "version", version, "masteryData", masteryData));}
 
   /**
    * Not all data specified below is returned by default. See the masteryData parameter for more information.
@@ -625,9 +626,9 @@ public class LolStaticDataEndpoints {
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param runeListData Riot API description: Tags to return additional data. Only type, version, data, id, name, rune, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public RuneList getRunes(final Region region, final String locale, final String version,
-      final String runeListData) throws ExecutionException {
+      final Collection<String> runeListData) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_RUNES__URL, region), region, GET_RUNES__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "runeListData", runeListData));}
+    riotApi.makeParams("locale", locale, "version", version, "runeListData", runeListData));}
 
   /**
    * Not all data specified below is returned by default. See the runeListData parameter for more information.
@@ -636,9 +637,9 @@ public class LolStaticDataEndpoints {
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param runeListData Riot API description: Tags to return additional data. Only type, version, data, id, name, rune, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public CompletableFuture<RuneList> getRunesAsync(final Region region, final String locale,
-      final String version, final String runeListData) {
+      final String version, final Collection<String> runeListData) {
     return riotApi.getBasicAsync(String.format(GET_RUNES__URL, region), region, GET_RUNES__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "runeListData", runeListData));}
+    riotApi.makeParams("locale", locale, "version", version, "runeListData", runeListData));}
 
   /**
    * Not all data specified below is returned by default. See the runeListData parameter for more information.
@@ -690,9 +691,9 @@ public class LolStaticDataEndpoints {
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param runeData Riot API description: Tags to return additional data. Only id, name, rune, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public Rune getRune(final Region region, final int id, final String locale, final String version,
-      final String runeData) throws ExecutionException {
+      final Collection<String> runeData) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_RUNE__URL, region, id), region, GET_RUNE__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "runeData", runeData));}
+    riotApi.makeParams("locale", locale, "version", version, "runeData", runeData));}
 
   /**
    * Not all data specified below is returned by default. See the runeData parameter for more information.
@@ -702,9 +703,9 @@ public class LolStaticDataEndpoints {
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param runeData Riot API description: Tags to return additional data. Only id, name, rune, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public CompletableFuture<Rune> getRuneAsync(final Region region, final int id,
-      final String locale, final String version, final String runeData) {
+      final String locale, final String version, final Collection<String> runeData) {
     return riotApi.getBasicAsync(String.format(GET_RUNE__URL, region, id), region, GET_RUNE__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "runeData", runeData));}
+    riotApi.makeParams("locale", locale, "version", version, "runeData", runeData));}
 
   /**
    * Not all data specified below is returned by default. See the runeData parameter for more information.
@@ -766,10 +767,10 @@ public class LolStaticDataEndpoints {
    * @param dataById Riot API description: If specified as true, the returned data map will use the spells' IDs as the keys. If not specified or specified as false, the returned data map will use the spells' keys instead.
    * @param spellData Riot API description: Tags to return additional data. Only type, version, data, id, key, name, description, and summonerLevel are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public SummonerSpellList getSummonerSpells(final Region region, final String locale,
-      final String version, final Boolean dataById, final String spellData) throws
+      final String version, final Boolean dataById, final Collection<String> spellData) throws
       ExecutionException {
     return riotApi.getBasic(String.format(GET_SUMMONER_SPELLS__URL, region, dataById), region, GET_SUMMONER_SPELLS__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "dataById", dataById, "spellData", spellData));}
+    riotApi.makeParams("locale", locale, "version", version, "dataById", dataById, "spellData", spellData));}
 
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
@@ -779,9 +780,10 @@ public class LolStaticDataEndpoints {
    * @param dataById Riot API description: If specified as true, the returned data map will use the spells' IDs as the keys. If not specified or specified as false, the returned data map will use the spells' keys instead.
    * @param spellData Riot API description: Tags to return additional data. Only type, version, data, id, key, name, description, and summonerLevel are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public CompletableFuture<SummonerSpellList> getSummonerSpellsAsync(final Region region,
-      final String locale, final String version, final Boolean dataById, final String spellData) {
+      final String locale, final String version, final Boolean dataById,
+      final Collection<String> spellData) {
     return riotApi.getBasicAsync(String.format(GET_SUMMONER_SPELLS__URL, region, dataById), region, GET_SUMMONER_SPELLS__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "dataById", dataById, "spellData", spellData));}
+    riotApi.makeParams("locale", locale, "version", version, "dataById", dataById, "spellData", spellData));}
 
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
@@ -855,9 +857,9 @@ public class LolStaticDataEndpoints {
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param spellData Riot API description: Tags to return additional data. Only id, key, name, description, and summonerLevel are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public SummonerSpell getSummonerSpell(final Region region, final int id, final String locale,
-      final String version, final String spellData) throws ExecutionException {
+      final String version, final Collection<String> spellData) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_SUMMONER_SPELL__URL, region, id), region, GET_SUMMONER_SPELL__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "spellData", spellData));}
+    riotApi.makeParams("locale", locale, "version", version, "spellData", spellData));}
 
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
@@ -867,9 +869,9 @@ public class LolStaticDataEndpoints {
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param spellData Riot API description: Tags to return additional data. Only id, key, name, description, and summonerLevel are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public CompletableFuture<SummonerSpell> getSummonerSpellAsync(final Region region, final int id,
-      final String locale, final String version, final String spellData) {
+      final String locale, final String version, final Collection<String> spellData) {
     return riotApi.getBasicAsync(String.format(GET_SUMMONER_SPELL__URL, region, id), region, GET_SUMMONER_SPELL__TYPE,
-    RiotApi.makeParams("locale", locale, "version", version, "spellData", spellData));}
+    riotApi.makeParams("locale", locale, "version", version, "spellData", spellData));}
 
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.

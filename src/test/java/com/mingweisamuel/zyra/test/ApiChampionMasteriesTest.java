@@ -38,7 +38,7 @@ public class ApiChampionMasteriesTest {
 
     @Test
     public void getChampions() throws ExecutionException {
-        Set<Long> topChamps = new HashSet<>(Arrays.asList(ZYRA, SORAKA, MORGANA, SONA, JANNA, EKKO, NAMI, TARIC,
+        Set<Integer> topChamps = new HashSet<>(Arrays.asList(ZYRA, SORAKA, MORGANA, SONA, JANNA, EKKO, NAMI, TARIC,
                 POPPY, ASHE));
         List<ChampionMastery> champData = api.championMasteries.getChampions(Region.NA, 69009277);
         int topChampCount = topChamps.size();
@@ -49,7 +49,7 @@ public class ApiChampionMasteriesTest {
 
     @Test
     public void getChampionsAsync() throws ExecutionException, InterruptedException {
-        Set<Long> topChamps = new HashSet<>(Arrays.asList(ZYRA, SORAKA, MORGANA, SONA, JANNA, EKKO, NAMI, TARIC,
+        Set<Integer> topChamps = new HashSet<>(Arrays.asList(ZYRA, SORAKA, MORGANA, SONA, JANNA, EKKO, NAMI, TARIC,
                 POPPY, ASHE));
         api.championMasteries.getChampionsAsync(Region.NA, 69009277).thenAccept(champData -> {
             int topChampCount = topChamps.size();
@@ -74,7 +74,7 @@ public class ApiChampionMasteriesTest {
 
     @Test
     public void getTopChampions() throws ExecutionException {
-        Set<Long> topChamps = new HashSet<>(Arrays.asList(ZYRA, SORAKA, MORGANA, SONA, JANNA, EKKO, NAMI));
+        Set<Integer> topChamps = new HashSet<>(Arrays.asList(ZYRA, SORAKA, MORGANA, SONA, JANNA, EKKO, NAMI));
         List<ChampionMastery> champData = api.championMasteries.getTopChampions(
                 Region.NA, 69009277, topChamps.size());
         assertEquals(topChamps.size(), champData.size());
@@ -85,7 +85,7 @@ public class ApiChampionMasteriesTest {
 
     @Test
     public void getTopChampionsAsync() throws ExecutionException, InterruptedException {
-        Set<Long> topChamps = new HashSet<>(Arrays.asList(ZYRA, SORAKA, MORGANA, SONA, JANNA, EKKO, NAMI));
+        Set<Integer> topChamps = new HashSet<>(Arrays.asList(ZYRA, SORAKA, MORGANA, SONA, JANNA, EKKO, NAMI));
         api.championMasteries.getTopChampionsAsync(Region.NA, 69009277, topChamps.size()).thenAccept(champData -> {
             assertEquals(topChamps.size(), champData.size());
             for (ChampionMastery champ : champData)

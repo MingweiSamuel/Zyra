@@ -16,6 +16,7 @@ import org.asynchttpclient.Param;
 import java.io.Closeable;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -320,7 +321,7 @@ public class RiotApi implements Closeable {
      * @param paired
      * @return
      */
-    static Param[] makeParams(Object... paired) {
+    Param[] makeParams(Object... paired) {
 
         int nulls = 0;
         for (Object obj : paired)
@@ -332,7 +333,10 @@ public class RiotApi implements Closeable {
         for (int i = 0; i < paired.length; i += 2) {
             if (paired[i + 1] == null)
                 continue;
-            result[j++] = new Param(paired[i].toString(), paired[i + 1].toString());
+            Object value = paired[i + 1];
+            if (value instanceof Collection)
+                value = joiner.join((Collection) value);
+            result[j++] = new Param(paired[i].toString(), value.toString());
         }
         return result;
     }

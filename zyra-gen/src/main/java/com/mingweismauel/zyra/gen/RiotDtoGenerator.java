@@ -41,7 +41,6 @@ class RiotDtoGenerator {
             new HashSet<>(Arrays.asList("Implementation Notes", "Rate Limit Notes"));
 
     private static final String PACKAGE = "com.mingweisamuel.zyra";
-    private static final String PACKAGE_DTO = PACKAGE + ".dto";
 
     private static final File SOURCE_DESTINATION = new File("src/main/gen/");
 
@@ -223,6 +222,9 @@ class RiotDtoGenerator {
 
                         TypeName type = getTypeFromString(pathParameterType);
                         if (type.isPrimitive()) {
+                            // use int for championId
+                            if ("championId".equals(pathParameterName) && TypeName.LONG.equals(type))
+                                type = TypeName.INT;
                             formatExtension.append(", ").append(pathParameterName);
                             requiredParameters.add(ParameterSpec.builder(type, pathParameterName, Modifier.FINAL).build());
                             javadocParams.add(
@@ -270,14 +272,22 @@ class RiotDtoGenerator {
 
                         TypeName type = getTypeFromString(queryParameterType);
                         if (type.isPrimitive()) {
+                            // use int for championId
+                            if ("championId".equals(queryParameterName) && TypeName.LONG.equals(type))
+                                type = TypeName.INT;
                             formatExtension.append(", ").append(queryParameterName);
                             optionalParameters.add(ParameterSpec.builder(
                                     type.box(), queryParameterName, Modifier.FINAL).build());
                             continue;
                         }
-                        // type is string
-                        if (queryParameterDesc.startsWith("Comma-separated")) {
-                            TypeName listType = TypeName.get(String.class);
+                        // type is string (or long for champion ids)
+                        if (queryParameterDesc.startsWith("Comma-separated list of ") ||
+                                queryParameterDesc.startsWith("Tags to return additional data.")) {
+                            TypeName listType;
+                            if (queryParameterName.endsWith("Ids"))
+                                listType = TypeName.LONG.box();
+                            else
+                                listType = TypeName.get(String.class);
                             optionalParameters.add(ParameterSpec.builder(
                                     ParameterizedTypeName.get(ClassName.get(Collection.class), listType),
                                     queryParameterName, Modifier.FINAL).build());
@@ -286,6 +296,7 @@ class RiotDtoGenerator {
                         optionalParameters.add(ParameterSpec.builder(
                                 String.class, queryParameterName, Modifier.FINAL).build());
                     }
+                    break;
                 }
             } while(parameterWalker.nextElementSibling() != null &&
                     (parameterWalker = parameterWalker.nextElementSibling().nextElementSibling()) != null);
@@ -457,7 +468,7 @@ class RiotDtoGenerator {
     private static String buildOptionalParams(List<ParameterSpec> optional) {
         StringBuilder paramsBuilder = new StringBuilder();
         if (!optional.isEmpty()) {
-            paramsBuilder.append(",\nRiotApi.makeParams(");
+            paramsBuilder.append(",\nriotApi.makeParams(");
             for (ParameterSpec optionalParam : optional)
                 paramsBuilder.append("\"").append(optionalParam.name)
                         .append("\", ").append(optionalParam.name).append(", ");
@@ -547,6 +558,8 @@ class RiotDtoGenerator {
                 type = FIELD_TYPES.get(key);
             else
                 type = getTypeFromString(normalizeDtoName(fieldType), PACKAGE + '.' + endpointPackage);
+            if ("championId".equals(fieldName) && TypeName.LONG.equals(type))
+                type = TypeName.INT;
 
             FieldSpec.Builder fieldBuilder = FieldSpec.builder(type, fieldName, Modifier.PUBLIC);
             if (FIELD_DOCSTRINGS.containsKey(key))

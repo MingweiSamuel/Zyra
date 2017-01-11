@@ -15,7 +15,7 @@ public class Participant {
 
   /**
    * The ID of the champion played by this participant */
-  public long championId;
+  public int championId;
 
   /**
    * The ID of the profile icon used by this participant */
