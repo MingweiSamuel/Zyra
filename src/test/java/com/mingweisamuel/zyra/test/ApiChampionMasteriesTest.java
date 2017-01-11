@@ -1,5 +1,6 @@
 package com.mingweisamuel.zyra.test;
 
+import com.google.common.base.Joiner;
 import com.mingweisamuel.zyra.championMastery.ChampionMastery;
 import com.mingweisamuel.zyra.enums.Region;
 import org.junit.Test;
@@ -10,7 +11,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -77,7 +80,8 @@ public class ApiChampionMasteriesTest {
         Set<Integer> topChamps = new HashSet<>(Arrays.asList(ZYRA, SORAKA, MORGANA, SONA, JANNA, EKKO, NAMI));
         List<ChampionMastery> champData = api.championMasteries.getTopChampions(
                 Region.NA, 69009277, topChamps.size());
-        assertEquals(topChamps.size(), champData.size());
+        assertEquals(Joiner.on(',').join(champData.stream().map(cm -> "" + cm.championId)
+                        .collect(Collectors.toList())), topChamps.size(), champData.size());
         for (ChampionMastery champ : champData)
             assertTrue("Unexpected top champ: " + champ.championId, topChamps.remove(champ.championId));
         assertTrue("Champions not found: " + topChamps.toString(), topChamps.isEmpty());
@@ -87,7 +91,8 @@ public class ApiChampionMasteriesTest {
     public void getTopChampionsAsync() throws ExecutionException, InterruptedException {
         Set<Integer> topChamps = new HashSet<>(Arrays.asList(ZYRA, SORAKA, MORGANA, SONA, JANNA, EKKO, NAMI));
         api.championMasteries.getTopChampionsAsync(Region.NA, 69009277, topChamps.size()).thenAccept(champData -> {
-            assertEquals(topChamps.size(), champData.size());
+            assertEquals(Joiner.on(',').join(champData.stream().map(cm -> "" + cm.championId)
+                        .collect(Collectors.toList())), topChamps.size(), champData.size());
             for (ChampionMastery champ : champData)
                 assertTrue("Unexpected top champ: " + champ.championId, topChamps.remove(champ.championId));
             assertTrue("Champions not found: " + topChamps.toString(), topChamps.isEmpty());
