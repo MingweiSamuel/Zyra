@@ -55,6 +55,8 @@ class RiotDtoGenerator {
         FIELD_TYPES.put("SummonerSpell.effect", ParameterizedTypeName.get(ClassName.get(List.class),
                 ParameterizedTypeName.get(List.class, Double.class)));
         FIELD_TYPES.put("SummonerSpell.range", ParameterizedTypeName.get(List.class, Integer.class));
+        FIELD_TYPES.put("ItemList.data", ParameterizedTypeName.get(ClassName.get(Map.class), TypeName.INT.box(),
+                ClassName.bestGuess("com.mingweisamuel.zyra.lolStaticData.Item")));
     }
     private static final Map<String, String> FIELD_DOCSTRINGS = new HashMap<>();
     static {
@@ -123,7 +125,9 @@ class RiotDtoGenerator {
 
                 for (int i = dtoContainers.size() - 1; i >= 2; i--) {
                     Element dtoContainer = dtoContainers.get(i);
+                    // lol static data has optional primitives on the return type, so box those
                     parseDto(dtoContainer, endpointTitle, endpointPackage);
+                            //, i == 2 && endpointTitle.startsWith("lol-static-data-"));
                 }
             }
 
@@ -522,7 +526,8 @@ class RiotDtoGenerator {
                 endpointName.toString().replace("topchampions", "top-champions"));
     }
 
-    private static void parseDto(Element dtoContainer, String endpointName, String endpointPackage) throws IOException {
+    private static void parseDto(Element dtoContainer, String endpointName, String endpointPackage/*, boolean boxed*/)
+            throws IOException {
 
         Element dto = dtoContainer.getElementsByTag("b").first();
         String dtoName = dto.text();
@@ -530,6 +535,9 @@ class RiotDtoGenerator {
 
         if (readDtos.contains(endpointPackage + '.' + dtoNameNormalized))
             return;
+
+//        if (boxed)
+//            System.out.println("BOXED " + dtoName);
 
         String dtoDescription = dto.parent().ownText();
         System.out.println("      " + dtoNameNormalized + ' ' + dtoDescription);
@@ -560,6 +568,8 @@ class RiotDtoGenerator {
                 type = getTypeFromString(normalizeDtoName(fieldType), PACKAGE + '.' + endpointPackage);
             if ("championId".equals(fieldName) && TypeName.LONG.equals(type))
                 type = TypeName.INT;
+//            if (boxed)
+//                type = type.box();
 
             FieldSpec.Builder fieldBuilder = FieldSpec.builder(type, fieldName, Modifier.PUBLIC);
             if (FIELD_DOCSTRINGS.containsKey(key))

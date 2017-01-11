@@ -1,5 +1,6 @@
 package com.mingweisamuel.zyra.lolStaticData;
 
+import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
 public class ItemList {
   public BasicData basic;
 
-  public Map<String, Item> data;
+  public Map<Integer, Item> data;
 
   public List<Group> groups;
 

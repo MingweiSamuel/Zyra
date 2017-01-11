@@ -5,6 +5,10 @@ import com.mingweisamuel.zyra.enums.LocaleUtil;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.lolStaticData.Champion;
 import com.mingweisamuel.zyra.lolStaticData.ChampionList;
+import com.mingweisamuel.zyra.lolStaticData.Item;
+import com.mingweisamuel.zyra.lolStaticData.ItemList;
+import com.mingweisamuel.zyra.lolStaticData.Rune;
+import com.mingweisamuel.zyra.lolStaticData.RuneList;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -56,6 +60,41 @@ public class ApiStaticDataTest {
         assertEquals("Zyra.png", result.image.full);
         assertEquals(4, result.skins.size());
         assertEquals("野火之藤 婕拉", result.skins.get(1).name);
+    }
+    //endregion
+
+    //region items
+    @Test
+    public void getItems() throws ExecutionException {
+        checkGetItems(
+                api.staticData.getItems(Region.NA, LocaleUtil.zh_CN, null, Arrays.asList("gold", "image")));
+    }
+    @Test
+    public void getItemsAsync() throws ExecutionException, InterruptedException {
+        api.staticData.getItemsAsync(Region.NA, LocaleUtil.zh_CN, null, Arrays.asList("gold", "image"))
+                .thenAccept(this::checkGetItems).get();
+    }
+    private void checkGetItems(ItemList result) {
+        checkGetItem(result.data.get(3107));
+        assertEquals("炽热香炉", result.data.get(3504).name);
+    }
+
+    @Test
+    public void getItem() throws ExecutionException {
+        checkGetItem(api.staticData.getItem(Region.NA, 3107, LocaleUtil.zh_CN, null,
+                Arrays.asList("gold", "image")));
+    }
+    @Test
+    public void getItemAsync() throws ExecutionException, InterruptedException {
+        api.staticData.getItemAsync(
+                Region.NA, 3107, LocaleUtil.zh_CN, null, Arrays.asList("gold", "image"))
+                .thenAccept(this::checkGetItem).get();
+    }
+    private void checkGetItem(Item result) {
+        assertNull(result.sanitizedDescription);
+        assertEquals("救赎", result.name);
+        assertEquals(2100, result.gold.total);
+        assertEquals("3107.png", result.image.full);
     }
     //endregion
 }
