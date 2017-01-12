@@ -4,4 +4,4 @@ jdk:
 env:
   matrix:
     secure: FsqQpcmw71V/6oJw7RSfEoy3u/wY2DDPiD8n4ZXLDBATMM+58Yn0nT4+A2BM5o6pWajW42VteaZ9p6ieW5fD49XP0QZFIyTJsCK2tmQWXP/eTLi4BT3gzXLQTRc/lF+sq+dnG2tRiZQHcTQQ36O0PuO3gCDQUOkZEsLXkToxuhHTsDZ6c4cDq+aKrJ0DJLnGbSWcZLLITGR9ZqPd/cMX95YYhB3oUEQgG1SkBgW6kbdFYrl4JQyFDbbFSkE/iw6hUh8wzmIxdJMheaSkVTHz/NIXw+kmR4Y/P44H06kVe6PLFwY6S0dpt6ZWj/q5uYcrC0K8YmFIN3s31VX73fAIvpbqaAiszBSyMHODxFmW/D7Ic3X4ZlDysrnqpSPlmCEyR3vV9Igakfv7ps80Ctn2VwRPgwgLF90X9iJ99d8GfJBuoygE9q3uQKipxp3ZtTGQS81d5rw7phIcSzIjSzsQ18222DF/LnPNkuGJMR3UJ7XjruwfabU/wqsC1F6eTgdE21Pbiwq1dIdOW9R3jwL4BHZlTV7yE3IKo630MKdyJ2dVzplluICoEstZP/B9tKYhycf5LcssKPpRuzqVH3yYnFCsbD2PpXYKgGkCL0bb6YF/6Agjba8RlBuseRDH01zcNt9bft6vr6X5mNE6QGdqKnpcysvEO4YAoQEHTzfGx4U=
-after_failure: 'cat /home/travis/build/MingweiSamuel/Zyra/$(ls -t /home/travis/build/MingweiSamuel/Zyra/*.log | head -1)'
+after_failure: 'cat /home/travis/build/MingweiSamuel/Zyra/*.log'
