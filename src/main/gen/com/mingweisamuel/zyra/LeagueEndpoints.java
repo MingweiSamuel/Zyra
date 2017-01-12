@@ -17,12 +17,12 @@ import java.util.concurrent.ExecutionException;
  *
  * @version league-v2.5 */
 public class LeagueEndpoints {
-  private static final Type GET_BY_SUMMONER__TYPE = new TypeToken<Map<Long, List<League>>>() {
+  private static final Type GET__TYPE = new TypeToken<Map<Long, List<League>>>() {
   }.getType();
 
-  private static final int GET_BY_SUMMONER__GROUP = 10;
+  private static final int GET__GROUP = 10;
 
-  private static final String GET_BY_SUMMONER__URL = "/api/lol/%1$s/v2.5/league/by-summoner/@";
+  private static final String GET__URL = "/api/lol/%1$s/v2.5/league/by-summoner/@";
 
   private static final Type GET_ENTRIES__TYPE = new TypeToken<Map<Long, List<League>>>() {
   }.getType();
@@ -48,17 +48,17 @@ public class LeagueEndpoints {
    * Returns all leagues for specified summoners and summoners' teams. Entries for each requested participant (i.e., each summoner and related teams) will be included in the returned leagues data, whether or not the participant is inactive. However, no entries for other inactive summoners or teams in the leagues will be included.
    *
    * @param input Riot API description: list of summoner IDs. */
-  public Map<Long, List<League>> getBySummoner(final Region region, final Collection<Long> input)
-      throws ExecutionException {
-    return riotApi.getMap(String.format(GET_BY_SUMMONER__URL, region), region, input, GET_BY_SUMMONER__GROUP, GET_BY_SUMMONER__TYPE);}
+  public Map<Long, List<League>> get(final Region region, final Collection<Long> input) throws
+      ExecutionException {
+    return riotApi.getMap(String.format(GET__URL, region), region, input, GET__GROUP, GET__TYPE);}
 
   /**
    * Returns all leagues for specified summoners and summoners' teams. Entries for each requested participant (i.e., each summoner and related teams) will be included in the returned leagues data, whether or not the participant is inactive. However, no entries for other inactive summoners or teams in the leagues will be included.
    *
    * @param input Riot API description: list of summoner IDs. */
-  public CompletableFuture<Map<Long, List<League>>> getBySummonerAsync(final Region region,
+  public CompletableFuture<Map<Long, List<League>>> getAsync(final Region region,
       final Collection<Long> input) {
-    return riotApi.getMapAsync(String.format(GET_BY_SUMMONER__URL, region), region, input, GET_BY_SUMMONER__GROUP, GET_BY_SUMMONER__TYPE);}
+    return riotApi.getMapAsync(String.format(GET__URL, region), region, input, GET__GROUP, GET__TYPE);}
 
   /**
    * Returns all league entries for specified summoners and summoners' teams.

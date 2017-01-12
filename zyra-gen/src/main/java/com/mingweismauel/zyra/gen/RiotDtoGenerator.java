@@ -517,6 +517,9 @@ class RiotDtoGenerator {
         if ("CurrentGame".equals(endpointTitleNormalized) || "FeaturedGames".equals(endpointTitleNormalized)
                 || "Matchlist".equals(endpointTitleNormalized))
             return "get";
+        // getBySummonerIds -> get
+        if ("League".equals(endpointTitleNormalized) && endpointPath.endsWith("{summonerIds}"))
+            return "get";
         if ("LolStatus".equals(endpointTitleNormalized))
             endpointTitleNormalized = "shard"; //return endpointPath.endsWith("}") ? "getShard" : "getShards";
         if ("Championmastery".equals(endpointTitleNormalized))
