@@ -76,39 +76,19 @@ public class LeagueEndpoints {
       final Collection<Long> input) {
     return riotApi.getMapAsync(String.format(GET_ENTRIES__URL, region), region, input, GET_ENTRIES__GROUP, GET_ENTRIES__TYPE);}
 
-  /**
-   * @param type Riot API description: Game queue type. */
   public League getChallengers(final Region region, final String type) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_CHALLENGERS__URL, region), region, GET_CHALLENGERS__TYPE,
         riotApi.makeParams("type", type));}
 
-  /**
-   * @param type Riot API description: Game queue type. */
   public CompletableFuture<League> getChallengersAsync(final Region region, final String type) {
     return riotApi.getBasicAsync(String.format(GET_CHALLENGERS__URL, region), region, GET_CHALLENGERS__TYPE,
         riotApi.makeParams("type", type));}
 
-  public League getChallengers(final Region region) throws ExecutionException {
-    return getChallengers(region, null);}
-
-  public CompletableFuture<League> getChallengersAsync(final Region region) {
-    return getChallengersAsync(region, null);}
-
-  /**
-   * @param type Riot API description: Game queue type. */
   public League getMasters(final Region region, final String type) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_MASTERS__URL, region), region, GET_MASTERS__TYPE,
         riotApi.makeParams("type", type));}
 
-  /**
-   * @param type Riot API description: Game queue type. */
   public CompletableFuture<League> getMastersAsync(final Region region, final String type) {
     return riotApi.getBasicAsync(String.format(GET_MASTERS__URL, region), region, GET_MASTERS__TYPE,
         riotApi.makeParams("type", type));}
-
-  public League getMasters(final Region region) throws ExecutionException {
-    return getMasters(region, null);}
-
-  public CompletableFuture<League> getMastersAsync(final Region region) {
-    return getMastersAsync(region, null);}
 }

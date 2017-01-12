@@ -31,14 +31,14 @@ public class ChampionEndpoints {
    * @param freeToPlay Riot API description: Optional filter param to retrieve only free to play champions. */
   public ChampionList getAll(final Region region, final Boolean freeToPlay) throws
       ExecutionException {
-    return riotApi.getBasic(String.format(GET_ALL__URL, region, freeToPlay), region, GET_ALL__TYPE,
+    return riotApi.getBasic(String.format(GET_ALL__URL, region), region, GET_ALL__TYPE,
         riotApi.makeParams("freeToPlay", freeToPlay));}
 
   /**
    * @param freeToPlay Riot API description: Optional filter param to retrieve only free to play champions. */
   public CompletableFuture<ChampionList> getAllAsync(final Region region,
       final Boolean freeToPlay) {
-    return riotApi.getBasicAsync(String.format(GET_ALL__URL, region, freeToPlay), region, GET_ALL__TYPE,
+    return riotApi.getBasicAsync(String.format(GET_ALL__URL, region), region, GET_ALL__TYPE,
         riotApi.makeParams("freeToPlay", freeToPlay));}
 
   public ChampionList getAll(final Region region) throws ExecutionException {

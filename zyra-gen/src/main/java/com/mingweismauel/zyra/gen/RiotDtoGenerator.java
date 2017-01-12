@@ -17,6 +17,7 @@ import org.jsoup.select.Elements;
 import javax.lang.model.element.Modifier;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Collection;
@@ -209,7 +210,8 @@ class RiotDtoGenerator {
 
 
         List<ParameterSpec> requiredParameters = new LinkedList<>();
-        List<ParameterSpec> optionalParameters = new LinkedList<>();
+        List<ParameterSpec> requiredQueryParameters = new LinkedList<>();
+        List<ParameterSpec> optionalQueryParameters = new LinkedList<>();
 
         // null if not grouped.
         String groupField = null;
@@ -280,6 +282,7 @@ class RiotDtoGenerator {
                         String queryParameterName = queryParameterRow.child(0).ownText();
                         String queryParameterType = queryParameterRow.child(2).child(0).text();
                         String queryParameterDesc = queryParameterRow.child(3).text();
+                        boolean required = "required".equals(queryParameterRow.child(0).child(0).text());
 
                         javadocParams.add(
                                 "@param " + queryParameterName + " Riot API description: " +
@@ -290,8 +293,7 @@ class RiotDtoGenerator {
                             // use int for championId
                             if ("championId".equals(queryParameterName) && TypeName.LONG.equals(type))
                                 type = TypeName.INT;
-                            formatExtension.append(", ").append(queryParameterName);
-                            optionalParameters.add(ParameterSpec.builder(
+                            (required ? requiredQueryParameters : optionalQueryParameters).add(ParameterSpec.builder(
                                     type.box(), queryParameterName, Modifier.FINAL).build());
                             continue;
                         }
@@ -303,12 +305,12 @@ class RiotDtoGenerator {
                                 listType = TypeName.LONG.box();
                             else
                                 listType = TypeName.get(String.class);
-                            optionalParameters.add(ParameterSpec.builder(
+                            (required ? requiredQueryParameters : optionalQueryParameters).add(ParameterSpec.builder(
                                     ParameterizedTypeName.get(ClassName.get(Collection.class), listType),
                                     queryParameterName, Modifier.FINAL).build());
                             continue;
                         }
-                        optionalParameters.add(ParameterSpec.builder(
+                        (required ? requiredQueryParameters : optionalQueryParameters).add(ParameterSpec.builder(
                                 String.class, queryParameterName, Modifier.FINAL).build());
                     }
                     break;
@@ -321,8 +323,8 @@ class RiotDtoGenerator {
             endpointPathNormalized = endpointPathNormalized.replaceFirst("\\{\\S+?}", "@");
 
             addMapMethods(endpointsTypeBuilder, endpointName, returnType, endpointNameConsts, endpointPathNormalized,
-                    groupField, typeField, requiredParameters, optionalParameters, hasPlatformId, javadocParams,
-                    endpointNotes);
+                    groupField, typeField, requiredParameters, requiredQueryParameters, optionalQueryParameters,
+                    hasPlatformId, javadocParams, endpointNotes);
         }
         else {
             endpointPathNormalized = endpointPathNormalized
@@ -330,8 +332,9 @@ class RiotDtoGenerator {
                     .replaceFirst("\\{\\S+?}", "%3\\$s");
 
             addBasicMethods(endpointsTypeBuilder, endpointName, returnType, endpointNameConsts, endpointPathNormalized,
-                    groupField, typeField, requiredParameters, optionalParameters, hasPlatformId, javadocParams,
-                    endpointNotes, formatExtension, "LolStaticData".equals(endpointTitleNormalized));
+                    groupField, typeField, requiredParameters, requiredQueryParameters, optionalQueryParameters,
+                    hasPlatformId, javadocParams, endpointNotes, formatExtension,
+                    "LolStaticData".equals(endpointTitleNormalized));
         }
 
         return true;
@@ -339,8 +342,9 @@ class RiotDtoGenerator {
 
     private static void addBasicMethods(TypeSpec.Builder builder, String endpointName, TypeName returnType,
             String endpointNameConsts, String endpointPathNormalized, String groupField, String typeField,
-            List<ParameterSpec> required, List<ParameterSpec> optional, boolean hasPlatformId,
-            List<String> javadocParams, String endpointNotes, StringBuilder formatExtension, boolean nonRateLimited) {
+            List<ParameterSpec> required, List<ParameterSpec> requiredQuery, List<ParameterSpec> optionalQuery,
+            boolean hasPlatformId, List<String> javadocParams, String endpointNotes, StringBuilder formatExtension,
+            boolean nonRateLimited) {
 
         String urlField = endpointNameConsts + "__URL";
 
@@ -348,7 +352,7 @@ class RiotDtoGenerator {
                 Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
                 .initializer("$S", endpointPathNormalized).build());
 
-        for (int i = optional.size(); i >= 0; i--) {
+        for (int i = optionalQuery.size(); i >= 0; i--) {
 
             MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(endpointName)
                     .addModifiers(Modifier.PUBLIC)
@@ -368,7 +372,12 @@ class RiotDtoGenerator {
                 methodAsyncBuilder.addParameter(requiredParam);
                 params.append(requiredParam.name).append(", ");
             }
-            Iterator<ParameterSpec> iter = optional.iterator();
+            for (ParameterSpec requiredParam : requiredQuery) {
+                methodBuilder.addParameter(requiredParam);
+                methodAsyncBuilder.addParameter(requiredParam);
+                params.append(requiredParam.name).append(", ");
+            }
+            Iterator<ParameterSpec> iter = optionalQuery.iterator();
             for (int j = 0; j < i; j++) {
                 ParameterSpec optionalParam = iter.next();
                 methodBuilder.addParameter(optionalParam);
@@ -387,16 +396,16 @@ class RiotDtoGenerator {
             methodBuilder.addJavadoc(javadoc.toString().trim());
             methodAsyncBuilder.addJavadoc(javadoc.toString().trim());
 
-            if (i == optional.size()) {
+            if (i == optionalQuery.size()) {
                 methodBuilder.addCode("return riotApi.getBasic$L(String.format($L, region$L$L), region, $L$L);",
                         nonRateLimited ? "NonRateLimited" : "",
                         urlField, hasPlatformId ? ".platform" : "",
-                        formatExtension.toString(), typeField, buildOptionalParams(optional));
+                        formatExtension.toString(), typeField, buildOptionalParams(requiredQuery, optionalQuery));
                 methodAsyncBuilder.addCode(
                         "return riotApi.getBasic$LAsync(String.format($L, region$L$L), region, $L$L);",
                         nonRateLimited ? "NonRateLimited" : "",
                         urlField, hasPlatformId ? ".platform" : "",
-                        formatExtension.toString(), typeField, buildOptionalParams(optional));
+                        formatExtension.toString(), typeField, buildOptionalParams(requiredQuery, optionalQuery));
             }
             else {
                 methodBuilder.addCode("return $L(region, $Lnull);", endpointName, params.toString());
@@ -410,8 +419,8 @@ class RiotDtoGenerator {
 
     private static void addMapMethods(TypeSpec.Builder builder, String endpointName, TypeName returnType,
             String endpointNameConsts, String endpointPathNormalized, String groupField, String typeField,
-            List<ParameterSpec> required, List<ParameterSpec>optional, boolean hasPlatformId, List<String>
-            javadocParams, String endpointNotes) {
+            List<ParameterSpec> required, List<ParameterSpec> requiredQuery, List<ParameterSpec> optionalQuery,
+            boolean hasPlatformId, List<String> javadocParams, String endpointNotes) {
 
         String urlField = endpointNameConsts + "__URL";
 
@@ -419,7 +428,7 @@ class RiotDtoGenerator {
                 Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
                 .initializer("$S", endpointPathNormalized).build());
 
-        for (int i = optional.size(); i >= 0; i--) {
+        for (int i = optionalQuery.size(); i >= 0; i--) {
 
             MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(endpointName)
                     .addModifiers(Modifier.PUBLIC)
@@ -439,7 +448,12 @@ class RiotDtoGenerator {
                 methodAsyncBuilder.addParameter(requiredParam);
                 params.append(requiredParam.name).append(", ");
             }
-            Iterator<ParameterSpec> iter = optional.iterator();
+            for (ParameterSpec requiredParam : requiredQuery) {
+                methodBuilder.addParameter(requiredParam);
+                methodAsyncBuilder.addParameter(requiredParam);
+                params.append(requiredParam.name).append(", ");
+            }
+            Iterator<ParameterSpec> iter = optionalQuery.iterator();
             for (int j = 0; j < i; j++) {
                 ParameterSpec optionalParam = iter.next();
                 methodBuilder.addParameter(optionalParam);
@@ -457,15 +471,15 @@ class RiotDtoGenerator {
             methodBuilder.addJavadoc(javadoc.toString().trim());
             methodAsyncBuilder.addJavadoc(javadoc.toString().trim());
 
-            if (i == optional.size()) {
+            if (i == optionalQuery.size()) {
                 methodBuilder.addCode(
                         "return riotApi.getMap(String.format($L, region$L), region, input, $L, $L$L);",
                         urlField, hasPlatformId ? ".platform" : "",
-                        groupField, typeField, buildOptionalParams(optional));
+                        groupField, typeField, buildOptionalParams(requiredQuery, optionalQuery));
                 methodAsyncBuilder.addCode(
                         "return riotApi.getMapAsync(String.format($L, region$L), region, input, $L, $L$L);",
                         urlField, hasPlatformId ? ".platform" : "",
-                        groupField, typeField, buildOptionalParams(optional));
+                        groupField, typeField, buildOptionalParams(requiredQuery, optionalQuery));
             }
             else {
                 methodBuilder.addCode("return $L($Lnull);", endpointName, params.toString());
@@ -481,13 +495,16 @@ class RiotDtoGenerator {
         return desc.replaceFirst("^Comma-separated ", "").replaceAll(" Maximum allowed at once is \\d+.", "");
     }
 
-    private static String buildOptionalParams(List<ParameterSpec> optional) {
+    private static String buildOptionalParams(List<ParameterSpec> required, List<ParameterSpec> optional) {
         StringBuilder paramsBuilder = new StringBuilder();
-        if (!optional.isEmpty()) {
+        if (!required.isEmpty() || !optional.isEmpty()) {
             paramsBuilder.append(",\n    riotApi.makeParams(");
-            for (ParameterSpec optionalParam : optional)
-                paramsBuilder.append("\"").append(optionalParam.name)
-                        .append("\", ").append(optionalParam.name).append(", ");
+            for (ParameterSpec param : required)
+                paramsBuilder.append("\"").append(param.name)
+                        .append("\", ").append(param.name).append(", ");
+            for (ParameterSpec param : optional)
+                paramsBuilder.append("\"").append(param.name)
+                        .append("\", ").append(param.name).append(", ");
             paramsBuilder.setLength(paramsBuilder.length() - 2);
             paramsBuilder.append(")");
         }

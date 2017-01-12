@@ -29,7 +29,7 @@ public class MatchEndpoints {
    * @param includeTimeline Riot API description: Flag indicating whether or not to include match timeline data */
   public MatchDetail get(final Region region, final long matchId, final Boolean includeTimeline)
       throws ExecutionException {
-    return riotApi.getBasic(String.format(GET__URL, region, matchId, includeTimeline), region, GET__TYPE,
+    return riotApi.getBasic(String.format(GET__URL, region, matchId), region, GET__TYPE,
         riotApi.makeParams("includeTimeline", includeTimeline));}
 
   /**
@@ -39,7 +39,7 @@ public class MatchEndpoints {
    * @param includeTimeline Riot API description: Flag indicating whether or not to include match timeline data */
   public CompletableFuture<MatchDetail> getAsync(final Region region, final long matchId,
       final Boolean includeTimeline) {
-    return riotApi.getBasicAsync(String.format(GET__URL, region, matchId, includeTimeline), region, GET__TYPE,
+    return riotApi.getBasicAsync(String.format(GET__URL, region, matchId), region, GET__TYPE,
         riotApi.makeParams("includeTimeline", includeTimeline));}
 
   /**

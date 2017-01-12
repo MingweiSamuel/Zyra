@@ -104,7 +104,7 @@ public class LolStaticDataEndpoints {
    * @param champData Riot API description: Tags to return additional data. Only type, version, data, id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public ChampionList getChampions(final Region region, final String locale, final String version,
       final Boolean dataById, final Collection<String> champData) throws ExecutionException {
-    return riotApi.getBasicNonRateLimited(String.format(GET_CHAMPIONS__URL, region, dataById), region, GET_CHAMPIONS__TYPE,
+    return riotApi.getBasicNonRateLimited(String.format(GET_CHAMPIONS__URL, region), region, GET_CHAMPIONS__TYPE,
         riotApi.makeParams("locale", locale, "version", version, "dataById", dataById, "champData", champData));}
 
   /**
@@ -116,7 +116,7 @@ public class LolStaticDataEndpoints {
    * @param champData Riot API description: Tags to return additional data. Only type, version, data, id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
   public CompletableFuture<ChampionList> getChampionsAsync(final Region region, final String locale,
       final String version, final Boolean dataById, final Collection<String> champData) {
-    return riotApi.getBasicNonRateLimitedAsync(String.format(GET_CHAMPIONS__URL, region, dataById), region, GET_CHAMPIONS__TYPE,
+    return riotApi.getBasicNonRateLimitedAsync(String.format(GET_CHAMPIONS__URL, region), region, GET_CHAMPIONS__TYPE,
         riotApi.makeParams("locale", locale, "version", version, "dataById", dataById, "champData", champData));}
 
   /**
@@ -769,7 +769,7 @@ public class LolStaticDataEndpoints {
   public SummonerSpellList getSummonerSpells(final Region region, final String locale,
       final String version, final Boolean dataById, final Collection<String> spellData) throws
       ExecutionException {
-    return riotApi.getBasicNonRateLimited(String.format(GET_SUMMONER_SPELLS__URL, region, dataById), region, GET_SUMMONER_SPELLS__TYPE,
+    return riotApi.getBasicNonRateLimited(String.format(GET_SUMMONER_SPELLS__URL, region), region, GET_SUMMONER_SPELLS__TYPE,
         riotApi.makeParams("locale", locale, "version", version, "dataById", dataById, "spellData", spellData));}
 
   /**
@@ -782,7 +782,7 @@ public class LolStaticDataEndpoints {
   public CompletableFuture<SummonerSpellList> getSummonerSpellsAsync(final Region region,
       final String locale, final String version, final Boolean dataById,
       final Collection<String> spellData) {
-    return riotApi.getBasicNonRateLimitedAsync(String.format(GET_SUMMONER_SPELLS__URL, region, dataById), region, GET_SUMMONER_SPELLS__TYPE,
+    return riotApi.getBasicNonRateLimitedAsync(String.format(GET_SUMMONER_SPELLS__URL, region), region, GET_SUMMONER_SPELLS__TYPE,
         riotApi.makeParams("locale", locale, "version", version, "dataById", dataById, "spellData", spellData));}
 
   /**

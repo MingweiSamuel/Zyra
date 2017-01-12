@@ -79,7 +79,7 @@ public class ChampionMasteryEndpoints {
    * @param count Riot API description: Number of entries to retrieve, defaults to 3 */
   public List<ChampionMastery> getTopChampions(final Region region, final long playerId,
       final Integer count) throws ExecutionException {
-    return riotApi.getBasic(String.format(GET_TOP_CHAMPIONS__URL, region.platform, playerId, count), region, GET_TOP_CHAMPIONS__TYPE,
+    return riotApi.getBasic(String.format(GET_TOP_CHAMPIONS__URL, region.platform, playerId), region, GET_TOP_CHAMPIONS__TYPE,
         riotApi.makeParams("count", count));}
 
   /**
@@ -87,7 +87,7 @@ public class ChampionMasteryEndpoints {
    * @param count Riot API description: Number of entries to retrieve, defaults to 3 */
   public CompletableFuture<List<ChampionMastery>> getTopChampionsAsync(final Region region,
       final long playerId, final Integer count) {
-    return riotApi.getBasicAsync(String.format(GET_TOP_CHAMPIONS__URL, region.platform, playerId, count), region, GET_TOP_CHAMPIONS__TYPE,
+    return riotApi.getBasicAsync(String.format(GET_TOP_CHAMPIONS__URL, region.platform, playerId), region, GET_TOP_CHAMPIONS__TYPE,
         riotApi.makeParams("count", count));}
 
   /**
