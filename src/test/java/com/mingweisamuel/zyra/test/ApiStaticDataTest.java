@@ -49,7 +49,7 @@ public class ApiStaticDataTest {
     }
     private void checkGetChampions(ChampionList result) {
         checkGetChampion(result.data.get("Zyra"));
-        assertEquals("齐天大圣", result.data.get("MonkeyKing").name);
+        assertEquals("\u9f50\u5929\u5927\u5723", result.data.get("MonkeyKing").name);
     }
 
     @Test
@@ -66,10 +66,10 @@ public class ApiStaticDataTest {
     private void checkGetChampion(Champion result) {
         assertNull(result.allytips);
         assertNull(result.blurb);
-        assertEquals("荆棘之兴", result.name);
+        assertEquals("\u8346\u68d8\u4e4b\u5174", result.name);
         assertEquals("Zyra.png", result.image.full);
         assertEquals(4, result.skins.size());
-        assertEquals("野火之藤 婕拉", result.skins.get(1).name);
+        assertEquals("\u91ce\u706b\u4e4b\u85e4 \u5a55\u62c9", result.skins.get(1).name);
     }
     //endregion
 
@@ -87,7 +87,7 @@ public class ApiStaticDataTest {
     private void checkGetItems(ItemList result) {
         checkGetItem(result.data.get(3107));
         // ardent censer
-        assertEquals("炽热香炉", result.data.get(3504).name);
+        assertEquals("\u70bd\u70ed\u9999\u7089", result.data.get(3504).name);
     }
 
     @Test
@@ -104,7 +104,7 @@ public class ApiStaticDataTest {
     private void checkGetItem(Item result) {
         assertNull(result.sanitizedDescription);
         // Redemption
-        assertEquals("救赎", result.name);
+        assertEquals("\u6551\u8d4e", result.name);
         assertEquals(2100, result.gold.total);
         assertEquals("3107.png", result.image.full);
         assertTrue(result.maps.get(11));
@@ -123,8 +123,8 @@ public class ApiStaticDataTest {
     }
     private void checkGetLanguageStrings(LanguageStrings result) {
         assertEquals("language", result.type);
-        assertEquals("范围", result.data.get("Range"));
-        assertEquals("范围：", result.data.get("Range_"));
+        assertEquals("\u8303\u56f4", result.data.get("Range"));
+        assertEquals("\u8303\u56f4\uff1a", result.data.get("Range_"));
         assertEquals("English", result.data.get("native_en"));
     }
 
@@ -178,7 +178,7 @@ public class ApiStaticDataTest {
     private void checkGetMasteries(MasteryList result) {
         checkGetMastery(result.data.get(6363));
         // Intelligence
-        assertEquals("智谋", result.data.get(6352).name);
+        assertEquals("\u667a\u8c0b", result.data.get(6352).name);
         assertEquals(5, result.data.get(6352).ranks);
     }
 
@@ -196,7 +196,7 @@ public class ApiStaticDataTest {
         assertNull(result.sanitizedDescription);
         assertEquals(6363, result.id);
         // Windspeaker's Blessing
-        assertEquals("风语者的祝福", result.name);
+        assertEquals("\u98ce\u8bed\u8005\u7684\u795d\u798f", result.name);
         assertEquals(1, result.ranks);
         assertEquals("6363.png", result.image.full);
     }
@@ -230,7 +230,7 @@ public class ApiStaticDataTest {
         checkGetRune(result.data.get(5337));
         // Lesser Mark of Alpine Attack Speed (?)
         Rune rune = result.data.get(8007);
-        assertEquals("初级高山攻击速度印记", rune.name);
+        assertEquals("\u521d\u7ea7\u9ad8\u5c71\u653b\u51fb\u901f\u5ea6\u5370\u8bb0", rune.name);
         assertFalse(rune.inStore);
     }
 
@@ -245,7 +245,7 @@ public class ApiStaticDataTest {
     private void checkGetRune(Rune result) {
         assertEquals(5337, result.id);
         // Greater Quintessence of Attack Speed
-        assertEquals("高级攻击速度精华", result.name);
+        assertEquals("\u9ad8\u7ea7\u653b\u51fb\u901f\u5ea6\u7cbe\u534e", result.name);
         assertEquals(0.045, result.stats.PercentAttackSpeedMod, Double.MIN_VALUE);
         assertNull(result.maps);
     }
@@ -265,7 +265,7 @@ public class ApiStaticDataTest {
     private void testGetSummonerSpells(SummonerSpellList result) {
         testGetSummonerSpell(result.data.get(4));
         // ghost
-        assertEquals("幽灵疾步", result.data.get(6).name);
+        assertEquals("\u5e7d\u7075\u75be\u6b65", result.data.get(6).name);
         assertEquals("SummonerHaste.png", result.data.get(6).image.full);
     }
 
@@ -281,7 +281,7 @@ public class ApiStaticDataTest {
     }
     private void testGetSummonerSpell(SummonerSpell result) {
         // Flash
-        assertEquals("闪现", result.name);
+        assertEquals("\u95ea\u73b0", result.name);
         assertEquals(4, result.id);
         assertEquals("SummonerFlash.png", result.image.full);
         assertEquals(8, result.summonerLevel);
