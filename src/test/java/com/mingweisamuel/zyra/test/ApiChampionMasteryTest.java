@@ -77,7 +77,7 @@ public class ApiChampionMasteryTest {
 
     @Test
     public void getTopChampions() throws ExecutionException {
-        Set<Integer> topChamps = new HashSet<>(Arrays.asList(ZYRA, SORAKA, MORGANA, SONA, JANNA, EKKO, NAMI));
+        Set<Integer> topChamps = new HashSet<>(Arrays.asList(ZYRA, SORAKA, MORGANA));
         List<ChampionMastery> champData = api.championMasteries.getTopChampions(
                 Region.NA, 69009277, topChamps.size());
         assertEquals(Joiner.on(',').join(champData.stream().map(cm -> "" + cm.championId)
@@ -89,7 +89,7 @@ public class ApiChampionMasteryTest {
 
     @Test
     public void getTopChampionsAsync() throws ExecutionException, InterruptedException {
-        Set<Integer> topChamps = new HashSet<>(Arrays.asList(ZYRA, SORAKA, MORGANA, SONA, JANNA, EKKO, NAMI));
+        Set<Integer> topChamps = new HashSet<>(Arrays.asList(ZYRA, SORAKA, MORGANA));
         api.championMasteries.getTopChampionsAsync(Region.NA, 69009277, topChamps.size()).thenAccept(champData -> {
             assertEquals(Joiner.on(',').join(champData.stream().map(cm -> "" + cm.championId)
                         .collect(Collectors.toList())), topChamps.size(), champData.size());
