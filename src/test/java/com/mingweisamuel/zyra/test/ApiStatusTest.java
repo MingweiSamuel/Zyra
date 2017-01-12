@@ -1,8 +1,8 @@
 package com.mingweisamuel.zyra.test;
 
+import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.lolStatus.Shard;
 import com.mingweisamuel.zyra.lolStatus.ShardStatus;
-import com.mingweisamuel.zyra.enums.Region;
 import org.junit.Test;
 
 import java.util.List;
@@ -10,7 +10,6 @@ import java.util.concurrent.ExecutionException;
 
 import static com.mingweisamuel.zyra.test.Api.api;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**

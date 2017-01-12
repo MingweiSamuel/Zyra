@@ -2,13 +2,9 @@ package com.mingweisamuel.zyra.test;
 
 import com.mingweisamuel.zyra.champion.Champion;
 import com.mingweisamuel.zyra.champion.ChampionList;
-import com.mingweisamuel.zyra.enums.ChampionId;
 import com.mingweisamuel.zyra.enums.Region;
-import com.mingweisamuel.zyra.lolStatus.Shard;
-import com.mingweisamuel.zyra.lolStatus.ShardStatus;
 import org.junit.Test;
 
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import static com.mingweisamuel.zyra.enums.ChampionId.ZYRA;
@@ -39,7 +35,6 @@ public class ApiChampionTest {
         }
         assertEquals(10, free);
     }
-
 
     @Test
     public void get() throws ExecutionException {
