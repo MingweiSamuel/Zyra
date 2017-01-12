@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Integration tests for {@link com.mingweisamuel.zyra.ChampionMasteryEndpoints}.
  */
-public class ApiChampionMasteriesTest {
+public class ApiChampionMasteryTest {
 
     @Test
     public void getChampion() throws ExecutionException {
