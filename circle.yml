@@ -2,4 +2,4 @@ test:
   post:
     - mv target/*.jar $CIRCLE_ARTIFACTS
     - ls target
-    - cd target/apidocs && git init && git add . && git commit -m "autogen javadoc [ci skip]" && git push -f https://github.com/MingweiSamuel/Zyra.git HEAD:gh-pages
+    - bash javadoc.bash
