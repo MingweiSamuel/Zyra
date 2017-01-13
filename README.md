@@ -1,9 +1,9 @@
 # Zyra
 
 [![CircleCI](https://circleci.com/gh/MingweiSamuel/Zyra/tree/develop.svg?style=shield)](https://circleci.com/gh/MingweiSamuel/Zyra/tree/develop)
+[![Javadoc](https://img.shields.io/badge/javadoc-latest-brightgreen.svg)](https://mingweisamuel.github.io/Zyra/)
 <!--[![Build Status](https://travis-ci.org/MingweiSamuel/Zyra.svg?branch=develop)](https://travis-ci
 .org/MingweiSamuel/Zyra)-->
-[![Javadoc](https://img.shields.io/badge/javadoc-latest-brightgreen.svg)](https://mingweisamuel.github.io/Zyra/)
 
 Java Library for the [Riot Games API](https://developer.riotgames.com/)
 
