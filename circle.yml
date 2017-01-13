@@ -1,3 +1,6 @@
 test:
   post:
     - mv target/*.jar $CIRCLE_ARTIFACTS
+    - rm -rf docs
+    - cp target/apidocs docs
+    - git add docs && git commit -m "autogen javadoc" && git push
