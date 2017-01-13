@@ -1,4 +1,6 @@
 # Zyra
+
+[![CircleCI](https://circleci.com/gh/MingweiSamuel/Zyra/tree/develop.svg?style=shield)](https://circleci.com/gh/MingweiSamuel/Zyra/tree/develop)
 [![Build Status](https://travis-ci.org/MingweiSamuel/Zyra.svg?branch=develop)](https://travis-ci.org/MingweiSamuel/Zyra)
 
 Java Library for the [Riot Games API](https://developer.riotgames.com/)
