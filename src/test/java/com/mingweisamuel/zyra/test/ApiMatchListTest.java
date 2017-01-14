@@ -18,7 +18,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class ApiMatchListTest {
 
-    //ez 114
     @Test
     public void get() throws ExecutionException {
         checkGet(api.matchlist.get(Region.NA, 51405, Collections.singleton(DRAVEN), null,
