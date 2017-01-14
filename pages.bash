@@ -5,14 +5,18 @@
 # exit on error
 set -e
 
+# don't make pages for pull requests
+[ -z "$CIRCLE_PR_NUMBER" ] && echo 'Skipping PR' && exit 0
+
+# move to dir of this script (./target)
 cd "$(dirname "$0")"
 git init
 
 # create index file
 cat >index.md <<EOL
-## ${project.build.finalName} build $CIRCLE_BUILD_NUM
+## ${project.build.finalName} [build $CIRCLE_BUILD_NUM]($CIRCLE_BUILD_URL) ${CIRCLE_TAG-}
 
-$(git log -1 | sed 's/^/    /')
+$(git -C .. log -1 --no-color | sed 's/^/    /')
 
 ### Docs
 
