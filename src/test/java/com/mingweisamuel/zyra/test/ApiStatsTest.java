@@ -1,21 +1,17 @@
 package com.mingweisamuel.zyra.test;
 
-import com.mingweisamuel.zyra.MatchListEndpoints;
 import com.mingweisamuel.zyra.enums.ChampionId;
 import com.mingweisamuel.zyra.enums.Queue;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.enums.Season;
-import com.mingweisamuel.zyra.matchList.MatchList;
 import com.mingweisamuel.zyra.stats.ChampionStats;
 import com.mingweisamuel.zyra.stats.PlayerStatsSummary;
 import com.mingweisamuel.zyra.stats.PlayerStatsSummaryList;
 import com.mingweisamuel.zyra.stats.RankedStats;
 import org.junit.Test;
 
-import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 
-import static com.mingweisamuel.zyra.enums.ChampionId.DRAVEN;
 import static com.mingweisamuel.zyra.test.Api.api;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

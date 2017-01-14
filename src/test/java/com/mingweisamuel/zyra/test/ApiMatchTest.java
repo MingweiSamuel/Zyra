@@ -2,8 +2,6 @@ package com.mingweisamuel.zyra.test;
 
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.enums.TeamId;
-import com.mingweisamuel.zyra.game.Game;
-import com.mingweisamuel.zyra.game.RecentGames;
 import com.mingweisamuel.zyra.match.BannedChampion;
 import com.mingweisamuel.zyra.match.MatchDetail;
 import com.mingweisamuel.zyra.match.ParticipantIdentity;

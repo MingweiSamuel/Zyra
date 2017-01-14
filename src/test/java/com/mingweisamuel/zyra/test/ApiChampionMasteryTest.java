@@ -4,17 +4,25 @@ import com.google.common.base.Joiner;
 import com.mingweisamuel.zyra.championMastery.ChampionMastery;
 import com.mingweisamuel.zyra.enums.Region;
 import org.junit.Test;
-import static com.mingweisamuel.zyra.enums.ChampionId.*;
-import static com.mingweisamuel.zyra.test.Api.api;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.StringJoiner;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
+import static com.mingweisamuel.zyra.enums.ChampionId.ASHE;
+import static com.mingweisamuel.zyra.enums.ChampionId.EKKO;
+import static com.mingweisamuel.zyra.enums.ChampionId.JANNA;
+import static com.mingweisamuel.zyra.enums.ChampionId.MORGANA;
+import static com.mingweisamuel.zyra.enums.ChampionId.NAMI;
+import static com.mingweisamuel.zyra.enums.ChampionId.POPPY;
+import static com.mingweisamuel.zyra.enums.ChampionId.SONA;
+import static com.mingweisamuel.zyra.enums.ChampionId.SORAKA;
+import static com.mingweisamuel.zyra.enums.ChampionId.TARIC;
+import static com.mingweisamuel.zyra.enums.ChampionId.ZYRA;
+import static com.mingweisamuel.zyra.test.Api.api;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
