@@ -12,9 +12,16 @@ set -e
 cd "$(dirname "$0")"
 git init
 
+# create empty jekyll config
+touch _config.yml
+
 # create index file
 cat >index.md <<EOL
-## ${project.build.finalName} [build $CIRCLE_BUILD_NUM]($CIRCLE_BUILD_URL) ${CIRCLE_TAG-}
+---
+---
+## ${project.build.finalName}
+
+[CircleCI build $CIRCLE_BUILD_NUM]($CIRCLE_BUILD_URL) ${CIRCLE_TAG-}
 
 $(git -C .. log -1 --no-color | sed 's/^/    /')
 
@@ -35,6 +42,7 @@ EOL
 
 # push
 git add apidocs
+git add _config.yml
 git add index.md
 git -c "user.name=CircleCI" -c "user.email=mingwei.samuel@gmail.com" commit -m "autogen javadoc [ci skip]"
 git push -f https://github.com/MingweiSamuel/Zyra.git HEAD:gh-pages
