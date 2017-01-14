@@ -16,57 +16,36 @@ public class Queue {
     public static final String TEAM_BUILDER_RANKED_SOLO = "TEAM_BUILDER_RANKED_SOLO";
 
     /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_AramUnranked5x5 = "AramUnranked5x5";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_Ascension = "Ascension";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_Bilgewater = "Bilgewater";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_CAP5x5 = "CAP5x5";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_CoopVsAI = "CoopVsAI";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_CoopVsAI3x3 = "CoopVsAI3x3";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_CounterPick = "CounterPick";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_FirstBlood1x1 = "FirstBlood1x1";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_FirstBlood2x2 = "FirstBlood2x2";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_Hexakill = "Hexakill";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_KingPoro = "KingPoro";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_NightmareBot = "NightmareBot";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_OdinUnranked = "OdinUnranked";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_OneForAll5x5 = "OneForAll5x5";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_RankedPremade3x3 = "RankedPremade3x3";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_RankedPremade5x5 = "RankedPremade5x5";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_RankedSolo5x5 = "RankedSolo5x5";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_RankedTeam3x3 = "RankedTeam3x3";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_RankedTeam5x5 = "RankedTeam5x5";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_SummonersRift6x6 = "SummonersRift6x6";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_Unranked = "Unranked";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_Unranked3x3 = "Unranked3x3";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_URF = "URF";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_URFBots = "URFBots";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_Siege = "Siege";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_RankedFlexSR = "RankedFlexSR";
-    /** {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType} */
-    public static final String SUMMARYTYPE_RankedFlexTT = "RankedFlexTT";
+    public static class SummaryType {
+        private SummaryType() {}
+
+        public static final String AramUnranked5x5 = "AramUnranked5x5";
+        public static final String Ascension = "Ascension";
+        public static final String Bilgewater = "Bilgewater";
+        public static final String CAP5x5 = "CAP5x5";
+        public static final String CoopVsAI = "CoopVsAI";
+        public static final String CoopVsAI3x3 = "CoopVsAI3x3";
+        public static final String CounterPick = "CounterPick";
+        public static final String FirstBlood1x1 = "FirstBlood1x1";
+        public static final String FirstBlood2x2 = "FirstBlood2x2";
+        public static final String Hexakill = "Hexakill";
+        public static final String KingPoro = "KingPoro";
+        public static final String NightmareBot = "NightmareBot";
+        public static final String OdinUnranked = "OdinUnranked";
+        public static final String OneForAll5x5 = "OneForAll5x5";
+        public static final String RankedPremade3x3 = "RankedPremade3x3";
+        public static final String RankedPremade5x5 = "RankedPremade5x5";
+        public static final String RankedSolo5x5 = "RankedSolo5x5";
+        public static final String RankedTeam3x3 = "RankedTeam3x3";
+        public static final String RankedTeam5x5 = "RankedTeam5x5";
+        public static final String SummonersRift6x6 = "SummonersRift6x6";
+        public static final String Unranked = "Unranked";
+        public static final String Unranked3x3 = "Unranked3x3";
+        public static final String URF = "URF";
+        public static final String URFBots = "URFBots";
+        public static final String Siege = "Siege";
+        public static final String RankedFlexSR = "RankedFlexSR";
+        public static final String RankedFlexTT = "RankedFlexTT";
+    }
+
 }

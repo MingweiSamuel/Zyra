@@ -60,13 +60,13 @@ public class ApiStatsTest {
     private void checkGetSummary(PlayerStatsSummaryList result) {
         assertEquals(51405, result.summonerId);
         for (PlayerStatsSummary summary : result.playerStatSummaries) {
-            if (Queue.SUMMARYTYPE_RankedSolo5x5.equals(summary.playerStatSummaryType)) {
+            if (Queue.SummaryType.RankedSolo5x5.equals(summary.playerStatSummaryType)) {
                 assertEquals(606, summary.wins);
                 assertEquals(527, summary.losses);
                 assertEquals(7670, summary.aggregatedStats.totalChampionKills);
                 return;
             }
         }
-        fail("Failed to find " + Queue.SUMMARYTYPE_RankedSolo5x5);
+        fail("Failed to find " + Queue.SummaryType.RankedSolo5x5);
     }
 }
