@@ -12,13 +12,11 @@ set -e
 cd "$(dirname "$0")"
 git init
 
-# create empty jekyll config
-touch _config.yml
+# theme config
+echo 'theme: jekyll-theme-modernist' > _config.yml
 
 # create index file
 cat >index.md <<EOL
----
----
 ## ${project.build.finalName}
 
 [CircleCI build $CIRCLE_BUILD_NUM]($CIRCLE_BUILD_URL) ${CIRCLE_TAG-}
