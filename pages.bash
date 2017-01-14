@@ -17,7 +17,7 @@ echo 'theme: jekyll-theme-modernist' > _config.yml
 
 # create index file
 cat >index.md <<EOL
-## ${project.build.finalName}
+## NIGHTLY BUILD ${project.build.finalName}
 
 [CircleCI build $CIRCLE_BUILD_NUM]($CIRCLE_BUILD_URL) ${CIRCLE_TAG-}
 

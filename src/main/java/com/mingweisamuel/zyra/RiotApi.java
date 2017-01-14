@@ -50,7 +50,7 @@ public class RiotApi implements Closeable {
     public final LolStaticDataEndpoints staticData = new LolStaticDataEndpoints(this);
     public final LolStatusEndpoints status = new LolStatusEndpoints(this);
     public final MatchEndpoints matches = new MatchEndpoints(this);
-    public final MatchlistEndpoints matchlist = new MatchlistEndpoints(this);
+    public final MatchListEndpoints matchlist = new MatchListEndpoints(this);
     public final StatsEndpoints stats = new StatsEndpoints(this);
     public final SummonerEndpoints summoners = new SummonerEndpoints(this);
 

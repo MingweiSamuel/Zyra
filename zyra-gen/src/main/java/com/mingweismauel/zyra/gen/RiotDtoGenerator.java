@@ -301,7 +301,9 @@ class RiotDtoGenerator {
                         if (queryParameterDesc.startsWith("Comma-separated list of ") ||
                                 queryParameterDesc.startsWith("Tags to return additional data.")) {
                             TypeName listType;
-                            if (queryParameterName.endsWith("Ids"))
+                            if ("championIds".equals(queryParameterName))
+                                listType = TypeName.INT.box();
+                            else if (queryParameterName.endsWith("Ids"))
                                 listType = TypeName.LONG.box();
                             else
                                 listType = TypeName.get(String.class);
@@ -515,7 +517,7 @@ class RiotDtoGenerator {
 
         // special cases
         if ("CurrentGame".equals(endpointTitleNormalized) || "FeaturedGames".equals(endpointTitleNormalized)
-                || "Matchlist".equals(endpointTitleNormalized))
+                || "MatchList".equals(endpointTitleNormalized))
             return "get";
         // getBySummonerIds -> get
         if ("League".equals(endpointTitleNormalized) && endpointPath.endsWith("{summonerIds}"))
@@ -620,7 +622,8 @@ class RiotDtoGenerator {
     private static String normalizeEndpointName(String endpoint) {
         return CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, endpoint)
                 .replaceAll("V(\\d+)\\.(\\d+)", "")
-                .replace("Championmastery", "ChampionMastery");
+                .replace("Championmastery", "ChampionMastery")
+                .replace("Matchlist", "MatchList");
     }
 
     private static String normalizeDtoName(String dtoName) {

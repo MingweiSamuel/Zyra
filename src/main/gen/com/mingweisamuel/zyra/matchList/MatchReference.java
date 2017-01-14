@@ -1,4 +1,4 @@
-package com.mingweisamuel.zyra.matchlist;
+package com.mingweisamuel.zyra.matchList;
 
 import java.lang.String;
 

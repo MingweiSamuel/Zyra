@@ -1,7 +1,7 @@
 package com.mingweisamuel.zyra;
 
 import com.mingweisamuel.zyra.enums.Region;
-import com.mingweisamuel.zyra.matchlist.MatchList;
+import com.mingweisamuel.zyra.matchList.MatchList;
 import java.lang.Integer;
 import java.lang.Long;
 import java.lang.String;
@@ -14,14 +14,14 @@ import java.util.concurrent.ExecutionException;
  * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version matchlist-v2.2 */
-public class MatchlistEndpoints {
+public class MatchListEndpoints {
   private static final Type GET__TYPE = MatchList.class;
 
   private static final String GET__URL = "/api/lol/%1$s/v2.2/matchlist/by-summoner/%2$s";
 
   private final RiotApi riotApi;
 
-  public MatchlistEndpoints(final RiotApi riotApi) {
+  public MatchListEndpoints(final RiotApi riotApi) {
     this.riotApi = riotApi;}
 
   /**
@@ -36,7 +36,7 @@ public class MatchlistEndpoints {
    * @param beginIndex Riot API description: The begin index to use for fetching games.
    * @param endIndex Riot API description: The end index to use for fetching games. */
   public MatchList get(final Region region, final long summonerId,
-      final Collection<Long> championIds, final Collection<String> rankedQueues,
+      final Collection<Integer> championIds, final Collection<String> rankedQueues,
       final Collection<String> seasons, final Long beginTime, final Long endTime,
       final Integer beginIndex, final Integer endIndex) throws ExecutionException {
     return riotApi.getBasic(String.format(GET__URL, region, summonerId), region, GET__TYPE,
@@ -54,7 +54,7 @@ public class MatchlistEndpoints {
    * @param beginIndex Riot API description: The begin index to use for fetching games.
    * @param endIndex Riot API description: The end index to use for fetching games. */
   public CompletableFuture<MatchList> getAsync(final Region region, final long summonerId,
-      final Collection<Long> championIds, final Collection<String> rankedQueues,
+      final Collection<Integer> championIds, final Collection<String> rankedQueues,
       final Collection<String> seasons, final Long beginTime, final Long endTime,
       final Integer beginIndex, final Integer endIndex) {
     return riotApi.getBasicAsync(String.format(GET__URL, region, summonerId), region, GET__TYPE,
@@ -71,7 +71,7 @@ public class MatchlistEndpoints {
    * @param endTime Riot API description: The end time to use for fetching games specified as epoch milliseconds.
    * @param beginIndex Riot API description: The begin index to use for fetching games. */
   public MatchList get(final Region region, final long summonerId,
-      final Collection<Long> championIds, final Collection<String> rankedQueues,
+      final Collection<Integer> championIds, final Collection<String> rankedQueues,
       final Collection<String> seasons, final Long beginTime, final Long endTime,
       final Integer beginIndex) throws ExecutionException {
     return get(region, summonerId, championIds, rankedQueues, seasons, beginTime, endTime, beginIndex, null);}
@@ -87,7 +87,7 @@ public class MatchlistEndpoints {
    * @param endTime Riot API description: The end time to use for fetching games specified as epoch milliseconds.
    * @param beginIndex Riot API description: The begin index to use for fetching games. */
   public CompletableFuture<MatchList> getAsync(final Region region, final long summonerId,
-      final Collection<Long> championIds, final Collection<String> rankedQueues,
+      final Collection<Integer> championIds, final Collection<String> rankedQueues,
       final Collection<String> seasons, final Long beginTime, final Long endTime,
       final Integer beginIndex) {
     return getAsync(region, summonerId, championIds, rankedQueues, seasons, beginTime, endTime, beginIndex, null);}
@@ -102,7 +102,7 @@ public class MatchlistEndpoints {
    * @param beginTime Riot API description: The begin time to use for fetching games specified as epoch milliseconds.
    * @param endTime Riot API description: The end time to use for fetching games specified as epoch milliseconds. */
   public MatchList get(final Region region, final long summonerId,
-      final Collection<Long> championIds, final Collection<String> rankedQueues,
+      final Collection<Integer> championIds, final Collection<String> rankedQueues,
       final Collection<String> seasons, final Long beginTime, final Long endTime) throws
       ExecutionException {
     return get(region, summonerId, championIds, rankedQueues, seasons, beginTime, endTime, null);}
@@ -117,7 +117,7 @@ public class MatchlistEndpoints {
    * @param beginTime Riot API description: The begin time to use for fetching games specified as epoch milliseconds.
    * @param endTime Riot API description: The end time to use for fetching games specified as epoch milliseconds. */
   public CompletableFuture<MatchList> getAsync(final Region region, final long summonerId,
-      final Collection<Long> championIds, final Collection<String> rankedQueues,
+      final Collection<Integer> championIds, final Collection<String> rankedQueues,
       final Collection<String> seasons, final Long beginTime, final Long endTime) {
     return getAsync(region, summonerId, championIds, rankedQueues, seasons, beginTime, endTime, null);}
 
@@ -130,7 +130,7 @@ public class MatchlistEndpoints {
    * @param seasons Riot API description: list of seasons to use for fetching games.
    * @param beginTime Riot API description: The begin time to use for fetching games specified as epoch milliseconds. */
   public MatchList get(final Region region, final long summonerId,
-      final Collection<Long> championIds, final Collection<String> rankedQueues,
+      final Collection<Integer> championIds, final Collection<String> rankedQueues,
       final Collection<String> seasons, final Long beginTime) throws ExecutionException {
     return get(region, summonerId, championIds, rankedQueues, seasons, beginTime, null);}
 
@@ -143,7 +143,7 @@ public class MatchlistEndpoints {
    * @param seasons Riot API description: list of seasons to use for fetching games.
    * @param beginTime Riot API description: The begin time to use for fetching games specified as epoch milliseconds. */
   public CompletableFuture<MatchList> getAsync(final Region region, final long summonerId,
-      final Collection<Long> championIds, final Collection<String> rankedQueues,
+      final Collection<Integer> championIds, final Collection<String> rankedQueues,
       final Collection<String> seasons, final Long beginTime) {
     return getAsync(region, summonerId, championIds, rankedQueues, seasons, beginTime, null);}
 
@@ -155,7 +155,7 @@ public class MatchlistEndpoints {
    * @param rankedQueues Riot API description: list of ranked queue types to use for fetching games. Non-ranked queue types will be ignored.
    * @param seasons Riot API description: list of seasons to use for fetching games. */
   public MatchList get(final Region region, final long summonerId,
-      final Collection<Long> championIds, final Collection<String> rankedQueues,
+      final Collection<Integer> championIds, final Collection<String> rankedQueues,
       final Collection<String> seasons) throws ExecutionException {
     return get(region, summonerId, championIds, rankedQueues, seasons, null);}
 
@@ -167,7 +167,7 @@ public class MatchlistEndpoints {
    * @param rankedQueues Riot API description: list of ranked queue types to use for fetching games. Non-ranked queue types will be ignored.
    * @param seasons Riot API description: list of seasons to use for fetching games. */
   public CompletableFuture<MatchList> getAsync(final Region region, final long summonerId,
-      final Collection<Long> championIds, final Collection<String> rankedQueues,
+      final Collection<Integer> championIds, final Collection<String> rankedQueues,
       final Collection<String> seasons) {
     return getAsync(region, summonerId, championIds, rankedQueues, seasons, null);}
 
@@ -178,7 +178,7 @@ public class MatchlistEndpoints {
    * @param championIds Riot API description: list of champion IDs to use for fetching games.
    * @param rankedQueues Riot API description: list of ranked queue types to use for fetching games. Non-ranked queue types will be ignored. */
   public MatchList get(final Region region, final long summonerId,
-      final Collection<Long> championIds, final Collection<String> rankedQueues) throws
+      final Collection<Integer> championIds, final Collection<String> rankedQueues) throws
       ExecutionException {
     return get(region, summonerId, championIds, rankedQueues, null);}
 
@@ -189,7 +189,7 @@ public class MatchlistEndpoints {
    * @param championIds Riot API description: list of champion IDs to use for fetching games.
    * @param rankedQueues Riot API description: list of ranked queue types to use for fetching games. Non-ranked queue types will be ignored. */
   public CompletableFuture<MatchList> getAsync(final Region region, final long summonerId,
-      final Collection<Long> championIds, final Collection<String> rankedQueues) {
+      final Collection<Integer> championIds, final Collection<String> rankedQueues) {
     return getAsync(region, summonerId, championIds, rankedQueues, null);}
 
   /**
@@ -198,7 +198,7 @@ public class MatchlistEndpoints {
    * @param summonerId Riot API description: The ID of the summoner.
    * @param championIds Riot API description: list of champion IDs to use for fetching games. */
   public MatchList get(final Region region, final long summonerId,
-      final Collection<Long> championIds) throws ExecutionException {
+      final Collection<Integer> championIds) throws ExecutionException {
     return get(region, summonerId, championIds, null);}
 
   /**
@@ -207,7 +207,7 @@ public class MatchlistEndpoints {
    * @param summonerId Riot API description: The ID of the summoner.
    * @param championIds Riot API description: list of champion IDs to use for fetching games. */
   public CompletableFuture<MatchList> getAsync(final Region region, final long summonerId,
-      final Collection<Long> championIds) {
+      final Collection<Integer> championIds) {
     return getAsync(region, summonerId, championIds, null);}
 
   /**
