@@ -63,6 +63,7 @@ public class ApiStatsTest {
         assertEquals(51405, result.summonerId);
         for (PlayerStatsSummary summary : result.playerStatSummaries) {
             if (Queue.SummaryType.RankedSolo5x5.equals(summary.playerStatSummaryType)) {
+                assertEquals(1481097003000L, summary.modifyDate);
                 assertEquals(606, summary.wins);
                 assertEquals(527, summary.losses);
                 assertEquals(7670, summary.aggregatedStats.totalChampionKills);
