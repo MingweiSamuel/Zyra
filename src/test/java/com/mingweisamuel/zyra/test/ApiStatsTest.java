@@ -14,6 +14,7 @@ import java.util.concurrent.ExecutionException;
 
 import static com.mingweisamuel.zyra.test.Api.api;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
@@ -31,6 +32,7 @@ public class ApiStatsTest {
     }
     private void checkGetRanked(RankedStats result) {
         assertEquals(51405, result.summonerId);
+        assertEquals("Wrong season/time", 1481097003000L, result.modifyDate); // Wed Dec 07 2016 07:50:03
         for  (ChampionStats champ : result.champions) {
             switch (champ.id) {
             case ChampionId.ALL:
