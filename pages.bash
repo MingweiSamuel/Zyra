@@ -1,5 +1,6 @@
 #!/bin/bash
 # this script generates the gh-pages branch after build in circleci
+# ${project.build.finalName}
 
 # exit on error
 set -e
