@@ -1,8 +1,10 @@
 #!/bin/bash
+# this script generates the gh-pages branch after build in circleci
+
 # exit on error
 set -e
 
-cd target
+cd "$(dirname "$0")"
 git init
 
 # create index file
