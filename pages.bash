@@ -6,7 +6,7 @@
 set -e
 
 # don't make pages for pull requests
-[ -z "$CIRCLE_PR_NUMBER" ] && echo 'Skipping PR' && exit 0
+[ -n "$CIRCLE_PR_NUMBER" ] && echo 'Skipping PR' && exit 0
 
 # move to dir of this script (./target)
 cd "$(dirname "$0")"
