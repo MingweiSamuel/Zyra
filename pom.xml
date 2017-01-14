@@ -186,5 +186,13 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <includes>
+                    <include>pages.bash</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 </project>
