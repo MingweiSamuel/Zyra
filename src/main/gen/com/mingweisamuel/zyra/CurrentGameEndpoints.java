@@ -22,11 +22,13 @@ public class CurrentGameEndpoints {
     this.riotApi = riotApi;}
 
   /**
+   * @param region Region to query.
    * @param summonerId Riot API description: The ID of the summoner. */
   public CurrentGameInfo get(final Region region, final long summonerId) throws ExecutionException {
     return riotApi.getBasic(String.format(GET__URL, region.platform, summonerId), region, GET__TYPE);}
 
   /**
+   * @param region Region to query.
    * @param summonerId Riot API description: The ID of the summoner. */
   public CompletableFuture<CurrentGameInfo> getAsync(final Region region, final long summonerId) {
     return riotApi.getBasicAsync(String.format(GET__URL, region.platform, summonerId), region, GET__TYPE);}

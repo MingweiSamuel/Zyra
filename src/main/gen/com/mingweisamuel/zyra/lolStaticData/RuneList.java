@@ -1,6 +1,9 @@
 package com.mingweisamuel.zyra.lolStaticData;
 
+import com.google.common.base.Objects;
 import java.lang.Integer;
+import java.lang.Object;
+import java.lang.Override;
 import java.lang.String;
 import java.util.Map;
 
@@ -11,11 +14,39 @@ import java.util.Map;
  *
  * @version lol-static-data-v1.2 */
 public class RuneList {
-  public BasicData basic;
+  public final BasicData basic;
 
-  public Map<Integer, Rune> data;
+  public final Map<Integer, Rune> data;
 
-  public String type;
+  public final String type;
 
-  public String version;
+  public final String version;
+
+  public RuneList(final BasicData basic, final Map<Integer, Rune> data, final String type,
+      final String version) {
+    this.basic = basic;
+    this.data = data;
+    this.type = type;
+    this.version = version;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof RuneList)) return false;
+    final RuneList other = (RuneList) obj;
+    return true
+        && Objects.equal(basic, other.basic)
+        && Objects.equal(data, other.data)
+        && Objects.equal(type, other.type)
+        && Objects.equal(version, other.version);}
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(0,
+        basic,
+        data,
+        type,
+        version);}
 }

@@ -25,16 +25,16 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
-import static com.mingweisamuel.zyra.test.Api.api;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
  * Integration tests for {@link com.mingweisamuel.zyra.LolStaticDataEndpoints}.
  */
-public class ApiStaticDataTest {
+public class ApiStaticDataTest extends ApiTest {
 
     //region champion
     @Test
@@ -48,6 +48,7 @@ public class ApiStaticDataTest {
                 .thenAccept(this::checkGetChampions).get();
     }
     private void checkGetChampions(ChampionList result) {
+        assertNotNull(result);
         checkGetChampion(result.data.get("Zyra"));
         assertEquals("\u9f50\u5929\u5927\u5723", result.data.get("MonkeyKing").name);
     }
@@ -85,6 +86,7 @@ public class ApiStaticDataTest {
                 .thenAccept(this::checkGetItems).get();
     }
     private void checkGetItems(ItemList result) {
+        assertNotNull(result);
         checkGetItem(result.data.get(3107));
         // ardent censer
         assertEquals("\u70bd\u70ed\u9999\u7089", result.data.get(3504).name);
@@ -137,6 +139,7 @@ public class ApiStaticDataTest {
         api.staticData.getLanguagesAsync(Region.NA).thenAccept(this::checkGetLanguages).get();
     }
     private void checkGetLanguages(List<String> result) {
+        assertNotNull(result);
         Set<String> expected = new HashSet<>(Arrays.asList(
                 "en_US","cs_CZ","de_DE","el_GR","en_AU","en_GB","en_PH","en_PL","en_SG","es_AR","es_ES","es_MX","fr_FR",
                 "hu_HU","id_ID","it_IT","ja_JP","ko_KR","ms_MY","pl_PL","pt_BR","ro_RO","ru_RU","th_TH","tr_TR","vn_VN",
@@ -176,6 +179,7 @@ public class ApiStaticDataTest {
                 .thenAccept(this::checkGetMasteries).get();
     }
     private void checkGetMasteries(MasteryList result) {
+        assertNotNull(result);
         checkGetMastery(result.data.get(6363));
         // Intelligence
         assertEquals("\u667a\u8c0b", result.data.get(6352).name);
@@ -240,9 +244,11 @@ public class ApiStaticDataTest {
     }
     @Test
     public void getRuneAsync() throws ExecutionException, InterruptedException {
-        api.staticData.getRuneAsync(Region.NA, 5337, LocaleUtil.zh_CN, null, Collections.singleton("all")).get();
+        api.staticData.getRuneAsync(Region.NA, 5337, LocaleUtil.zh_CN, null, Collections.singleton("all"))
+                .thenAccept(this::checkGetRune).get();
     }
     private void checkGetRune(Rune result) {
+        assertNotNull(result);
         assertEquals(5337, result.id);
         // Greater Quintessence of Attack Speed
         assertEquals("\u9ad8\u7ea7\u653b\u51fb\u901f\u5ea6\u7cbe\u534e", result.name);
@@ -263,6 +269,7 @@ public class ApiStaticDataTest {
             .thenAccept(this::testGetSummonerSpells).get();
     }
     private void testGetSummonerSpells(SummonerSpellList result) {
+        assertNotNull(result);
         testGetSummonerSpell(result.data.get(4));
         // ghost
         assertEquals("\u5e7d\u7075\u75be\u6b65", result.data.get(6).name);
@@ -299,6 +306,7 @@ public class ApiStaticDataTest {
         api.staticData.getVersionsAsync(Region.NA).thenAccept(this::checkGetVersions).get();
     }
     private void checkGetVersions(List<String> result) {
+        assertNotNull(result);
         Set<String> expected = new HashSet<>(Arrays.asList(
                 "7.1.1","6.24.1","6.23.1","6.22.1","6.21.1","6.20.1","6.19.1","6.18.1","6.17.1","6.16.2","6.16.1",
                 "6.15.1","6.14.2","6.14.1","6.13.1","6.12.1","6.11.1","6.10.1","6.9.1","6.8.1","6.7.1","6.6.1",

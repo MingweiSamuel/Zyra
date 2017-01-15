@@ -1,5 +1,8 @@
 package com.mingweisamuel.zyra.champion;
 
+import com.google.common.base.Objects;
+import java.lang.Object;
+import java.lang.Override;
 import java.util.List;
 
 /**
@@ -11,5 +14,23 @@ import java.util.List;
 public class ChampionList {
   /**
    * The collection of champion information. */
-  public List<Champion> champions;
+  public final List<Champion> champions;
+
+  public ChampionList(final List<Champion> champions) {
+    this.champions = champions;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof ChampionList)) return false;
+    final ChampionList other = (ChampionList) obj;
+    return true
+        && Objects.equal(champions, other.champions);}
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(0,
+        champions);}
 }

@@ -1,5 +1,8 @@
 package com.mingweisamuel.zyra.matchList;
 
+import com.google.common.base.Objects;
+import java.lang.Object;
+import java.lang.Override;
 import java.util.List;
 
 /**
@@ -9,11 +12,39 @@ import java.util.List;
  *
  * @version matchlist-v2.2 */
 public class MatchList {
-  public int endIndex;
+  public final int endIndex;
 
-  public List<MatchReference> matches;
+  public final List<MatchReference> matches;
 
-  public int startIndex;
+  public final int startIndex;
 
-  public int totalGames;
+  public final int totalGames;
+
+  public MatchList(final int endIndex, final List<MatchReference> matches, final int startIndex,
+      final int totalGames) {
+    this.endIndex = endIndex;
+    this.matches = matches;
+    this.startIndex = startIndex;
+    this.totalGames = totalGames;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof MatchList)) return false;
+    final MatchList other = (MatchList) obj;
+    return true
+        && Objects.equal(endIndex, other.endIndex)
+        && Objects.equal(matches, other.matches)
+        && Objects.equal(startIndex, other.startIndex)
+        && Objects.equal(totalGames, other.totalGames);}
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(0,
+        endIndex,
+        matches,
+        startIndex,
+        totalGames);}
 }

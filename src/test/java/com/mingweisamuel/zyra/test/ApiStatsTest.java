@@ -13,7 +13,6 @@ import org.junit.Test;
 
 import java.util.concurrent.ExecutionException;
 
-import static com.mingweisamuel.zyra.test.Api.api;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -21,7 +20,7 @@ import static org.junit.Assert.fail;
  * Integration tests for {@link com.mingweisamuel.zyra.StatsEndpoints}.
  */
 @Ignore
-public class ApiStatsTest {
+public class ApiStatsTest extends ApiTest {
 
     @Test
     public void getRanked() throws ExecutionException {

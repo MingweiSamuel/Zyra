@@ -22,14 +22,13 @@ import static com.mingweisamuel.zyra.enums.ChampionId.SONA;
 import static com.mingweisamuel.zyra.enums.ChampionId.SORAKA;
 import static com.mingweisamuel.zyra.enums.ChampionId.TARIC;
 import static com.mingweisamuel.zyra.enums.ChampionId.ZYRA;
-import static com.mingweisamuel.zyra.test.Api.api;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
  * Integration tests for {@link com.mingweisamuel.zyra.ChampionMasteryEndpoints}.
  */
-public class ApiChampionMasteryTest {
+public class ApiChampionMasteryTest extends ApiTest {
 
     @Test
     public void getChampion() throws ExecutionException {

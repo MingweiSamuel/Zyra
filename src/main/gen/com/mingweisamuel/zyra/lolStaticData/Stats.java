@@ -1,5 +1,9 @@
 package com.mingweisamuel.zyra.lolStaticData;
 
+import com.google.common.base.Objects;
+import java.lang.Object;
+import java.lang.Override;
+
 /**
  * Stats - This object contains champion stats data.
  *
@@ -7,43 +11,123 @@ package com.mingweisamuel.zyra.lolStaticData;
  *
  * @version lol-static-data-v1.2 */
 public class Stats {
-  public double armor;
+  public final double armor;
 
-  public double armorperlevel;
+  public final double armorperlevel;
 
-  public double attackdamage;
+  public final double attackdamage;
 
-  public double attackdamageperlevel;
+  public final double attackdamageperlevel;
 
-  public double attackrange;
+  public final double attackrange;
 
-  public double attackspeedoffset;
+  public final double attackspeedoffset;
 
-  public double attackspeedperlevel;
+  public final double attackspeedperlevel;
 
-  public double crit;
+  public final double crit;
 
-  public double critperlevel;
+  public final double critperlevel;
 
-  public double hp;
+  public final double hp;
 
-  public double hpperlevel;
+  public final double hpperlevel;
 
-  public double hpregen;
+  public final double hpregen;
 
-  public double hpregenperlevel;
+  public final double hpregenperlevel;
 
-  public double movespeed;
+  public final double movespeed;
 
-  public double mp;
+  public final double mp;
 
-  public double mpperlevel;
+  public final double mpperlevel;
 
-  public double mpregen;
+  public final double mpregen;
 
-  public double mpregenperlevel;
+  public final double mpregenperlevel;
 
-  public double spellblock;
+  public final double spellblock;
 
-  public double spellblockperlevel;
+  public final double spellblockperlevel;
+
+  public Stats(final double armor, final double armorperlevel, final double attackdamage,
+      final double attackdamageperlevel, final double attackrange, final double attackspeedoffset,
+      final double attackspeedperlevel, final double crit, final double critperlevel,
+      final double hp, final double hpperlevel, final double hpregen, final double hpregenperlevel,
+      final double movespeed, final double mp, final double mpperlevel, final double mpregen,
+      final double mpregenperlevel, final double spellblock, final double spellblockperlevel) {
+    this.armor = armor;
+    this.armorperlevel = armorperlevel;
+    this.attackdamage = attackdamage;
+    this.attackdamageperlevel = attackdamageperlevel;
+    this.attackrange = attackrange;
+    this.attackspeedoffset = attackspeedoffset;
+    this.attackspeedperlevel = attackspeedperlevel;
+    this.crit = crit;
+    this.critperlevel = critperlevel;
+    this.hp = hp;
+    this.hpperlevel = hpperlevel;
+    this.hpregen = hpregen;
+    this.hpregenperlevel = hpregenperlevel;
+    this.movespeed = movespeed;
+    this.mp = mp;
+    this.mpperlevel = mpperlevel;
+    this.mpregen = mpregen;
+    this.mpregenperlevel = mpregenperlevel;
+    this.spellblock = spellblock;
+    this.spellblockperlevel = spellblockperlevel;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof Stats)) return false;
+    final Stats other = (Stats) obj;
+    return true
+        && Objects.equal(armor, other.armor)
+        && Objects.equal(armorperlevel, other.armorperlevel)
+        && Objects.equal(attackdamage, other.attackdamage)
+        && Objects.equal(attackdamageperlevel, other.attackdamageperlevel)
+        && Objects.equal(attackrange, other.attackrange)
+        && Objects.equal(attackspeedoffset, other.attackspeedoffset)
+        && Objects.equal(attackspeedperlevel, other.attackspeedperlevel)
+        && Objects.equal(crit, other.crit)
+        && Objects.equal(critperlevel, other.critperlevel)
+        && Objects.equal(hp, other.hp)
+        && Objects.equal(hpperlevel, other.hpperlevel)
+        && Objects.equal(hpregen, other.hpregen)
+        && Objects.equal(hpregenperlevel, other.hpregenperlevel)
+        && Objects.equal(movespeed, other.movespeed)
+        && Objects.equal(mp, other.mp)
+        && Objects.equal(mpperlevel, other.mpperlevel)
+        && Objects.equal(mpregen, other.mpregen)
+        && Objects.equal(mpregenperlevel, other.mpregenperlevel)
+        && Objects.equal(spellblock, other.spellblock)
+        && Objects.equal(spellblockperlevel, other.spellblockperlevel);}
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(0,
+        armor,
+        armorperlevel,
+        attackdamage,
+        attackdamageperlevel,
+        attackrange,
+        attackspeedoffset,
+        attackspeedperlevel,
+        crit,
+        critperlevel,
+        hp,
+        hpperlevel,
+        hpregen,
+        hpregenperlevel,
+        movespeed,
+        mp,
+        mpperlevel,
+        mpregen,
+        mpregenperlevel,
+        spellblock,
+        spellblockperlevel);}
 }

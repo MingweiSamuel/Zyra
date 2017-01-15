@@ -1,5 +1,8 @@
 package com.mingweisamuel.zyra.match;
 
+import com.google.common.base.Objects;
+import java.lang.Object;
+import java.lang.Override;
 import java.util.List;
 
 /**
@@ -11,9 +14,30 @@ import java.util.List;
 public class Timeline {
   /**
    * Time between each returned frame in milliseconds. */
-  public long frameInterval;
+  public final long frameInterval;
 
   /**
    * List of timeline frames for the game. */
-  public List<Frame> frames;
+  public final List<Frame> frames;
+
+  public Timeline(final long frameInterval, final List<Frame> frames) {
+    this.frameInterval = frameInterval;
+    this.frames = frames;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof Timeline)) return false;
+    final Timeline other = (Timeline) obj;
+    return true
+        && Objects.equal(frameInterval, other.frameInterval)
+        && Objects.equal(frames, other.frames);}
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(0,
+        frameInterval,
+        frames);}
 }

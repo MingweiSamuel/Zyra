@@ -25,6 +25,7 @@ public class MatchEndpoints {
   /**
    * Not all matches have timeline data. If timeline data is requested, but doesn't exist, then the response won't include it.
    *
+   * @param region Region to query.
    * @param matchId Riot API description: The ID of the match.
    * @param includeTimeline Riot API description: Flag indicating whether or not to include match timeline data */
   public MatchDetail get(final Region region, final long matchId, final Boolean includeTimeline)
@@ -35,6 +36,7 @@ public class MatchEndpoints {
   /**
    * Not all matches have timeline data. If timeline data is requested, but doesn't exist, then the response won't include it.
    *
+   * @param region Region to query.
    * @param matchId Riot API description: The ID of the match.
    * @param includeTimeline Riot API description: Flag indicating whether or not to include match timeline data */
   public CompletableFuture<MatchDetail> getAsync(final Region region, final long matchId,
@@ -45,6 +47,7 @@ public class MatchEndpoints {
   /**
    * Not all matches have timeline data. If timeline data is requested, but doesn't exist, then the response won't include it.
    *
+   * @param region Region to query.
    * @param matchId Riot API description: The ID of the match. */
   public MatchDetail get(final Region region, final long matchId) throws ExecutionException {
     return get(region, matchId, null);}
@@ -52,6 +55,7 @@ public class MatchEndpoints {
   /**
    * Not all matches have timeline data. If timeline data is requested, but doesn't exist, then the response won't include it.
    *
+   * @param region Region to query.
    * @param matchId Riot API description: The ID of the match. */
   public CompletableFuture<MatchDetail> getAsync(final Region region, final long matchId) {
     return getAsync(region, matchId, null);}

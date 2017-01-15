@@ -1,5 +1,9 @@
 package com.mingweisamuel.zyra.match;
 
+import com.google.common.base.Objects;
+import java.lang.Object;
+import java.lang.Override;
+
 /**
  * Position - This object contains participant frame position information
  *
@@ -7,7 +11,28 @@ package com.mingweisamuel.zyra.match;
  *
  * @version match-v2.2 */
 public class Position {
-  public int x;
+  public final int x;
 
-  public int y;
+  public final int y;
+
+  public Position(final int x, final int y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof Position)) return false;
+    final Position other = (Position) obj;
+    return true
+        && Objects.equal(x, other.x)
+        && Objects.equal(y, other.y);}
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(0,
+        x,
+        y);}
 }

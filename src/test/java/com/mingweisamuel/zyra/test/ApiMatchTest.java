@@ -16,7 +16,6 @@ import static com.mingweisamuel.zyra.enums.ChampionId.KATARINA;
 import static com.mingweisamuel.zyra.enums.ChampionId.LEBLANC;
 import static com.mingweisamuel.zyra.enums.ChampionId.RENGAR;
 import static com.mingweisamuel.zyra.enums.ChampionId.RYZE;
-import static com.mingweisamuel.zyra.test.Api.api;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -24,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Integration tests for {@link com.mingweisamuel.zyra.MatchEndpoints}.
  */
-public class ApiMatchTest {
+public class ApiMatchTest extends ApiTest {
 
     @Test
     public void get() throws ExecutionException {

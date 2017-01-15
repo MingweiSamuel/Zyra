@@ -1,5 +1,9 @@
 package com.mingweisamuel.zyra.match;
 
+import com.google.common.base.Objects;
+import java.lang.Object;
+import java.lang.Override;
+
 /**
  * Rune - This object contains rune information
  *
@@ -9,9 +13,30 @@ package com.mingweisamuel.zyra.match;
 public class Rune {
   /**
    * Rune rank */
-  public long rank;
+  public final long rank;
 
   /**
    * Rune ID */
-  public long runeId;
+  public final long runeId;
+
+  public Rune(final long rank, final long runeId) {
+    this.rank = rank;
+    this.runeId = runeId;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof Rune)) return false;
+    final Rune other = (Rune) obj;
+    return true
+        && Objects.equal(rank, other.rank)
+        && Objects.equal(runeId, other.runeId);}
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(0,
+        rank,
+        runeId);}
 }

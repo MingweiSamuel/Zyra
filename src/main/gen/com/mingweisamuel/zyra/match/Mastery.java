@@ -1,5 +1,9 @@
 package com.mingweisamuel.zyra.match;
 
+import com.google.common.base.Objects;
+import java.lang.Object;
+import java.lang.Override;
+
 /**
  * Mastery - This object contains mastery information
  *
@@ -9,9 +13,30 @@ package com.mingweisamuel.zyra.match;
 public class Mastery {
   /**
    * Mastery ID */
-  public long masteryId;
+  public final long masteryId;
 
   /**
    * Mastery rank */
-  public long rank;
+  public final long rank;
+
+  public Mastery(final long masteryId, final long rank) {
+    this.masteryId = masteryId;
+    this.rank = rank;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof Mastery)) return false;
+    final Mastery other = (Mastery) obj;
+    return true
+        && Objects.equal(masteryId, other.masteryId)
+        && Objects.equal(rank, other.rank);}
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(0,
+        masteryId,
+        rank);}
 }

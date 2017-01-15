@@ -1,5 +1,8 @@
 package com.mingweisamuel.zyra.league;
 
+import com.google.common.base.Objects;
+import java.lang.Object;
+import java.lang.Override;
 import java.lang.String;
 
 /**
@@ -11,17 +14,44 @@ import java.lang.String;
 public class MiniSeries {
   /**
    * Number of current losses in the mini series. */
-  public int losses;
+  public final int losses;
 
   /**
    * String showing the current, sequential mini series progress where 'W' represents a win, 'L' represents a loss, and 'N' represents a game that hasn't been played yet. */
-  public String progress;
+  public final String progress;
 
   /**
    * Number of wins required for promotion. */
-  public int target;
+  public final int target;
 
   /**
    * Number of current wins in the mini series. */
-  public int wins;
+  public final int wins;
+
+  public MiniSeries(final int losses, final String progress, final int target, final int wins) {
+    this.losses = losses;
+    this.progress = progress;
+    this.target = target;
+    this.wins = wins;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof MiniSeries)) return false;
+    final MiniSeries other = (MiniSeries) obj;
+    return true
+        && Objects.equal(losses, other.losses)
+        && Objects.equal(progress, other.progress)
+        && Objects.equal(target, other.target)
+        && Objects.equal(wins, other.wins);}
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(0,
+        losses,
+        progress,
+        target,
+        wins);}
 }

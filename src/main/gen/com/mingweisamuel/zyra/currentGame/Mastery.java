@@ -1,5 +1,9 @@
 package com.mingweisamuel.zyra.currentGame;
 
+import com.google.common.base.Objects;
+import java.lang.Object;
+import java.lang.Override;
+
 /**
  * Mastery
  *
@@ -9,9 +13,30 @@ package com.mingweisamuel.zyra.currentGame;
 public class Mastery {
   /**
    * The ID of the mastery */
-  public long masteryId;
+  public final long masteryId;
 
   /**
    * The number of points put into this mastery by the user */
-  public int rank;
+  public final int rank;
+
+  public Mastery(final long masteryId, final int rank) {
+    this.masteryId = masteryId;
+    this.rank = rank;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof Mastery)) return false;
+    final Mastery other = (Mastery) obj;
+    return true
+        && Objects.equal(masteryId, other.masteryId)
+        && Objects.equal(rank, other.rank);}
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(0,
+        masteryId,
+        rank);}
 }

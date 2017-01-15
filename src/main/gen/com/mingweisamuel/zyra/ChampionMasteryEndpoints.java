@@ -39,6 +39,7 @@ public class ChampionMasteryEndpoints {
     this.riotApi = riotApi;}
 
   /**
+   * @param region Region to query.
    * @param playerId Riot API description: Summoner ID associated with the player
    * @param championId Riot API description: Champion ID to retrieve Champion Mastery for */
   public ChampionMastery getChampion(final Region region, final long playerId, final int championId)
@@ -46,6 +47,7 @@ public class ChampionMasteryEndpoints {
     return riotApi.getBasic(String.format(GET_CHAMPION__URL, region.platform, playerId, championId), region, GET_CHAMPION__TYPE);}
 
   /**
+   * @param region Region to query.
    * @param playerId Riot API description: Summoner ID associated with the player
    * @param championId Riot API description: Champion ID to retrieve Champion Mastery for */
   public CompletableFuture<ChampionMastery> getChampionAsync(final Region region,
@@ -53,28 +55,33 @@ public class ChampionMasteryEndpoints {
     return riotApi.getBasicAsync(String.format(GET_CHAMPION__URL, region.platform, playerId, championId), region, GET_CHAMPION__TYPE);}
 
   /**
+   * @param region Region to query.
    * @param playerId Riot API description: Summoner ID associated with the player */
   public List<ChampionMastery> getChampions(final Region region, final long playerId) throws
       ExecutionException {
     return riotApi.getBasic(String.format(GET_CHAMPIONS__URL, region.platform, playerId), region, GET_CHAMPIONS__TYPE);}
 
   /**
+   * @param region Region to query.
    * @param playerId Riot API description: Summoner ID associated with the player */
   public CompletableFuture<List<ChampionMastery>> getChampionsAsync(final Region region,
       final long playerId) {
     return riotApi.getBasicAsync(String.format(GET_CHAMPIONS__URL, region.platform, playerId), region, GET_CHAMPIONS__TYPE);}
 
   /**
+   * @param region Region to query.
    * @param playerId Riot API description: Summoner ID associated with the player */
   public Integer getScore(final Region region, final long playerId) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_SCORE__URL, region.platform, playerId), region, GET_SCORE__TYPE);}
 
   /**
+   * @param region Region to query.
    * @param playerId Riot API description: Summoner ID associated with the player */
   public CompletableFuture<Integer> getScoreAsync(final Region region, final long playerId) {
     return riotApi.getBasicAsync(String.format(GET_SCORE__URL, region.platform, playerId), region, GET_SCORE__TYPE);}
 
   /**
+   * @param region Region to query.
    * @param playerId Riot API description: Summoner ID associated with the player
    * @param count Riot API description: Number of entries to retrieve, defaults to 3 */
   public List<ChampionMastery> getTopChampions(final Region region, final long playerId,
@@ -83,6 +90,7 @@ public class ChampionMasteryEndpoints {
         riotApi.makeParams("count", count));}
 
   /**
+   * @param region Region to query.
    * @param playerId Riot API description: Summoner ID associated with the player
    * @param count Riot API description: Number of entries to retrieve, defaults to 3 */
   public CompletableFuture<List<ChampionMastery>> getTopChampionsAsync(final Region region,
@@ -91,12 +99,14 @@ public class ChampionMasteryEndpoints {
         riotApi.makeParams("count", count));}
 
   /**
+   * @param region Region to query.
    * @param playerId Riot API description: Summoner ID associated with the player */
   public List<ChampionMastery> getTopChampions(final Region region, final long playerId) throws
       ExecutionException {
     return getTopChampions(region, playerId, null);}
 
   /**
+   * @param region Region to query.
    * @param playerId Riot API description: Summoner ID associated with the player */
   public CompletableFuture<List<ChampionMastery>> getTopChampionsAsync(final Region region,
       final long playerId) {

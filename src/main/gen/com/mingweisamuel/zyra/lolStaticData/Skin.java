@@ -1,5 +1,8 @@
 package com.mingweisamuel.zyra.lolStaticData;
 
+import com.google.common.base.Objects;
+import java.lang.Object;
+import java.lang.Override;
 import java.lang.String;
 
 /**
@@ -9,9 +12,33 @@ import java.lang.String;
  *
  * @version lol-static-data-v1.2 */
 public class Skin {
-  public int id;
+  public final int id;
 
-  public String name;
+  public final String name;
 
-  public int num;
+  public final int num;
+
+  public Skin(final int id, final String name, final int num) {
+    this.id = id;
+    this.name = name;
+    this.num = num;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof Skin)) return false;
+    final Skin other = (Skin) obj;
+    return true
+        && Objects.equal(id, other.id)
+        && Objects.equal(name, other.name)
+        && Objects.equal(num, other.num);}
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(0,
+        id,
+        name,
+        num);}
 }

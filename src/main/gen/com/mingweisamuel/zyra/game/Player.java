@@ -1,5 +1,9 @@
 package com.mingweisamuel.zyra.game;
 
+import com.google.common.base.Objects;
+import java.lang.Object;
+import java.lang.Override;
+
 /**
  * Player - This object contains player information.
  *
@@ -9,13 +13,37 @@ package com.mingweisamuel.zyra.game;
 public class Player {
   /**
    * Champion id associated with player. */
-  public int championId;
+  public final int championId;
 
   /**
    * Summoner id associated with player. */
-  public long summonerId;
+  public final long summonerId;
 
   /**
    * Team id associated with player. */
-  public int teamId;
+  public final int teamId;
+
+  public Player(final int championId, final long summonerId, final int teamId) {
+    this.championId = championId;
+    this.summonerId = summonerId;
+    this.teamId = teamId;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof Player)) return false;
+    final Player other = (Player) obj;
+    return true
+        && Objects.equal(championId, other.championId)
+        && Objects.equal(summonerId, other.summonerId)
+        && Objects.equal(teamId, other.teamId);}
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(0,
+        championId,
+        summonerId,
+        teamId);}
 }

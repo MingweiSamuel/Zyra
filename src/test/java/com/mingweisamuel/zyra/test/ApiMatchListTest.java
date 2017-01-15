@@ -10,13 +10,12 @@ import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 
 import static com.mingweisamuel.zyra.enums.ChampionId.DRAVEN;
-import static com.mingweisamuel.zyra.test.Api.api;
 import static org.junit.Assert.assertEquals;
 
 /**
  * Integration tests for {@link MatchListEndpoints}.
  */
-public class ApiMatchListTest {
+public class ApiMatchListTest extends ApiTest {
 
     @Test
     public void get() throws ExecutionException {

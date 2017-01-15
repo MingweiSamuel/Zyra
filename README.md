@@ -13,9 +13,8 @@ requests seamlessly.
 
 ## Features
 
-* Fast
-* Out-of-the-box multi-threading
-* Thread-safe
+* Fast, multi-threaded
+* Automatically retries failed requests
 * Asynchronous chaining with CompletableFuture
 * Highly-configurable
 

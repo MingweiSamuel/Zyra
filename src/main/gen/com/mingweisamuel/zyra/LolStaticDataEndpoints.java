@@ -98,6 +98,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param dataById Riot API description: If specified as true, the returned data map will use the champions' IDs as the keys. If not specified or specified as false, the returned data map will use the champions' keys instead.
@@ -110,6 +111,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param dataById Riot API description: If specified as true, the returned data map will use the champions' IDs as the keys. If not specified or specified as false, the returned data map will use the champions' keys instead.
@@ -122,6 +124,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param dataById Riot API description: If specified as true, the returned data map will use the champions' IDs as the keys. If not specified or specified as false, the returned data map will use the champions' keys instead. */
@@ -132,6 +135,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param dataById Riot API description: If specified as true, the returned data map will use the champions' IDs as the keys. If not specified or specified as false, the returned data map will use the champions' keys instead. */
@@ -142,6 +146,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
   public ChampionList getChampions(final Region region, final String locale, final String version)
@@ -151,6 +156,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
   public CompletableFuture<ChampionList> getChampionsAsync(final Region region, final String locale,
@@ -160,6 +166,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public ChampionList getChampions(final Region region, final String locale) throws
       ExecutionException {
@@ -168,24 +175,30 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public CompletableFuture<ChampionList> getChampionsAsync(final Region region,
       final String locale) {
     return getChampionsAsync(region, locale, null);}
 
   /**
-   * Not all data specified below is returned by default. See the champData parameter for more information. */
+   * Not all data specified below is returned by default. See the champData parameter for more information.
+   *
+   * @param region Region to query. */
   public ChampionList getChampions(final Region region) throws ExecutionException {
     return getChampions(region, null);}
 
   /**
-   * Not all data specified below is returned by default. See the champData parameter for more information. */
+   * Not all data specified below is returned by default. See the champData parameter for more information.
+   *
+   * @param region Region to query. */
   public CompletableFuture<ChampionList> getChampionsAsync(final Region region) {
     return getChampionsAsync(region, null);}
 
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Champion ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
@@ -198,6 +211,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Champion ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
@@ -210,6 +224,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Champion ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
@@ -220,6 +235,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Champion ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
@@ -230,6 +246,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Champion ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public Champion getChampion(final Region region, final int id, final String locale) throws
@@ -239,6 +256,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Champion ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public CompletableFuture<Champion> getChampionAsync(final Region region, final int id,
@@ -248,6 +266,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Champion ID */
   public Champion getChampion(final Region region, final int id) throws ExecutionException {
     return getChampion(region, id, null);}
@@ -255,6 +274,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the champData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Champion ID */
   public CompletableFuture<Champion> getChampionAsync(final Region region, final int id) {
     return getChampionAsync(region, id, null);}
@@ -262,6 +282,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the itemListData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param itemListData Riot API description: Tags to return additional data. Only type, version, basic, data, id, name, plaintext, group, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
@@ -273,6 +294,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the itemListData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param itemListData Riot API description: Tags to return additional data. Only type, version, basic, data, id, name, plaintext, group, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
@@ -284,6 +306,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the itemListData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
   public ItemList getItems(final Region region, final String locale, final String version) throws
@@ -293,6 +316,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the itemListData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
   public CompletableFuture<ItemList> getItemsAsync(final Region region, final String locale,
@@ -302,6 +326,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the itemListData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public ItemList getItems(final Region region, final String locale) throws ExecutionException {
     return getItems(region, locale, null);}
@@ -309,23 +334,29 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the itemListData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public CompletableFuture<ItemList> getItemsAsync(final Region region, final String locale) {
     return getItemsAsync(region, locale, null);}
 
   /**
-   * Not all data specified below is returned by default. See the itemListData parameter for more information. */
+   * Not all data specified below is returned by default. See the itemListData parameter for more information.
+   *
+   * @param region Region to query. */
   public ItemList getItems(final Region region) throws ExecutionException {
     return getItems(region, null);}
 
   /**
-   * Not all data specified below is returned by default. See the itemListData parameter for more information. */
+   * Not all data specified below is returned by default. See the itemListData parameter for more information.
+   *
+   * @param region Region to query. */
   public CompletableFuture<ItemList> getItemsAsync(final Region region) {
     return getItemsAsync(region, null);}
 
   /**
    * Not all data specified below is returned by default. See the itemData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Item ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
@@ -338,6 +369,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the itemData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Item ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
@@ -350,6 +382,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the itemData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Item ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
@@ -360,6 +393,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the itemData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Item ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
@@ -370,6 +404,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the itemData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Item ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public Item getItem(final Region region, final int id, final String locale) throws
@@ -379,6 +414,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the itemData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Item ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public CompletableFuture<Item> getItemAsync(final Region region, final int id,
@@ -388,6 +424,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the itemData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Item ID */
   public Item getItem(final Region region, final int id) throws ExecutionException {
     return getItem(region, id, null);}
@@ -395,11 +432,13 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the itemData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Item ID */
   public CompletableFuture<Item> getItemAsync(final Region region, final int id) {
     return getItemAsync(region, id, null);}
 
   /**
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
   public LanguageStrings getLanguageStrings(final Region region, final String locale,
@@ -408,6 +447,7 @@ public class LolStaticDataEndpoints {
         riotApi.makeParams("locale", locale, "version", version));}
 
   /**
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
   public CompletableFuture<LanguageStrings> getLanguageStringsAsync(final Region region,
@@ -416,30 +456,41 @@ public class LolStaticDataEndpoints {
         riotApi.makeParams("locale", locale, "version", version));}
 
   /**
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public LanguageStrings getLanguageStrings(final Region region, final String locale) throws
       ExecutionException {
     return getLanguageStrings(region, locale, null);}
 
   /**
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public CompletableFuture<LanguageStrings> getLanguageStringsAsync(final Region region,
       final String locale) {
     return getLanguageStringsAsync(region, locale, null);}
 
+  /**
+   * @param region Region to query. */
   public LanguageStrings getLanguageStrings(final Region region) throws ExecutionException {
     return getLanguageStrings(region, null);}
 
+  /**
+   * @param region Region to query. */
   public CompletableFuture<LanguageStrings> getLanguageStringsAsync(final Region region) {
     return getLanguageStringsAsync(region, null);}
 
+  /**
+   * @param region Region to query. */
   public List<String> getLanguages(final Region region) throws ExecutionException {
     return riotApi.getBasicNonRateLimited(String.format(GET_LANGUAGES__URL, region), region, GET_LANGUAGES__TYPE);}
 
+  /**
+   * @param region Region to query. */
   public CompletableFuture<List<String>> getLanguagesAsync(final Region region) {
     return riotApi.getBasicNonRateLimitedAsync(String.format(GET_LANGUAGES__URL, region), region, GET_LANGUAGES__TYPE);}
 
   /**
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
   public MapData getMaps(final Region region, final String locale, final String version) throws
@@ -448,6 +499,7 @@ public class LolStaticDataEndpoints {
         riotApi.makeParams("locale", locale, "version", version));}
 
   /**
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
   public CompletableFuture<MapData> getMapsAsync(final Region region, final String locale,
@@ -456,24 +508,31 @@ public class LolStaticDataEndpoints {
         riotApi.makeParams("locale", locale, "version", version));}
 
   /**
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public MapData getMaps(final Region region, final String locale) throws ExecutionException {
     return getMaps(region, locale, null);}
 
   /**
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public CompletableFuture<MapData> getMapsAsync(final Region region, final String locale) {
     return getMapsAsync(region, locale, null);}
 
+  /**
+   * @param region Region to query. */
   public MapData getMaps(final Region region) throws ExecutionException {
     return getMaps(region, null);}
 
+  /**
+   * @param region Region to query. */
   public CompletableFuture<MapData> getMapsAsync(final Region region) {
     return getMapsAsync(region, null);}
 
   /**
    * Not all data specified below is returned by default. See the masteryListData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param masteryListData Riot API description: Tags to return additional data. Only type, version, data, id, name, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
@@ -485,6 +544,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the masteryListData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param masteryListData Riot API description: Tags to return additional data. Only type, version, data, id, name, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
@@ -496,6 +556,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the masteryListData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
   public MasteryList getMasteries(final Region region, final String locale, final String version)
@@ -505,6 +566,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the masteryListData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
   public CompletableFuture<MasteryList> getMasteriesAsync(final Region region, final String locale,
@@ -514,6 +576,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the masteryListData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public MasteryList getMasteries(final Region region, final String locale) throws
       ExecutionException {
@@ -522,24 +585,30 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the masteryListData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public CompletableFuture<MasteryList> getMasteriesAsync(final Region region,
       final String locale) {
     return getMasteriesAsync(region, locale, null);}
 
   /**
-   * Not all data specified below is returned by default. See the masteryListData parameter for more information. */
+   * Not all data specified below is returned by default. See the masteryListData parameter for more information.
+   *
+   * @param region Region to query. */
   public MasteryList getMasteries(final Region region) throws ExecutionException {
     return getMasteries(region, null);}
 
   /**
-   * Not all data specified below is returned by default. See the masteryListData parameter for more information. */
+   * Not all data specified below is returned by default. See the masteryListData parameter for more information.
+   *
+   * @param region Region to query. */
   public CompletableFuture<MasteryList> getMasteriesAsync(final Region region) {
     return getMasteriesAsync(region, null);}
 
   /**
    * Not all data specified below is returned by default. See the masteryData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Mastery ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
@@ -552,6 +621,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the masteryData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Mastery ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
@@ -564,6 +634,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the masteryData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Mastery ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
@@ -574,6 +645,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the masteryData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Mastery ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
@@ -584,6 +656,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the masteryData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Mastery ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public Mastery getMastery(final Region region, final int id, final String locale) throws
@@ -593,6 +666,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the masteryData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Mastery ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public CompletableFuture<Mastery> getMasteryAsync(final Region region, final int id,
@@ -602,6 +676,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the masteryData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Mastery ID */
   public Mastery getMastery(final Region region, final int id) throws ExecutionException {
     return getMastery(region, id, null);}
@@ -609,19 +684,25 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the masteryData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Mastery ID */
   public CompletableFuture<Mastery> getMasteryAsync(final Region region, final int id) {
     return getMasteryAsync(region, id, null);}
 
+  /**
+   * @param region Region to query. */
   public Realm getRealm(final Region region) throws ExecutionException {
     return riotApi.getBasicNonRateLimited(String.format(GET_REALM__URL, region), region, GET_REALM__TYPE);}
 
+  /**
+   * @param region Region to query. */
   public CompletableFuture<Realm> getRealmAsync(final Region region) {
     return riotApi.getBasicNonRateLimitedAsync(String.format(GET_REALM__URL, region), region, GET_REALM__TYPE);}
 
   /**
    * Not all data specified below is returned by default. See the runeListData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param runeListData Riot API description: Tags to return additional data. Only type, version, data, id, name, rune, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
@@ -633,6 +714,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the runeListData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param runeListData Riot API description: Tags to return additional data. Only type, version, data, id, name, rune, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'. */
@@ -644,6 +726,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the runeListData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
   public RuneList getRunes(final Region region, final String locale, final String version) throws
@@ -653,6 +736,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the runeListData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
   public CompletableFuture<RuneList> getRunesAsync(final Region region, final String locale,
@@ -662,6 +746,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the runeListData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public RuneList getRunes(final Region region, final String locale) throws ExecutionException {
     return getRunes(region, locale, null);}
@@ -669,23 +754,29 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the runeListData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public CompletableFuture<RuneList> getRunesAsync(final Region region, final String locale) {
     return getRunesAsync(region, locale, null);}
 
   /**
-   * Not all data specified below is returned by default. See the runeListData parameter for more information. */
+   * Not all data specified below is returned by default. See the runeListData parameter for more information.
+   *
+   * @param region Region to query. */
   public RuneList getRunes(final Region region) throws ExecutionException {
     return getRunes(region, null);}
 
   /**
-   * Not all data specified below is returned by default. See the runeListData parameter for more information. */
+   * Not all data specified below is returned by default. See the runeListData parameter for more information.
+   *
+   * @param region Region to query. */
   public CompletableFuture<RuneList> getRunesAsync(final Region region) {
     return getRunesAsync(region, null);}
 
   /**
    * Not all data specified below is returned by default. See the runeData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Rune ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
@@ -698,6 +789,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the runeData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Rune ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
@@ -710,6 +802,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the runeData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Rune ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
@@ -720,6 +813,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the runeData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Rune ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
@@ -730,6 +824,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the runeData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Rune ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public Rune getRune(final Region region, final int id, final String locale) throws
@@ -739,6 +834,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the runeData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Rune ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public CompletableFuture<Rune> getRuneAsync(final Region region, final int id,
@@ -748,6 +844,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the runeData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Rune ID */
   public Rune getRune(final Region region, final int id) throws ExecutionException {
     return getRune(region, id, null);}
@@ -755,6 +852,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the runeData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Rune ID */
   public CompletableFuture<Rune> getRuneAsync(final Region region, final int id) {
     return getRuneAsync(region, id, null);}
@@ -762,6 +860,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param dataById Riot API description: If specified as true, the returned data map will use the spells' IDs as the keys. If not specified or specified as false, the returned data map will use the spells' keys instead.
@@ -775,6 +874,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param dataById Riot API description: If specified as true, the returned data map will use the spells' IDs as the keys. If not specified or specified as false, the returned data map will use the spells' keys instead.
@@ -788,6 +888,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param dataById Riot API description: If specified as true, the returned data map will use the spells' IDs as the keys. If not specified or specified as false, the returned data map will use the spells' keys instead. */
@@ -798,6 +899,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param dataById Riot API description: If specified as true, the returned data map will use the spells' IDs as the keys. If not specified or specified as false, the returned data map will use the spells' keys instead. */
@@ -808,6 +910,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
   public SummonerSpellList getSummonerSpells(final Region region, final String locale,
@@ -817,6 +920,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
   public CompletableFuture<SummonerSpellList> getSummonerSpellsAsync(final Region region,
@@ -826,6 +930,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public SummonerSpellList getSummonerSpells(final Region region, final String locale) throws
       ExecutionException {
@@ -834,24 +939,30 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
    *
+   * @param region Region to query.
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public CompletableFuture<SummonerSpellList> getSummonerSpellsAsync(final Region region,
       final String locale) {
     return getSummonerSpellsAsync(region, locale, null);}
 
   /**
-   * Not all data specified below is returned by default. See the spellData parameter for more information. */
+   * Not all data specified below is returned by default. See the spellData parameter for more information.
+   *
+   * @param region Region to query. */
   public SummonerSpellList getSummonerSpells(final Region region) throws ExecutionException {
     return getSummonerSpells(region, null);}
 
   /**
-   * Not all data specified below is returned by default. See the spellData parameter for more information. */
+   * Not all data specified below is returned by default. See the spellData parameter for more information.
+   *
+   * @param region Region to query. */
   public CompletableFuture<SummonerSpellList> getSummonerSpellsAsync(final Region region) {
     return getSummonerSpellsAsync(region, null);}
 
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Summoner spell ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
@@ -864,6 +975,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Summoner spell ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
@@ -876,6 +988,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Summoner spell ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
@@ -886,6 +999,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Summoner spell ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version Riot API description: Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint. */
@@ -896,6 +1010,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Summoner spell ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public SummonerSpell getSummonerSpell(final Region region, final int id, final String locale)
@@ -905,6 +1020,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Summoner spell ID
    * @param locale Riot API description: Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used. */
   public CompletableFuture<SummonerSpell> getSummonerSpellAsync(final Region region, final int id,
@@ -914,6 +1030,7 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Summoner spell ID */
   public SummonerSpell getSummonerSpell(final Region region, final int id) throws
       ExecutionException {
@@ -922,13 +1039,18 @@ public class LolStaticDataEndpoints {
   /**
    * Not all data specified below is returned by default. See the spellData parameter for more information.
    *
+   * @param region Region to query.
    * @param id Riot API description: Summoner spell ID */
   public CompletableFuture<SummonerSpell> getSummonerSpellAsync(final Region region, final int id) {
     return getSummonerSpellAsync(region, id, null);}
 
+  /**
+   * @param region Region to query. */
   public List<String> getVersions(final Region region) throws ExecutionException {
     return riotApi.getBasicNonRateLimited(String.format(GET_VERSIONS__URL, region), region, GET_VERSIONS__TYPE);}
 
+  /**
+   * @param region Region to query. */
   public CompletableFuture<List<String>> getVersionsAsync(final Region region) {
     return riotApi.getBasicNonRateLimitedAsync(String.format(GET_VERSIONS__URL, region), region, GET_VERSIONS__TYPE);}
 }

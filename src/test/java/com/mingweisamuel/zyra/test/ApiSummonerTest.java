@@ -18,7 +18,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
-import static com.mingweisamuel.zyra.test.Api.api;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -26,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Integration tests for {@link com.mingweisamuel.zyra.SummonerEndpoints}.
  */
-public class ApiSummonerTest {
+public class ApiSummonerTest extends ApiTest {
     
     private static final Set<Long> summonerIds = new HashSet<>(Arrays.asList(
             56853224L,21877410L,22144337L,69009277L,40722728L,28319157L,77159092L,45341132L,36650694L,82149339L,

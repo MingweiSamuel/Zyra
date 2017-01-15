@@ -1,5 +1,8 @@
 package com.mingweisamuel.zyra.lolStaticData;
 
+import com.google.common.base.Objects;
+import java.lang.Object;
+import java.lang.Override;
 import java.lang.String;
 
 /**
@@ -9,7 +12,28 @@ import java.lang.String;
  *
  * @version lol-static-data-v1.2 */
 public class MasteryTreeItem {
-  public int masteryId;
+  public final int masteryId;
 
-  public String prereq;
+  public final String prereq;
+
+  public MasteryTreeItem(final int masteryId, final String prereq) {
+    this.masteryId = masteryId;
+    this.prereq = prereq;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof MasteryTreeItem)) return false;
+    final MasteryTreeItem other = (MasteryTreeItem) obj;
+    return true
+        && Objects.equal(masteryId, other.masteryId)
+        && Objects.equal(prereq, other.prereq);}
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(0,
+        masteryId,
+        prereq);}
 }

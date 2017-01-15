@@ -5,6 +5,7 @@ import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.Param;
 import org.asynchttpclient.Response;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -54,7 +55,13 @@ public class RateLimitedRequester extends Requester {
 
     public CompletableFuture<Response> getRequestNonRateLimitedAsync(
             String relativeUrl, Region region, Param... params) {
-        return getRequestAsync(String.format(RIOT_ROOT_URL, region), relativeUrl, params).toCompletableFuture();
+        return getRequestAsync(String.format(RIOT_ROOT_URL, region), relativeUrl, params).toCompletableFuture()
+                .thenApply(r -> {
+                    if (Arrays.binarySearch(STATUS_SUCCESS, r.getStatusCode()) >= 0)
+                        return r;
+                    throw new RiotResponseException(
+                            String.format("Non rate limited request failed, no retries (%d).", r.getStatusCode()), r);
+                });
     }
 
     public CompletableFuture<Response> getRequestRateLimitedAsync(String relativeUrl, Region region, Param... params) {

@@ -47,6 +47,7 @@ public class LeagueEndpoints {
   /**
    * Returns all leagues for specified summoners and summoners' teams. Entries for each requested participant (i.e., each summoner and related teams) will be included in the returned leagues data, whether or not the participant is inactive. However, no entries for other inactive summoners or teams in the leagues will be included.
    *
+   * @param region Region to query.
    * @param input Riot API description: list of summoner IDs. */
   public Map<Long, List<League>> get(final Region region, final Collection<Long> input) throws
       ExecutionException {
@@ -55,6 +56,7 @@ public class LeagueEndpoints {
   /**
    * Returns all leagues for specified summoners and summoners' teams. Entries for each requested participant (i.e., each summoner and related teams) will be included in the returned leagues data, whether or not the participant is inactive. However, no entries for other inactive summoners or teams in the leagues will be included.
    *
+   * @param region Region to query.
    * @param input Riot API description: list of summoner IDs. */
   public CompletableFuture<Map<Long, List<League>>> getAsync(final Region region,
       final Collection<Long> input) {
@@ -63,6 +65,7 @@ public class LeagueEndpoints {
   /**
    * Returns all league entries for specified summoners and summoners' teams.
    *
+   * @param region Region to query.
    * @param input Riot API description: list of summoner IDs. */
   public Map<Long, List<League>> getEntries(final Region region, final Collection<Long> input)
       throws ExecutionException {
@@ -71,23 +74,36 @@ public class LeagueEndpoints {
   /**
    * Returns all league entries for specified summoners and summoners' teams.
    *
+   * @param region Region to query.
    * @param input Riot API description: list of summoner IDs. */
   public CompletableFuture<Map<Long, List<League>>> getEntriesAsync(final Region region,
       final Collection<Long> input) {
     return riotApi.getMapAsync(String.format(GET_ENTRIES__URL, region), region, input, GET_ENTRIES__GROUP, GET_ENTRIES__TYPE);}
 
+  /**
+   * @param region Region to query.
+   * @param type Riot API description: Game queue type. */
   public League getChallengers(final Region region, final String type) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_CHALLENGERS__URL, region), region, GET_CHALLENGERS__TYPE,
         riotApi.makeParams("type", type));}
 
+  /**
+   * @param region Region to query.
+   * @param type Riot API description: Game queue type. */
   public CompletableFuture<League> getChallengersAsync(final Region region, final String type) {
     return riotApi.getBasicAsync(String.format(GET_CHALLENGERS__URL, region), region, GET_CHALLENGERS__TYPE,
         riotApi.makeParams("type", type));}
 
+  /**
+   * @param region Region to query.
+   * @param type Riot API description: Game queue type. */
   public League getMasters(final Region region, final String type) throws ExecutionException {
     return riotApi.getBasic(String.format(GET_MASTERS__URL, region), region, GET_MASTERS__TYPE,
         riotApi.makeParams("type", type));}
 
+  /**
+   * @param region Region to query.
+   * @param type Riot API description: Game queue type. */
   public CompletableFuture<League> getMastersAsync(final Region region, final String type) {
     return riotApi.getBasicAsync(String.format(GET_MASTERS__URL, region), region, GET_MASTERS__TYPE,
         riotApi.makeParams("type", type));}

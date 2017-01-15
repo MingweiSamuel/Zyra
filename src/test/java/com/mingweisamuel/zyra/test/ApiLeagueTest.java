@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import static com.mingweisamuel.zyra.test.Api.api;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -21,7 +20,7 @@ import static org.junit.Assert.fail;
 /**
  * Integration tests for {@link com.mingweisamuel.zyra.LeagueEndpoints}.
  */
-public class ApiLeagueTest {
+public class ApiLeagueTest extends ApiTest {
 
     @Test
     public void get() throws  ExecutionException {

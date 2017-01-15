@@ -29,6 +29,7 @@ public class StatsEndpoints {
   /**
    * Includes ranked stats for Twisted Treeline and Summoner's Rift.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: ID of the summoner for which to retrieve ranked stats.
    * @param season Riot API description: If specified, stats for the given season are returned. Otherwise, stats for the current season are returned. */
   public RankedStats getRanked(final Region region, final long summonerId, final String season)
@@ -39,6 +40,7 @@ public class StatsEndpoints {
   /**
    * Includes ranked stats for Twisted Treeline and Summoner's Rift.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: ID of the summoner for which to retrieve ranked stats.
    * @param season Riot API description: If specified, stats for the given season are returned. Otherwise, stats for the current season are returned. */
   public CompletableFuture<RankedStats> getRankedAsync(final Region region, final long summonerId,
@@ -49,6 +51,7 @@ public class StatsEndpoints {
   /**
    * Includes ranked stats for Twisted Treeline and Summoner's Rift.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: ID of the summoner for which to retrieve ranked stats. */
   public RankedStats getRanked(final Region region, final long summonerId) throws
       ExecutionException {
@@ -57,6 +60,7 @@ public class StatsEndpoints {
   /**
    * Includes ranked stats for Twisted Treeline and Summoner's Rift.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: ID of the summoner for which to retrieve ranked stats. */
   public CompletableFuture<RankedStats> getRankedAsync(final Region region, final long summonerId) {
     return getRankedAsync(region, summonerId, null);}
@@ -64,6 +68,7 @@ public class StatsEndpoints {
   /**
    * One summary is returned per queue type.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: ID of the summoner for which to retrieve player stats.
    * @param season Riot API description: If specified, stats for the given season are returned. Otherwise, stats for the current season are returned. */
   public PlayerStatsSummaryList getSummary(final Region region, final long summonerId,
@@ -74,6 +79,7 @@ public class StatsEndpoints {
   /**
    * One summary is returned per queue type.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: ID of the summoner for which to retrieve player stats.
    * @param season Riot API description: If specified, stats for the given season are returned. Otherwise, stats for the current season are returned. */
   public CompletableFuture<PlayerStatsSummaryList> getSummaryAsync(final Region region,
@@ -84,6 +90,7 @@ public class StatsEndpoints {
   /**
    * One summary is returned per queue type.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: ID of the summoner for which to retrieve player stats. */
   public PlayerStatsSummaryList getSummary(final Region region, final long summonerId) throws
       ExecutionException {
@@ -92,6 +99,7 @@ public class StatsEndpoints {
   /**
    * One summary is returned per queue type.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: ID of the summoner for which to retrieve player stats. */
   public CompletableFuture<PlayerStatsSummaryList> getSummaryAsync(final Region region,
       final long summonerId) {

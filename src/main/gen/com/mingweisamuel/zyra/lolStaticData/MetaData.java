@@ -1,5 +1,8 @@
 package com.mingweisamuel.zyra.lolStaticData;
 
+import com.google.common.base.Objects;
+import java.lang.Object;
+import java.lang.Override;
 import java.lang.String;
 
 /**
@@ -9,9 +12,33 @@ import java.lang.String;
  *
  * @version lol-static-data-v1.2 */
 public class MetaData {
-  public boolean isRune;
+  public final boolean isRune;
 
-  public String tier;
+  public final String tier;
 
-  public String type;
+  public final String type;
+
+  public MetaData(final boolean isRune, final String tier, final String type) {
+    this.isRune = isRune;
+    this.tier = tier;
+    this.type = type;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof MetaData)) return false;
+    final MetaData other = (MetaData) obj;
+    return true
+        && Objects.equal(isRune, other.isRune)
+        && Objects.equal(tier, other.tier)
+        && Objects.equal(type, other.type);}
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(0,
+        isRune,
+        tier,
+        type);}
 }

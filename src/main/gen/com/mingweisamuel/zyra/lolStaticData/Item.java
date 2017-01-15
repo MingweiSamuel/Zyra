@@ -1,7 +1,10 @@
 package com.mingweisamuel.zyra.lolStaticData;
 
+import com.google.common.base.Objects;
 import java.lang.Boolean;
 import java.lang.Integer;
+import java.lang.Object;
+import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 import java.util.Map;
@@ -13,53 +16,147 @@ import java.util.Map;
  *
  * @version lol-static-data-v1.2 */
 public class Item {
-  public String colloq;
+  public final String colloq;
 
-  public boolean consumeOnFull;
+  public final boolean consumeOnFull;
 
-  public boolean consumed;
+  public final boolean consumed;
 
-  public int depth;
+  public final int depth;
 
-  public String description;
+  public final String description;
 
-  public Map<String, String> effect;
+  public final Map<String, String> effect;
 
-  public List<String> from;
+  public final List<String> from;
 
   /**
    * Data Dragon includes the gold field for basic data, which is shared by both rune and item. However, only items have a gold field on them, representing their gold cost in the store. Since runes are not sold in the store, they have no gold cost. */
-  public Gold gold;
+  public final Gold gold;
 
-  public String group;
+  public final String group;
 
-  public boolean hideFromAll;
+  public final boolean hideFromAll;
 
-  public int id;
+  public final int id;
 
-  public Image image;
+  public final Image image;
 
-  public boolean inStore;
+  public final boolean inStore;
 
-  public List<String> into;
+  public final List<String> into;
 
-  public Map<Integer, Boolean> maps;
+  public final Map<Integer, Boolean> maps;
 
-  public String name;
+  public final String name;
 
-  public String plaintext;
+  public final String plaintext;
 
-  public String requiredChampion;
+  public final String requiredChampion;
 
-  public MetaData rune;
+  public final MetaData rune;
 
-  public String sanitizedDescription;
+  public final String sanitizedDescription;
 
-  public int specialRecipe;
+  public final int specialRecipe;
 
-  public int stacks;
+  public final int stacks;
 
-  public BasicDataStats stats;
+  public final BasicDataStats stats;
 
-  public List<String> tags;
+  public final List<String> tags;
+
+  public Item(final String colloq, final boolean consumeOnFull, final boolean consumed,
+      final int depth, final String description, final Map<String, String> effect,
+      final List<String> from, final Gold gold, final String group, final boolean hideFromAll,
+      final int id, final Image image, final boolean inStore, final List<String> into,
+      final Map<Integer, Boolean> maps, final String name, final String plaintext,
+      final String requiredChampion, final MetaData rune, final String sanitizedDescription,
+      final int specialRecipe, final int stacks, final BasicDataStats stats,
+      final List<String> tags) {
+    this.colloq = colloq;
+    this.consumeOnFull = consumeOnFull;
+    this.consumed = consumed;
+    this.depth = depth;
+    this.description = description;
+    this.effect = effect;
+    this.from = from;
+    this.gold = gold;
+    this.group = group;
+    this.hideFromAll = hideFromAll;
+    this.id = id;
+    this.image = image;
+    this.inStore = inStore;
+    this.into = into;
+    this.maps = maps;
+    this.name = name;
+    this.plaintext = plaintext;
+    this.requiredChampion = requiredChampion;
+    this.rune = rune;
+    this.sanitizedDescription = sanitizedDescription;
+    this.specialRecipe = specialRecipe;
+    this.stacks = stacks;
+    this.stats = stats;
+    this.tags = tags;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof Item)) return false;
+    final Item other = (Item) obj;
+    return true
+        && Objects.equal(colloq, other.colloq)
+        && Objects.equal(consumeOnFull, other.consumeOnFull)
+        && Objects.equal(consumed, other.consumed)
+        && Objects.equal(depth, other.depth)
+        && Objects.equal(description, other.description)
+        && Objects.equal(effect, other.effect)
+        && Objects.equal(from, other.from)
+        && Objects.equal(gold, other.gold)
+        && Objects.equal(group, other.group)
+        && Objects.equal(hideFromAll, other.hideFromAll)
+        && Objects.equal(id, other.id)
+        && Objects.equal(image, other.image)
+        && Objects.equal(inStore, other.inStore)
+        && Objects.equal(into, other.into)
+        && Objects.equal(maps, other.maps)
+        && Objects.equal(name, other.name)
+        && Objects.equal(plaintext, other.plaintext)
+        && Objects.equal(requiredChampion, other.requiredChampion)
+        && Objects.equal(rune, other.rune)
+        && Objects.equal(sanitizedDescription, other.sanitizedDescription)
+        && Objects.equal(specialRecipe, other.specialRecipe)
+        && Objects.equal(stacks, other.stacks)
+        && Objects.equal(stats, other.stats)
+        && Objects.equal(tags, other.tags);}
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(0,
+        colloq,
+        consumeOnFull,
+        consumed,
+        depth,
+        description,
+        effect,
+        from,
+        gold,
+        group,
+        hideFromAll,
+        id,
+        image,
+        inStore,
+        into,
+        maps,
+        name,
+        plaintext,
+        requiredChampion,
+        rune,
+        sanitizedDescription,
+        specialRecipe,
+        stacks,
+        stats,
+        tags);}
 }

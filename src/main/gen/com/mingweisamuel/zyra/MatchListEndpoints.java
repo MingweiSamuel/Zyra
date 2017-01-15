@@ -27,6 +27,7 @@ public class MatchListEndpoints {
   /**
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested summoner, otherwise, no matches may be returned. If either of the beginTime or endTime parameters is set, they must both be set, although there is no maximum limit on their range. If the beginTime parameter is specified on its own, endTime is assumed to be the current time. If the endTime parameter is specified on its own, beginTime is assumed to be the start of the summoner's match history.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: The ID of the summoner.
    * @param championIds Riot API description: list of champion IDs to use for fetching games.
    * @param rankedQueues Riot API description: list of ranked queue types to use for fetching games. Non-ranked queue types will be ignored.
@@ -45,6 +46,7 @@ public class MatchListEndpoints {
   /**
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested summoner, otherwise, no matches may be returned. If either of the beginTime or endTime parameters is set, they must both be set, although there is no maximum limit on their range. If the beginTime parameter is specified on its own, endTime is assumed to be the current time. If the endTime parameter is specified on its own, beginTime is assumed to be the start of the summoner's match history.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: The ID of the summoner.
    * @param championIds Riot API description: list of champion IDs to use for fetching games.
    * @param rankedQueues Riot API description: list of ranked queue types to use for fetching games. Non-ranked queue types will be ignored.
@@ -63,6 +65,7 @@ public class MatchListEndpoints {
   /**
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested summoner, otherwise, no matches may be returned. If either of the beginTime or endTime parameters is set, they must both be set, although there is no maximum limit on their range. If the beginTime parameter is specified on its own, endTime is assumed to be the current time. If the endTime parameter is specified on its own, beginTime is assumed to be the start of the summoner's match history.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: The ID of the summoner.
    * @param championIds Riot API description: list of champion IDs to use for fetching games.
    * @param rankedQueues Riot API description: list of ranked queue types to use for fetching games. Non-ranked queue types will be ignored.
@@ -79,6 +82,7 @@ public class MatchListEndpoints {
   /**
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested summoner, otherwise, no matches may be returned. If either of the beginTime or endTime parameters is set, they must both be set, although there is no maximum limit on their range. If the beginTime parameter is specified on its own, endTime is assumed to be the current time. If the endTime parameter is specified on its own, beginTime is assumed to be the start of the summoner's match history.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: The ID of the summoner.
    * @param championIds Riot API description: list of champion IDs to use for fetching games.
    * @param rankedQueues Riot API description: list of ranked queue types to use for fetching games. Non-ranked queue types will be ignored.
@@ -95,6 +99,7 @@ public class MatchListEndpoints {
   /**
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested summoner, otherwise, no matches may be returned. If either of the beginTime or endTime parameters is set, they must both be set, although there is no maximum limit on their range. If the beginTime parameter is specified on its own, endTime is assumed to be the current time. If the endTime parameter is specified on its own, beginTime is assumed to be the start of the summoner's match history.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: The ID of the summoner.
    * @param championIds Riot API description: list of champion IDs to use for fetching games.
    * @param rankedQueues Riot API description: list of ranked queue types to use for fetching games. Non-ranked queue types will be ignored.
@@ -110,6 +115,7 @@ public class MatchListEndpoints {
   /**
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested summoner, otherwise, no matches may be returned. If either of the beginTime or endTime parameters is set, they must both be set, although there is no maximum limit on their range. If the beginTime parameter is specified on its own, endTime is assumed to be the current time. If the endTime parameter is specified on its own, beginTime is assumed to be the start of the summoner's match history.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: The ID of the summoner.
    * @param championIds Riot API description: list of champion IDs to use for fetching games.
    * @param rankedQueues Riot API description: list of ranked queue types to use for fetching games. Non-ranked queue types will be ignored.
@@ -124,6 +130,7 @@ public class MatchListEndpoints {
   /**
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested summoner, otherwise, no matches may be returned. If either of the beginTime or endTime parameters is set, they must both be set, although there is no maximum limit on their range. If the beginTime parameter is specified on its own, endTime is assumed to be the current time. If the endTime parameter is specified on its own, beginTime is assumed to be the start of the summoner's match history.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: The ID of the summoner.
    * @param championIds Riot API description: list of champion IDs to use for fetching games.
    * @param rankedQueues Riot API description: list of ranked queue types to use for fetching games. Non-ranked queue types will be ignored.
@@ -137,6 +144,7 @@ public class MatchListEndpoints {
   /**
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested summoner, otherwise, no matches may be returned. If either of the beginTime or endTime parameters is set, they must both be set, although there is no maximum limit on their range. If the beginTime parameter is specified on its own, endTime is assumed to be the current time. If the endTime parameter is specified on its own, beginTime is assumed to be the start of the summoner's match history.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: The ID of the summoner.
    * @param championIds Riot API description: list of champion IDs to use for fetching games.
    * @param rankedQueues Riot API description: list of ranked queue types to use for fetching games. Non-ranked queue types will be ignored.
@@ -150,6 +158,7 @@ public class MatchListEndpoints {
   /**
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested summoner, otherwise, no matches may be returned. If either of the beginTime or endTime parameters is set, they must both be set, although there is no maximum limit on their range. If the beginTime parameter is specified on its own, endTime is assumed to be the current time. If the endTime parameter is specified on its own, beginTime is assumed to be the start of the summoner's match history.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: The ID of the summoner.
    * @param championIds Riot API description: list of champion IDs to use for fetching games.
    * @param rankedQueues Riot API description: list of ranked queue types to use for fetching games. Non-ranked queue types will be ignored.
@@ -162,6 +171,7 @@ public class MatchListEndpoints {
   /**
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested summoner, otherwise, no matches may be returned. If either of the beginTime or endTime parameters is set, they must both be set, although there is no maximum limit on their range. If the beginTime parameter is specified on its own, endTime is assumed to be the current time. If the endTime parameter is specified on its own, beginTime is assumed to be the start of the summoner's match history.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: The ID of the summoner.
    * @param championIds Riot API description: list of champion IDs to use for fetching games.
    * @param rankedQueues Riot API description: list of ranked queue types to use for fetching games. Non-ranked queue types will be ignored.
@@ -174,6 +184,7 @@ public class MatchListEndpoints {
   /**
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested summoner, otherwise, no matches may be returned. If either of the beginTime or endTime parameters is set, they must both be set, although there is no maximum limit on their range. If the beginTime parameter is specified on its own, endTime is assumed to be the current time. If the endTime parameter is specified on its own, beginTime is assumed to be the start of the summoner's match history.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: The ID of the summoner.
    * @param championIds Riot API description: list of champion IDs to use for fetching games.
    * @param rankedQueues Riot API description: list of ranked queue types to use for fetching games. Non-ranked queue types will be ignored. */
@@ -185,6 +196,7 @@ public class MatchListEndpoints {
   /**
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested summoner, otherwise, no matches may be returned. If either of the beginTime or endTime parameters is set, they must both be set, although there is no maximum limit on their range. If the beginTime parameter is specified on its own, endTime is assumed to be the current time. If the endTime parameter is specified on its own, beginTime is assumed to be the start of the summoner's match history.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: The ID of the summoner.
    * @param championIds Riot API description: list of champion IDs to use for fetching games.
    * @param rankedQueues Riot API description: list of ranked queue types to use for fetching games. Non-ranked queue types will be ignored. */
@@ -195,6 +207,7 @@ public class MatchListEndpoints {
   /**
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested summoner, otherwise, no matches may be returned. If either of the beginTime or endTime parameters is set, they must both be set, although there is no maximum limit on their range. If the beginTime parameter is specified on its own, endTime is assumed to be the current time. If the endTime parameter is specified on its own, beginTime is assumed to be the start of the summoner's match history.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: The ID of the summoner.
    * @param championIds Riot API description: list of champion IDs to use for fetching games. */
   public MatchList get(final Region region, final long summonerId,
@@ -204,6 +217,7 @@ public class MatchListEndpoints {
   /**
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested summoner, otherwise, no matches may be returned. If either of the beginTime or endTime parameters is set, they must both be set, although there is no maximum limit on their range. If the beginTime parameter is specified on its own, endTime is assumed to be the current time. If the endTime parameter is specified on its own, beginTime is assumed to be the start of the summoner's match history.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: The ID of the summoner.
    * @param championIds Riot API description: list of champion IDs to use for fetching games. */
   public CompletableFuture<MatchList> getAsync(final Region region, final long summonerId,
@@ -213,6 +227,7 @@ public class MatchListEndpoints {
   /**
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested summoner, otherwise, no matches may be returned. If either of the beginTime or endTime parameters is set, they must both be set, although there is no maximum limit on their range. If the beginTime parameter is specified on its own, endTime is assumed to be the current time. If the endTime parameter is specified on its own, beginTime is assumed to be the start of the summoner's match history.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: The ID of the summoner. */
   public MatchList get(final Region region, final long summonerId) throws ExecutionException {
     return get(region, summonerId, null);}
@@ -220,6 +235,7 @@ public class MatchListEndpoints {
   /**
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested summoner, otherwise, no matches may be returned. If either of the beginTime or endTime parameters is set, they must both be set, although there is no maximum limit on their range. If the beginTime parameter is specified on its own, endTime is assumed to be the current time. If the endTime parameter is specified on its own, beginTime is assumed to be the start of the summoner's match history.
    *
+   * @param region Region to query.
    * @param summonerId Riot API description: The ID of the summoner. */
   public CompletableFuture<MatchList> getAsync(final Region region, final long summonerId) {
     return getAsync(region, summonerId, null);}

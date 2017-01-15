@@ -235,7 +235,7 @@ public class RiotApi implements Closeable {
 
     <T> CompletableFuture<T> getBasicAsync(String url, Region region, Type type, Param... params) {
         return requester.get().getRequestRateLimitedAsync(url, region, params)
-                .thenApply(r -> r.getStatusCode() == 204 || r.getStatusCode() == 404 ? null :
+                .thenApply(r -> r.getStatusCode() != 200 ? null :
                         gson.fromJson(r.getResponseBody(), type));
     }
 
@@ -250,7 +250,8 @@ public class RiotApi implements Closeable {
 
     <T> CompletableFuture<T> getBasicNonRateLimitedAsync(String url, Region region, Type type, Param... params) {
         return requester.get().getRequestNonRateLimitedAsync(url, region, params)
-                .thenApply(r -> gson.fromJson(r.getResponseBody(), type));
+                .thenApply(r -> r.getStatusCode() != 200 ? null :
+                        gson.fromJson(r.getResponseBody(), type));
     }
 
     <I, K, V> Map<K, V> getMap(
@@ -271,7 +272,7 @@ public class RiotApi implements Closeable {
         final RateLimitedRequester requester = this.requester.get();
         CompletableFuture[] groupTasks = StreamSupport.stream(groups.spliterator(), false).map(group ->
                 requester.getRequestRateLimitedAsync(url.replace("@", joiner.join(group)), region)
-                        .<Map<K, V>>thenApply(r -> r.getStatusCode() == 204 || r.getStatusCode() == 404 ?
+                        .<Map<K, V>>thenApply(r -> r.getStatusCode() != 200 ?
                                 Collections.emptyMap() : gson.fromJson(r.getResponseBody(), type))
                         .thenAccept(result::putAll))
                 .toArray(CompletableFuture[]::new);

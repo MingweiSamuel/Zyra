@@ -8,14 +8,13 @@ import org.junit.Test;
 import java.util.concurrent.ExecutionException;
 
 import static com.mingweisamuel.zyra.enums.ChampionId.ZYRA;
-import static com.mingweisamuel.zyra.test.Api.api;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
  * Integration tests for {@link com.mingweisamuel.zyra.ChampionEndpoints}.
  */
-public class ApiChampionTest {
+public class ApiChampionTest extends ApiTest {
 
     @Test
     public void getAll() throws ExecutionException {

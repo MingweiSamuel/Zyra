@@ -2,6 +2,7 @@ package com.mingweismauel.zyra.gen;
 
 import com.google.common.base.CaseFormat;
 import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -233,7 +234,7 @@ class RiotDtoGenerator {
                         Element pathParameterRow = pathParameterRows.get(i);
 
                         String pathParameterName = pathParameterRow.child(0).ownText();
-                        if ("shard".equals(pathParameterName)) continue;
+                        if ("shard".equals(pathParameterName)) continue; // shard alias for region
                         String pathParameterType = pathParameterRow.child(2).child(0).text();
                         String pathParameterDesc = pathParameterRow.child(3).text();
 
@@ -387,13 +388,17 @@ class RiotDtoGenerator {
                 params.append(optionalParam.name).append(", ");
             }
 
-            StringBuilder javadoc = new StringBuilder(endpointNotes).append('\n');
+            StringBuilder javadoc = new StringBuilder(endpointNotes).append('\n')
+                    .append("\n@param region Region to query.");
             Iterator<String> paramIter = javadocParams.iterator();
             for (int j = 0; j < required.size(); j++)
+                javadoc.append('\n').append(paramIter.next());
+            for (int j = 0; j < requiredQuery.size(); j++)
                 javadoc.append('\n').append(paramIter.next());
             for (int j = 0; j < i; j++)
                 javadoc.append('\n').append(paramIter.next());
 
+            //System.out.println(javadoc);
 
             methodBuilder.addJavadoc(javadoc.toString().trim());
             methodAsyncBuilder.addJavadoc(javadoc.toString().trim());
@@ -463,9 +468,12 @@ class RiotDtoGenerator {
                 params.append(optionalParam.name).append(", ");
             }
 
-            StringBuilder javadoc = new StringBuilder(endpointNotes).append('\n');
+            StringBuilder javadoc = new StringBuilder(endpointNotes).append('\n')
+                    .append("\n@param region Region to query.");
             Iterator<String> paramIter = javadocParams.iterator();
             for (int j = 0; j < required.size(); j++)
+                javadoc.append('\n').append(paramIter.next());
+            for (int j = 0; j < requiredQuery.size(); j++)
                 javadoc.append('\n').append(paramIter.next());
             for (int j = 0; j < i; j++)
                 javadoc.append('\n').append(paramIter.next());
@@ -583,6 +591,18 @@ class RiotDtoGenerator {
                 "\n\n@version " + endpointName);
         typeSpecBuilder.addModifiers(Modifier.PUBLIC);
 
+        ClassName guavaObjectsName = ClassName.bestGuess("com.google.common.base.Objects");
+        MethodSpec.Builder constructorBuilder = MethodSpec.constructorBuilder()
+                .addModifiers(Modifier.PUBLIC);
+        CodeBlock.Builder equalsCode = CodeBlock.builder()
+                .addStatement("if (obj == null) return false")
+                .addStatement("if (obj == this) return true")
+                .addStatement("if (!(obj instanceof $L)) return false", dtoNameNormalized)
+                .addStatement("final $1L other = ($1L) obj", dtoNameNormalized)
+                .add("return true").indent().indent();
+        CodeBlock.Builder hashCodeCode = CodeBlock.builder()
+                .add("return $T.hashCode(0", guavaObjectsName).indent().indent();
+
         Element fieldInfoTable = dtoContainer.getElementsByTag("table").first();
         Elements fieldInfoRows = fieldInfoTable.getElementsByTag("tr");
 
@@ -605,13 +625,36 @@ class RiotDtoGenerator {
 //            if (boxed)
 //                type = type.box();
 
-            FieldSpec.Builder fieldBuilder = FieldSpec.builder(type, fieldName, Modifier.PUBLIC);
+            FieldSpec.Builder fieldBuilder = FieldSpec.builder(type, fieldName, Modifier.PUBLIC, Modifier.FINAL);
             if (FIELD_DOCSTRINGS.containsKey(key))
                 fieldDesc = (fieldDesc + "\n\n" + FIELD_DOCSTRINGS.get(key)).trim();
             if (!fieldDesc.isEmpty())
                 fieldBuilder.addJavadoc(fieldDesc);
             typeSpecBuilder.addField(fieldBuilder.build());
+
+            constructorBuilder.addParameter(type, fieldName, Modifier.FINAL)
+                    .addStatement("this.$1L = $1L", fieldName);
+
+            equalsCode.add("\n&& $1T.equal($2L, other.$2L)", guavaObjectsName, fieldName);
+            hashCodeCode.add(",\n$L", fieldName);
         }
+
+        equalsCode.add(";").unindent().unindent();
+        hashCodeCode.add(");").unindent().unindent();
+
+        typeSpecBuilder.addMethod(MethodSpec.methodBuilder("equals")
+                .addModifiers(Modifier.PUBLIC)
+                .returns(TypeName.BOOLEAN)
+                .addParameter(Object.class, "obj", Modifier.FINAL)
+                .addAnnotation(Override.class)
+                .addCode(equalsCode.build()).build());
+        typeSpecBuilder.addMethod(MethodSpec.methodBuilder("hashCode")
+                .addModifiers(Modifier.PUBLIC)
+                .returns(TypeName.INT)
+                .addAnnotation(Override.class)
+                .addCode(hashCodeCode.build()).build());
+
+        typeSpecBuilder.addMethod(constructorBuilder.build());
 
         TypeSpec typeSpec = typeSpecBuilder.build();
         JavaFile javaFile = JavaFile.builder(PACKAGE + '.' + endpointPackage, typeSpec).build();

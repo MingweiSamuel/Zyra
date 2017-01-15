@@ -1,5 +1,9 @@
 package com.mingweisamuel.zyra.lolStaticData;
 
+import com.google.common.base.Objects;
+import java.lang.Object;
+import java.lang.Override;
+
 /**
  * BlockItem - This object contains champion recommended block item data.
  *
@@ -7,7 +11,28 @@ package com.mingweisamuel.zyra.lolStaticData;
  *
  * @version lol-static-data-v1.2 */
 public class BlockItem {
-  public int count;
+  public final int count;
 
-  public int id;
+  public final int id;
+
+  public BlockItem(final int count, final int id) {
+    this.count = count;
+    this.id = id;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof BlockItem)) return false;
+    final BlockItem other = (BlockItem) obj;
+    return true
+        && Objects.equal(count, other.count)
+        && Objects.equal(id, other.id);}
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(0,
+        count,
+        id);}
 }

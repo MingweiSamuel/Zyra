@@ -1,5 +1,8 @@
 package com.mingweisamuel.zyra.match;
 
+import com.google.common.base.Objects;
+import java.lang.Object;
+import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 
@@ -12,41 +15,89 @@ import java.util.List;
 public class Participant {
   /**
    * Champion ID */
-  public int championId;
+  public final int championId;
 
   /**
    * Highest ranked tier achieved for the previous season, if any, otherwise null. Used to display border in game loading screen. (Legal values: CHALLENGER, MASTER, DIAMOND, PLATINUM, GOLD, SILVER, BRONZE, UNRANKED) */
-  public String highestAchievedSeasonTier;
+  public final String highestAchievedSeasonTier;
 
   /**
    * List of mastery information */
-  public List<Mastery> masteries;
+  public final List<Mastery> masteries;
 
   /**
    * Participant ID */
-  public int participantId;
+  public final int participantId;
 
   /**
    * List of rune information */
-  public List<Rune> runes;
+  public final List<Rune> runes;
 
   /**
    * First summoner spell ID */
-  public int spell1Id;
+  public final int spell1Id;
 
   /**
    * Second summoner spell ID */
-  public int spell2Id;
+  public final int spell2Id;
 
   /**
    * Participant statistics */
-  public ParticipantStats stats;
+  public final ParticipantStats stats;
 
   /**
    * Team ID */
-  public int teamId;
+  public final int teamId;
 
   /**
    * Timeline data. Delta fields refer to values for the specified period (e.g., the gold per minute over the first 10 minutes of the game versus the second 20 minutes of the game. Diffs fields refer to the deltas versus the calculated lane opponent(s). */
-  public ParticipantTimeline timeline;
+  public final ParticipantTimeline timeline;
+
+  public Participant(final int championId, final String highestAchievedSeasonTier,
+      final List<Mastery> masteries, final int participantId, final List<Rune> runes,
+      final int spell1Id, final int spell2Id, final ParticipantStats stats, final int teamId,
+      final ParticipantTimeline timeline) {
+    this.championId = championId;
+    this.highestAchievedSeasonTier = highestAchievedSeasonTier;
+    this.masteries = masteries;
+    this.participantId = participantId;
+    this.runes = runes;
+    this.spell1Id = spell1Id;
+    this.spell2Id = spell2Id;
+    this.stats = stats;
+    this.teamId = teamId;
+    this.timeline = timeline;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof Participant)) return false;
+    final Participant other = (Participant) obj;
+    return true
+        && Objects.equal(championId, other.championId)
+        && Objects.equal(highestAchievedSeasonTier, other.highestAchievedSeasonTier)
+        && Objects.equal(masteries, other.masteries)
+        && Objects.equal(participantId, other.participantId)
+        && Objects.equal(runes, other.runes)
+        && Objects.equal(spell1Id, other.spell1Id)
+        && Objects.equal(spell2Id, other.spell2Id)
+        && Objects.equal(stats, other.stats)
+        && Objects.equal(teamId, other.teamId)
+        && Objects.equal(timeline, other.timeline);}
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(0,
+        championId,
+        highestAchievedSeasonTier,
+        masteries,
+        participantId,
+        runes,
+        spell1Id,
+        spell2Id,
+        stats,
+        teamId,
+        timeline);}
 }

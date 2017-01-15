@@ -22,12 +22,14 @@ public class GameEndpoints {
     this.riotApi = riotApi;}
 
   /**
+   * @param region Region to query.
    * @param summonerId Riot API description: ID of the summoner for which to retrieve recent games. */
   public RecentGames getRecent(final Region region, final long summonerId) throws
       ExecutionException {
     return riotApi.getBasic(String.format(GET_RECENT__URL, region, summonerId), region, GET_RECENT__TYPE);}
 
   /**
+   * @param region Region to query.
    * @param summonerId Riot API description: ID of the summoner for which to retrieve recent games. */
   public CompletableFuture<RecentGames> getRecentAsync(final Region region, final long summonerId) {
     return riotApi.getBasicAsync(String.format(GET_RECENT__URL, region, summonerId), region, GET_RECENT__TYPE);}

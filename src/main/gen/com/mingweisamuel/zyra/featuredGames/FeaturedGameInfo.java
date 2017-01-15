@@ -1,5 +1,8 @@
 package com.mingweisamuel.zyra.featuredGames;
 
+import com.google.common.base.Objects;
+import java.lang.Object;
+import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 
@@ -12,45 +15,96 @@ import java.util.List;
 public class FeaturedGameInfo {
   /**
    * Banned champion information */
-  public List<BannedChampion> bannedChampions;
+  public final List<BannedChampion> bannedChampions;
 
   /**
    * The ID of the game */
-  public long gameId;
+  public final long gameId;
 
   /**
    * The amount of time in seconds that has passed since the game started */
-  public long gameLength;
+  public final long gameLength;
 
   /**
    * The game mode (Legal values: CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO) */
-  public String gameMode;
+  public final String gameMode;
 
   /**
    * The queue type (queue types are documented on the Game Constants page) */
-  public long gameQueueConfigId;
+  public final long gameQueueConfigId;
 
   /**
    * The game start time represented in epoch milliseconds */
-  public long gameStartTime;
+  public final long gameStartTime;
 
   /**
    * The game type (Legal values: CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME) */
-  public String gameType;
+  public final String gameType;
 
   /**
    * The ID of the map */
-  public long mapId;
+  public final long mapId;
 
   /**
    * The observer information */
-  public Observer observers;
+  public final Observer observers;
 
   /**
    * The participant information */
-  public List<Participant> participants;
+  public final List<Participant> participants;
 
   /**
    * The ID of the platform on which the game is being played */
-  public String platformId;
+  public final String platformId;
+
+  public FeaturedGameInfo(final List<BannedChampion> bannedChampions, final long gameId,
+      final long gameLength, final String gameMode, final long gameQueueConfigId,
+      final long gameStartTime, final String gameType, final long mapId, final Observer observers,
+      final List<Participant> participants, final String platformId) {
+    this.bannedChampions = bannedChampions;
+    this.gameId = gameId;
+    this.gameLength = gameLength;
+    this.gameMode = gameMode;
+    this.gameQueueConfigId = gameQueueConfigId;
+    this.gameStartTime = gameStartTime;
+    this.gameType = gameType;
+    this.mapId = mapId;
+    this.observers = observers;
+    this.participants = participants;
+    this.platformId = platformId;
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (obj == null) return false;
+    if (obj == this) return true;
+    if (!(obj instanceof FeaturedGameInfo)) return false;
+    final FeaturedGameInfo other = (FeaturedGameInfo) obj;
+    return true
+        && Objects.equal(bannedChampions, other.bannedChampions)
+        && Objects.equal(gameId, other.gameId)
+        && Objects.equal(gameLength, other.gameLength)
+        && Objects.equal(gameMode, other.gameMode)
+        && Objects.equal(gameQueueConfigId, other.gameQueueConfigId)
+        && Objects.equal(gameStartTime, other.gameStartTime)
+        && Objects.equal(gameType, other.gameType)
+        && Objects.equal(mapId, other.mapId)
+        && Objects.equal(observers, other.observers)
+        && Objects.equal(participants, other.participants)
+        && Objects.equal(platformId, other.platformId);}
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(0,
+        bannedChampions,
+        gameId,
+        gameLength,
+        gameMode,
+        gameQueueConfigId,
+        gameStartTime,
+        gameType,
+        mapId,
+        observers,
+        participants,
+        platformId);}
 }

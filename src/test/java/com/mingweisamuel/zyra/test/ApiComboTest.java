@@ -2,10 +2,10 @@ package com.mingweisamuel.zyra.test;
 
 import com.mingweisamuel.zyra.currentGame.CurrentGameInfo;
 import com.mingweisamuel.zyra.currentGame.CurrentGameParticipant;
+import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.featuredGames.FeaturedGameInfo;
 import com.mingweisamuel.zyra.featuredGames.FeaturedGames;
 import com.mingweisamuel.zyra.featuredGames.Participant;
-import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.summoner.Summoner;
 import org.junit.Test;
 
@@ -14,8 +14,10 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import static com.mingweisamuel.zyra.test.Api.api;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Integration tests testing
@@ -23,7 +25,7 @@ import static org.junit.Assert.*;
  * {@link com.mingweisamuel.zyra.SummonerEndpoints}, and
  * {@link com.mingweisamuel.zyra.CurrentGameEndpoints}.
  */
-public class ApiComboTest {
+public class ApiComboTest extends ApiTest {
 
     @Test
     public void get() throws ExecutionException {
