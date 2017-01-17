@@ -1,5 +1,6 @@
 test:
-  override: mvn package
+  override:
+    - mvn package
   post:
     - mv target/*.jar $CIRCLE_ARTIFACTS
     - bash target/pages.bash
