@@ -36,7 +36,7 @@ dependencies needed to use Zyra.
 than the minimal standalone jar.
 * `zyra-VERSION.jar` - Has only Zyra. You will need to manually include the (many) dependencies.
 
-`zyra-VERSION-javadoc.jar` contains the JavaDocs and `zyra-VERSION-sources.jar` contains the sources.
+`zyra-VERSION-javadoc.jar` contains the Javadocs and `zyra-VERSION-sources.jar` contains the sources.
 
 ### Build Tools
 [![Maven Central](https://img.shields.io/maven-central/v/com.mingweisamuel.zyra/zyra.svg?label=maven+central)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mingweisamuel.zyra%22%20AND%20a%3A%22zyra%22)
@@ -69,7 +69,7 @@ dependencies {
 
 ## Usage
 
-Full JavaDocs for the current commit are available [here](http://www.mingweisamuel.com/Zyra/apidocs/).
+[![Javadocs](https://img.shields.io/github/tag/MingweiSamuel/Zyra.svg?label=javadocs)](https://mingweisamuel.github.io/Zyra/apidocs/)
 
 #### Building a `RiotApi` instance 
 
