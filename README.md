@@ -45,23 +45,27 @@ than the minimal standalone jar.
 
 Add the following to your `pom.xml` `dependencies` section. Make sure to update `VERSION`.
 
-    <dependency>
-        <groupId>com.mingweisamuel.zyra</groupId>
-        <artifactId>zyra</artifactId>
-        <version>VERSION</version>
-    </dependency>
+```xml
+<dependency>
+    <groupId>com.mingweisamuel.zyra</groupId>
+    <artifactId>zyra</artifactId>
+    <version>VERSION</version>
+</dependency>
+```
 
 #### Gradle
 
 For stability, you should replace `+` with an explicit version.
 
-    repositories {
-        mavenCentral()
-    }
-    
-    dependencies {
-        compile 'com.mingweisamuel.zyra:zyra:+'
-    }
+```groovy
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.mingweisamuel.zyra:zyra:+'
+}
+```
 
 ## Usage
 
@@ -71,11 +75,11 @@ Full JavaDocs for the current commit are available [here](http://www.mingweisamu
 
 API interaction is done using instances of the
 [`RiotApi`](http://www.mingweisamuel.com/Zyra/apidocs/com/mingweisamuel/zyra/RiotApi.html) class.
-RiotApi has a builder-helper for configuring Zyra.
+RiotApi has a builder-helper for configuring Zyra. To get a default instance (with default development rate limits):
 
-To get a default instance (with default development rate limits):
-
-    RiotApi api = RiotApi.build("RGAPI-example-api-key").build();
+```java
+RiotApi api = RiotApi.build("RGAPI-example-api-key").build();
+```
 
 **IMPORTANT**: `RiotApi` implements `Closeable`. You should call `api.close()` if you are done with the `RiotApi` 
 instance, otherwise your process may hang.
@@ -87,14 +91,16 @@ API interaction in Zyra is done through endpoint sets which correspond (almost) 
 
 Example:
 
-    // get summoners by name
-    Map<String, Summoner> summoners =
-            api.summoners.getByName(Region.NA, Arrays.asList("C9 Sneaky", "Doublelift"));
-    for (Summoner summoner : summoners.values()) {
-        // get total champion mastery points for each summoner
-        int score = api.championMasteries.getScore(Region.NA, summoner.id);
-        System.out.println(summoner.name + ": " + score);
-    }
+```java
+// get summoners by name
+Map<String, Summoner> summoners =
+        api.summoners.getByName(Region.NA, Arrays.asList("C9 Sneaky", "Doublelift"));
+for (Summoner summoner : summoners.values()) {
+    // get total champion mastery points for each summoner
+    int score = api.championMasteries.getScore(Region.NA, summoner.id);
+    System.out.println(summoner.name + ": " + score);
+}
+```
 
 There are also asynchronous versions of every endpoint method which return `CompletableFuture`s to allow chaining.
 
