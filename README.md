@@ -67,4 +67,40 @@ For stability, you should replace `+` with an explicit version.
 
 Full JavaDocs for the current commit are available [here](http://www.mingweisamuel.com/Zyra/apidocs/).
 
+#### Building a `RiotApi` instance 
+
+API interaction is done using instances of the
+[`RiotApi`](http://www.mingweisamuel.com/Zyra/apidocs/com/mingweisamuel/zyra/RiotApi.html) class.
+RiotApi has a builder-helper for configuring Zyra.
+
+To get a default instance (with default development rate limits):
+
+    RiotApi api = RiotApi.build("RGAPI-example-api-key").build();
+
+**IMPORTANT**: `RiotApi` implements `Closeable`. You should call `api.close()` if you are done with the `RiotApi` 
+instance, otherwise your process may hang.
+
+#### Interacting with the API
+
+API interaction in Zyra is done through endpoint sets which correspond (almost) 1-to-1 to the sections listed in the 
+[official Riot API Reference](https://developer.riotgames.com/api/methods).
+
+Example:
+
+    // get summoners by name
+    Map<String, Summoner> summoners =
+            api.summoners.getByName(Region.NA, Arrays.asList("C9 Sneaky", "Doublelift"));
+    for (Summoner summoner : summoners.values()) {
+        // get total champion mastery points for each summoner
+        int score = api.championMasteries.getScore(Region.NA, summoner.id);
+        System.out.println(summoner.name + ": " + score);
+    }
+
+There are also asynchronous versions of every endpoint method which return `CompletableFuture`s to allow chaining.
+
+More examples can be found in Zyra's [integration test sources](https://github.com/MingweiSamuel/Zyra/tree/develop/src/test/java/com/mingweisamuel/zyra/test).
+
+#### Handling exceptions
+
 TODO
+

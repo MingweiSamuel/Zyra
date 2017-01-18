@@ -1,5 +1,7 @@
 package com.mingweisamuel.zyra.test;
 
+import com.mingweisamuel.zyra.champion.Champion;
+import com.mingweisamuel.zyra.championMastery.ChampionMastery;
 import com.mingweisamuel.zyra.currentGame.CurrentGameInfo;
 import com.mingweisamuel.zyra.currentGame.CurrentGameParticipant;
 import com.mingweisamuel.zyra.enums.Region;
@@ -9,7 +11,9 @@ import com.mingweisamuel.zyra.featuredGames.Participant;
 import com.mingweisamuel.zyra.summoner.Summoner;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
