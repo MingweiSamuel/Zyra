@@ -71,7 +71,88 @@ dependencies {
 
 [![Javadocs](https://img.shields.io/github/tag/MingweiSamuel/Zyra.svg?label=javadocs)](https://mingweisamuel.github.io/Zyra/apidocs/)
 
-#### Building a `RiotApi` instance 
+### Full example
+
+The following code prints the top 10 champions for Doublelift and C9 Sneaky.
+
+```java
+import com.mingweisamuel.zyra.RiotApi;
+import com.mingweisamuel.zyra.championMastery.ChampionMastery;
+import com.mingweisamuel.zyra.enums.Region;
+import com.mingweisamuel.zyra.lolStaticData.Champion;
+import com.mingweisamuel.zyra.lolStaticData.ChampionList;
+import com.mingweisamuel.zyra.summoner.Summoner;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+
+public class ZyraExample {
+
+    public static void main(String[] args) throws ExecutionException, IOException {
+        try (RiotApi api = RiotApi.builder("RGAPI-example-api-key").build()) {
+
+            // get champion data (ignoring locale, version) by champion id
+            ChampionList champList = api.staticData.getChampions(Region.NA, null, null, true);
+            Map<String, Champion> champs = champList.data;
+
+            // get summoners by name
+            Map<String, Summoner> summoners =
+                    api.summoners.getByName(Region.NA, Arrays.asList("c9 sne aky", "DoUbleLIft"));
+
+            for (Summoner summoner : summoners.values()) {
+                System.out.println(summoner.name + "'s Top 10 Champs:");
+                // get top 10 champs by mastery for each summoner
+                List<ChampionMastery> masteries =
+                        api.championMasteries.getTopChampions(Region.NA, summoner.id, 10);
+
+                for (int i = 0; i < masteries.size(); i++) {
+                    ChampionMastery mastery = masteries.get(i);
+                    // get champion for this mastery
+                    Champion champ = champs.get(Integer.toString(mastery.championId));
+                    // print i, champ name, champ mastery points, and champ level
+                    System.out.printf("%3d) %-16s %,7d (%d)%n", i + 1, champ.name,
+                            mastery.championPoints, mastery.championLevel);
+                }
+                System.out.println();
+            }
+        }
+    }
+}
+```
+
+Output (2017-01-18):
+```
+C9 Sneaky's Top 10 Champs:
+  1) Jhin             268,866 (7)
+  2) Lucian           195,541 (7)
+  3) Ezreal           146,950 (7)
+  4) Ashe             144,269 (7)
+  5) Caitlyn          139,390 (7)
+  6) Sivir             84,331 (7)
+  7) Twitch            82,702 (7)
+  8) Vayne             80,733 (7)
+  9) Tristana          75,150 (6)
+ 10) Miss Fortune      70,757 (7)
+
+Doublelift's Top 10 Champs:
+  1) Jhin             126,291 (7)
+  2) Caitlyn           97,410 (7)
+  3) Vayne             79,420 (7)
+  4) Lucian            77,254 (7)
+  5) Kalista           43,572 (5)
+  6) Ashe              36,408 (7)
+  7) Ezreal            35,754 (6)
+  8) Twitch            33,169 (6)
+  9) Kog'Maw           22,459 (5)
+ 10) Tristana          20,582 (4)
+ 
+ ```
+
+
+### Building a `RiotApi` instance 
 
 API interaction is done using instances of the
 [`RiotApi`](http://www.mingweisamuel.com/Zyra/apidocs/com/mingweisamuel/zyra/RiotApi.html) class.
@@ -84,7 +165,7 @@ RiotApi api = RiotApi.build("RGAPI-example-api-key").build();
 **IMPORTANT**: `RiotApi` implements `Closeable`. You should call `api.close()` if you are done with the `RiotApi` 
 instance, otherwise your process may hang.
 
-#### Interacting with the API
+### Interacting with the API
 
 API interaction in Zyra is done through endpoint sets which correspond (almost) 1-to-1 to the sections listed in the 
 [official Riot API Reference](https://developer.riotgames.com/api/methods).
@@ -106,7 +187,7 @@ There are also asynchronous versions of every endpoint method which return `Comp
 
 More examples can be found in Zyra's [integration test sources](https://github.com/MingweiSamuel/Zyra/tree/develop/src/test/java/com/mingweisamuel/zyra/test).
 
-#### Handling exceptions
+### Handling exceptions
 
 TODO
 

@@ -1,7 +1,8 @@
 package com.mingweisamuel.zyra.enums;
 
 /**
- * Region enumeration.
+ * Region enumeration. Note that {@link #PBE} can only be used for certain endpoints, and {@link #GARENA},
+ * {@link #TENCENT}, and {@link #GLOBAL} are not functional in endpoints.
  */
 public enum Region {
     /** Brazil. */

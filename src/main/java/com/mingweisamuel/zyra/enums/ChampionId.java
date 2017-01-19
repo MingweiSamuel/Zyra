@@ -1,13 +1,14 @@
 package com.mingweisamuel.zyra.enums;
 
 /**
- * Helper static class for getting ChampionId IDs.
+ * This class contains static int id fields for current (as of last file update) champions.
  */
 public class ChampionId {
     private ChampionId() {}
 
     /**
-     * ID for combined statistics in the {@link com.mingweisamuel.zyra.StatsEndpoints}.
+     * ID for combined statistics in the {@link com.mingweisamuel.zyra.StatsEndpoints}. This value (0) can not be
+     * used in endpoint requests.
      *
      * @see com.mingweisamuel.zyra.stats.ChampionStats#id
      */

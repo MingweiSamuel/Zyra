@@ -6,7 +6,8 @@ import java.util.Locale;
 import java.util.Set;
 
 /**
- * Locale utilities.
+ * This class contains static String fields corresponding to (hopefully) every supported locale in the
+ * {@link com.mingweisamuel.zyra.LolStaticDataEndpoints} and other endpoints.
  */
 public class LocaleUtil {
     private LocaleUtil() {}

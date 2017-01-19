@@ -67,14 +67,14 @@ public class RiotApi implements Closeable {
     }
 
     /**
-     * Creates a RiotApi.Builder with default production rate limits (3_000 requests per 10 seconds, 180_000 requests
+     * Creates a RiotApi.Builder with default production rate limits (3,000 requests per 10 seconds, 180,000 requests
      * per 10 minutes).
      *
      * @param apiKey Production API key.
      * @return Builder instance. Call {@link Builder#build()} to get RiotApi instance.
      */
     public static Builder productionBuilder(String apiKey) {
-        return new Builder(apiKey).setRateLimitsDefaultProduction()
+        return new Builder(apiKey).setDefaultRateLimits(true)
                 .setConcurrentRequestsMax(RateLimiter.CONCURRENT_REQUESTS_PRODUCTION_MAX);
     }
 
@@ -151,14 +151,24 @@ public class RiotApi implements Closeable {
         }
 
         /**
-         * Set the rate limits to the default limits for a production API key. 3,000 requests per 10 seconds, 180,000
-         * requests per 10 minutes.
+         * Set the rate limits to either default development rate limits (10 requests per 10 seconds, 500 requests
+         * per 10 minutes) or default production rate limits (3,000 requests per 10 seconds, 180,000 requests per
+         * 10 minutes).
+         *
+         * @param production If true, set to default production rate limits. If false, set to default development
+         *                   rate limits.
          * @return This, for chaining.
          */
-        public Builder setRateLimitsDefaultProduction() {
+        public Builder setDefaultRateLimits(boolean production) {
             rateLimits = new HashMap<>();
-            rateLimits.put(RateLimitedRequester.TEN_SECONDS, 3_000);
-            rateLimits.put(RateLimitedRequester.TEN_MINUTES, 180_000);
+            if (production) {
+                rateLimits.put(RateLimitedRequester.TEN_SECONDS, 3_000);
+                rateLimits.put(RateLimitedRequester.TEN_MINUTES, 180_000);
+            }
+            else {
+                rateLimits.put(RateLimitedRequester.TEN_SECONDS, 10);
+                rateLimits.put(RateLimitedRequester.TEN_MINUTES, 500);
+            }
             return this;
         }
 

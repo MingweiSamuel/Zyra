@@ -1,7 +1,7 @@
 package com.mingweisamuel.zyra.enums;
 
 /**
- * Helper static class for getting tier names.
+ * Contains tier names (CHALLENGER, MASTER, etc.)
  */
 public class Tier {
     private Tier() {}
