@@ -324,7 +324,7 @@ public class ApiStaticDataTest extends ApiTest {
                 "0.154.2","0.153.2","0.152.115","0.152.108","0.152.107","0.152.55","0.151.101","0.151.2"));
         // may be more versions in the future.
         for (String version : result)
-            assertTrue(expected.remove(version));
+            expected.remove(version);
         assertTrue(expected.toString(), expected.isEmpty());
     }
     //endregion
