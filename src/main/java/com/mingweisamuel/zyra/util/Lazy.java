@@ -3,9 +3,9 @@ package com.mingweisamuel.zyra.util;
 import java.util.function.Supplier;
 
 /**
- * For creating single instances only when needed. Thread safe.
+ * Lazy loading. Creates single instances only when needed. Thread safe.
  */
-public class Singleton<T> {
+public class Lazy<T> {
 
     /** The value. Null if not yet created. */
     private volatile T value = null;
@@ -13,10 +13,10 @@ public class Singleton<T> {
     private volatile Supplier<T> supplier;
 
     /**
-     * Creates a Singleton using SUPPLIER.
+     * Creates a Lazy using SUPPLIER.
      * @param supplier Supplier of the value (only called once).
      */
-    public Singleton(Supplier<T> supplier) {
+    public Lazy(Supplier<T> supplier) {
         this.supplier = supplier;
     }
 

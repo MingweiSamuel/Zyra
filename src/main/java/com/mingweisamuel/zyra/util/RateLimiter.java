@@ -6,11 +6,9 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -18,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class RateLimiter {
     /** A scheduler used to wait for async delays. */
-    private static final Singleton<ScheduledExecutorService> executor = new Singleton<>(
+    private static final Lazy<ScheduledExecutorService> executor = new Lazy<>(
             () -> new ScheduledThreadPoolExecutor(2, new ThreadFactoryBuilder().setDaemon(true).build()));
 
     /** Provides current date (Allows for fast debugging). */

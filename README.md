@@ -69,7 +69,8 @@ dependencies {
 
 ## Usage
 
-[![Javadocs](https://img.shields.io/github/tag/MingweiSamuel/Zyra.svg?label=javadocs)](https://mingweisamuel.github.io/Zyra/apidocs/)
+[![Javadoc Stable](https://www.javadoc.io/badge/com.mingweisamuel.zyra/zyra.svg)](https://www.javadoc.io/doc/com.mingweisamuel.zyra/zyra)
+[![Javadoc Nightly](https://img.shields.io/github/tag/MingweiSamuel/Zyra.svg?label=javadoc)](https://mingweisamuel.github.io/Zyra/apidocs/)
 
 ### Full example
 
