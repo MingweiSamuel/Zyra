@@ -1,6 +1,7 @@
 package com.mingweisamuel.zyra.league;
 
 import com.google.common.base.Objects;
+import java.io.Serializable;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -12,7 +13,7 @@ import java.util.List;
  * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version league-v2.5 */
-public class League {
+public class League implements Serializable {
   /**
    * The requested league entries. */
   public final List<LeagueEntry> entries;
@@ -48,7 +49,6 @@ public class League {
 
   @Override
   public boolean equals(final Object obj) {
-    if (obj == null) return false;
     if (obj == this) return true;
     if (!(obj instanceof League)) return false;
     final League other = (League) obj;

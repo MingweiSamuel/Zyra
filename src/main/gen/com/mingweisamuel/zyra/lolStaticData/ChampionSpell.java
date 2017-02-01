@@ -1,6 +1,7 @@
 package com.mingweisamuel.zyra.lolStaticData;
 
 import com.google.common.base.Objects;
+import java.io.Serializable;
 import java.lang.Double;
 import java.lang.Integer;
 import java.lang.Object;
@@ -14,7 +15,7 @@ import java.util.List;
  * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version lol-static-data-v1.2 */
-public class ChampionSpell {
+public class ChampionSpell implements Serializable {
   public final List<Image> altimages;
 
   public final List<Double> cooldown;
@@ -95,7 +96,6 @@ public class ChampionSpell {
 
   @Override
   public boolean equals(final Object obj) {
-    if (obj == null) return false;
     if (obj == this) return true;
     if (!(obj instanceof ChampionSpell)) return false;
     final ChampionSpell other = (ChampionSpell) obj;

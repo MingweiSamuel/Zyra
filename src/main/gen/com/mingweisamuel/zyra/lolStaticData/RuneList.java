@@ -1,6 +1,7 @@
 package com.mingweisamuel.zyra.lolStaticData;
 
 import com.google.common.base.Objects;
+import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.Object;
 import java.lang.Override;
@@ -13,7 +14,7 @@ import java.util.Map;
  * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version lol-static-data-v1.2 */
-public class RuneList {
+public class RuneList implements Serializable {
   public final BasicData basic;
 
   public final Map<Integer, Rune> data;
@@ -32,7 +33,6 @@ public class RuneList {
 
   @Override
   public boolean equals(final Object obj) {
-    if (obj == null) return false;
     if (obj == this) return true;
     if (!(obj instanceof RuneList)) return false;
     final RuneList other = (RuneList) obj;

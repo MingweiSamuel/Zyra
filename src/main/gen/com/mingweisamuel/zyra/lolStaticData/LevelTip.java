@@ -1,6 +1,7 @@
 package com.mingweisamuel.zyra.lolStaticData;
 
 import com.google.common.base.Objects;
+import java.io.Serializable;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -12,7 +13,7 @@ import java.util.List;
  * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version lol-static-data-v1.2 */
-public class LevelTip {
+public class LevelTip implements Serializable {
   public final List<String> effect;
 
   public final List<String> label;
@@ -24,7 +25,6 @@ public class LevelTip {
 
   @Override
   public boolean equals(final Object obj) {
-    if (obj == null) return false;
     if (obj == this) return true;
     if (!(obj instanceof LevelTip)) return false;
     final LevelTip other = (LevelTip) obj;

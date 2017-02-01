@@ -1,17 +1,18 @@
 package com.mingweisamuel.zyra.summoner;
 
 import com.google.common.base.Objects;
+import java.io.Serializable;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 
 /**
- * Summoner - This object contains summoner information.
+ * Summoner - represents a summoner
  *
  * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version summoner-v1.4 */
-public class Summoner {
+public class Summoner implements Serializable {
   /**
    * Summoner ID. */
   public final long id;
@@ -43,7 +44,6 @@ public class Summoner {
 
   @Override
   public boolean equals(final Object obj) {
-    if (obj == null) return false;
     if (obj == this) return true;
     if (!(obj instanceof Summoner)) return false;
     final Summoner other = (Summoner) obj;

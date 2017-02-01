@@ -1,6 +1,7 @@
 package com.mingweisamuel.zyra.game;
 
 import com.google.common.base.Objects;
+import java.io.Serializable;
 import java.lang.Object;
 import java.lang.Override;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version game-v1.3 */
-public class RecentGames {
+public class RecentGames implements Serializable {
   /**
    * Collection of recent games played (max 10). */
   public final List<Game> games;
@@ -27,7 +28,6 @@ public class RecentGames {
 
   @Override
   public boolean equals(final Object obj) {
-    if (obj == null) return false;
     if (obj == this) return true;
     if (!(obj instanceof RecentGames)) return false;
     final RecentGames other = (RecentGames) obj;

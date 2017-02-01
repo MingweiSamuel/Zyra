@@ -27,11 +27,12 @@ public class RateLimitedRequester extends Requester {
     private static final String HEADER_RETRY_AFTER = "Retry-After";
 
     /** Responses representing success in the Riot API. Must be in ascending order. */
-        private static final int[] STATUS_SUCCESS = {200, 204, 404};
+    private static final int[] STATUS_SUCCESS = {200, 204, 404, 422};
 
     /** Ten seconds in milliseconds. */
     public static final long TEN_SECONDS = 10_000;
     /** Ten minutes in milliseconds. */
+
     public static final long TEN_MINUTES = 600_000;
 
     /** Number of times to retry when the request fails, but can still be retried (429, 50*, etc.). */

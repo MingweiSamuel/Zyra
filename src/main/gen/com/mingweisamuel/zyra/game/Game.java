@@ -1,6 +1,7 @@
 package com.mingweisamuel.zyra.game;
 
 import com.google.common.base.Objects;
+import java.io.Serializable;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -12,7 +13,7 @@ import java.util.List;
  * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version game-v1.3 */
-public class Game {
+public class Game implements Serializable {
   /**
    * Champion ID associated with game. */
   public final int championId;
@@ -96,7 +97,6 @@ public class Game {
 
   @Override
   public boolean equals(final Object obj) {
-    if (obj == null) return false;
     if (obj == this) return true;
     if (!(obj instanceof Game)) return false;
     final Game other = (Game) obj;
