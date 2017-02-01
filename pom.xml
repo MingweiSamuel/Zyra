@@ -6,7 +6,7 @@
     <groupId>com.mingweisamuel.zyra</groupId>
     <artifactId>zyra</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT2</version>
+    <version>1.0</version>
 
     <name>zyra</name>
     <description>Riot Games League of Legends API Library for Java</description>
