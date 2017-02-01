@@ -1,6 +1,7 @@
 package com.mingweisamuel.zyra.currentGame;
 
 import com.google.common.base.Objects;
+import java.io.Serializable;
 import java.lang.Object;
 import java.lang.Override;
 
@@ -10,7 +11,7 @@ import java.lang.Override;
  * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version current-game-v1.0 */
-public class Mastery {
+public class Mastery implements Serializable {
   /**
    * The ID of the mastery */
   public final long masteryId;
@@ -26,7 +27,6 @@ public class Mastery {
 
   @Override
   public boolean equals(final Object obj) {
-    if (obj == null) return false;
     if (obj == this) return true;
     if (!(obj instanceof Mastery)) return false;
     final Mastery other = (Mastery) obj;

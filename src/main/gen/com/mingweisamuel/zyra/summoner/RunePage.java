@@ -1,6 +1,7 @@
 package com.mingweisamuel.zyra.summoner;
 
 import com.google.common.base.Objects;
+import java.io.Serializable;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -12,7 +13,7 @@ import java.util.List;
  * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version summoner-v1.4 */
-public class RunePage {
+public class RunePage implements Serializable {
   /**
    * Indicates if the page is the current page. */
   public final boolean current;
@@ -39,7 +40,6 @@ public class RunePage {
 
   @Override
   public boolean equals(final Object obj) {
-    if (obj == null) return false;
     if (obj == this) return true;
     if (!(obj instanceof RunePage)) return false;
     final RunePage other = (RunePage) obj;

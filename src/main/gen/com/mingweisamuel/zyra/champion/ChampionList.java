@@ -1,6 +1,7 @@
 package com.mingweisamuel.zyra.champion;
 
 import com.google.common.base.Objects;
+import java.io.Serializable;
 import java.lang.Object;
 import java.lang.Override;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version champion-v1.2 */
-public class ChampionList {
+public class ChampionList implements Serializable {
   /**
    * The collection of champion information. */
   public final List<Champion> champions;
@@ -22,7 +23,6 @@ public class ChampionList {
 
   @Override
   public boolean equals(final Object obj) {
-    if (obj == null) return false;
     if (obj == this) return true;
     if (!(obj instanceof ChampionList)) return false;
     final ChampionList other = (ChampionList) obj;

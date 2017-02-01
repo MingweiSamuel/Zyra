@@ -18,7 +18,7 @@ import org.jsoup.select.Elements;
 import javax.lang.model.element.Modifier;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Parameter;
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Collection;
@@ -221,7 +221,7 @@ class RiotDtoGenerator {
         // @param
         List<String> javadocParams = new LinkedList<>();
 
-        if (!parametersContainer.children().isEmpty()) {
+        if (parametersContainer != null && !parametersContainer.children().isEmpty()) {
             Element parameterWalker = parametersContainer.child(0);
 
             do {
@@ -585,6 +585,7 @@ class RiotDtoGenerator {
         System.out.println("      " + dtoNameNormalized + ' ' + dtoDescription);
 
         TypeSpec.Builder typeSpecBuilder = TypeSpec.classBuilder(dtoNameNormalized);
+        typeSpecBuilder.addSuperinterface(Serializable.class);
         typeSpecBuilder.addJavadoc(dtoNameNormalized +
                 (dtoDescription.isEmpty() ? "" : " " + dtoDescription) +
                 "\n\n" + DOCSTRING_GENERATED +
@@ -595,7 +596,6 @@ class RiotDtoGenerator {
         MethodSpec.Builder constructorBuilder = MethodSpec.constructorBuilder()
                 .addModifiers(Modifier.PUBLIC);
         CodeBlock.Builder equalsCode = CodeBlock.builder()
-                .addStatement("if (obj == null) return false")
                 .addStatement("if (obj == this) return true")
                 .addStatement("if (!(obj instanceof $L)) return false", dtoNameNormalized)
                 .addStatement("final $1L other = ($1L) obj", dtoNameNormalized)

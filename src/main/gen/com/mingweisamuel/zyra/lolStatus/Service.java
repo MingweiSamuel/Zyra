@@ -1,6 +1,7 @@
 package com.mingweisamuel.zyra.lolStatus;
 
 import com.google.common.base.Objects;
+import java.io.Serializable;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -12,7 +13,7 @@ import java.util.List;
  * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version lol-status-v1.0 */
-public class Service {
+public class Service implements Serializable {
   public final List<Incident> incidents;
 
   public final String name;
@@ -31,7 +32,6 @@ public class Service {
 
   @Override
   public boolean equals(final Object obj) {
-    if (obj == null) return false;
     if (obj == this) return true;
     if (!(obj instanceof Service)) return false;
     final Service other = (Service) obj;

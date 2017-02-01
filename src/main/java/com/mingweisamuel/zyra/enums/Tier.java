@@ -1,5 +1,7 @@
 package com.mingweisamuel.zyra.enums;
 
+import java.util.Comparator;
+
 /**
  * Contains tier names (CHALLENGER, MASTER, etc.)
  */

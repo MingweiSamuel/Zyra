@@ -1,6 +1,7 @@
 package com.mingweisamuel.zyra.stats;
 
 import com.google.common.base.Objects;
+import java.io.Serializable;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -11,7 +12,7 @@ import java.lang.String;
  * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version stats-v1.3 */
-public class PlayerStatsSummary {
+public class PlayerStatsSummary implements Serializable {
   /**
    * Aggregated stats. */
   public final AggregatedStats aggregatedStats;
@@ -43,7 +44,6 @@ public class PlayerStatsSummary {
 
   @Override
   public boolean equals(final Object obj) {
-    if (obj == null) return false;
     if (obj == this) return true;
     if (!(obj instanceof PlayerStatsSummary)) return false;
     final PlayerStatsSummary other = (PlayerStatsSummary) obj;

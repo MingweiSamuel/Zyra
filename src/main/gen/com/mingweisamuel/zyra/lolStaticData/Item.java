@@ -1,6 +1,7 @@
 package com.mingweisamuel.zyra.lolStaticData;
 
 import com.google.common.base.Objects;
+import java.io.Serializable;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.Object;
@@ -15,7 +16,7 @@ import java.util.Map;
  * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
  *
  * @version lol-static-data-v1.2 */
-public class Item {
+public class Item implements Serializable {
   public final String colloq;
 
   public final boolean consumeOnFull;
@@ -102,7 +103,6 @@ public class Item {
 
   @Override
   public boolean equals(final Object obj) {
-    if (obj == null) return false;
     if (obj == this) return true;
     if (!(obj instanceof Item)) return false;
     final Item other = (Item) obj;
