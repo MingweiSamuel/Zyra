@@ -1,5 +1,6 @@
 package com.mingweisamuel.zyra.util;
 
+import com.mingweisamuel.zyra.ResponseListener;
 import com.mingweisamuel.zyra.enums.Region;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.Param;
@@ -41,17 +42,21 @@ public class RateLimitedRequester extends Requester {
     /** Number of concurrent requests per region. */
     private final int concurrentRequestsMax;
 
+    /** ResponseListener from client. Can be null. */
+    private ResponseListener listener;
+
     /** Stores the rate limits to respect. Key is time in milliseconds, value is max requests per that time. */
     private final ConcurrentMap<Long, Integer> rateLimits = new ConcurrentHashMap<>();
     /** Stores the RateLimiter for each Region. */
     private final ConcurrentMap<Region, RateLimiter> rateLimiters = new ConcurrentHashMap<>();
 
     public RateLimitedRequester(String apiKey, Map<Long, Integer> rateLimits, AsyncHttpClient client, int retries,
-            int concurrentRequestsMax) {
+            int concurrentRequestsMax, ResponseListener listener) {
         super(apiKey, client);
         this.rateLimits.putAll(rateLimits);
         this.retries = retries;
         this.concurrentRequestsMax = concurrentRequestsMax;
+        this.listener = listener;
     }
 
     public CompletableFuture<Response> getRequestNonRateLimitedAsync(
@@ -76,8 +81,14 @@ public class RateLimitedRequester extends Requester {
                 .whenComplete((r, e) -> limiter.release()) // release limiter regardless of success or failure.
                 .thenCompose(r -> {
                     // if response was successful, return response
-                    if (Arrays.binarySearch(STATUS_SUCCESS, r.getStatusCode()) >= 0)
+                    if (Arrays.binarySearch(STATUS_SUCCESS, r.getStatusCode()) >= 0) {
+                        if (this.listener != null)
+                            this.listener.onResponse(true, r);
                         return CompletableFuture.completedFuture(r);
+                    }
+                    // listener
+                    if (this.listener != null)
+                        this.listener.onResponse(false, r);
                     // if response has Retry-After header, set rateLimiter's retry after.
                     String retryAfter = r.getHeader(HEADER_RETRY_AFTER);
                     //System.out.println(System.currentTimeMillis() + " - RetryAfter: " + retryAfter + ", " +
@@ -86,6 +97,7 @@ public class RateLimitedRequester extends Requester {
                         limiter.setRetryAfter(Long.parseLong(retryAfter) * 1000 + 50);
                     // if the status code is not 429 and not a 5**, or if we are out of retries, throw an exception.
                     //TODO league endpoint sometimes returns 400s for no reason.
+                    //TODO what is with this conditional
                     if (r.getStatusCode() != 429 && r.getStatusCode() != 400 && r.getStatusCode() < 500
                             || retryCount >= retries) {
                         throw new RiotResponseException(String.format("Async request failed after %d retries (%d).",

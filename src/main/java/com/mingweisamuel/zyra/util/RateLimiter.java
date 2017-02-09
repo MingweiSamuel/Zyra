@@ -38,7 +38,7 @@ public class RateLimiter {
     /** Number of milliseconds to retry after if the concurrent request limit is reached. */
     public static final int CONCURRENT_REQUESTS_RETRY_INTERVAL = 20;
     /** The default number of concurrent requests allowed. */
-    public static final int CONCURRENT_REQUESTS_DEFAULT_MAX = 1;
+    public static final int CONCURRENT_REQUESTS_DEFAULT_MAX = 15;
     /** Default concurrent requests for production keys. */
     public static final int CONCURRENT_REQUESTS_PRODUCTION_MAX = 25;
     /** The semaphore for limiting the number of concurrent requests. */

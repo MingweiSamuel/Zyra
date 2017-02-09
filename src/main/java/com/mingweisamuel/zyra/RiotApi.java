@@ -101,6 +101,9 @@ public class RiotApi implements Closeable {
         /** AsyncHttpClient to use. Null for default client. */
         private AsyncHttpClient client = null;
 
+        /** Client's response listener. */
+        private ResponseListener listener = null;
+
         /**
          * Creates a builder for a RiotApi instance with the specified API key.
          *
@@ -123,7 +126,7 @@ public class RiotApi implements Closeable {
                         new DefaultAsyncHttpClientConfig.Builder().setThreadFactory(
                                 new ThreadFactoryBuilder().setDaemon(true).build()).build());
             }
-            return new RiotApi(apiKey, rateLimits, client, retries, concurrentRequestsMax);
+            return new RiotApi(apiKey, rateLimits, client, retries, concurrentRequestsMax, listener);
         }
 
         /**
@@ -201,6 +204,16 @@ public class RiotApi implements Closeable {
             this.client = client;
             return this;
         }
+
+        /**
+         * Sets the response listener.
+         * @param listener Can be null.
+         * @return
+         */
+        public Builder setResponseListener(ResponseListener listener) {
+            this.listener = listener;
+            return this;
+        }
     }
 
     /**
@@ -211,11 +224,12 @@ public class RiotApi implements Closeable {
      * @param client AsyncHttpClient
      * @param retries
      * @param maxConcurrentRequests
+     * @param listener ResponseListener for client. Can be null.
      */
     private RiotApi(String apiKey, Map<Long, Integer> rateLimits, AsyncHttpClient client, int retries,
-            int maxConcurrentRequests) {
+            int maxConcurrentRequests, ResponseListener listener) {
         requester = new Lazy<>(
-                () -> new RateLimitedRequester(apiKey, rateLimits, client, retries, maxConcurrentRequests));
+                () -> new RateLimitedRequester(apiKey, rateLimits, client, retries, maxConcurrentRequests, listener));
     }
 
     /**
