@@ -65,11 +65,33 @@ public class Queue {
     public static final String SIEGE = "SIEGE";
 
     /**
+     * Specific values for {@link com.mingweisamuel.zyra.match.MatchDetail#matchType}
+     */
+    public class MatchType {
+        public static final String CUSTOM_GAME = "CUSTOM_GAME";
+        public static final String MATCHED_GAME = "MATCHED_GAME";
+        public static final String TUTORIAL_GAME = "TUTORIAL_GAME";
+    }
+
+    /**
+     * Specific values for {@link com.mingweisamuel.zyra.match.MatchDetail#matchMode}
+     */
+    public class MatchMode {
+        public static final String CLASSIC = "CLASSIC";
+        public static final String ODIN = "ODIN";
+        public static final String ARAM = "ARAM";
+        public static final String TUTORIAL = "TUTORIAL";
+        public static final String ONEFORALL = "ONEFORALL";
+        public static final String ASCENSION = "ASCENSION";
+        public static final String FIRSTBLOOD = "FIRSTBLOOD";
+        public static final String KINGPORO = "KINGPORO";
+        public static final String SIEGE = "SIEGE";
+    }
+
+    /**
      * Specific values for {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType}.
      */
-    public static class SummaryType {
-        private SummaryType() {}
-
+    public class SummaryType {
         public static final String AramUnranked5x5 = "AramUnranked5x5";
         public static final String Ascension = "Ascension";
         public static final String Bilgewater = "Bilgewater";
