@@ -5,9 +5,9 @@ import com.google.common.collect.Iterables;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.gson.Gson;
 import com.mingweisamuel.zyra.enums.Region;
+import com.mingweisamuel.zyra.util.Lazy;
 import com.mingweisamuel.zyra.util.RateLimitedRequester;
 import com.mingweisamuel.zyra.util.RateLimiter;
-import com.mingweisamuel.zyra.util.Lazy;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClientConfig;
@@ -302,6 +302,36 @@ public class RiotApi implements Closeable {
                 .toArray(CompletableFuture[]::new);
         return CompletableFuture.allOf(groupTasks).thenApply(v -> result);
     }
+
+//    <I, K, V> Map<K, CompletableFuture<V>> getMapAsync2(
+//        String url, Region region, Iterable<I> input, int groupSize, Type type) {
+//        Iterable<List<I>> groups = Iterables.partition(input, groupSize);
+//
+//        Map<K, CompletableFuture<V>> result = new ConcurrentHashMap<>();
+//        final RateLimitedRequester requester = this.requester.get();
+//        for (final List<I> group : groups) {
+//            final Map<I, CompletableFuture<V>> groupResult = new ConcurrentHashMap<>();
+//            group.forEach(k -> groupResult.put(k, new CompletableFuture<V>()));
+//
+//            requester.getRequestRateLimitedAsync(url.replace("@", joiner.join(group)), region)
+//                    .handle((r, e) -> {
+//                        if (e != null)
+//                            groupResult.values().forEach(f -> f.completeExceptionally(
+//                                    new ExecutionException("Batch failed.", e)));
+//                        else if (r.getStatusCode() != 200)
+//                            // complete futures with null
+//                            groupResult.values().forEach(f -> f.complete(null));
+//                        else {
+//                            Map<K, V> groupMap = gson.fromJson(r.getResponseBody(), type);
+//                            for (Map.Entry<K, CompletableFuture<V>> entry : groupResult.entrySet())
+//                                entry.getValue().complete(groupMap.get(entry.getKey()));
+//                        }
+//                        return (Void) null;
+//                    });
+//            result.putAll(groupResult);
+//        }
+//        return result;
+//    }
 
     <T> T getNonApi(String fullUrl, Type type, Param... params) throws ExecutionException {
         try {
