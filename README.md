@@ -1,6 +1,6 @@
 # Zyra
 
-[![CircleCI](https://img.shields.io/circleci/project/github/MingweiSamuel/Zyra.svg?label=circleci)](https://circleci.com/gh/MingweiSamuel/Zyra/tree/develop)
+[![CircleCI](https://circleci.com/gh/MingweiSamuel/Zyra/tree/develop.svg?style=shield)](https://circleci.com/gh/MingweiSamuel/Zyra/tree/develop)
 
 Java Library for the [Riot Games API](https://developer.riotgames.com/)
 
@@ -19,7 +19,7 @@ requests seamlessly.
 
 ## Setup
 
-If you are using Maven or Gradle, see the [Build Tools](#build0-tools) section.
+If you are using Maven or Gradle, see the [Build Tools](#build-tools) section.
 Otherwise, see the instructions below.
 
 ### Jars 
