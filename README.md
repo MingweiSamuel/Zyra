@@ -19,6 +19,8 @@ requests seamlessly.
 
 ## Setup
 
+Zyra requires Java 8.
+
 If you are using Maven or Gradle, see the [Build Tools](#build-tools) section.
 Otherwise, see the instructions below.
 
