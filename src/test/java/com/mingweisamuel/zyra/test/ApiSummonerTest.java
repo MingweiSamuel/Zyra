@@ -41,21 +41,29 @@ public class ApiSummonerTest extends ApiTest {
             32650574L,42858177L,20511587L,51494785L,25169287L,22234910L,49801055L,46376702L,21915708L,23950678L,
             28970718L,25037723L,32399661L,27861874L,34101529L,60637481L,65399283L,31669196L,44703152L,40559366L));
     private static final Set<String> summonerNames = new HashSet<>(Arrays.asList(
-            "1mìnhtaochaphet","rafamundez","afgsfg","spookymemes","worr","hwasin","magicalboy","deliciousasada",
-            "darvyy","secretlyasian","meepmyselfandi","cogslee","critznscriptz","deadpoolsaiyan","vongolassky",
-            "apizzaguy","lucasisazombie","creezlo","bansensei","bombizaway","forest203","krackzboi","dubtownusa",
-            "kwamena4","kennytime44","mach0man","edwing","dmob18","handied","awsomered5","reihko","made4dance",
-            "slogar561","siryodaa","porks","pabloflexcobar","iamriley","a55holebeaman","dim2a","mastlower",
-            "killerpoisonxz","dinoobsaur","thezealousking","manboobs","craz3yman","flaysfordayz","newtocarrying",
-            "ianafeeder","ripset","apotatoechip","hanwei11","hismaster","letshopeshewas16","cradar","blue3night",
-            "voidzix","šnöw","dtanhero","tobewitheredrm","snowboots","supacash","thotslayer","lugnutsk","shadowvapour",
-            "makeyomamagowoo","presdjtrump","marty726","leagueofrandy","terannical","tgisaturday","hobobaseek",
-            "joyfull","dgr33n","midsdivineking","mistagamenwatch","sailor","twr3ck","sktt1bangu","godsusedcondom",
-            "sunoo","r43dtdevilkill","davesteezy","heisenberg","wangasaurous","fucc","chetmaytrua","dimoltobene",
-            "maxlegendalan","alaron94","ashbeeq","theorcaman69","falfrius","nikstykal","sentientpotato","persies",
-            "bennykillsany","imhereguys","bybbye","carnakable","mxthief","weieu","hemroidz","itzbacon","ldemiguisel",
-            "leitharian","cheffayette","otturbear","crxn","rulezoverall","agekage","peacepark","ferbensojo","brokevin",
-            "rycebowl","n00bski","axo","sssangelbeats","ubathetroll","matt2chainz","harleyquinnie"));
+        "apotatoechip","pocketspaghetti","weieu","magicalboy","bansensei","pabloflexcobar","porks","alaron94","persies",
+        "matt2chainz","marty726","cena","dinoobsaur","rafamundez","terannical","sssangelbeats","ashbeeq","mxthief",
+        "yujirohanma","conmèocuaanh","colinisafgâgôt","bombizaway","joyfull","rycebowl","fucc","hismaster","n00bski",
+        "kwamena4","falfrius","wangasaurous","dimoltobene","supacash","kennytime44","crxn","hemroidz","ripset",
+        "makeyomamagowoo","reihko","sunoo","handied","lucasisazombie","siryodaa","meepmyselfandi","brokevin",
+        "apizzaguy","ferbensojo","sentientpotato","tobewitheredrm","chetmaytrua","ianafeeder","mastlower","davesteezy",
+        "rulezoverall","cogslee","edwing","afgsfg","hobobaseek","lugnutsk","itzbacon","theominousorca","r43dtdevilkill",
+        "dmob18","deliciousasada","mistagamenwatch","creezlo","dtanhero","bybbye","voidzix","kaz3r","harleenquinnzel",
+        "darvyy","vongolassky","leitharian","krackzboi","mach0man","made4dance","flaysfordayz","letshopeshewas16",
+        "twr3ck","peacepark","awsomered5","ldemiguisel","presdjtrump","tgisaturday","hanwei11","zëal","carnakable",
+        "dgr33n","leagueofrandy","nikstykal","craz3yman","critznscriptz","agekage","iamriley","cheffayette",
+        "maxlegendalan","dubtownusa","sktt1bangu","otturbear","šnöw","a55holebeaman","slogar561","bennykillsany","axo",
+        "secretlyasian","hwasin","thotslayer","killerpoisonxz","newtocarrying","shadowvapour","dim2a","snowboots",
+        "sailor","spookymemes","deadpoolsaiyan","heisenberg","forest203","dirtygpplayer","worr","cradar"));
+
+    /**
+     * Update the summonerNames
+     */
+    @Test
+    public void summonerNames() throws ExecutionException, InterruptedException {
+        api.summoners.getAsync(Region.NA, summonerIds).thenAccept(
+            d -> d.values().forEach(s -> System.out.println(s.name))).get();
+    }
 
     @Test
     public void get() throws ExecutionException {

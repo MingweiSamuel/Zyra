@@ -69,7 +69,7 @@ public class ApiStaticDataTest extends ApiTest {
         assertNull(result.blurb);
         assertEquals("\u8346\u68d8\u4e4b\u5174", result.name);
         assertEquals("Zyra.png", result.image.full);
-        assertEquals(4, result.skins.size());
+        assertEquals(5, result.skins.size());
         assertEquals("\u91ce\u706b\u4e4b\u85e4 \u5a55\u62c9", result.skins.get(1).name);
     }
     //endregion
@@ -141,13 +141,13 @@ public class ApiStaticDataTest extends ApiTest {
     private void checkGetLanguages(List<String> result) {
         assertNotNull(result);
         Set<String> expected = new HashSet<>(Arrays.asList(
-                "en_US","cs_CZ","de_DE","el_GR","en_AU","en_GB","en_PH","en_PL","en_SG","es_AR","es_ES","es_MX","fr_FR",
+                "en_US","cs_CZ","de_DE","el_GR","en_AU","en_GB","en_PH","en_SG","es_AR","es_ES","es_MX","fr_FR",
                 "hu_HU","id_ID","it_IT","ja_JP","ko_KR","ms_MY","pl_PL","pt_BR","ro_RO","ru_RU","th_TH","tr_TR","vn_VN",
-                "zh_CN","zh_MY","zh_TW"));
+                "zh_CN","zh_MY","zh_TW")); //"en_PL",
         assertEquals(expected.size(), result.size());
         for (String lang : result)
-            assertTrue(expected.remove(lang));
-        assertTrue(expected.isEmpty());
+            assertTrue(lang + " unexpected", expected.remove(lang));
+        assertTrue(expected.toString(), expected.isEmpty());
     }
     //endregion
 
@@ -162,7 +162,7 @@ public class ApiStaticDataTest extends ApiTest {
     }
     private void checkGetMaps(MapData result) {
         assertEquals("map", result.type);
-        assertEquals("SummonersRiftNew", result.data.get(11L).mapName);
+        assertEquals("Summoner's Rift", result.data.get(11L).mapName);
         assertEquals("map11.png", result.data.get(11L).image.full);
     }
     //endregion

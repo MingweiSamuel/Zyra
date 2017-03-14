@@ -35,8 +35,11 @@ public class ApiLeagueTest extends ApiTest {
         List<League> leagueList = result.values().iterator().next();
         for (League league : leagueList) {
             if (Queue.RANKED_SOLO_5x5.equals(league.queue)) {
-                // Sneaky better be at least Master
-                assertTrue(league.tier, Tier.MASTER.equals(league.tier) || Tier.CHALLENGER.equals(league.tier));
+                // Sneaky better be at least Diamond
+                assertTrue(league.tier,
+                    Tier.DIAMOND.equals(league.tier) ||
+                    Tier.MASTER.equals(league.tier) ||
+                    Tier.CHALLENGER.equals(league.tier));
                 assertTrue(league.entries.size() > 1);
                 for (LeagueEntry entry : league.entries) {
                     if ("51405".equals(entry.playerOrTeamId)) {
@@ -62,8 +65,11 @@ public class ApiLeagueTest extends ApiTest {
         List<League> leagueList = result.values().iterator().next();
         for (League league : leagueList) {
             if (Queue.RANKED_SOLO_5x5.equals(league.queue)) {
-                // Sneaky better be at least Master
-                assertTrue(league.tier, Tier.MASTER.equals(league.tier) || Tier.CHALLENGER.equals(league.tier));
+                // Sneaky better be at least Diamond
+                assertTrue(league.tier, Tier.DIAMOND.equals(league.tier) ||
+                    Tier.MASTER.equals(league.tier) ||
+                    Tier.CHALLENGER.equals
+                    (league.tier));
                 assertTrue(league.entries.size() == 1);
                 LeagueEntry entry = league.entries.get(0);
                 assertTrue("51405".equals(entry.playerOrTeamId));

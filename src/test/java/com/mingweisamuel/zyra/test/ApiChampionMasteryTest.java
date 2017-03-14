@@ -72,14 +72,15 @@ public class ApiChampionMasteryTest extends ApiTest {
 
     @Test
     public void getScore() throws ExecutionException {
+        // http://www.lolking.net/summoner/euw/20401158/0#champ-mastery
         int score = api.championMasteries.getScore(Region.EUW, 20401158);
-        assertTrue("" + score, 683 <= score && score < 700);
+        assertTrue("" + score, 806 <= score && score < 900);
     }
 
     @Test
     public void getScoreAsync() throws ExecutionException, InterruptedException {
         api.championMasteries.getScoreAsync(Region.EUW, 20401158)
-                .thenAccept(score -> assertTrue("" + score, 683 <= score && score < 700)).get();
+                .thenAccept(score -> assertTrue("" + score, 806 <= score && score < 900)).get();
     }
 
     @Test
