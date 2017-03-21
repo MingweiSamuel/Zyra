@@ -9,11 +9,11 @@ import java.lang.String;
 import java.util.List;
 
 /**
- * MapDetails.<br /><br />
+ * MapDetails.<br><br>
  *
- * This object contains map details data..<br /><br />
+ * This object contains map details data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getMap">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getMap">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class MapDetails implements Serializable {
   public final String mapName;
 

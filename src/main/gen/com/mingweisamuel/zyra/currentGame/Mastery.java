@@ -6,9 +6,9 @@ import java.lang.Object;
 import java.lang.Override;
 
 /**
- * Mastery.<br /><br />
+ * Mastery.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#current-game-v1.0/GET_getCurrentGameInfoBySummoner">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#current-game-v1.0/GET_getCurrentGameInfoBySummoner">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class Mastery implements Serializable {
   /**
    * The ID of the mastery */

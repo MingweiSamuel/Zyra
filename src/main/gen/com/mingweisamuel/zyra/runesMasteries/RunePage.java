@@ -8,11 +8,11 @@ import java.lang.String;
 import java.util.List;
 
 /**
- * RunePage.<br /><br />
+ * RunePage.<br><br>
  *
- * This object contains rune page information..<br /><br />
+ * This object contains rune page information..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#runes-masteries-v1.4/GET_getRunePagesBySummonerIds">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#runes-masteries-v1.4/GET_getRunePagesBySummonerIds">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class RunePage implements Serializable {
   /**
    * Indicates if the page is the current page. */

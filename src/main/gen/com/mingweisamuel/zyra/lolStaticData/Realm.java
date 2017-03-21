@@ -8,11 +8,11 @@ import java.lang.String;
 import java.util.Map;
 
 /**
- * Realm.<br /><br />
+ * Realm.<br><br>
  *
- * This object contains realm data..<br /><br />
+ * This object contains realm data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getRealm">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getRealm">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class Realm implements Serializable {
   /**
    * Legacy script mode for IE6 or older. */

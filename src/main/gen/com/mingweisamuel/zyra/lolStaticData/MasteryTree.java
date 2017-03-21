@@ -7,11 +7,11 @@ import java.lang.Override;
 import java.util.List;
 
 /**
- * MasteryTree.<br /><br />
+ * MasteryTree.<br><br>
  *
- * This object contains mastery tree data..<br /><br />
+ * This object contains mastery tree data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getMasteryList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getMasteryList">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class MasteryTree implements Serializable {
   public final List<MasteryTreeList> Resolve;
 

@@ -7,11 +7,11 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * LeagueEntry.<br /><br />
+ * LeagueEntry.<br><br>
  *
- * This object contains league participant information representing a summoner or team..<br /><br />
+ * This object contains league participant information representing a summoner or team..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v2.5/GET_getChallengerLeagues">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v2.5/GET_getChallengerLeagues">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class LeagueEntry implements Serializable {
   /**
    * Specifies if the participant is fresh blood. */

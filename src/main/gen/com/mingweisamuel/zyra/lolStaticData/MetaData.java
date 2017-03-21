@@ -7,11 +7,11 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * MetaData.<br /><br />
+ * MetaData.<br><br>
  *
- * This object contains meta data..<br /><br />
+ * This object contains meta data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getItemList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getItemList">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class MetaData implements Serializable {
   public final String tier;
 

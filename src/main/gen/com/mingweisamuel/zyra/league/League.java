@@ -8,11 +8,11 @@ import java.lang.String;
 import java.util.List;
 
 /**
- * League.<br /><br />
+ * League.<br><br>
  *
- * This object contains league information..<br /><br />
+ * This object contains league information..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v2.5/GET_getChallengerLeagues">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v2.5/GET_getChallengerLeagues">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class League implements Serializable {
   /**
    * The league's queue type. */

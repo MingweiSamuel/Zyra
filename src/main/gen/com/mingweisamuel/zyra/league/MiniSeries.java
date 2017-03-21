@@ -7,11 +7,11 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * MiniSeries.<br /><br />
+ * MiniSeries.<br><br>
  *
- * This object contains mini series information..<br /><br />
+ * This object contains mini series information..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v2.5/GET_getChallengerLeagues">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v2.5/GET_getChallengerLeagues">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class MiniSeries implements Serializable {
   /**
    * String showing the current, sequential mini series progress where 'W' represents a win, 'L' represents a loss, and 'N' represents a game that hasn't been played yet. */

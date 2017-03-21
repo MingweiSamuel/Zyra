@@ -6,11 +6,11 @@ import java.lang.Object;
 import java.lang.Override;
 
 /**
- * BasicDataStats.<br /><br />
+ * BasicDataStats.<br><br>
  *
- * This object contains basic data stats..<br /><br />
+ * This object contains basic data stats..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getItemList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getItemList">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class BasicDataStats implements Serializable {
   public final double rPercentMagicPenetrationModPerLevel;
 

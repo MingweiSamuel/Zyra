@@ -6,11 +6,11 @@ import java.lang.Object;
 import java.lang.Override;
 
 /**
- * ChampionStats.<br /><br />
+ * ChampionStats.<br><br>
  *
- * This object contains a collection of champion stats information..<br /><br />
+ * This object contains a collection of champion stats information..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#stats-v1.3/GET_getRankedStats">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#stats-v1.3/GET_getRankedStats">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class ChampionStats implements Serializable {
   /**
    * Aggregated stats associated with the champion. */

@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ItemList.<br /><br />
+ * ItemList.<br><br>
  *
- * This object contains item list data..<br /><br />
+ * This object contains item list data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getItemList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getItemList">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class ItemList implements Serializable {
   public final Map<Integer, Item> data;
 

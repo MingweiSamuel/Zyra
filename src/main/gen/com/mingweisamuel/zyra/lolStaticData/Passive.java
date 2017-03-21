@@ -7,11 +7,11 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * Passive.<br /><br />
+ * Passive.<br><br>
  *
- * This object contains champion passive data..<br /><br />
+ * This object contains champion passive data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getChampionList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getChampionList">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class Passive implements Serializable {
   public final Image image;
 

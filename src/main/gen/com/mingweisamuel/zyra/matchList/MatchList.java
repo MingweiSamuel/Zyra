@@ -7,11 +7,11 @@ import java.lang.Override;
 import java.util.List;
 
 /**
- * MatchList.<br /><br />
+ * MatchList.<br><br>
  *
- * This object contains match list information.<br /><br />
+ * This object contains match list information.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#matchlist-v2.2/GET_getMatchList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#matchlist-v2.2/GET_getMatchList">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class MatchList implements Serializable {
   public final List<MatchReference> matches;
 

@@ -7,11 +7,11 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * PlayerStatsSummary.<br /><br />
+ * PlayerStatsSummary.<br><br>
  *
- * This object contains player stats summary information..<br /><br />
+ * This object contains player stats summary information..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#stats-v1.3/GET_getPlayerStatsSummary">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#stats-v1.3/GET_getPlayerStatsSummary">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class PlayerStatsSummary implements Serializable {
   /**
    * Number of wins for this queue type. */

@@ -7,11 +7,11 @@ import java.lang.Override;
 import java.util.List;
 
 /**
- * RunePages.<br /><br />
+ * RunePages.<br><br>
  *
- * This object contains rune pages information..<br /><br />
+ * This object contains rune pages information..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#runes-masteries-v1.4/GET_getRunePagesBySummonerIds">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#runes-masteries-v1.4/GET_getRunePagesBySummonerIds">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class RunePages implements Serializable {
   /**
    * Collection of rune pages associated with the summoner. */

@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Rune.<br /><br />
+ * Rune.<br><br>
  *
- * This object contains rune data..<br /><br />
+ * This object contains rune data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getRuneList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getRuneList">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class Rune implements Serializable {
   public final String plaintext;
 

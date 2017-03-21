@@ -56,14 +56,14 @@ public class ApiSummonerTest extends ApiTest {
         "secretlyasian","hwasin","thotslayer","killerpoisonxz","newtocarrying","shadowvapour","dim2a","snowboots",
         "sailor","spookymemes","deadpoolsaiyan","heisenberg","forest203","dirtygpplayer","worr","cradar"));
 
-    /**
-     * Update the summonerNames
-     */
-    @Test
-    public void summonerNames() throws ExecutionException, InterruptedException {
-        api.summoners.getAsync(Region.NA, summonerIds).thenAccept(
-            d -> d.values().forEach(s -> System.out.println(s.name))).get();
-    }
+//    /**
+//     * Update the summonerNames
+//     */
+//    @Test
+//    public void summonerNames() throws ExecutionException, InterruptedException {
+//        api.summoners.getAsync(Region.NA, summonerIds).thenAccept(
+//            d -> d.values().forEach(s -> System.out.println(s.name))).get();
+//    }
 
     @Test
     public void get() throws ExecutionException {

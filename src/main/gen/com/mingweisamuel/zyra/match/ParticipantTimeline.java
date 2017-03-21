@@ -7,11 +7,11 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * ParticipantTimeline.<br /><br />
+ * ParticipantTimeline.<br><br>
  *
- * This object contains all timeline information.<br /><br />
+ * This object contains all timeline information.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v2.2/GET_getMatchByIdAndTournamentCode">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v2.2/GET_getMatchByIdAndTournamentCode">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class ParticipantTimeline implements Serializable {
   /**
    * Vilemaw assists per minute timeline counts */

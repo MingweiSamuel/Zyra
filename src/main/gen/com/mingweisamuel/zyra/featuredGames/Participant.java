@@ -7,9 +7,9 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * Participant.<br /><br />
+ * Participant.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#featured-games-v1.0/GET_getFeaturedGames">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#featured-games-v1.0/GET_getFeaturedGames">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
 public class Participant implements Serializable {
   /**
    * The ID of the profile icon used by this participant */

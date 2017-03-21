@@ -170,9 +170,9 @@ public class ApiGen {
             TypeSpec.Builder dtoBuilder = TypeSpec.classBuilder(dtoName);
             dtoBuilder.addModifiers(Modifier.PUBLIC);
             dtoBuilder.addSuperinterface(Serializable.class);
-            dtoBuilder.addJavadoc(dtoName + ".<br /><br />\n\n");;
+            dtoBuilder.addJavadoc(dtoName + ".<br><br>\n\n");;
             if (!dtoDesc.isEmpty())
-                dtoBuilder.addJavadoc(dtoDesc + ".<br /><br />\n\n");
+                dtoBuilder.addJavadoc(dtoDesc + ".<br><br>\n\n");
             dtoBuilder.addJavadoc(String.format("This class was automatically generated from the " +
                     "<a href=\"%s\">Riot API reference</a> on %s.", url, timestamp));
 
