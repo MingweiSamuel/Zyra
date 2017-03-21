@@ -6,16 +6,12 @@ import java.lang.Object;
 import java.lang.Override;
 
 /**
- * ParticipantTimelineData - This object contains timeline data
+ * ParticipantTimelineData.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains timeline data.<br /><br />
  *
- * @version match-v2.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v2.2/GET_getMatchByIdAndTournamentCode">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class ParticipantTimelineData implements Serializable {
-  /**
-   * Value per minute from 10 min to 20 min */
-  public final double tenToTwenty;
-
   /**
    * Value per minute from 30 min to the end of the game */
   public final double thirtyToEnd;
@@ -28,12 +24,16 @@ public class ParticipantTimelineData implements Serializable {
    * Value per minute from the beginning of the game to 10 min */
   public final double zeroToTen;
 
-  public ParticipantTimelineData(final double tenToTwenty, final double thirtyToEnd,
-      final double twentyToThirty, final double zeroToTen) {
-    this.tenToTwenty = tenToTwenty;
+  /**
+   * Value per minute from 10 min to 20 min */
+  public final double tenToTwenty;
+
+  public ParticipantTimelineData(final double thirtyToEnd, final double twentyToThirty,
+      final double zeroToTen, final double tenToTwenty) {
     this.thirtyToEnd = thirtyToEnd;
     this.twentyToThirty = twentyToThirty;
     this.zeroToTen = zeroToTen;
+    this.tenToTwenty = tenToTwenty;
   }
 
   @Override
@@ -42,16 +42,16 @@ public class ParticipantTimelineData implements Serializable {
     if (!(obj instanceof ParticipantTimelineData)) return false;
     final ParticipantTimelineData other = (ParticipantTimelineData) obj;
     return true
-        && Objects.equal(tenToTwenty, other.tenToTwenty)
         && Objects.equal(thirtyToEnd, other.thirtyToEnd)
         && Objects.equal(twentyToThirty, other.twentyToThirty)
-        && Objects.equal(zeroToTen, other.zeroToTen);}
+        && Objects.equal(zeroToTen, other.zeroToTen)
+        && Objects.equal(tenToTwenty, other.tenToTwenty);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        tenToTwenty,
         thirtyToEnd,
         twentyToThirty,
-        zeroToTen);}
+        zeroToTen,
+        tenToTwenty);}
 }

@@ -7,23 +7,23 @@ import java.lang.Override;
 import java.util.List;
 
 /**
- * Timeline - This object contains game timeline information
+ * Timeline.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains game timeline information.<br /><br />
  *
- * @version match-v2.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v2.2/GET_getMatchByIdAndTournamentCode">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class Timeline implements Serializable {
-  /**
-   * Time between each returned frame in milliseconds. */
-  public final long frameInterval;
-
   /**
    * List of timeline frames for the game. */
   public final List<Frame> frames;
 
-  public Timeline(final long frameInterval, final List<Frame> frames) {
-    this.frameInterval = frameInterval;
+  /**
+   * Time between each returned frame in milliseconds. */
+  public final long frameInterval;
+
+  public Timeline(final List<Frame> frames, final long frameInterval) {
     this.frames = frames;
+    this.frameInterval = frameInterval;
   }
 
   @Override
@@ -32,12 +32,12 @@ public class Timeline implements Serializable {
     if (!(obj instanceof Timeline)) return false;
     final Timeline other = (Timeline) obj;
     return true
-        && Objects.equal(frameInterval, other.frameInterval)
-        && Objects.equal(frames, other.frames);}
+        && Objects.equal(frames, other.frames)
+        && Objects.equal(frameInterval, other.frameInterval);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        frameInterval,
-        frames);}
+        frames,
+        frameInterval);}
 }

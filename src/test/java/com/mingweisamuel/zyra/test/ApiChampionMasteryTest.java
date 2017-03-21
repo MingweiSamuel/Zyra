@@ -53,7 +53,8 @@ public class ApiChampionMasteryTest extends ApiTest {
         List<ChampionMastery> champData = api.championMasteries.getChampions(Region.NA, 69009277);
         int topChampCount = topChamps.size();
         for (int i = 0; i < topChampCount; i++)
-            assertTrue("Unexpected top champ: " + champData.get(i), topChamps.remove(champData.get(i).championId));
+            assertTrue("Unexpected top champ: " + champData.get(i).championId,
+                topChamps.remove(champData.get(i).championId));
         assertTrue("Champions not found: " + topChamps.toString(), topChamps.isEmpty());
     }
 

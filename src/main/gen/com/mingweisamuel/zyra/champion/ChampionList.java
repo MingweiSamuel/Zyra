@@ -7,11 +7,11 @@ import java.lang.Override;
 import java.util.List;
 
 /**
- * ChampionList - This object contains a collection of champion information.
+ * ChampionList.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains a collection of champion information..<br /><br />
  *
- * @version champion-v1.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#champion-v1.2/GET_getChampions">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class ChampionList implements Serializable {
   /**
    * The collection of champion information. */

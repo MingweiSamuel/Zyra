@@ -6,78 +6,78 @@ import java.lang.Object;
 import java.lang.Override;
 
 /**
- * Stats - This object contains champion stats data.
+ * Stats.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains champion stats data..<br /><br />
  *
- * @version lol-static-data-v1.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getChampionList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class Stats implements Serializable {
-  public final double armor;
-
   public final double armorperlevel;
-
-  public final double attackdamage;
-
-  public final double attackdamageperlevel;
-
-  public final double attackrange;
-
-  public final double attackspeedoffset;
-
-  public final double attackspeedperlevel;
-
-  public final double crit;
-
-  public final double critperlevel;
-
-  public final double hp;
 
   public final double hpperlevel;
 
-  public final double hpregen;
-
-  public final double hpregenperlevel;
-
-  public final double movespeed;
-
-  public final double mp;
+  public final double attackdamage;
 
   public final double mpperlevel;
 
-  public final double mpregen;
+  public final double attackspeedoffset;
+
+  public final double armor;
+
+  public final double hp;
+
+  public final double hpregenperlevel;
+
+  public final double attackspeedperlevel;
+
+  public final double attackrange;
+
+  public final double movespeed;
+
+  public final double attackdamageperlevel;
 
   public final double mpregenperlevel;
 
-  public final double spellblock;
+  public final double mp;
 
   public final double spellblockperlevel;
 
-  public Stats(final double armor, final double armorperlevel, final double attackdamage,
-      final double attackdamageperlevel, final double attackrange, final double attackspeedoffset,
-      final double attackspeedperlevel, final double crit, final double critperlevel,
-      final double hp, final double hpperlevel, final double hpregen, final double hpregenperlevel,
-      final double movespeed, final double mp, final double mpperlevel, final double mpregen,
-      final double mpregenperlevel, final double spellblock, final double spellblockperlevel) {
-    this.armor = armor;
+  public final double crit;
+
+  public final double mpregen;
+
+  public final double spellblock;
+
+  public final double hpregen;
+
+  public final double critperlevel;
+
+  public Stats(final double armorperlevel, final double hpperlevel, final double attackdamage,
+      final double mpperlevel, final double attackspeedoffset, final double armor, final double hp,
+      final double hpregenperlevel, final double attackspeedperlevel, final double attackrange,
+      final double movespeed, final double attackdamageperlevel, final double mpregenperlevel,
+      final double mp, final double spellblockperlevel, final double crit, final double mpregen,
+      final double spellblock, final double hpregen, final double critperlevel) {
     this.armorperlevel = armorperlevel;
-    this.attackdamage = attackdamage;
-    this.attackdamageperlevel = attackdamageperlevel;
-    this.attackrange = attackrange;
-    this.attackspeedoffset = attackspeedoffset;
-    this.attackspeedperlevel = attackspeedperlevel;
-    this.crit = crit;
-    this.critperlevel = critperlevel;
-    this.hp = hp;
     this.hpperlevel = hpperlevel;
-    this.hpregen = hpregen;
-    this.hpregenperlevel = hpregenperlevel;
-    this.movespeed = movespeed;
-    this.mp = mp;
+    this.attackdamage = attackdamage;
     this.mpperlevel = mpperlevel;
-    this.mpregen = mpregen;
+    this.attackspeedoffset = attackspeedoffset;
+    this.armor = armor;
+    this.hp = hp;
+    this.hpregenperlevel = hpregenperlevel;
+    this.attackspeedperlevel = attackspeedperlevel;
+    this.attackrange = attackrange;
+    this.movespeed = movespeed;
+    this.attackdamageperlevel = attackdamageperlevel;
     this.mpregenperlevel = mpregenperlevel;
-    this.spellblock = spellblock;
+    this.mp = mp;
     this.spellblockperlevel = spellblockperlevel;
+    this.crit = crit;
+    this.mpregen = mpregen;
+    this.spellblock = spellblock;
+    this.hpregen = hpregen;
+    this.critperlevel = critperlevel;
   }
 
   @Override
@@ -86,48 +86,48 @@ public class Stats implements Serializable {
     if (!(obj instanceof Stats)) return false;
     final Stats other = (Stats) obj;
     return true
-        && Objects.equal(armor, other.armor)
         && Objects.equal(armorperlevel, other.armorperlevel)
-        && Objects.equal(attackdamage, other.attackdamage)
-        && Objects.equal(attackdamageperlevel, other.attackdamageperlevel)
-        && Objects.equal(attackrange, other.attackrange)
-        && Objects.equal(attackspeedoffset, other.attackspeedoffset)
-        && Objects.equal(attackspeedperlevel, other.attackspeedperlevel)
-        && Objects.equal(crit, other.crit)
-        && Objects.equal(critperlevel, other.critperlevel)
-        && Objects.equal(hp, other.hp)
         && Objects.equal(hpperlevel, other.hpperlevel)
-        && Objects.equal(hpregen, other.hpregen)
-        && Objects.equal(hpregenperlevel, other.hpregenperlevel)
-        && Objects.equal(movespeed, other.movespeed)
-        && Objects.equal(mp, other.mp)
+        && Objects.equal(attackdamage, other.attackdamage)
         && Objects.equal(mpperlevel, other.mpperlevel)
-        && Objects.equal(mpregen, other.mpregen)
+        && Objects.equal(attackspeedoffset, other.attackspeedoffset)
+        && Objects.equal(armor, other.armor)
+        && Objects.equal(hp, other.hp)
+        && Objects.equal(hpregenperlevel, other.hpregenperlevel)
+        && Objects.equal(attackspeedperlevel, other.attackspeedperlevel)
+        && Objects.equal(attackrange, other.attackrange)
+        && Objects.equal(movespeed, other.movespeed)
+        && Objects.equal(attackdamageperlevel, other.attackdamageperlevel)
         && Objects.equal(mpregenperlevel, other.mpregenperlevel)
+        && Objects.equal(mp, other.mp)
+        && Objects.equal(spellblockperlevel, other.spellblockperlevel)
+        && Objects.equal(crit, other.crit)
+        && Objects.equal(mpregen, other.mpregen)
         && Objects.equal(spellblock, other.spellblock)
-        && Objects.equal(spellblockperlevel, other.spellblockperlevel);}
+        && Objects.equal(hpregen, other.hpregen)
+        && Objects.equal(critperlevel, other.critperlevel);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        armor,
         armorperlevel,
-        attackdamage,
-        attackdamageperlevel,
-        attackrange,
-        attackspeedoffset,
-        attackspeedperlevel,
-        crit,
-        critperlevel,
-        hp,
         hpperlevel,
-        hpregen,
-        hpregenperlevel,
-        movespeed,
-        mp,
+        attackdamage,
         mpperlevel,
-        mpregen,
+        attackspeedoffset,
+        armor,
+        hp,
+        hpregenperlevel,
+        attackspeedperlevel,
+        attackrange,
+        movespeed,
+        attackdamageperlevel,
         mpregenperlevel,
+        mp,
+        spellblockperlevel,
+        crit,
+        mpregen,
         spellblock,
-        spellblockperlevel);}
+        hpregen,
+        critperlevel);}
 }

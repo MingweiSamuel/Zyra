@@ -8,36 +8,34 @@ import java.lang.String;
 import java.util.List;
 
 /**
- * Message
+ * Message.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
- *
- * @version lol-status-v1.0 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-status-v1.0/GET_getShardStatus">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class Message implements Serializable {
+  public final String severity;
+
   public final String author;
 
-  public final String content;
-
   public final String created_at;
-
-  public final String id;
-
-  public final String severity;
 
   public final List<Translation> translations;
 
   public final String updated_at;
 
-  public Message(final String author, final String content, final String created_at,
-      final String id, final String severity, final List<Translation> translations,
-      final String updated_at) {
-    this.author = author;
-    this.content = content;
-    this.created_at = created_at;
-    this.id = id;
+  public final String content;
+
+  public final String id;
+
+  public Message(final String severity, final String author, final String created_at,
+      final List<Translation> translations, final String updated_at, final String content,
+      final String id) {
     this.severity = severity;
+    this.author = author;
+    this.created_at = created_at;
     this.translations = translations;
     this.updated_at = updated_at;
+    this.content = content;
+    this.id = id;
   }
 
   @Override
@@ -46,22 +44,22 @@ public class Message implements Serializable {
     if (!(obj instanceof Message)) return false;
     final Message other = (Message) obj;
     return true
-        && Objects.equal(author, other.author)
-        && Objects.equal(content, other.content)
-        && Objects.equal(created_at, other.created_at)
-        && Objects.equal(id, other.id)
         && Objects.equal(severity, other.severity)
+        && Objects.equal(author, other.author)
+        && Objects.equal(created_at, other.created_at)
         && Objects.equal(translations, other.translations)
-        && Objects.equal(updated_at, other.updated_at);}
+        && Objects.equal(updated_at, other.updated_at)
+        && Objects.equal(content, other.content)
+        && Objects.equal(id, other.id);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        author,
-        content,
-        created_at,
-        id,
         severity,
+        author,
+        created_at,
         translations,
-        updated_at);}
+        updated_at,
+        content,
+        id);}
 }

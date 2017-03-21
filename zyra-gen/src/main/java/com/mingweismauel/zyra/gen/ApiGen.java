@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -75,8 +76,8 @@ public class ApiGen {
 
     private final String html;
     private final String url;
-    private final String rawName;
-    private final String normalizedName;
+    private final String endpointsRawName;
+    private final String endpointsNormalizedName;
     private final String dtoPackage;
 
     private final Set<String> processedDtos = new HashSet<>();
@@ -88,21 +89,21 @@ public class ApiGen {
     /**
      * Represents a ENDPOINT*S*
      * @param html
-     * @param rawName
-     * @param normalizedName
+     * @param endpointsRawName
+     * @param endpointsNormalizedName
      */
-    public ApiGen(String html, String rawName, String normalizedName) {
+    public ApiGen(String html, String endpointsRawName, String endpointsNormalizedName) {
         this.html = html;
-        this.url = "https://developer.riotgames.com/api-methods/#" + rawName;
-        this.rawName = rawName;
-        this.normalizedName = normalizedName;
-        this.dtoPackage = PACKAGE + '.' + CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, normalizedName);
+        this.url = "https://developer.riotgames.com/api-methods/#" + endpointsRawName;
+        this.endpointsRawName = endpointsRawName;
+        this.endpointsNormalizedName = endpointsNormalizedName;
+        this.dtoPackage = PACKAGE + '.' + CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, endpointsNormalizedName);
     }
 
     public void compile() {
         Document apiDoc = Jsoup.parse(html);
-        typeBuilder = TypeSpec.classBuilder(normalizedName + "Endpoints");
-        System.out.printf("%s (%s)%n", rawName, normalizedName);
+        typeBuilder = TypeSpec.classBuilder(endpointsNormalizedName + "Endpoints");
+        System.out.printf("%s (%s)%n", endpointsRawName, endpointsNormalizedName);
 
         Elements endpoints = apiDoc.getElementsByClass("operation");
         endpoints.stream().map(EndpointGen::new).forEach(EndpointGen::compile);
@@ -157,18 +158,21 @@ public class ApiGen {
          * @return
          */
         private boolean createDto(Element dto) {
-            String name = normalizeDtoName(dto.child(0).ownText());
-            String desc = dto.ownText().replaceFirst("^\\s*-\\s+", "");
+            String dtoName = normalizeDtoName(dto.child(0).ownText());
+            String dtoDesc = dto.ownText().replaceFirst("^\\s*-\\s+", "");
 
-            if (processedDtos.contains(name))
+            if (processedDtos.contains(dtoName))
                 return false;
-            processedDtos.add(name);
+            processedDtos.add(dtoName);
 
-            System.out.printf("        %s - %s%n", name, desc);
+            System.out.printf("        %s - %s%n", dtoName, dtoDesc);
 
-            TypeSpec.Builder dtoBuilder = TypeSpec.classBuilder(name);
-            dtoBuilder.addJavadoc(desc + ".<br />%n");
-            dtoBuilder.addJavadoc("<br />\n");
+            TypeSpec.Builder dtoBuilder = TypeSpec.classBuilder(dtoName);
+            dtoBuilder.addModifiers(Modifier.PUBLIC);
+            dtoBuilder.addSuperinterface(Serializable.class);
+            dtoBuilder.addJavadoc(dtoName + ".<br /><br />\n\n");;
+            if (!dtoDesc.isEmpty())
+                dtoBuilder.addJavadoc(dtoDesc + ".<br /><br />\n\n");
             dtoBuilder.addJavadoc(String.format("This class was automatically generated from the " +
                     "<a href=\"%s\">Riot API reference</a> on %s.", url, timestamp));
 
@@ -178,8 +182,8 @@ public class ApiGen {
                 .addModifiers(Modifier.PUBLIC);
             CodeBlock.Builder equalsCode = CodeBlock.builder()
                 .addStatement("if (obj == this) return true")
-                .addStatement("if (!(obj instanceof $L)) return false", normalizedName)
-                .addStatement("final $1L other = ($1L) obj", normalizedName)
+                .addStatement("if (!(obj instanceof $L)) return false", dtoName)
+                .addStatement("final $1L other = ($1L) obj", dtoName)
                 .add("return true").indent().indent();
             CodeBlock.Builder hashCodeCode = CodeBlock.builder()
                 .add("return $T.hashCode(0", guavaObjectsName).indent().indent();
@@ -194,11 +198,14 @@ public class ApiGen {
                 String fieldDesc = fieldTr.child(2).text().trim();
 
                 TypeName fieldType;
-                String dtoCanonicalName = normalizedName + '.' + name + '.' + fieldName;
+                String dtoCanonicalName = endpointsNormalizedName + '.' + dtoName + '.' + fieldName;
                 if (FIELD_TYPES.containsKey(dtoCanonicalName))
                     fieldType = FIELD_TYPES.get(dtoCanonicalName);
                 else
                     fieldType = getTypeFromString(fieldTypeStr, dtoPackage);
+                // make championIds longs
+                if ("championId".equals(fieldName) && TypeName.LONG.equals(fieldType))
+                    fieldType = TypeName.INT;
 
                 FieldSpec.Builder fieldBuilder = FieldSpec.builder(fieldType, fieldName,
                     Modifier.PUBLIC, Modifier.FINAL);
@@ -250,7 +257,7 @@ public class ApiGen {
     // HELPER STATIC DATA AND METHODS //
 
 
-    private static final File SOURCE_DESTINATION = new File("src/main/gen2/");
+    private static final File SOURCE_DESTINATION = new File("src/main/gen/");
 
     private static final String PACKAGE = "com.mingweisamuel.zyra";
 
@@ -258,7 +265,7 @@ public class ApiGen {
         return name.toLowerCase().endsWith("dto") ? name.substring(0, name.length() - 3) : name;
     }
 
-    /** Normalizes a normalizedName of an endpoint (or dto ..?). */
+    /** Normalizes a endpointsNormalizedName of an endpoint (or dto ..?). */
     private static String normalizeEndpointName(String name) {
         name = name.toLowerCase().replaceFirst("-v\\d+(?:\\.\\d+)?", "");
         name = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, name);
@@ -267,7 +274,7 @@ public class ApiGen {
         return name;
     }
 
-    /** Special endpoint normalizedName cases. */
+    /** Special endpoint endpointsNormalizedName cases. */
     private static final HashMap<String, String> NORMAL_ENDPOINTS = new HashMap<>();
     static {
         NORMAL_ENDPOINTS.put("Championmastery", "ChampionMastery");

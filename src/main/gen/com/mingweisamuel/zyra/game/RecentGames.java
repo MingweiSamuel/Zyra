@@ -7,11 +7,11 @@ import java.lang.Override;
 import java.util.List;
 
 /**
- * RecentGames - This object contains recent games information.
+ * RecentGames.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains recent games information..<br /><br />
  *
- * @version game-v1.3 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#game-v1.3/GET_getRecentGames">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class RecentGames implements Serializable {
   /**
    * Collection of recent games played (max 10). */

@@ -9,29 +9,29 @@ import java.lang.String;
 import java.util.List;
 
 /**
- * SpellVars - This object contains spell vars data.
+ * SpellVars.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains spell vars data..<br /><br />
  *
- * @version lol-static-data-v1.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getChampionList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class SpellVars implements Serializable {
-  public final List<Double> coeff;
+  public final String ranksWith;
 
   public final String dyn;
 
-  public final String key;
-
   public final String link;
 
-  public final String ranksWith;
+  public final List<Double> coeff;
 
-  public SpellVars(final List<Double> coeff, final String dyn, final String key, final String link,
-      final String ranksWith) {
-    this.coeff = coeff;
-    this.dyn = dyn;
-    this.key = key;
-    this.link = link;
+  public final String key;
+
+  public SpellVars(final String ranksWith, final String dyn, final String link,
+      final List<Double> coeff, final String key) {
     this.ranksWith = ranksWith;
+    this.dyn = dyn;
+    this.link = link;
+    this.coeff = coeff;
+    this.key = key;
   }
 
   @Override
@@ -40,18 +40,18 @@ public class SpellVars implements Serializable {
     if (!(obj instanceof SpellVars)) return false;
     final SpellVars other = (SpellVars) obj;
     return true
-        && Objects.equal(coeff, other.coeff)
+        && Objects.equal(ranksWith, other.ranksWith)
         && Objects.equal(dyn, other.dyn)
-        && Objects.equal(key, other.key)
         && Objects.equal(link, other.link)
-        && Objects.equal(ranksWith, other.ranksWith);}
+        && Objects.equal(coeff, other.coeff)
+        && Objects.equal(key, other.key);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        coeff,
+        ranksWith,
         dyn,
-        key,
         link,
-        ranksWith);}
+        coeff,
+        key);}
 }

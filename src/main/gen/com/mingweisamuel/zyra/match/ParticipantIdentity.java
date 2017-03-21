@@ -6,23 +6,23 @@ import java.lang.Object;
 import java.lang.Override;
 
 /**
- * ParticipantIdentity - This object contains participant identity information
+ * ParticipantIdentity.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains participant identity information.<br /><br />
  *
- * @version match-v2.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v2.2/GET_getMatchByIdAndTournamentCode">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class ParticipantIdentity implements Serializable {
-  /**
-   * Participant ID */
-  public final int participantId;
-
   /**
    * Player information */
   public final Player player;
 
-  public ParticipantIdentity(final int participantId, final Player player) {
-    this.participantId = participantId;
+  /**
+   * Participant ID */
+  public final int participantId;
+
+  public ParticipantIdentity(final Player player, final int participantId) {
     this.player = player;
+    this.participantId = participantId;
   }
 
   @Override
@@ -31,12 +31,12 @@ public class ParticipantIdentity implements Serializable {
     if (!(obj instanceof ParticipantIdentity)) return false;
     final ParticipantIdentity other = (ParticipantIdentity) obj;
     return true
-        && Objects.equal(participantId, other.participantId)
-        && Objects.equal(player, other.player);}
+        && Objects.equal(player, other.player)
+        && Objects.equal(participantId, other.participantId);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        participantId,
-        player);}
+        player,
+        participantId);}
 }

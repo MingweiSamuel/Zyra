@@ -7,49 +7,47 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * Participant
+ * Participant.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
- *
- * @version featured-games-v1.0 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#featured-games-v1.0/GET_getFeaturedGames">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class Participant implements Serializable {
   /**
-   * Flag indicating whether or not this participant is a bot */
-  public final boolean bot;
+   * The ID of the profile icon used by this participant */
+  public final long profileIconId;
 
   /**
    * The ID of the champion played by this participant */
   public final int championId;
 
   /**
-   * The ID of the profile icon used by this participant */
-  public final long profileIconId;
+   * The summoner name of this participant */
+  public final String summonerName;
 
   /**
-   * The ID of the first summoner spell used by this participant */
-  public final long spell1Id;
+   * Flag indicating whether or not this participant is a bot */
+  public final boolean bot;
 
   /**
    * The ID of the second summoner spell used by this participant */
   public final long spell2Id;
 
   /**
-   * The summoner name of this participant */
-  public final String summonerName;
-
-  /**
    * The team ID of this participant, indicating the participant's team */
   public final long teamId;
 
-  public Participant(final boolean bot, final int championId, final long profileIconId,
-      final long spell1Id, final long spell2Id, final String summonerName, final long teamId) {
-    this.bot = bot;
-    this.championId = championId;
+  /**
+   * The ID of the first summoner spell used by this participant */
+  public final long spell1Id;
+
+  public Participant(final long profileIconId, final int championId, final String summonerName,
+      final boolean bot, final long spell2Id, final long teamId, final long spell1Id) {
     this.profileIconId = profileIconId;
-    this.spell1Id = spell1Id;
-    this.spell2Id = spell2Id;
+    this.championId = championId;
     this.summonerName = summonerName;
+    this.bot = bot;
+    this.spell2Id = spell2Id;
     this.teamId = teamId;
+    this.spell1Id = spell1Id;
   }
 
   @Override
@@ -58,22 +56,22 @@ public class Participant implements Serializable {
     if (!(obj instanceof Participant)) return false;
     final Participant other = (Participant) obj;
     return true
-        && Objects.equal(bot, other.bot)
-        && Objects.equal(championId, other.championId)
         && Objects.equal(profileIconId, other.profileIconId)
-        && Objects.equal(spell1Id, other.spell1Id)
-        && Objects.equal(spell2Id, other.spell2Id)
+        && Objects.equal(championId, other.championId)
         && Objects.equal(summonerName, other.summonerName)
-        && Objects.equal(teamId, other.teamId);}
+        && Objects.equal(bot, other.bot)
+        && Objects.equal(spell2Id, other.spell2Id)
+        && Objects.equal(teamId, other.teamId)
+        && Objects.equal(spell1Id, other.spell1Id);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        bot,
-        championId,
         profileIconId,
-        spell1Id,
-        spell2Id,
+        championId,
         summonerName,
-        teamId);}
+        bot,
+        spell2Id,
+        teamId,
+        spell1Id);}
 }

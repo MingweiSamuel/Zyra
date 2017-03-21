@@ -6,66 +6,65 @@ import java.lang.Object;
 import java.lang.Override;
 
 /**
- * ParticipantFrame - This object contains participant frame information
+ * ParticipantFrame.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains participant frame information.<br /><br />
  *
- * @version match-v2.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v2.2/GET_getMatchByIdAndTournamentCode">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class ParticipantFrame implements Serializable {
   /**
-   * Participant's current gold */
-  public final int currentGold;
-
-  /**
-   * Dominion score of the participant */
-  public final int dominionScore;
-
-  /**
-   * Number of jungle minions killed by participant */
-  public final int jungleMinionsKilled;
-
-  /**
-   * Participant's current level */
-  public final int level;
-
-  /**
-   * Number of minions killed by participant */
-  public final int minionsKilled;
-
-  /**
-   * Participant ID */
-  public final int participantId;
-
-  /**
-   * Participant's position */
-  public final Position position;
+   * Participant's total gold */
+  public final int totalGold;
 
   /**
    * Team score of the participant */
   public final int teamScore;
 
   /**
-   * Participant's total gold */
-  public final int totalGold;
+   * Participant ID */
+  public final int participantId;
+
+  /**
+   * Participant's current level */
+  public final int level;
+
+  /**
+   * Participant's current gold */
+  public final int currentGold;
+
+  /**
+   * Number of minions killed by participant */
+  public final int minionsKilled;
+
+  /**
+   * Dominion score of the participant */
+  public final int dominionScore;
+
+  /**
+   * Participant's position */
+  public final Position position;
 
   /**
    * Experience earned by participant */
   public final int xp;
 
-  public ParticipantFrame(final int currentGold, final int dominionScore,
-      final int jungleMinionsKilled, final int level, final int minionsKilled,
-      final int participantId, final Position position, final int teamScore, final int totalGold,
-      final int xp) {
-    this.currentGold = currentGold;
-    this.dominionScore = dominionScore;
-    this.jungleMinionsKilled = jungleMinionsKilled;
-    this.level = level;
-    this.minionsKilled = minionsKilled;
-    this.participantId = participantId;
-    this.position = position;
-    this.teamScore = teamScore;
+  /**
+   * Number of jungle minions killed by participant */
+  public final int jungleMinionsKilled;
+
+  public ParticipantFrame(final int totalGold, final int teamScore, final int participantId,
+      final int level, final int currentGold, final int minionsKilled, final int dominionScore,
+      final Position position, final int xp, final int jungleMinionsKilled) {
     this.totalGold = totalGold;
+    this.teamScore = teamScore;
+    this.participantId = participantId;
+    this.level = level;
+    this.currentGold = currentGold;
+    this.minionsKilled = minionsKilled;
+    this.dominionScore = dominionScore;
+    this.position = position;
     this.xp = xp;
+    this.jungleMinionsKilled = jungleMinionsKilled;
   }
 
   @Override
@@ -74,28 +73,28 @@ public class ParticipantFrame implements Serializable {
     if (!(obj instanceof ParticipantFrame)) return false;
     final ParticipantFrame other = (ParticipantFrame) obj;
     return true
-        && Objects.equal(currentGold, other.currentGold)
-        && Objects.equal(dominionScore, other.dominionScore)
-        && Objects.equal(jungleMinionsKilled, other.jungleMinionsKilled)
-        && Objects.equal(level, other.level)
-        && Objects.equal(minionsKilled, other.minionsKilled)
-        && Objects.equal(participantId, other.participantId)
-        && Objects.equal(position, other.position)
-        && Objects.equal(teamScore, other.teamScore)
         && Objects.equal(totalGold, other.totalGold)
-        && Objects.equal(xp, other.xp);}
+        && Objects.equal(teamScore, other.teamScore)
+        && Objects.equal(participantId, other.participantId)
+        && Objects.equal(level, other.level)
+        && Objects.equal(currentGold, other.currentGold)
+        && Objects.equal(minionsKilled, other.minionsKilled)
+        && Objects.equal(dominionScore, other.dominionScore)
+        && Objects.equal(position, other.position)
+        && Objects.equal(xp, other.xp)
+        && Objects.equal(jungleMinionsKilled, other.jungleMinionsKilled);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        currentGold,
-        dominionScore,
-        jungleMinionsKilled,
-        level,
-        minionsKilled,
-        participantId,
-        position,
-        teamScore,
         totalGold,
-        xp);}
+        teamScore,
+        participantId,
+        level,
+        currentGold,
+        minionsKilled,
+        dominionScore,
+        position,
+        xp,
+        jungleMinionsKilled);}
 }

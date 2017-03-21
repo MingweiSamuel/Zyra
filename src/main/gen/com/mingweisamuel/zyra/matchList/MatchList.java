@@ -7,26 +7,26 @@ import java.lang.Override;
 import java.util.List;
 
 /**
- * MatchList - This object contains match list information
+ * MatchList.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains match list information.<br /><br />
  *
- * @version matchlist-v2.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#matchlist-v2.2/GET_getMatchList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class MatchList implements Serializable {
-  public final int endIndex;
-
   public final List<MatchReference> matches;
-
-  public final int startIndex;
 
   public final int totalGames;
 
-  public MatchList(final int endIndex, final List<MatchReference> matches, final int startIndex,
-      final int totalGames) {
-    this.endIndex = endIndex;
+  public final int startIndex;
+
+  public final int endIndex;
+
+  public MatchList(final List<MatchReference> matches, final int totalGames, final int startIndex,
+      final int endIndex) {
     this.matches = matches;
-    this.startIndex = startIndex;
     this.totalGames = totalGames;
+    this.startIndex = startIndex;
+    this.endIndex = endIndex;
   }
 
   @Override
@@ -35,16 +35,16 @@ public class MatchList implements Serializable {
     if (!(obj instanceof MatchList)) return false;
     final MatchList other = (MatchList) obj;
     return true
-        && Objects.equal(endIndex, other.endIndex)
         && Objects.equal(matches, other.matches)
+        && Objects.equal(totalGames, other.totalGames)
         && Objects.equal(startIndex, other.startIndex)
-        && Objects.equal(totalGames, other.totalGames);}
+        && Objects.equal(endIndex, other.endIndex);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        endIndex,
         matches,
+        totalGames,
         startIndex,
-        totalGames);}
+        endIndex);}
 }

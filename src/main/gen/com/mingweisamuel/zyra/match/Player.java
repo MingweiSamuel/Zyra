@@ -7,34 +7,34 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * Player - This object contains match player information
+ * Player.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains match player information.<br /><br />
  *
- * @version match-v2.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v2.2/GET_getMatchByIdAndTournamentCode">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class Player implements Serializable {
-  /**
-   * Match history URI */
-  public final String matchHistoryUri;
-
   /**
    * Profile icon ID */
   public final int profileIcon;
 
   /**
-   * Summoner ID */
-  public final long summonerId;
-
-  /**
    * Summoner name */
   public final String summonerName;
 
-  public Player(final String matchHistoryUri, final int profileIcon, final long summonerId,
-      final String summonerName) {
-    this.matchHistoryUri = matchHistoryUri;
+  /**
+   * Match history URI */
+  public final String matchHistoryUri;
+
+  /**
+   * Summoner ID */
+  public final long summonerId;
+
+  public Player(final int profileIcon, final String summonerName, final String matchHistoryUri,
+      final long summonerId) {
     this.profileIcon = profileIcon;
-    this.summonerId = summonerId;
     this.summonerName = summonerName;
+    this.matchHistoryUri = matchHistoryUri;
+    this.summonerId = summonerId;
   }
 
   @Override
@@ -43,16 +43,16 @@ public class Player implements Serializable {
     if (!(obj instanceof Player)) return false;
     final Player other = (Player) obj;
     return true
-        && Objects.equal(matchHistoryUri, other.matchHistoryUri)
         && Objects.equal(profileIcon, other.profileIcon)
-        && Objects.equal(summonerId, other.summonerId)
-        && Objects.equal(summonerName, other.summonerName);}
+        && Objects.equal(summonerName, other.summonerName)
+        && Objects.equal(matchHistoryUri, other.matchHistoryUri)
+        && Objects.equal(summonerId, other.summonerId);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        matchHistoryUri,
         profileIcon,
-        summonerId,
-        summonerName);}
+        summonerName,
+        matchHistoryUri,
+        summonerId);}
 }

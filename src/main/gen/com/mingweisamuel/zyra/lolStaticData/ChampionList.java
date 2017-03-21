@@ -8,29 +8,29 @@ import java.lang.String;
 import java.util.Map;
 
 /**
- * ChampionList - This object contains champion list data.
+ * ChampionList.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains champion list data..<br /><br />
  *
- * @version lol-static-data-v1.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getChampionList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class ChampionList implements Serializable {
-  public final Map<String, Champion> data;
-
-  public final String format;
-
   public final Map<String, String> keys;
 
-  public final String type;
+  public final Map<String, Champion> data;
 
   public final String version;
 
-  public ChampionList(final Map<String, Champion> data, final String format,
-      final Map<String, String> keys, final String type, final String version) {
-    this.data = data;
-    this.format = format;
+  public final String type;
+
+  public final String format;
+
+  public ChampionList(final Map<String, String> keys, final Map<String, Champion> data,
+      final String version, final String type, final String format) {
     this.keys = keys;
-    this.type = type;
+    this.data = data;
     this.version = version;
+    this.type = type;
+    this.format = format;
   }
 
   @Override
@@ -39,18 +39,18 @@ public class ChampionList implements Serializable {
     if (!(obj instanceof ChampionList)) return false;
     final ChampionList other = (ChampionList) obj;
     return true
-        && Objects.equal(data, other.data)
-        && Objects.equal(format, other.format)
         && Objects.equal(keys, other.keys)
+        && Objects.equal(data, other.data)
+        && Objects.equal(version, other.version)
         && Objects.equal(type, other.type)
-        && Objects.equal(version, other.version);}
+        && Objects.equal(format, other.format);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        data,
-        format,
         keys,
+        data,
+        version,
         type,
-        version);}
+        format);}
 }

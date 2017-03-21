@@ -7,11 +7,11 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * Group - This object contains item group data.
+ * Group.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains item group data..<br /><br />
  *
- * @version lol-static-data-v1.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getItemList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class Group implements Serializable {
   public final String MaxGroupOwnable;
 

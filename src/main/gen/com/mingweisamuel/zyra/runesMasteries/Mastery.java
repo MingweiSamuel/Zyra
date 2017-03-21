@@ -1,13 +1,17 @@
 package com.mingweisamuel.zyra.runesMasteries;
 
 import com.google.common.base.Objects;
+import java.io.Serializable;
 import java.lang.Object;
 import java.lang.Override;
 
 /**
- * This object contains mastery information..<br />%n<br />
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#runes-masteries-v1.4/GET_getMasteryPagesBySummonerIds">Riot API reference</a> on Tue Mar 21 14:42:38 PDT 2017. */
-class Mastery {
+ * Mastery.<br /><br />
+ *
+ * This object contains mastery information..<br /><br />
+ *
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#runes-masteries-v1.4/GET_getMasteryPagesBySummonerIds">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+public class Mastery implements Serializable {
   /**
    * Mastery ID. For static information correlating to masteries, please refer to the LoL Static Data API. */
   public final int id;
@@ -24,8 +28,8 @@ class Mastery {
   @Override
   public boolean equals(final Object obj) {
     if (obj == this) return true;
-    if (!(obj instanceof RunesMasteries)) return false;
-    final RunesMasteries other = (RunesMasteries) obj;
+    if (!(obj instanceof Mastery)) return false;
+    final Mastery other = (Mastery) obj;
     return true
         && Objects.equal(id, other.id)
         && Objects.equal(rank, other.rank);}

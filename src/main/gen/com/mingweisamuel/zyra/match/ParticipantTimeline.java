@@ -7,172 +7,172 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * ParticipantTimeline - This object contains all timeline information
+ * ParticipantTimeline.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains all timeline information.<br /><br />
  *
- * @version match-v2.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v2.2/GET_getMatchByIdAndTournamentCode">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class ParticipantTimeline implements Serializable {
   /**
-   * Ancient golem assists per minute timeline counts */
-  public final ParticipantTimelineData ancientGolemAssistsPerMinCounts;
-
-  /**
-   * Ancient golem kills per minute timeline counts */
-  public final ParticipantTimelineData ancientGolemKillsPerMinCounts;
-
-  /**
-   * Assisted lane deaths per minute timeline data */
-  public final ParticipantTimelineData assistedLaneDeathsPerMinDeltas;
-
-  /**
-   * Assisted lane kills per minute timeline data */
-  public final ParticipantTimelineData assistedLaneKillsPerMinDeltas;
-
-  /**
-   * Baron assists per minute timeline counts */
-  public final ParticipantTimelineData baronAssistsPerMinCounts;
-
-  /**
-   * Baron kills per minute timeline counts */
-  public final ParticipantTimelineData baronKillsPerMinCounts;
-
-  /**
-   * Creeps per minute timeline data */
-  public final ParticipantTimelineData creepsPerMinDeltas;
-
-  /**
-   * Creep score difference per minute timeline data */
-  public final ParticipantTimelineData csDiffPerMinDeltas;
-
-  /**
-   * Damage taken difference per minute timeline data */
-  public final ParticipantTimelineData damageTakenDiffPerMinDeltas;
-
-  /**
-   * Damage taken per minute timeline data */
-  public final ParticipantTimelineData damageTakenPerMinDeltas;
-
-  /**
-   * Dragon assists per minute timeline counts */
-  public final ParticipantTimelineData dragonAssistsPerMinCounts;
-
-  /**
-   * Dragon kills per minute timeline counts */
-  public final ParticipantTimelineData dragonKillsPerMinCounts;
-
-  /**
-   * Elder lizard assists per minute timeline counts */
-  public final ParticipantTimelineData elderLizardAssistsPerMinCounts;
-
-  /**
-   * Elder lizard kills per minute timeline counts */
-  public final ParticipantTimelineData elderLizardKillsPerMinCounts;
+   * Vilemaw assists per minute timeline counts */
+  public final ParticipantTimelineData vilemawAssistsPerMinCounts;
 
   /**
    * Gold per minute timeline data */
   public final ParticipantTimelineData goldPerMinDeltas;
 
   /**
-   * Inhibitor assists per minute timeline counts */
-  public final ParticipantTimelineData inhibitorAssistsPerMinCounts;
+   * Baron assists per minute timeline counts */
+  public final ParticipantTimelineData baronAssistsPerMinCounts;
 
   /**
-   * Inhibitor kills per minute timeline counts */
-  public final ParticipantTimelineData inhibitorKillsPerMinCounts;
+   * Ancient golem assists per minute timeline counts */
+  public final ParticipantTimelineData ancientGolemAssistsPerMinCounts;
 
   /**
-   * Participant's lane (Legal values: MID, MIDDLE, TOP, JUNGLE, BOT, BOTTOM) */
-  public final String lane;
-
-  /**
-   * Participant's role (Legal values: DUO, NONE, SOLO, DUO_CARRY, DUO_SUPPORT) */
-  public final String role;
-
-  /**
-   * Tower assists per minute timeline counts */
-  public final ParticipantTimelineData towerAssistsPerMinCounts;
+   * Elder lizard assists per minute timeline counts */
+  public final ParticipantTimelineData elderLizardAssistsPerMinCounts;
 
   /**
    * Tower kills per minute timeline counts */
   public final ParticipantTimelineData towerKillsPerMinCounts;
 
   /**
-   * Tower kills per minute timeline data */
-  public final ParticipantTimelineData towerKillsPerMinDeltas;
-
-  /**
-   * Vilemaw assists per minute timeline counts */
-  public final ParticipantTimelineData vilemawAssistsPerMinCounts;
-
-  /**
-   * Vilemaw kills per minute timeline counts */
-  public final ParticipantTimelineData vilemawKillsPerMinCounts;
-
-  /**
-   * Wards placed per minute timeline data */
-  public final ParticipantTimelineData wardsPerMinDeltas;
+   * Damage taken per minute timeline data */
+  public final ParticipantTimelineData damageTakenPerMinDeltas;
 
   /**
    * Experience difference per minute timeline data */
   public final ParticipantTimelineData xpDiffPerMinDeltas;
 
   /**
+   * Creeps per minute timeline data */
+  public final ParticipantTimelineData creepsPerMinDeltas;
+
+  /**
+   * Participant's role */
+  public final String role;
+
+  /**
+   * Damage taken difference per minute timeline data */
+  public final ParticipantTimelineData damageTakenDiffPerMinDeltas;
+
+  /**
+   * Dragon kills per minute timeline counts */
+  public final ParticipantTimelineData dragonKillsPerMinCounts;
+
+  /**
+   * Tower kills per minute timeline data */
+  public final ParticipantTimelineData towerKillsPerMinDeltas;
+
+  /**
+   * Elder lizard kills per minute timeline counts */
+  public final ParticipantTimelineData elderLizardKillsPerMinCounts;
+
+  /**
+   * Ancient golem kills per minute timeline counts */
+  public final ParticipantTimelineData ancientGolemKillsPerMinCounts;
+
+  /**
+   * Creep score difference per minute timeline data */
+  public final ParticipantTimelineData csDiffPerMinDeltas;
+
+  /**
+   * Baron kills per minute timeline counts */
+  public final ParticipantTimelineData baronKillsPerMinCounts;
+
+  /**
+   * Assisted lane kills per minute timeline data */
+  public final ParticipantTimelineData assistedLaneKillsPerMinDeltas;
+
+  /**
+   * Assisted lane deaths per minute timeline data */
+  public final ParticipantTimelineData assistedLaneDeathsPerMinDeltas;
+
+  /**
+   * Participant's lane */
+  public final String lane;
+
+  /**
+   * Inhibitor kills per minute timeline counts */
+  public final ParticipantTimelineData inhibitorKillsPerMinCounts;
+
+  /**
+   * Tower assists per minute timeline counts */
+  public final ParticipantTimelineData towerAssistsPerMinCounts;
+
+  /**
+   * Vilemaw kills per minute timeline counts */
+  public final ParticipantTimelineData vilemawKillsPerMinCounts;
+
+  /**
    * Experience per minute timeline data */
   public final ParticipantTimelineData xpPerMinDeltas;
 
-  public ParticipantTimeline(final ParticipantTimelineData ancientGolemAssistsPerMinCounts,
-      final ParticipantTimelineData ancientGolemKillsPerMinCounts,
-      final ParticipantTimelineData assistedLaneDeathsPerMinDeltas,
-      final ParticipantTimelineData assistedLaneKillsPerMinDeltas,
-      final ParticipantTimelineData baronAssistsPerMinCounts,
-      final ParticipantTimelineData baronKillsPerMinCounts,
-      final ParticipantTimelineData creepsPerMinDeltas,
-      final ParticipantTimelineData csDiffPerMinDeltas,
-      final ParticipantTimelineData damageTakenDiffPerMinDeltas,
-      final ParticipantTimelineData damageTakenPerMinDeltas,
-      final ParticipantTimelineData dragonAssistsPerMinCounts,
-      final ParticipantTimelineData dragonKillsPerMinCounts,
-      final ParticipantTimelineData elderLizardAssistsPerMinCounts,
-      final ParticipantTimelineData elderLizardKillsPerMinCounts,
+  /**
+   * Dragon assists per minute timeline counts */
+  public final ParticipantTimelineData dragonAssistsPerMinCounts;
+
+  /**
+   * Inhibitor assists per minute timeline counts */
+  public final ParticipantTimelineData inhibitorAssistsPerMinCounts;
+
+  /**
+   * Wards placed per minute timeline data */
+  public final ParticipantTimelineData wardsPerMinDeltas;
+
+  public ParticipantTimeline(final ParticipantTimelineData vilemawAssistsPerMinCounts,
       final ParticipantTimelineData goldPerMinDeltas,
-      final ParticipantTimelineData inhibitorAssistsPerMinCounts,
-      final ParticipantTimelineData inhibitorKillsPerMinCounts, final String lane,
-      final String role, final ParticipantTimelineData towerAssistsPerMinCounts,
+      final ParticipantTimelineData baronAssistsPerMinCounts,
+      final ParticipantTimelineData ancientGolemAssistsPerMinCounts,
+      final ParticipantTimelineData elderLizardAssistsPerMinCounts,
       final ParticipantTimelineData towerKillsPerMinCounts,
-      final ParticipantTimelineData towerKillsPerMinDeltas,
-      final ParticipantTimelineData vilemawAssistsPerMinCounts,
-      final ParticipantTimelineData vilemawKillsPerMinCounts,
-      final ParticipantTimelineData wardsPerMinDeltas,
+      final ParticipantTimelineData damageTakenPerMinDeltas,
       final ParticipantTimelineData xpDiffPerMinDeltas,
-      final ParticipantTimelineData xpPerMinDeltas) {
-    this.ancientGolemAssistsPerMinCounts = ancientGolemAssistsPerMinCounts;
-    this.ancientGolemKillsPerMinCounts = ancientGolemKillsPerMinCounts;
-    this.assistedLaneDeathsPerMinDeltas = assistedLaneDeathsPerMinDeltas;
-    this.assistedLaneKillsPerMinDeltas = assistedLaneKillsPerMinDeltas;
-    this.baronAssistsPerMinCounts = baronAssistsPerMinCounts;
-    this.baronKillsPerMinCounts = baronKillsPerMinCounts;
-    this.creepsPerMinDeltas = creepsPerMinDeltas;
-    this.csDiffPerMinDeltas = csDiffPerMinDeltas;
-    this.damageTakenDiffPerMinDeltas = damageTakenDiffPerMinDeltas;
-    this.damageTakenPerMinDeltas = damageTakenPerMinDeltas;
-    this.dragonAssistsPerMinCounts = dragonAssistsPerMinCounts;
-    this.dragonKillsPerMinCounts = dragonKillsPerMinCounts;
-    this.elderLizardAssistsPerMinCounts = elderLizardAssistsPerMinCounts;
-    this.elderLizardKillsPerMinCounts = elderLizardKillsPerMinCounts;
-    this.goldPerMinDeltas = goldPerMinDeltas;
-    this.inhibitorAssistsPerMinCounts = inhibitorAssistsPerMinCounts;
-    this.inhibitorKillsPerMinCounts = inhibitorKillsPerMinCounts;
-    this.lane = lane;
-    this.role = role;
-    this.towerAssistsPerMinCounts = towerAssistsPerMinCounts;
-    this.towerKillsPerMinCounts = towerKillsPerMinCounts;
-    this.towerKillsPerMinDeltas = towerKillsPerMinDeltas;
+      final ParticipantTimelineData creepsPerMinDeltas, final String role,
+      final ParticipantTimelineData damageTakenDiffPerMinDeltas,
+      final ParticipantTimelineData dragonKillsPerMinCounts,
+      final ParticipantTimelineData towerKillsPerMinDeltas,
+      final ParticipantTimelineData elderLizardKillsPerMinCounts,
+      final ParticipantTimelineData ancientGolemKillsPerMinCounts,
+      final ParticipantTimelineData csDiffPerMinDeltas,
+      final ParticipantTimelineData baronKillsPerMinCounts,
+      final ParticipantTimelineData assistedLaneKillsPerMinDeltas,
+      final ParticipantTimelineData assistedLaneDeathsPerMinDeltas, final String lane,
+      final ParticipantTimelineData inhibitorKillsPerMinCounts,
+      final ParticipantTimelineData towerAssistsPerMinCounts,
+      final ParticipantTimelineData vilemawKillsPerMinCounts,
+      final ParticipantTimelineData xpPerMinDeltas,
+      final ParticipantTimelineData dragonAssistsPerMinCounts,
+      final ParticipantTimelineData inhibitorAssistsPerMinCounts,
+      final ParticipantTimelineData wardsPerMinDeltas) {
     this.vilemawAssistsPerMinCounts = vilemawAssistsPerMinCounts;
-    this.vilemawKillsPerMinCounts = vilemawKillsPerMinCounts;
-    this.wardsPerMinDeltas = wardsPerMinDeltas;
+    this.goldPerMinDeltas = goldPerMinDeltas;
+    this.baronAssistsPerMinCounts = baronAssistsPerMinCounts;
+    this.ancientGolemAssistsPerMinCounts = ancientGolemAssistsPerMinCounts;
+    this.elderLizardAssistsPerMinCounts = elderLizardAssistsPerMinCounts;
+    this.towerKillsPerMinCounts = towerKillsPerMinCounts;
+    this.damageTakenPerMinDeltas = damageTakenPerMinDeltas;
     this.xpDiffPerMinDeltas = xpDiffPerMinDeltas;
+    this.creepsPerMinDeltas = creepsPerMinDeltas;
+    this.role = role;
+    this.damageTakenDiffPerMinDeltas = damageTakenDiffPerMinDeltas;
+    this.dragonKillsPerMinCounts = dragonKillsPerMinCounts;
+    this.towerKillsPerMinDeltas = towerKillsPerMinDeltas;
+    this.elderLizardKillsPerMinCounts = elderLizardKillsPerMinCounts;
+    this.ancientGolemKillsPerMinCounts = ancientGolemKillsPerMinCounts;
+    this.csDiffPerMinDeltas = csDiffPerMinDeltas;
+    this.baronKillsPerMinCounts = baronKillsPerMinCounts;
+    this.assistedLaneKillsPerMinDeltas = assistedLaneKillsPerMinDeltas;
+    this.assistedLaneDeathsPerMinDeltas = assistedLaneDeathsPerMinDeltas;
+    this.lane = lane;
+    this.inhibitorKillsPerMinCounts = inhibitorKillsPerMinCounts;
+    this.towerAssistsPerMinCounts = towerAssistsPerMinCounts;
+    this.vilemawKillsPerMinCounts = vilemawKillsPerMinCounts;
     this.xpPerMinDeltas = xpPerMinDeltas;
+    this.dragonAssistsPerMinCounts = dragonAssistsPerMinCounts;
+    this.inhibitorAssistsPerMinCounts = inhibitorAssistsPerMinCounts;
+    this.wardsPerMinDeltas = wardsPerMinDeltas;
   }
 
   @Override
@@ -181,62 +181,62 @@ public class ParticipantTimeline implements Serializable {
     if (!(obj instanceof ParticipantTimeline)) return false;
     final ParticipantTimeline other = (ParticipantTimeline) obj;
     return true
-        && Objects.equal(ancientGolemAssistsPerMinCounts, other.ancientGolemAssistsPerMinCounts)
-        && Objects.equal(ancientGolemKillsPerMinCounts, other.ancientGolemKillsPerMinCounts)
-        && Objects.equal(assistedLaneDeathsPerMinDeltas, other.assistedLaneDeathsPerMinDeltas)
-        && Objects.equal(assistedLaneKillsPerMinDeltas, other.assistedLaneKillsPerMinDeltas)
-        && Objects.equal(baronAssistsPerMinCounts, other.baronAssistsPerMinCounts)
-        && Objects.equal(baronKillsPerMinCounts, other.baronKillsPerMinCounts)
-        && Objects.equal(creepsPerMinDeltas, other.creepsPerMinDeltas)
-        && Objects.equal(csDiffPerMinDeltas, other.csDiffPerMinDeltas)
-        && Objects.equal(damageTakenDiffPerMinDeltas, other.damageTakenDiffPerMinDeltas)
-        && Objects.equal(damageTakenPerMinDeltas, other.damageTakenPerMinDeltas)
-        && Objects.equal(dragonAssistsPerMinCounts, other.dragonAssistsPerMinCounts)
-        && Objects.equal(dragonKillsPerMinCounts, other.dragonKillsPerMinCounts)
-        && Objects.equal(elderLizardAssistsPerMinCounts, other.elderLizardAssistsPerMinCounts)
-        && Objects.equal(elderLizardKillsPerMinCounts, other.elderLizardKillsPerMinCounts)
-        && Objects.equal(goldPerMinDeltas, other.goldPerMinDeltas)
-        && Objects.equal(inhibitorAssistsPerMinCounts, other.inhibitorAssistsPerMinCounts)
-        && Objects.equal(inhibitorKillsPerMinCounts, other.inhibitorKillsPerMinCounts)
-        && Objects.equal(lane, other.lane)
-        && Objects.equal(role, other.role)
-        && Objects.equal(towerAssistsPerMinCounts, other.towerAssistsPerMinCounts)
-        && Objects.equal(towerKillsPerMinCounts, other.towerKillsPerMinCounts)
-        && Objects.equal(towerKillsPerMinDeltas, other.towerKillsPerMinDeltas)
         && Objects.equal(vilemawAssistsPerMinCounts, other.vilemawAssistsPerMinCounts)
-        && Objects.equal(vilemawKillsPerMinCounts, other.vilemawKillsPerMinCounts)
-        && Objects.equal(wardsPerMinDeltas, other.wardsPerMinDeltas)
+        && Objects.equal(goldPerMinDeltas, other.goldPerMinDeltas)
+        && Objects.equal(baronAssistsPerMinCounts, other.baronAssistsPerMinCounts)
+        && Objects.equal(ancientGolemAssistsPerMinCounts, other.ancientGolemAssistsPerMinCounts)
+        && Objects.equal(elderLizardAssistsPerMinCounts, other.elderLizardAssistsPerMinCounts)
+        && Objects.equal(towerKillsPerMinCounts, other.towerKillsPerMinCounts)
+        && Objects.equal(damageTakenPerMinDeltas, other.damageTakenPerMinDeltas)
         && Objects.equal(xpDiffPerMinDeltas, other.xpDiffPerMinDeltas)
-        && Objects.equal(xpPerMinDeltas, other.xpPerMinDeltas);}
+        && Objects.equal(creepsPerMinDeltas, other.creepsPerMinDeltas)
+        && Objects.equal(role, other.role)
+        && Objects.equal(damageTakenDiffPerMinDeltas, other.damageTakenDiffPerMinDeltas)
+        && Objects.equal(dragonKillsPerMinCounts, other.dragonKillsPerMinCounts)
+        && Objects.equal(towerKillsPerMinDeltas, other.towerKillsPerMinDeltas)
+        && Objects.equal(elderLizardKillsPerMinCounts, other.elderLizardKillsPerMinCounts)
+        && Objects.equal(ancientGolemKillsPerMinCounts, other.ancientGolemKillsPerMinCounts)
+        && Objects.equal(csDiffPerMinDeltas, other.csDiffPerMinDeltas)
+        && Objects.equal(baronKillsPerMinCounts, other.baronKillsPerMinCounts)
+        && Objects.equal(assistedLaneKillsPerMinDeltas, other.assistedLaneKillsPerMinDeltas)
+        && Objects.equal(assistedLaneDeathsPerMinDeltas, other.assistedLaneDeathsPerMinDeltas)
+        && Objects.equal(lane, other.lane)
+        && Objects.equal(inhibitorKillsPerMinCounts, other.inhibitorKillsPerMinCounts)
+        && Objects.equal(towerAssistsPerMinCounts, other.towerAssistsPerMinCounts)
+        && Objects.equal(vilemawKillsPerMinCounts, other.vilemawKillsPerMinCounts)
+        && Objects.equal(xpPerMinDeltas, other.xpPerMinDeltas)
+        && Objects.equal(dragonAssistsPerMinCounts, other.dragonAssistsPerMinCounts)
+        && Objects.equal(inhibitorAssistsPerMinCounts, other.inhibitorAssistsPerMinCounts)
+        && Objects.equal(wardsPerMinDeltas, other.wardsPerMinDeltas);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        ancientGolemAssistsPerMinCounts,
-        ancientGolemKillsPerMinCounts,
-        assistedLaneDeathsPerMinDeltas,
-        assistedLaneKillsPerMinDeltas,
-        baronAssistsPerMinCounts,
-        baronKillsPerMinCounts,
-        creepsPerMinDeltas,
-        csDiffPerMinDeltas,
-        damageTakenDiffPerMinDeltas,
-        damageTakenPerMinDeltas,
-        dragonAssistsPerMinCounts,
-        dragonKillsPerMinCounts,
-        elderLizardAssistsPerMinCounts,
-        elderLizardKillsPerMinCounts,
-        goldPerMinDeltas,
-        inhibitorAssistsPerMinCounts,
-        inhibitorKillsPerMinCounts,
-        lane,
-        role,
-        towerAssistsPerMinCounts,
-        towerKillsPerMinCounts,
-        towerKillsPerMinDeltas,
         vilemawAssistsPerMinCounts,
-        vilemawKillsPerMinCounts,
-        wardsPerMinDeltas,
+        goldPerMinDeltas,
+        baronAssistsPerMinCounts,
+        ancientGolemAssistsPerMinCounts,
+        elderLizardAssistsPerMinCounts,
+        towerKillsPerMinCounts,
+        damageTakenPerMinDeltas,
         xpDiffPerMinDeltas,
-        xpPerMinDeltas);}
+        creepsPerMinDeltas,
+        role,
+        damageTakenDiffPerMinDeltas,
+        dragonKillsPerMinCounts,
+        towerKillsPerMinDeltas,
+        elderLizardKillsPerMinCounts,
+        ancientGolemKillsPerMinCounts,
+        csDiffPerMinDeltas,
+        baronKillsPerMinCounts,
+        assistedLaneKillsPerMinDeltas,
+        assistedLaneDeathsPerMinDeltas,
+        lane,
+        inhibitorKillsPerMinCounts,
+        towerAssistsPerMinCounts,
+        vilemawKillsPerMinCounts,
+        xpPerMinDeltas,
+        dragonAssistsPerMinCounts,
+        inhibitorAssistsPerMinCounts,
+        wardsPerMinDeltas);}
 }

@@ -7,19 +7,19 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * MiniSeries - This object contains mini series information.
+ * MiniSeries.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains mini series information..<br /><br />
  *
- * @version league-v2.5 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v2.5/GET_getChallengerLeagues">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class MiniSeries implements Serializable {
-  /**
-   * Number of current losses in the mini series. */
-  public final int losses;
-
   /**
    * String showing the current, sequential mini series progress where 'W' represents a win, 'L' represents a loss, and 'N' represents a game that hasn't been played yet. */
   public final String progress;
+
+  /**
+   * Number of current losses in the mini series. */
+  public final int losses;
 
   /**
    * Number of wins required for promotion. */
@@ -29,9 +29,9 @@ public class MiniSeries implements Serializable {
    * Number of current wins in the mini series. */
   public final int wins;
 
-  public MiniSeries(final int losses, final String progress, final int target, final int wins) {
-    this.losses = losses;
+  public MiniSeries(final String progress, final int losses, final int target, final int wins) {
     this.progress = progress;
+    this.losses = losses;
     this.target = target;
     this.wins = wins;
   }
@@ -42,16 +42,16 @@ public class MiniSeries implements Serializable {
     if (!(obj instanceof MiniSeries)) return false;
     final MiniSeries other = (MiniSeries) obj;
     return true
-        && Objects.equal(losses, other.losses)
         && Objects.equal(progress, other.progress)
+        && Objects.equal(losses, other.losses)
         && Objects.equal(target, other.target)
         && Objects.equal(wins, other.wins);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        losses,
         progress,
+        losses,
         target,
         wins);}
 }

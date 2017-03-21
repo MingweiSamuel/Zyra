@@ -1,15 +1,19 @@
 package com.mingweisamuel.zyra.runesMasteries;
 
 import com.google.common.base.Objects;
+import java.io.Serializable;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
 
 /**
- * This object contains rune page information..<br />%n<br />
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#runes-masteries-v1.4/GET_getRunePagesBySummonerIds">Riot API reference</a> on Tue Mar 21 14:42:38 PDT 2017. */
-class RunePage {
+ * RunePage.<br /><br />
+ *
+ * This object contains rune page information..<br /><br />
+ *
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#runes-masteries-v1.4/GET_getRunePagesBySummonerIds">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
+public class RunePage implements Serializable {
   /**
    * Indicates if the page is the current page. */
   public final boolean current;
@@ -37,8 +41,8 @@ class RunePage {
   @Override
   public boolean equals(final Object obj) {
     if (obj == this) return true;
-    if (!(obj instanceof RunesMasteries)) return false;
-    final RunesMasteries other = (RunesMasteries) obj;
+    if (!(obj instanceof RunePage)) return false;
+    final RunePage other = (RunePage) obj;
     return true
         && Objects.equal(current, other.current)
         && Objects.equal(slots, other.slots)

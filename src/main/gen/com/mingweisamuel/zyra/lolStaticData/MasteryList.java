@@ -9,26 +9,26 @@ import java.lang.String;
 import java.util.Map;
 
 /**
- * MasteryList - This object contains mastery list data.
+ * MasteryList.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains mastery list data..<br /><br />
  *
- * @version lol-static-data-v1.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getMasteryList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class MasteryList implements Serializable {
-  public final Map<Integer, Mastery> data;
-
   public final MasteryTree tree;
-
-  public final String type;
 
   public final String version;
 
-  public MasteryList(final Map<Integer, Mastery> data, final MasteryTree tree, final String type,
-      final String version) {
-    this.data = data;
+  public final Map<Integer, Mastery> data;
+
+  public final String type;
+
+  public MasteryList(final MasteryTree tree, final String version, final Map<Integer, Mastery> data,
+      final String type) {
     this.tree = tree;
-    this.type = type;
     this.version = version;
+    this.data = data;
+    this.type = type;
   }
 
   @Override
@@ -37,16 +37,16 @@ public class MasteryList implements Serializable {
     if (!(obj instanceof MasteryList)) return false;
     final MasteryList other = (MasteryList) obj;
     return true
-        && Objects.equal(data, other.data)
         && Objects.equal(tree, other.tree)
-        && Objects.equal(type, other.type)
-        && Objects.equal(version, other.version);}
+        && Objects.equal(version, other.version)
+        && Objects.equal(data, other.data)
+        && Objects.equal(type, other.type);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        data,
         tree,
-        type,
-        version);}
+        version,
+        data,
+        type);}
 }

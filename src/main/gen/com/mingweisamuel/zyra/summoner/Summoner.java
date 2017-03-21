@@ -7,20 +7,12 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * Summoner - represents a summoner
+ * Summoner.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * represents a summoner.<br /><br />
  *
- * @version summoner-v1.4 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#summoner-v1.4/GET_getByAccountIds">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class Summoner implements Serializable {
-  /**
-   * Summoner ID. */
-  public final long id;
-
-  /**
-   * Summoner name. */
-  public final String name;
-
   /**
    * ID of the summoner icon associated with the summoner. */
   public final int profileIconId;
@@ -30,15 +22,23 @@ public class Summoner implements Serializable {
   public final long revisionDate;
 
   /**
+   * Summoner ID. */
+  public final long id;
+
+  /**
+   * Summoner name. */
+  public final String name;
+
+  /**
    * Summoner level associated with the summoner. */
   public final long summonerLevel;
 
-  public Summoner(final long id, final String name, final int profileIconId,
-      final long revisionDate, final long summonerLevel) {
-    this.id = id;
-    this.name = name;
+  public Summoner(final int profileIconId, final long revisionDate, final long id,
+      final String name, final long summonerLevel) {
     this.profileIconId = profileIconId;
     this.revisionDate = revisionDate;
+    this.id = id;
+    this.name = name;
     this.summonerLevel = summonerLevel;
   }
 
@@ -48,18 +48,18 @@ public class Summoner implements Serializable {
     if (!(obj instanceof Summoner)) return false;
     final Summoner other = (Summoner) obj;
     return true
-        && Objects.equal(id, other.id)
-        && Objects.equal(name, other.name)
         && Objects.equal(profileIconId, other.profileIconId)
         && Objects.equal(revisionDate, other.revisionDate)
+        && Objects.equal(id, other.id)
+        && Objects.equal(name, other.name)
         && Objects.equal(summonerLevel, other.summonerLevel);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        id,
-        name,
         profileIconId,
         revisionDate,
+        id,
+        name,
         summonerLevel);}
 }

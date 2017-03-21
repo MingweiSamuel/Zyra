@@ -7,19 +7,43 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * LeagueEntry - This object contains league participant information representing a summoner or team.
+ * LeagueEntry.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains league participant information representing a summoner or team..<br /><br />
  *
- * @version league-v2.5 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v2.5/GET_getChallengerLeagues">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class LeagueEntry implements Serializable {
+  /**
+   * Specifies if the participant is fresh blood. */
+  public final boolean isFreshBlood;
+
   /**
    * The league division of the participant. */
   public final String division;
 
   /**
-   * Specifies if the participant is fresh blood. */
-  public final boolean isFreshBlood;
+   * The playstyle of the participant. */
+  public final String playstyle;
+
+  /**
+   * Mini series data for the participant. Only present if the participant is currently in a mini series. */
+  public final MiniSeries miniSeries;
+
+  /**
+   * The number of wins for the participant. */
+  public final int wins;
+
+  /**
+   * The number of losses for the participant. */
+  public final int losses;
+
+  /**
+   * The ID of the participant (i.e., summoner or team) represented by this entry. */
+  public final String playerOrTeamId;
+
+  /**
+   * The name of the the participant (i.e., summoner or team) represented by this entry. */
+  public final String playerOrTeamName;
 
   /**
    * Specifies if the participant is on a hot streak. */
@@ -37,46 +61,22 @@ public class LeagueEntry implements Serializable {
    * The league points of the participant. */
   public final int leaguePoints;
 
-  /**
-   * The number of losses for the participant. */
-  public final int losses;
-
-  /**
-   * Mini series data for the participant. Only present if the participant is currently in a mini series. */
-  public final MiniSeries miniSeries;
-
-  /**
-   * The ID of the participant (i.e., summoner or team) represented by this entry. */
-  public final String playerOrTeamId;
-
-  /**
-   * The name of the the participant (i.e., summoner or team) represented by this entry. */
-  public final String playerOrTeamName;
-
-  /**
-   * The playstyle of the participant. (Legal values: NONE, SOLO, SQUAD, TEAM) */
-  public final String playstyle;
-
-  /**
-   * The number of wins for the participant. */
-  public final int wins;
-
-  public LeagueEntry(final String division, final boolean isFreshBlood, final boolean isHotStreak,
-      final boolean isInactive, final boolean isVeteran, final int leaguePoints, final int losses,
-      final MiniSeries miniSeries, final String playerOrTeamId, final String playerOrTeamName,
-      final String playstyle, final int wins) {
-    this.division = division;
+  public LeagueEntry(final boolean isFreshBlood, final String division, final String playstyle,
+      final MiniSeries miniSeries, final int wins, final int losses, final String playerOrTeamId,
+      final String playerOrTeamName, final boolean isHotStreak, final boolean isInactive,
+      final boolean isVeteran, final int leaguePoints) {
     this.isFreshBlood = isFreshBlood;
+    this.division = division;
+    this.playstyle = playstyle;
+    this.miniSeries = miniSeries;
+    this.wins = wins;
+    this.losses = losses;
+    this.playerOrTeamId = playerOrTeamId;
+    this.playerOrTeamName = playerOrTeamName;
     this.isHotStreak = isHotStreak;
     this.isInactive = isInactive;
     this.isVeteran = isVeteran;
     this.leaguePoints = leaguePoints;
-    this.losses = losses;
-    this.miniSeries = miniSeries;
-    this.playerOrTeamId = playerOrTeamId;
-    this.playerOrTeamName = playerOrTeamName;
-    this.playstyle = playstyle;
-    this.wins = wins;
   }
 
   @Override
@@ -85,32 +85,32 @@ public class LeagueEntry implements Serializable {
     if (!(obj instanceof LeagueEntry)) return false;
     final LeagueEntry other = (LeagueEntry) obj;
     return true
-        && Objects.equal(division, other.division)
         && Objects.equal(isFreshBlood, other.isFreshBlood)
+        && Objects.equal(division, other.division)
+        && Objects.equal(playstyle, other.playstyle)
+        && Objects.equal(miniSeries, other.miniSeries)
+        && Objects.equal(wins, other.wins)
+        && Objects.equal(losses, other.losses)
+        && Objects.equal(playerOrTeamId, other.playerOrTeamId)
+        && Objects.equal(playerOrTeamName, other.playerOrTeamName)
         && Objects.equal(isHotStreak, other.isHotStreak)
         && Objects.equal(isInactive, other.isInactive)
         && Objects.equal(isVeteran, other.isVeteran)
-        && Objects.equal(leaguePoints, other.leaguePoints)
-        && Objects.equal(losses, other.losses)
-        && Objects.equal(miniSeries, other.miniSeries)
-        && Objects.equal(playerOrTeamId, other.playerOrTeamId)
-        && Objects.equal(playerOrTeamName, other.playerOrTeamName)
-        && Objects.equal(playstyle, other.playstyle)
-        && Objects.equal(wins, other.wins);}
+        && Objects.equal(leaguePoints, other.leaguePoints);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        division,
         isFreshBlood,
+        division,
+        playstyle,
+        miniSeries,
+        wins,
+        losses,
+        playerOrTeamId,
+        playerOrTeamName,
         isHotStreak,
         isInactive,
         isVeteran,
-        leaguePoints,
-        losses,
-        miniSeries,
-        playerOrTeamId,
-        playerOrTeamName,
-        playstyle,
-        wins);}
+        leaguePoints);}
 }

@@ -7,28 +7,28 @@ import java.lang.Override;
 import java.util.List;
 
 /**
- * RankedStats - This object contains ranked stats information.
+ * RankedStats.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains ranked stats information..<br /><br />
  *
- * @version stats-v1.3 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#stats-v1.3/GET_getRankedStats">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class RankedStats implements Serializable {
-  /**
-   * Collection of aggregated stats summarized by champion. */
-  public final List<ChampionStats> champions;
-
   /**
    * Date stats were last modified specified as epoch milliseconds. */
   public final long modifyDate;
 
   /**
+   * Collection of aggregated stats summarized by champion. */
+  public final List<ChampionStats> champions;
+
+  /**
    * Summoner ID. */
   public final long summonerId;
 
-  public RankedStats(final List<ChampionStats> champions, final long modifyDate,
+  public RankedStats(final long modifyDate, final List<ChampionStats> champions,
       final long summonerId) {
-    this.champions = champions;
     this.modifyDate = modifyDate;
+    this.champions = champions;
     this.summonerId = summonerId;
   }
 
@@ -38,14 +38,14 @@ public class RankedStats implements Serializable {
     if (!(obj instanceof RankedStats)) return false;
     final RankedStats other = (RankedStats) obj;
     return true
-        && Objects.equal(champions, other.champions)
         && Objects.equal(modifyDate, other.modifyDate)
+        && Objects.equal(champions, other.champions)
         && Objects.equal(summonerId, other.summonerId);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        champions,
         modifyDate,
+        champions,
         summonerId);}
 }

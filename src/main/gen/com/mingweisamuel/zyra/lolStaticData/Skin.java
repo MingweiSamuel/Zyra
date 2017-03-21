@@ -7,22 +7,22 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * Skin - This object contains champion skin data.
+ * Skin.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains champion skin data..<br /><br />
  *
- * @version lol-static-data-v1.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getChampionList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class Skin implements Serializable {
+  public final int num;
+
   public final int id;
 
   public final String name;
 
-  public final int num;
-
-  public Skin(final int id, final String name, final int num) {
+  public Skin(final int num, final int id, final String name) {
+    this.num = num;
     this.id = id;
     this.name = name;
-    this.num = num;
   }
 
   @Override
@@ -31,14 +31,14 @@ public class Skin implements Serializable {
     if (!(obj instanceof Skin)) return false;
     final Skin other = (Skin) obj;
     return true
+        && Objects.equal(num, other.num)
         && Objects.equal(id, other.id)
-        && Objects.equal(name, other.name)
-        && Objects.equal(num, other.num);}
+        && Objects.equal(name, other.name);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
+        num,
         id,
-        name,
-        num);}
+        name);}
 }

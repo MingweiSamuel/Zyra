@@ -9,23 +9,23 @@ import java.lang.String;
 import java.util.Map;
 
 /**
- * SummonerSpellList - This object contains summoner spell list data.
+ * SummonerSpellList.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains summoner spell list data..<br /><br />
  *
- * @version lol-static-data-v1.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getSummonerSpellList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class SummonerSpellList implements Serializable {
   public final Map<Integer, SummonerSpell> data;
 
-  public final String type;
-
   public final String version;
 
-  public SummonerSpellList(final Map<Integer, SummonerSpell> data, final String type,
-      final String version) {
+  public final String type;
+
+  public SummonerSpellList(final Map<Integer, SummonerSpell> data, final String version,
+      final String type) {
     this.data = data;
-    this.type = type;
     this.version = version;
+    this.type = type;
   }
 
   @Override
@@ -35,13 +35,13 @@ public class SummonerSpellList implements Serializable {
     final SummonerSpellList other = (SummonerSpellList) obj;
     return true
         && Objects.equal(data, other.data)
-        && Objects.equal(type, other.type)
-        && Objects.equal(version, other.version);}
+        && Objects.equal(version, other.version)
+        && Objects.equal(type, other.type);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
         data,
-        type,
-        version);}
+        version,
+        type);}
 }

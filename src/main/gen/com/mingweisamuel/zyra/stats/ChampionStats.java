@@ -6,23 +6,23 @@ import java.lang.Object;
 import java.lang.Override;
 
 /**
- * ChampionStats - This object contains a collection of champion stats information.
+ * ChampionStats.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains a collection of champion stats information..<br /><br />
  *
- * @version stats-v1.3 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#stats-v1.3/GET_getRankedStats">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class ChampionStats implements Serializable {
-  /**
-   * Champion ID. Note that champion ID 0 represents the combined stats for all champions. For static information correlating to champion IDs, please refer to the LoL Static Data API. */
-  public final int id;
-
   /**
    * Aggregated stats associated with the champion. */
   public final AggregatedStats stats;
 
-  public ChampionStats(final int id, final AggregatedStats stats) {
-    this.id = id;
+  /**
+   * Champion ID. Note that champion ID 0 represents the combined stats for all champions. For static information correlating to champion IDs, please refer to the LoL Static Data API. */
+  public final int id;
+
+  public ChampionStats(final AggregatedStats stats, final int id) {
     this.stats = stats;
+    this.id = id;
   }
 
   @Override
@@ -31,12 +31,12 @@ public class ChampionStats implements Serializable {
     if (!(obj instanceof ChampionStats)) return false;
     final ChampionStats other = (ChampionStats) obj;
     return true
-        && Objects.equal(id, other.id)
-        && Objects.equal(stats, other.stats);}
+        && Objects.equal(stats, other.stats)
+        && Objects.equal(id, other.id);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        id,
-        stats);}
+        stats,
+        id);}
 }

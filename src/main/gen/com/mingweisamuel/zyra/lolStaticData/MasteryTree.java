@@ -7,23 +7,23 @@ import java.lang.Override;
 import java.util.List;
 
 /**
- * MasteryTree - This object contains mastery tree data.
+ * MasteryTree.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains mastery tree data..<br /><br />
  *
- * @version lol-static-data-v1.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getMasteryList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class MasteryTree implements Serializable {
-  public final List<MasteryTreeList> Cunning;
+  public final List<MasteryTreeList> Resolve;
 
   public final List<MasteryTreeList> Ferocity;
 
-  public final List<MasteryTreeList> Resolve;
+  public final List<MasteryTreeList> Cunning;
 
-  public MasteryTree(final List<MasteryTreeList> Cunning, final List<MasteryTreeList> Ferocity,
-      final List<MasteryTreeList> Resolve) {
-    this.Cunning = Cunning;
-    this.Ferocity = Ferocity;
+  public MasteryTree(final List<MasteryTreeList> Resolve, final List<MasteryTreeList> Ferocity,
+      final List<MasteryTreeList> Cunning) {
     this.Resolve = Resolve;
+    this.Ferocity = Ferocity;
+    this.Cunning = Cunning;
   }
 
   @Override
@@ -32,14 +32,14 @@ public class MasteryTree implements Serializable {
     if (!(obj instanceof MasteryTree)) return false;
     final MasteryTree other = (MasteryTree) obj;
     return true
-        && Objects.equal(Cunning, other.Cunning)
+        && Objects.equal(Resolve, other.Resolve)
         && Objects.equal(Ferocity, other.Ferocity)
-        && Objects.equal(Resolve, other.Resolve);}
+        && Objects.equal(Cunning, other.Cunning);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        Cunning,
+        Resolve,
         Ferocity,
-        Resolve);}
+        Cunning);}
 }

@@ -6,12 +6,16 @@ import java.lang.Object;
 import java.lang.Override;
 
 /**
- * Player - This object contains player information.
+ * Player.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains player information..<br /><br />
  *
- * @version game-v1.3 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#game-v1.3/GET_getRecentGames">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class Player implements Serializable {
+  /**
+   * Team id associated with player. */
+  public final int teamId;
+
   /**
    * Champion id associated with player. */
   public final int championId;
@@ -20,14 +24,10 @@ public class Player implements Serializable {
    * Summoner id associated with player. */
   public final long summonerId;
 
-  /**
-   * Team id associated with player. */
-  public final int teamId;
-
-  public Player(final int championId, final long summonerId, final int teamId) {
+  public Player(final int teamId, final int championId, final long summonerId) {
+    this.teamId = teamId;
     this.championId = championId;
     this.summonerId = summonerId;
-    this.teamId = teamId;
   }
 
   @Override
@@ -36,14 +36,14 @@ public class Player implements Serializable {
     if (!(obj instanceof Player)) return false;
     final Player other = (Player) obj;
     return true
+        && Objects.equal(teamId, other.teamId)
         && Objects.equal(championId, other.championId)
-        && Objects.equal(summonerId, other.summonerId)
-        && Objects.equal(teamId, other.teamId);}
+        && Objects.equal(summonerId, other.summonerId);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
+        teamId,
         championId,
-        summonerId,
-        teamId);}
+        summonerId);}
 }

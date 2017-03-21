@@ -7,26 +7,26 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * Passive - This object contains champion passive data.
+ * Passive.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains champion passive data..<br /><br />
  *
- * @version lol-static-data-v1.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getChampionList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class Passive implements Serializable {
-  public final String description;
-
   public final Image image;
-
-  public final String name;
 
   public final String sanitizedDescription;
 
-  public Passive(final String description, final Image image, final String name,
-      final String sanitizedDescription) {
-    this.description = description;
+  public final String description;
+
+  public final String name;
+
+  public Passive(final Image image, final String sanitizedDescription, final String description,
+      final String name) {
     this.image = image;
-    this.name = name;
     this.sanitizedDescription = sanitizedDescription;
+    this.description = description;
+    this.name = name;
   }
 
   @Override
@@ -35,16 +35,16 @@ public class Passive implements Serializable {
     if (!(obj instanceof Passive)) return false;
     final Passive other = (Passive) obj;
     return true
-        && Objects.equal(description, other.description)
         && Objects.equal(image, other.image)
-        && Objects.equal(name, other.name)
-        && Objects.equal(sanitizedDescription, other.sanitizedDescription);}
+        && Objects.equal(sanitizedDescription, other.sanitizedDescription)
+        && Objects.equal(description, other.description)
+        && Objects.equal(name, other.name);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        description,
         image,
-        name,
-        sanitizedDescription);}
+        sanitizedDescription,
+        description,
+        name);}
 }

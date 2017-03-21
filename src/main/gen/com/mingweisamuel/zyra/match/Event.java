@@ -9,129 +9,129 @@ import java.lang.String;
 import java.util.List;
 
 /**
- * Event - This object contains game event information. Note that not all legal type values documented below are valid for all games. Event data evolves over time and certain values may be relevant only for older or newer games.
+ * Event.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains game event information. Note that not all legal type values documented below are valid for all games. Event data evolves over time and certain values may be relevant only for older or newer games..<br /><br />
  *
- * @version match-v2.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v2.2/GET_getMatchByIdAndTournamentCode">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class Event implements Serializable {
-  /**
-   * The ascended type of the event. Only present if relevant. Note that CLEAR_ASCENDED refers to when a participants kills the ascended player. (Legal values: CHAMPION_ASCENDED, CLEAR_ASCENDED, MINION_ASCENDED) */
-  public final String ascendedType;
-
-  /**
-   * The assisting participant IDs of the event. Only present if relevant. */
-  public final List<Integer> assistingParticipantIds;
-
-  /**
-   * The building type of the event. Only present if relevant. (Legal values: INHIBITOR_BUILDING, TOWER_BUILDING) */
-  public final String buildingType;
-
-  /**
-   * The creator ID of the event. Only present if relevant. */
-  public final int creatorId;
-
-  /**
-   * Event type. (Legal values: ASCENDED_EVENT, BUILDING_KILL, CAPTURE_POINT, CHAMPION_KILL, ELITE_MONSTER_KILL, ITEM_DESTROYED, ITEM_PURCHASED, ITEM_SOLD, ITEM_UNDO, PORO_KING_SUMMON, SKILL_LEVEL_UP, WARD_KILL, WARD_PLACED) */
-  public final String eventType;
-
-  /**
-   * The ending item ID of the event. Only present if relevant. */
-  public final int itemAfter;
-
   /**
    * The starting item ID of the event. Only present if relevant. */
   public final int itemBefore;
 
   /**
-   * The item ID of the event. Only present if relevant. */
-  public final int itemId;
+   * Event type. */
+  public final String eventType;
 
   /**
-   * The killer ID of the event. Only present if relevant. Killer ID 0 indicates a minion. */
-  public final int killerId;
-
-  /**
-   * The lane type of the event. Only present if relevant. (Legal values: BOT_LANE, MID_LANE, TOP_LANE) */
-  public final String laneType;
-
-  /**
-   * The level up type of the event. Only present if relevant. (Legal values: EVOLVE, NORMAL) */
-  public final String levelUpType;
-
-  /**
-   * The monster subtype of the event. Only present if relevant. */
-  public final String monsterSubType;
-
-  /**
-   * The monster type of the event. Only present if relevant. (Legal values: BARON_NASHOR, BLUE_GOLEM, DRAGON, RED_LIZARD, RIFTHERALD, VILEMAW) */
-  public final String monsterType;
-
-  /**
-   * The participant ID of the event. Only present if relevant. */
-  public final int participantId;
-
-  /**
-   * The point captured in the event. Only present if relevant. (Legal values: POINT_A, POINT_B, POINT_C, POINT_D, POINT_E) */
-  public final String pointCaptured;
-
-  /**
-   * The position of the event. Only present if relevant. */
-  public final Position position;
-
-  /**
-   * The skill slot of the event. Only present if relevant. */
-  public final int skillSlot;
+   * The tower type of the event. Only present if relevant. */
+  public final String towerType;
 
   /**
    * The team ID of the event. Only present if relevant. */
   public final int teamId;
 
   /**
-   * Represents how many milliseconds into the game the event occurred. */
-  public final long timestamp;
+   * The ending item ID of the event. Only present if relevant. */
+  public final int itemAfter;
 
   /**
-   * The tower type of the event. Only present if relevant. (Legal values: BASE_TURRET, FOUNTAIN_TURRET, INNER_TURRET, NEXUS_TURRET, OUTER_TURRET, UNDEFINED_TURRET) */
-  public final String towerType;
+   * The ascended type of the event. Only present if relevant. Note that CLEAR_ASCENDED refers to when a participants kills the ascended player. */
+  public final String ascendedType;
+
+  /**
+   * The killer ID of the event. Only present if relevant. Killer ID 0 indicates a minion. */
+  public final int killerId;
+
+  /**
+   * The level up type of the event. Only present if relevant. */
+  public final String levelUpType;
+
+  /**
+   * The point captured in the event. Only present if relevant. */
+  public final String pointCaptured;
+
+  /**
+   * The assisting participant IDs of the event. Only present if relevant. */
+  public final List<Integer> assistingParticipantIds;
+
+  /**
+   * The ward type of the event. Only present if relevant. */
+  public final String wardType;
+
+  /**
+   * The monster type of the event. Only present if relevant. */
+  public final String monsterType;
+
+  /**
+   * The building type of the event. Only present if relevant. */
+  public final String buildingType;
 
   /**
    * The victim ID of the event. Only present if relevant. */
   public final int victimId;
 
   /**
-   * The ward type of the event. Only present if relevant. (Legal values: BLUE_TRINKET, SIGHT_WARD, TEEMO_MUSHROOM, UNDEFINED, VISION_WARD, YELLOW_TRINKET, YELLOW_TRINKET_UPGRADE) */
-  public final String wardType;
+   * Represents how many milliseconds into the game the event occurred. */
+  public final long timestamp;
 
-  public Event(final String ascendedType, final List<Integer> assistingParticipantIds,
-      final String buildingType, final int creatorId, final String eventType, final int itemAfter,
-      final int itemBefore, final int itemId, final int killerId, final String laneType,
-      final String levelUpType, final String monsterSubType, final String monsterType,
-      final int participantId, final String pointCaptured, final Position position,
-      final int skillSlot, final int teamId, final long timestamp, final String towerType,
-      final int victimId, final String wardType) {
-    this.ascendedType = ascendedType;
-    this.assistingParticipantIds = assistingParticipantIds;
-    this.buildingType = buildingType;
-    this.creatorId = creatorId;
-    this.eventType = eventType;
-    this.itemAfter = itemAfter;
+  /**
+   * The skill slot of the event. Only present if relevant. */
+  public final int skillSlot;
+
+  /**
+   * The monster subtype of the event. Only present if relevant. */
+  public final String monsterSubType;
+
+  /**
+   * The lane type of the event. Only present if relevant. */
+  public final String laneType;
+
+  /**
+   * The item ID of the event. Only present if relevant. */
+  public final int itemId;
+
+  /**
+   * The participant ID of the event. Only present if relevant. */
+  public final int participantId;
+
+  /**
+   * The creator ID of the event. Only present if relevant. */
+  public final int creatorId;
+
+  /**
+   * The position of the event. Only present if relevant. */
+  public final Position position;
+
+  public Event(final int itemBefore, final String eventType, final String towerType,
+      final int teamId, final int itemAfter, final String ascendedType, final int killerId,
+      final String levelUpType, final String pointCaptured,
+      final List<Integer> assistingParticipantIds, final String wardType, final String monsterType,
+      final String buildingType, final int victimId, final long timestamp, final int skillSlot,
+      final String monsterSubType, final String laneType, final int itemId, final int participantId,
+      final int creatorId, final Position position) {
     this.itemBefore = itemBefore;
-    this.itemId = itemId;
-    this.killerId = killerId;
-    this.laneType = laneType;
-    this.levelUpType = levelUpType;
-    this.monsterSubType = monsterSubType;
-    this.monsterType = monsterType;
-    this.participantId = participantId;
-    this.pointCaptured = pointCaptured;
-    this.position = position;
-    this.skillSlot = skillSlot;
-    this.teamId = teamId;
-    this.timestamp = timestamp;
+    this.eventType = eventType;
     this.towerType = towerType;
-    this.victimId = victimId;
+    this.teamId = teamId;
+    this.itemAfter = itemAfter;
+    this.ascendedType = ascendedType;
+    this.killerId = killerId;
+    this.levelUpType = levelUpType;
+    this.pointCaptured = pointCaptured;
+    this.assistingParticipantIds = assistingParticipantIds;
     this.wardType = wardType;
+    this.monsterType = monsterType;
+    this.buildingType = buildingType;
+    this.victimId = victimId;
+    this.timestamp = timestamp;
+    this.skillSlot = skillSlot;
+    this.monsterSubType = monsterSubType;
+    this.laneType = laneType;
+    this.itemId = itemId;
+    this.participantId = participantId;
+    this.creatorId = creatorId;
+    this.position = position;
   }
 
   @Override
@@ -140,52 +140,52 @@ public class Event implements Serializable {
     if (!(obj instanceof Event)) return false;
     final Event other = (Event) obj;
     return true
-        && Objects.equal(ascendedType, other.ascendedType)
-        && Objects.equal(assistingParticipantIds, other.assistingParticipantIds)
-        && Objects.equal(buildingType, other.buildingType)
-        && Objects.equal(creatorId, other.creatorId)
-        && Objects.equal(eventType, other.eventType)
-        && Objects.equal(itemAfter, other.itemAfter)
         && Objects.equal(itemBefore, other.itemBefore)
-        && Objects.equal(itemId, other.itemId)
-        && Objects.equal(killerId, other.killerId)
-        && Objects.equal(laneType, other.laneType)
-        && Objects.equal(levelUpType, other.levelUpType)
-        && Objects.equal(monsterSubType, other.monsterSubType)
-        && Objects.equal(monsterType, other.monsterType)
-        && Objects.equal(participantId, other.participantId)
-        && Objects.equal(pointCaptured, other.pointCaptured)
-        && Objects.equal(position, other.position)
-        && Objects.equal(skillSlot, other.skillSlot)
-        && Objects.equal(teamId, other.teamId)
-        && Objects.equal(timestamp, other.timestamp)
+        && Objects.equal(eventType, other.eventType)
         && Objects.equal(towerType, other.towerType)
+        && Objects.equal(teamId, other.teamId)
+        && Objects.equal(itemAfter, other.itemAfter)
+        && Objects.equal(ascendedType, other.ascendedType)
+        && Objects.equal(killerId, other.killerId)
+        && Objects.equal(levelUpType, other.levelUpType)
+        && Objects.equal(pointCaptured, other.pointCaptured)
+        && Objects.equal(assistingParticipantIds, other.assistingParticipantIds)
+        && Objects.equal(wardType, other.wardType)
+        && Objects.equal(monsterType, other.monsterType)
+        && Objects.equal(buildingType, other.buildingType)
         && Objects.equal(victimId, other.victimId)
-        && Objects.equal(wardType, other.wardType);}
+        && Objects.equal(timestamp, other.timestamp)
+        && Objects.equal(skillSlot, other.skillSlot)
+        && Objects.equal(monsterSubType, other.monsterSubType)
+        && Objects.equal(laneType, other.laneType)
+        && Objects.equal(itemId, other.itemId)
+        && Objects.equal(participantId, other.participantId)
+        && Objects.equal(creatorId, other.creatorId)
+        && Objects.equal(position, other.position);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        ascendedType,
-        assistingParticipantIds,
-        buildingType,
-        creatorId,
-        eventType,
-        itemAfter,
         itemBefore,
-        itemId,
-        killerId,
-        laneType,
-        levelUpType,
-        monsterSubType,
-        monsterType,
-        participantId,
-        pointCaptured,
-        position,
-        skillSlot,
-        teamId,
-        timestamp,
+        eventType,
         towerType,
+        teamId,
+        itemAfter,
+        ascendedType,
+        killerId,
+        levelUpType,
+        pointCaptured,
+        assistingParticipantIds,
+        wardType,
+        monsterType,
+        buildingType,
         victimId,
-        wardType);}
+        timestamp,
+        skillSlot,
+        monsterSubType,
+        laneType,
+        itemId,
+        participantId,
+        creatorId,
+        position);}
 }

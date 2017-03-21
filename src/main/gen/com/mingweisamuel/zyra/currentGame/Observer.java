@@ -7,11 +7,9 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * Observer
+ * Observer.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
- *
- * @version current-game-v1.0 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#current-game-v1.0/GET_getCurrentGameInfoBySummoner">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class Observer implements Serializable {
   /**
    * Key used to decrypt the spectator grid game data for playback */

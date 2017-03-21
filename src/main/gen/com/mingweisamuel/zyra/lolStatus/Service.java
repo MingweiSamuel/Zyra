@@ -8,26 +8,24 @@ import java.lang.String;
 import java.util.List;
 
 /**
- * Service
+ * Service.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
- *
- * @version lol-status-v1.0 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-status-v1.0/GET_getShardStatus">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class Service implements Serializable {
+  public final String status;
+
   public final List<Incident> incidents;
 
   public final String name;
 
   public final String slug;
 
-  public final String status;
-
-  public Service(final List<Incident> incidents, final String name, final String slug,
-      final String status) {
+  public Service(final String status, final List<Incident> incidents, final String name,
+      final String slug) {
+    this.status = status;
     this.incidents = incidents;
     this.name = name;
     this.slug = slug;
-    this.status = status;
   }
 
   @Override
@@ -36,16 +34,16 @@ public class Service implements Serializable {
     if (!(obj instanceof Service)) return false;
     final Service other = (Service) obj;
     return true
+        && Objects.equal(status, other.status)
         && Objects.equal(incidents, other.incidents)
         && Objects.equal(name, other.name)
-        && Objects.equal(slug, other.slug)
-        && Objects.equal(status, other.status);}
+        && Objects.equal(slug, other.slug);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
+        status,
         incidents,
         name,
-        slug,
-        status);}
+        slug);}
 }

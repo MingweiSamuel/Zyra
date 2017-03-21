@@ -7,11 +7,9 @@ import java.lang.Override;
 import java.util.List;
 
 /**
- * FeaturedGames
+ * FeaturedGames.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
- *
- * @version featured-games-v1.0 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#featured-games-v1.0/GET_getFeaturedGames">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class FeaturedGames implements Serializable {
   /**
    * The suggested interval to wait before requesting FeaturedGames again */

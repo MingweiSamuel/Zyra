@@ -9,26 +9,26 @@ import java.lang.String;
 import java.util.Map;
 
 /**
- * RuneList - This object contains rune list data.
+ * RuneList.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains rune list data..<br /><br />
  *
- * @version lol-static-data-v1.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getRuneList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class RuneList implements Serializable {
-  public final BasicData basic;
-
   public final Map<Integer, Rune> data;
-
-  public final String type;
 
   public final String version;
 
-  public RuneList(final BasicData basic, final Map<Integer, Rune> data, final String type,
-      final String version) {
-    this.basic = basic;
+  public final String type;
+
+  public final BasicData basic;
+
+  public RuneList(final Map<Integer, Rune> data, final String version, final String type,
+      final BasicData basic) {
     this.data = data;
-    this.type = type;
     this.version = version;
+    this.type = type;
+    this.basic = basic;
   }
 
   @Override
@@ -37,16 +37,16 @@ public class RuneList implements Serializable {
     if (!(obj instanceof RuneList)) return false;
     final RuneList other = (RuneList) obj;
     return true
-        && Objects.equal(basic, other.basic)
         && Objects.equal(data, other.data)
+        && Objects.equal(version, other.version)
         && Objects.equal(type, other.type)
-        && Objects.equal(version, other.version);}
+        && Objects.equal(basic, other.basic);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        basic,
         data,
+        version,
         type,
-        version);}
+        basic);}
 }

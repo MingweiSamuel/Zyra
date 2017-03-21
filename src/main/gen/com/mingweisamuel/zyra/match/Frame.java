@@ -9,29 +9,29 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Frame - This object contains game frame information
+ * Frame.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains game frame information.<br /><br />
  *
- * @version match-v2.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v2.2/GET_getMatchByIdAndTournamentCode">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class Frame implements Serializable {
   /**
-   * List of events for this frame. */
-  public final List<Event> events;
+   * Represents how many milliseconds into the game the frame occurred. */
+  public final long timestamp;
 
   /**
    * Map of each participant ID to the participant's information for the frame. */
   public final Map<String, ParticipantFrame> participantFrames;
 
   /**
-   * Represents how many milliseconds into the game the frame occurred. */
-  public final long timestamp;
+   * List of events for this frame. */
+  public final List<Event> events;
 
-  public Frame(final List<Event> events, final Map<String, ParticipantFrame> participantFrames,
-      final long timestamp) {
-    this.events = events;
-    this.participantFrames = participantFrames;
+  public Frame(final long timestamp, final Map<String, ParticipantFrame> participantFrames,
+      final List<Event> events) {
     this.timestamp = timestamp;
+    this.participantFrames = participantFrames;
+    this.events = events;
   }
 
   @Override
@@ -40,14 +40,14 @@ public class Frame implements Serializable {
     if (!(obj instanceof Frame)) return false;
     final Frame other = (Frame) obj;
     return true
-        && Objects.equal(events, other.events)
+        && Objects.equal(timestamp, other.timestamp)
         && Objects.equal(participantFrames, other.participantFrames)
-        && Objects.equal(timestamp, other.timestamp);}
+        && Objects.equal(events, other.events);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        events,
+        timestamp,
         participantFrames,
-        timestamp);}
+        events);}
 }

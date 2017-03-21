@@ -7,35 +7,35 @@ import java.lang.Override;
 import java.lang.String;
 
 /**
- * Image - This object contains image data.
+ * Image.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains image data..<br /><br />
  *
- * @version lol-static-data-v1.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getChampionList">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class Image implements Serializable {
   public final String full;
 
   public final String group;
 
-  public final int h;
-
   public final String sprite;
+
+  public final int h;
 
   public final int w;
 
-  public final int x;
-
   public final int y;
 
-  public Image(final String full, final String group, final int h, final String sprite, final int w,
-      final int x, final int y) {
+  public final int x;
+
+  public Image(final String full, final String group, final String sprite, final int h, final int w,
+      final int y, final int x) {
     this.full = full;
     this.group = group;
-    this.h = h;
     this.sprite = sprite;
+    this.h = h;
     this.w = w;
-    this.x = x;
     this.y = y;
+    this.x = x;
   }
 
   @Override
@@ -46,20 +46,20 @@ public class Image implements Serializable {
     return true
         && Objects.equal(full, other.full)
         && Objects.equal(group, other.group)
-        && Objects.equal(h, other.h)
         && Objects.equal(sprite, other.sprite)
+        && Objects.equal(h, other.h)
         && Objects.equal(w, other.w)
-        && Objects.equal(x, other.x)
-        && Objects.equal(y, other.y);}
+        && Objects.equal(y, other.y)
+        && Objects.equal(x, other.x);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
         full,
         group,
-        h,
         sprite,
+        h,
         w,
-        x,
-        y);}
+        y,
+        x);}
 }

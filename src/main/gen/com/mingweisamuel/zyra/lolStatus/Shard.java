@@ -8,29 +8,27 @@ import java.lang.String;
 import java.util.List;
 
 /**
- * Shard
+ * Shard.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
- *
- * @version lol-status-v1.0 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-status-v1.0/GET_getShards">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class Shard implements Serializable {
+  public final String region_tag;
+
   public final String hostname;
+
+  public final String slug;
 
   public final List<String> locales;
 
   public final String name;
 
-  public final String region_tag;
-
-  public final String slug;
-
-  public Shard(final String hostname, final List<String> locales, final String name,
-      final String region_tag, final String slug) {
+  public Shard(final String region_tag, final String hostname, final String slug,
+      final List<String> locales, final String name) {
+    this.region_tag = region_tag;
     this.hostname = hostname;
+    this.slug = slug;
     this.locales = locales;
     this.name = name;
-    this.region_tag = region_tag;
-    this.slug = slug;
   }
 
   @Override
@@ -39,18 +37,18 @@ public class Shard implements Serializable {
     if (!(obj instanceof Shard)) return false;
     final Shard other = (Shard) obj;
     return true
-        && Objects.equal(hostname, other.hostname)
-        && Objects.equal(locales, other.locales)
-        && Objects.equal(name, other.name)
         && Objects.equal(region_tag, other.region_tag)
-        && Objects.equal(slug, other.slug);}
+        && Objects.equal(hostname, other.hostname)
+        && Objects.equal(slug, other.slug)
+        && Objects.equal(locales, other.locales)
+        && Objects.equal(name, other.name);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        hostname,
-        locales,
-        name,
         region_tag,
-        slug);}
+        hostname,
+        slug,
+        locales,
+        name);}
 }

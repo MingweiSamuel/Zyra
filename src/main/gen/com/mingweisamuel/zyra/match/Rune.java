@@ -6,23 +6,23 @@ import java.lang.Object;
 import java.lang.Override;
 
 /**
- * Rune - This object contains rune information
+ * Rune.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains rune information.<br /><br />
  *
- * @version match-v2.2 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v2.2/GET_getMatchByIdAndTournamentCode">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class Rune implements Serializable {
-  /**
-   * Rune rank */
-  public final long rank;
-
   /**
    * Rune ID */
   public final long runeId;
 
-  public Rune(final long rank, final long runeId) {
-    this.rank = rank;
+  /**
+   * Rune rank */
+  public final long rank;
+
+  public Rune(final long runeId, final long rank) {
     this.runeId = runeId;
+    this.rank = rank;
   }
 
   @Override
@@ -31,12 +31,12 @@ public class Rune implements Serializable {
     if (!(obj instanceof Rune)) return false;
     final Rune other = (Rune) obj;
     return true
-        && Objects.equal(rank, other.rank)
-        && Objects.equal(runeId, other.runeId);}
+        && Objects.equal(runeId, other.runeId)
+        && Objects.equal(rank, other.rank);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        rank,
-        runeId);}
+        runeId,
+        rank);}
 }

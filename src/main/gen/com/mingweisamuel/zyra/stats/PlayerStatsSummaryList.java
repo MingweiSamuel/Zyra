@@ -7,11 +7,11 @@ import java.lang.Override;
 import java.util.List;
 
 /**
- * PlayerStatsSummaryList - This object contains a collection of player stats summary information.
+ * PlayerStatsSummaryList.<br /><br />
  *
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
+ * This object contains a collection of player stats summary information..<br /><br />
  *
- * @version stats-v1.3 */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#stats-v1.3/GET_getPlayerStatsSummary">Riot API reference</a> on Tue Mar 21 14:58:35 PDT 2017. */
 public class PlayerStatsSummaryList implements Serializable {
   /**
    * Collection of player stats summaries associated with the summoner. */
