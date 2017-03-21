@@ -1,0 +1,682 @@
+<ul id="resources" style="margin-left:0;">
+    <li id="resource_1206" class="resource active" api-name="champion-v1.2">
+
+        <!-- HEADING -->
+        <div class="heading">
+
+
+            <h2><a href="#champion-v1.2"><span style="font-size:18px;">champion-v1.2</span></a></h2>
+            <!-- Menu -->
+            <ul class="options">
+                <li><a href="#" onclick="Docs.collapseOperationsForResource('1206'); return false;">Collapse
+                    Operations</a></li>
+                <li><a href="#" onclick="Docs.expandOperationsForResource('1206'); return false;">Expand Operations</a>
+                </li>
+            </ul>
+        </div>
+        <ul class="endpoints" id="1206_endpoint_list" style="overflow: hidden;">
+            <li class="endpoint">
+                <ul class="operations" style="width:100%; margin:0px; padding:0px;">
+
+
+                    <li class="get operation" id="_getChampions">
+                        <div class="heading">
+            <span class="http_method">
+              <a href="#champion-v1.2/GET_getChampions" onclick="Docs.toggleOperationForResource('GET_getChampions');">GET</a>
+            </span>
+                            <span class="path">
+              <a href="#champion-v1.2/GET_getChampions" onclick="Docs.toggleOperationForResource('GET_getChampions');">/api/lol/{region}/v1.2/champion</a>
+            </span>
+                            <ul class="options">
+                                <li><a href="#champion-v1.2/GET_getChampions"
+                                       onclick="Docs.toggleOperationForResource('GET_getChampions');">Retrieve all
+                                    champions. (REST)</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="content" id="GET_getChampions_content" style="overflow: hidden; display: none;">
+
+
+                            <div id="inputs-link" style="margin-bottom:10px;"><a href="#champion-v1.2/GET_getChampions"
+                                                                                 onclick="Docs.jumpToResource('div#execute_inputs_GET_getChampions')"
+                                                                                 style="font-size:16px; font-weight: bold">Jump
+                                to Inputs</a></div>
+
+
+                            <div class="api_block">
+                                <h4>Response Classes</h4>
+                                <div class="block response_body">
+
+                                    <h4>Return value: ChampionListDto </h4>
+
+                                </div>
+
+
+                                <div class="block response_body">
+
+                                    <h5 style="display: inline;">ChampionListDto </h5>
+
+                                    - This object contains a collection of champion information.
+
+
+                                    <br/>
+
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th style="min-width:80px;">Data Type</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                        <tr>
+                                            <td>champions</td>
+                                            <td>List[ChampionDto]</td>
+                                            <td>The collection of champion information.
+
+                                            </td>
+                                        </tr>
+
+                                        </tbody>
+
+                                    </table>
+                                </div>
+
+                                <div class="block response_body">
+
+                                    <h5 style="display: inline;">ChampionDto </h5>
+
+                                    - This object contains champion information.
+
+
+                                    <br/>
+
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th style="min-width:80px;">Data Type</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                        <tr>
+                                            <td>rankedPlayEnabled</td>
+                                            <td>boolean</td>
+                                            <td>Ranked play enabled flag.
+
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>botMmEnabled</td>
+                                            <td>boolean</td>
+                                            <td>Bot Match Made enabled flag (for Co-op vs. AI games).
+
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>botEnabled</td>
+                                            <td>boolean</td>
+                                            <td>Bot enabled flag (for custom games).
+
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>active</td>
+                                            <td>boolean</td>
+                                            <td>Indicates if the champion is active.
+
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>freeToPlay</td>
+                                            <td>boolean</td>
+                                            <td>Indicates if the champion is free to play. Free to play champions are
+                                                rotated periodically.
+
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>id</td>
+                                            <td>long</td>
+                                            <td>Champion ID. For static information correlating to champion IDs, please
+                                                refer to the LoL Static Data API.
+
+                                            </td>
+                                        </tr>
+
+                                        </tbody>
+
+                                    </table>
+                                </div>
+
+
+                                <hr/>
+
+
+                            </div>
+
+                            <div class="api_block">
+                                <h4>Response Errors</h4>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>HTTP Status Code</th>
+                                        <th>Reason</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <tr class="odd">
+                                        <td>400</td>
+                                        <td>Bad request</td>
+                                    </tr>
+
+                                    <tr class="odd">
+                                        <td>500</td>
+                                        <td>Internal server error</td>
+                                    </tr>
+
+                                    <tr class="odd">
+                                        <td>429</td>
+                                        <td>Rate limit exceeded</td>
+                                    </tr>
+
+                                    <tr class="odd">
+                                        <td>503</td>
+                                        <td>Service unavailable</td>
+                                    </tr>
+
+                                    <tr class="odd">
+                                        <td>401</td>
+                                        <td>Unauthorized</td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div id="execute_inputs_GET_getChampions">
+
+                                <form accept-charset="UTF-8" class="sandbox">
+                                    <input type="hidden" name="name" value="GET_getChampions">
+                                    <input type="hidden" name="httpMethod" value="GET">
+                                    <input type="hidden" name="region" value="NA" id="region_platform_GET_getChampions">
+
+
+                                    <!-- QUERY PARAMS -->
+                                    <div class="api_block">
+                                        <h4>Query Parameters</h4>
+
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th style="min-width:220px;">Value</th>
+                                                <th style="min-width:120px;">Data Type</th>
+                                                <th>Description</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody class="operation-params">
+
+
+                                            <tr>
+                                                <td class="code">
+                                                    freeToPlay
+                                                    <div class="required"> optional</div>
+                                                </td>
+
+                                                <td>
+
+
+                                                    <input name="freeToPlay" class="form-control" minlength="1"
+                                                           type="text" value="" false="" ?="" ''="" :="" 'disabled'}="">
+
+
+                                                </td>
+
+                                                <td>
+              <span class="model-signature">
+
+                boolean
+
+              </span>
+                                                </td>
+                                                <td>Optional filter param to retrieve only free to play champions.</td>
+                                            </tr>
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                    <h4>Select Region to Execute Against</h4>
+                                    <select class="form-control" name='region_url' style="width: 200px"
+                                            id="region_based_url_GET_getChampions">
+
+
+                                        <option value='ru.api.riotgames.com'>RU</option>
+
+
+                                        <option value='lan.api.riotgames.com'>LAN</option>
+
+
+                                        <option value='eune.api.riotgames.com'>EUNE</option>
+
+
+                                        <option value='oce.api.riotgames.com'>OCE</option>
+
+
+                                        <option value='tr.api.riotgames.com'>TR</option>
+
+
+                                        <option value='jp.api.riotgames.com'>JP</option>
+
+
+                                        <option value='kr.api.riotgames.com'>KR</option>
+
+
+                                        <option value='br.api.riotgames.com'>BR</option>
+
+
+                                        <option value='na.api.riotgames.com'>NA</option>
+
+
+                                        <option value='euw.api.riotgames.com'>EUW</option>
+
+
+                                        <option value='las.api.riotgames.com'>LAS</option>
+
+
+                                    </select>
+
+
+                                    <hr/>
+
+
+                                    <div class="sandbox_header">
+                                        <div style="font-style: italic;">You must <a href="/signin"
+                                                                                     style="padding-left: 0; padding-bottom: 20px;font-size:inherit;">sign
+                                            in</a> to execute APIs through this page.
+                                        </div>
+                                        <input id="close_GET_getChampions" type="button" value="Close"
+                                               class="btn btn-riot"
+                                               onclick="Docs.toggleOperationForResource('GET_getChampions');">
+                                    </div>
+
+                                </form>
+                            </div>
+
+                            <div id="response_GET_getChampions" class="response">
+
+                                <div id="response_url_GET_getChampions_container" class="hide">
+                                    <h4>Request URL</h4>
+                                    <div id="response_url_GET_getChampions" class="block request_url"
+                                         style="overflow: auto"></div>
+                                </div>
+
+                                <div id="request_body_GET_getChampions_container" class="hide">
+                                    <h4>Request Body</h4>
+                                    <div id="request_body_GET_getChampions" class="block request_body"
+                                         style="overflow: auto"></div>
+                                </div>
+
+                                <div id="request_headers_GET_getChampions_container" class="hide">
+                                    <h4>Request Headers</h4>
+                                    <div id="response_reqheaders_GET_getChampions" class="block request_headers"
+                                         style="overflow: auto"></div>
+                                </div>
+
+                                <div id="response_code_GET_getChampions_container" class="hide">
+                                    <h4>Response Code</h4>
+                                    <div id="response_rescode_GET_getChampions" class="block response_code"
+                                         style="overflow: auto"></div>
+                                </div>
+
+                                <div id="response_headers_GET_getChampions_container" class="hide">
+                                    <h4>Response Headers</h4>
+                                    <div id="response_resheaders_GET_getChampions" class="block response_headers"
+                                         style="overflow: auto"></div>
+                                </div>
+
+                                <div id="response_body_GET_getChampions_container" class="hide">
+                                    <h4>Response Body</h4>
+                                    <div id="response_body_GET_getChampions" class="block response_body"
+                                         style="overflow: auto"></div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </li>
+
+                    <li class="get operation" id="_getChampionsById">
+                        <div class="heading">
+            <span class="http_method">
+              <a href="#champion-v1.2/GET_getChampionsById"
+                 onclick="Docs.toggleOperationForResource('GET_getChampionsById');">GET</a>
+            </span>
+                            <span class="path">
+              <a href="#champion-v1.2/GET_getChampionsById"
+                 onclick="Docs.toggleOperationForResource('GET_getChampionsById');">/api/lol/{region}/v1.2/champion/{id}</a>
+            </span>
+                            <ul class="options">
+                                <li><a href="#champion-v1.2/GET_getChampionsById"
+                                       onclick="Docs.toggleOperationForResource('GET_getChampionsById');">Retrieve
+                                    champion by ID. (REST)</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="content" id="GET_getChampionsById_content" style="overflow: hidden; display: none;">
+
+
+                            <div id="inputs-link" style="margin-bottom:10px;"><a
+                                    href="#champion-v1.2/GET_getChampionsById"
+                                    onclick="Docs.jumpToResource('div#execute_inputs_GET_getChampionsById')"
+                                    style="font-size:16px; font-weight: bold">Jump to Inputs</a></div>
+
+
+                            <div class="api_block">
+                                <h4>Response Classes</h4>
+                                <div class="block response_body">
+
+                                    <h4>Return value: ChampionDto </h4>
+
+                                </div>
+
+
+                                <div class="block response_body">
+
+                                    <h5 style="display: inline;">ChampionDto </h5>
+
+                                    - This object contains champion information.
+
+
+                                    <br/>
+
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th style="min-width:80px;">Data Type</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                        <tr>
+                                            <td>rankedPlayEnabled</td>
+                                            <td>boolean</td>
+                                            <td>Ranked play enabled flag.
+
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>botMmEnabled</td>
+                                            <td>boolean</td>
+                                            <td>Bot Match Made enabled flag (for Co-op vs. AI games).
+
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>botEnabled</td>
+                                            <td>boolean</td>
+                                            <td>Bot enabled flag (for custom games).
+
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>active</td>
+                                            <td>boolean</td>
+                                            <td>Indicates if the champion is active.
+
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>freeToPlay</td>
+                                            <td>boolean</td>
+                                            <td>Indicates if the champion is free to play. Free to play champions are
+                                                rotated periodically.
+
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>id</td>
+                                            <td>long</td>
+                                            <td>Champion ID. For static information correlating to champion IDs, please
+                                                refer to the LoL Static Data API.
+
+                                            </td>
+                                        </tr>
+
+                                        </tbody>
+
+                                    </table>
+                                </div>
+
+
+                                <hr/>
+
+
+                            </div>
+
+                            <div class="api_block">
+                                <h4>Response Errors</h4>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>HTTP Status Code</th>
+                                        <th>Reason</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <tr class="odd">
+                                        <td>400</td>
+                                        <td>Bad request</td>
+                                    </tr>
+
+                                    <tr class="odd">
+                                        <td>500</td>
+                                        <td>Internal server error</td>
+                                    </tr>
+
+                                    <tr class="odd">
+                                        <td>429</td>
+                                        <td>Rate limit exceeded</td>
+                                    </tr>
+
+                                    <tr class="odd">
+                                        <td>503</td>
+                                        <td>Service unavailable</td>
+                                    </tr>
+
+                                    <tr class="odd">
+                                        <td>401</td>
+                                        <td>Unauthorized</td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div id="execute_inputs_GET_getChampionsById">
+
+                                <form accept-charset="UTF-8" class="sandbox">
+                                    <input type="hidden" name="name" value="GET_getChampionsById">
+                                    <input type="hidden" name="httpMethod" value="GET">
+                                    <input type="hidden" name="region" value="NA"
+                                           id="region_platform_GET_getChampionsById">
+
+
+                                    <!-- PATH PARAMS -->
+                                    <div class="api_block">
+                                        <h4>Path Parameters</h4>
+
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th style="min-width:220px;">Value</th>
+                                                <th style="min-width:120px;">Data Type</th>
+                                                <th>Description</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody class="operation-params">
+
+
+                                            <tr>
+                                                <td class="code">
+                                                    id
+                                                    <div class="required"> required</div>
+                                                </td>
+
+                                                <td>
+
+                                                    <input name="id" class="form-control" minlength="1" type="text"
+                                                           value="" false="" ?="" ''="" :="" 'disabled'}="">
+
+                                                </td>
+                                                <td>
+              <span class="model-signature">
+
+                int
+
+              </span>
+                                                </td>
+                                                <td>ID of the champion to retrieve.</td>
+                                            </tr>
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                    <h4>Select Region to Execute Against</h4>
+                                    <select class="form-control" name='region_url' style="width: 200px"
+                                            id="region_based_url_GET_getChampionsById">
+
+
+                                        <option value='ru.api.riotgames.com'>RU</option>
+
+
+                                        <option value='lan.api.riotgames.com'>LAN</option>
+
+
+                                        <option value='eune.api.riotgames.com'>EUNE</option>
+
+
+                                        <option value='oce.api.riotgames.com'>OCE</option>
+
+
+                                        <option value='tr.api.riotgames.com'>TR</option>
+
+
+                                        <option value='jp.api.riotgames.com'>JP</option>
+
+
+                                        <option value='kr.api.riotgames.com'>KR</option>
+
+
+                                        <option value='br.api.riotgames.com'>BR</option>
+
+
+                                        <option value='na.api.riotgames.com'>NA</option>
+
+
+                                        <option value='euw.api.riotgames.com'>EUW</option>
+
+
+                                        <option value='las.api.riotgames.com'>LAS</option>
+
+
+                                    </select>
+
+
+                                    <hr/>
+
+
+                                    <div class="sandbox_header">
+                                        <div style="font-style: italic;">You must <a href="/signin"
+                                                                                     style="padding-left: 0; padding-bottom: 20px;font-size:inherit;">sign
+                                            in</a> to execute APIs through this page.
+                                        </div>
+                                        <input id="close_GET_getChampionsById" type="button" value="Close"
+                                               class="btn btn-riot"
+                                               onclick="Docs.toggleOperationForResource('GET_getChampionsById');">
+                                    </div>
+
+                                </form>
+                            </div>
+
+                            <div id="response_GET_getChampionsById" class="response">
+
+                                <div id="response_url_GET_getChampionsById_container" class="hide">
+                                    <h4>Request URL</h4>
+                                    <div id="response_url_GET_getChampionsById" class="block request_url"
+                                         style="overflow: auto"></div>
+                                </div>
+
+                                <div id="request_body_GET_getChampionsById_container" class="hide">
+                                    <h4>Request Body</h4>
+                                    <div id="request_body_GET_getChampionsById" class="block request_body"
+                                         style="overflow: auto"></div>
+                                </div>
+
+                                <div id="request_headers_GET_getChampionsById_container" class="hide">
+                                    <h4>Request Headers</h4>
+                                    <div id="response_reqheaders_GET_getChampionsById" class="block request_headers"
+                                         style="overflow: auto"></div>
+                                </div>
+
+                                <div id="response_code_GET_getChampionsById_container" class="hide">
+                                    <h4>Response Code</h4>
+                                    <div id="response_rescode_GET_getChampionsById" class="block response_code"
+                                         style="overflow: auto"></div>
+                                </div>
+
+                                <div id="response_headers_GET_getChampionsById_container" class="hide">
+                                    <h4>Response Headers</h4>
+                                    <div id="response_resheaders_GET_getChampionsById" class="block response_headers"
+                                         style="overflow: auto"></div>
+                                </div>
+
+                                <div id="response_body_GET_getChampionsById_container" class="hide">
+                                    <h4>Response Body</h4>
+                                    <div id="response_body_GET_getChampionsById" class="block response_body"
+                                         style="overflow: auto"></div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </li>
+
+
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
