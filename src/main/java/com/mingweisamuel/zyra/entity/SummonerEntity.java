@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * A high-level representation of a Summoner. TODO
  */
-public class SummonerEntity implements SummonerLoadable {
+public class SummonerEntity {
 
     private static final Cache<SummonerKey, SummonerEntity> instances = CacheBuilder.newBuilder().weakValues().build();
 
