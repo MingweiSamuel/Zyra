@@ -11,7 +11,7 @@ import java.lang.String;
  *
  * This object contains meta data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getItemList">Riot API reference</a> on Tue Mar 21 15:10:48 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getItemList">Riot API reference</a> on Thu Mar 23 10:53:08 PDT 2017. */
 public class MetaData implements Serializable {
   public final String tier;
 

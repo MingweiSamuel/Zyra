@@ -28,7 +28,7 @@ public enum Region {
     /** Japan. */
     JP("JP1"),
 
-    /** Public beta environment. Only functional is certain endpoints. */
+    /** Public beta environment. Only functional in certain endpoints. */
     PBE("PBE1"),
     /** Garena publisher - South east asia regions. Not functional in endpoints. */
     GARENA(null),

@@ -8,6 +8,7 @@ import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
@@ -27,6 +28,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -113,7 +115,10 @@ public class ApiGen {
 
         private final Element endpoint;
         private final String url;
-        private TypeName returnType;
+        private TypeName returnType = null;
+
+        private final List<EndpointParameter> endpointParametersReq = new LinkedList<>();
+        private final List<EndpointParameter> endpointParametersOpt = new LinkedList<>();
 
         public EndpointGen(Element endpoint) {
             this.endpoint = endpoint;
@@ -132,12 +137,29 @@ public class ApiGen {
             switch (titleH4.ownText().toLowerCase()) {
             case "response classes":
                 processEndpointDtos(apiBlock);
+                break;
             case "implementation notes":
                 docstringBuilder.append(apiBlock.toString());
+                break;
+            case "response errors":
+                //TODO
+                break;
+            case "path parameters":
+            case "query parameters":
+                processParameters(apiBlock);
+                break;
+            case "select region to execute against":
+            default:
+                // nop
+                break;
             }
+            //TODO endpoint methods
         }
 
         private void processEndpointDtos(Element apiBlock) {
+
+            System.out.println("        DTOs:");
+
             Elements dtos = apiBlock.children();
             // first element is H4 header
             // second is return value
@@ -148,6 +170,45 @@ public class ApiGen {
             for (int i = 2; i < dtos.size(); i++) {
                 if ("div".equals(dtos.get(i).tagName()))
                     createDto(dtos.get(i));
+            }
+        }
+
+        /**
+         * Add methods corresponding to this endpoint.
+         *
+         * @param apiBlock H4 Path Parameters
+         */
+        private void processParameters(Element apiBlock) {
+            if (returnType == null)
+                throw new IllegalStateException("return type not found before path parameters");
+
+            System.out.println("        Params:");
+
+            List<ParameterSpec> parameterSpecs = new LinkedList<>();
+            int requiredSpecs = 0;
+
+            Element paramTableBody = apiBlock.getElementsByTag("tbody").first();
+            Elements paramTrs = paramTableBody.getElementsByTag("tr");
+            for (Element paramTr : paramTrs) {
+                String paramName = paramTr.child(0).ownText();
+                String paramRequiredStr = paramTr.child(0).getElementsByClass("required").first().ownText();
+                boolean paramRequired = "required".equals(paramRequiredStr);
+                String paramTypeStr = paramTr.child(2).text();
+                TypeName paramType = getTypeFromString(paramTypeStr); //TODO championId (?)
+                String paramDesc = paramTr.child(3).text();
+
+                System.out.printf("            %s %s (%s) - %s%n",
+                    paramTypeStr, paramName, paramRequiredStr, paramDesc);
+
+                ParameterSpec.Builder paramBuilder = ParameterSpec.builder(paramType, paramName, Modifier.FINAL);
+                ParameterSpec paramSpec = paramBuilder.build();
+                EndpointParameter endpointParameter = new EndpointParameter(paramSpec, paramDesc);
+
+                // add to lists
+                if (paramRequired)
+                    endpointParametersReq.add(endpointParameter);
+                else
+                    endpointParametersOpt.add(endpointParameter);
             }
         }
 
@@ -165,16 +226,17 @@ public class ApiGen {
                 return false;
             processedDtos.add(dtoName);
 
-            System.out.printf("        %s - %s%n", dtoName, dtoDesc);
+            System.out.printf("            %s - %s%n", dtoName, dtoDesc);
 
             TypeSpec.Builder dtoBuilder = TypeSpec.classBuilder(dtoName);
             dtoBuilder.addModifiers(Modifier.PUBLIC);
             dtoBuilder.addSuperinterface(Serializable.class);
-            dtoBuilder.addJavadoc(dtoName + ".<br><br>\n\n");;
+            dtoBuilder.addJavadoc(dtoName + ".<br><br>\n\n");
+
             if (!dtoDesc.isEmpty())
                 dtoBuilder.addJavadoc(dtoDesc + ".<br><br>\n\n");
             dtoBuilder.addJavadoc(String.format("This class was automatically generated from the " +
-                    "<a href=\"%s\">Riot API reference</a> on %s.", url, timestamp));
+                "<a href=\"%s\">Riot API reference</a> on %s.", url, timestamp));
 
             // prep constructor, .equals(), and .hashCode()
             ClassName guavaObjectsName = ClassName.bestGuess("com.google.common.base.Objects");
@@ -254,8 +316,18 @@ public class ApiGen {
 
     }
 
-    // HELPER STATIC DATA AND METHODS //
+    // PARAMETER CLASS //
 
+    private static class EndpointParameter {
+        public final ParameterSpec spec;
+        public final String desc;
+        public EndpointParameter(ParameterSpec spec, String desc) {
+            this.spec = spec;
+            this.desc = desc;
+        }
+    }
+
+    // HELPER STATIC DATA AND METHODS //
 
     private static final File SOURCE_DESTINATION = new File("src/main/gen/");
 
