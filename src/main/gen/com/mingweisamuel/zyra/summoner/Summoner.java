@@ -11,11 +11,19 @@ import java.lang.String;
  *
  * represents a summoner.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#summoner-v1.4/GET_getByAccountIds">Riot API reference</a> on Thu Mar 23 10:53:08 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#summoner-v3/GET_getByAccountId">Riot API reference</a> on Tue May 16 19:55:45 PDT 2017. */
 public class Summoner implements Serializable {
   /**
    * ID of the summoner icon associated with the summoner. */
   public final int profileIconId;
+
+  /**
+   * Summoner name. */
+  public final String name;
+
+  /**
+   * Summoner level associated with the summoner. */
+  public final long summonerLevel;
 
   /**
    * Date summoner was last modified specified as epoch milliseconds. The following events will update this timestamp: profile icon change, playing the tutorial or advanced tutorial, finishing a game, summoner name change */
@@ -26,20 +34,17 @@ public class Summoner implements Serializable {
   public final long id;
 
   /**
-   * Summoner name. */
-  public final String name;
+   * Account ID. */
+  public final long accountId;
 
-  /**
-   * Summoner level associated with the summoner. */
-  public final long summonerLevel;
-
-  public Summoner(final int profileIconId, final long revisionDate, final long id,
-      final String name, final long summonerLevel) {
+  public Summoner(final int profileIconId, final String name, final long summonerLevel,
+      final long revisionDate, final long id, final long accountId) {
     this.profileIconId = profileIconId;
-    this.revisionDate = revisionDate;
-    this.id = id;
     this.name = name;
     this.summonerLevel = summonerLevel;
+    this.revisionDate = revisionDate;
+    this.id = id;
+    this.accountId = accountId;
   }
 
   @Override
@@ -49,17 +54,19 @@ public class Summoner implements Serializable {
     final Summoner other = (Summoner) obj;
     return true
         && Objects.equal(profileIconId, other.profileIconId)
+        && Objects.equal(name, other.name)
+        && Objects.equal(summonerLevel, other.summonerLevel)
         && Objects.equal(revisionDate, other.revisionDate)
         && Objects.equal(id, other.id)
-        && Objects.equal(name, other.name)
-        && Objects.equal(summonerLevel, other.summonerLevel);}
+        && Objects.equal(accountId, other.accountId);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
         profileIconId,
+        name,
+        summonerLevel,
         revisionDate,
         id,
-        name,
-        summonerLevel);}
+        accountId);}
 }

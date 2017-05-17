@@ -8,346 +8,248 @@ import java.lang.Override;
 /**
  * ParticipantStats.<br><br>
  *
- * This object contains participant statistics information.<br><br>
- *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v2.2/GET_getMatchByIdAndTournamentCode">Riot API reference</a> on Thu Mar 23 10:53:08 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Riot API reference</a> on Tue May 16 19:55:45 PDT 2017. */
 public class ParticipantStats implements Serializable {
-  /**
-   * Neutral jungle minions killed in your team's jungle */
-  public final long neutralMinionsKilledTeamJungle;
-
-  /**
-   * Number of wards killed */
-  public final long wardsKilled;
-
-  /**
-   * Number of unreal kills */
-  public final long unrealKills;
-
-  /**
-   * If game was a dominion game, player's objectives score, otherwise 0 */
-  public final long objectivePlayerScore;
-
-  /**
-   * Largest critical strike */
-  public final long largestCriticalStrike;
-
-  /**
-   * Total damage dealt */
-  public final long totalDamageDealt;
-
-  /**
-   * Magical damage dealt to champions */
-  public final long magicDamageDealtToChampions;
-
-  /**
-   * Largest multi kill */
-  public final long largestMultiKill;
-
-  /**
-   * Largest killing spree */
-  public final long largestKillingSpree;
-
-  /**
-   * Second item ID */
-  public final long item1;
-
-  /**
-   * Number of quadra kills */
-  public final long quadraKills;
-
-  /**
-   * Magic damage taken */
-  public final long magicDamageTaken;
-
-  /**
-   * Number of tower kills */
-  public final long towerKills;
-
-  /**
-   * Total dealt crowd control time */
-  public final long totalTimeCrowdControlDealt;
-
-  /**
-   * If game was a dominion game, player's total score, otherwise 0 */
-  public final long totalPlayerScore;
-
-  /**
-   * Flag indicating if participant got an assist on the first tower */
-  public final boolean firstTowerAssist;
-
-  /**
-   * Flag indicating whether or not the participant won */
-  public final boolean winner;
-
-  /**
-   * Gold earned */
-  public final long goldEarned;
-
-  /**
-   * Third item ID */
-  public final long item2;
-
-  /**
-   * Fourth item ID */
-  public final long item3;
-
-  /**
-   * First item ID */
-  public final long item0;
-
-  /**
-   * Flag indicating if participant got an assist on first blood */
-  public final boolean firstBloodAssist;
-
-  /**
-   * Seventh item ID */
-  public final long item6;
-
-  /**
-   * Number of wards placed */
-  public final long wardsPlaced;
-
-  /**
-   * Fifth item ID */
-  public final long item4;
-
-  /**
-   * Sixth item ID */
-  public final long item5;
-
-  /**
-   * Minions killed */
-  public final long minionsKilled;
-
-  /**
-   * If game was a dominion game, number of completed team objectives (i.e., quests) */
-  public final long teamObjective;
-
-  /**
-   * Number of triple kills */
-  public final long tripleKills;
-
-  /**
-   * Neutral jungle minions killed in the enemy team's jungle */
-  public final long neutralMinionsKilledEnemyJungle;
-
-  /**
-   * If game was a dominion game, number of node neutralization assists */
-  public final long nodeNeutralizeAssist;
-
-  /**
-   * If game was a dominion game, number of node capture assists */
-  public final long nodeCaptureAssist;
-
-  /**
-   * Number of killing sprees */
-  public final long killingSprees;
-
-  /**
-   * Magical damage dealt */
-  public final long magicDamageDealt;
-
-  /**
-   * Number of kills */
-  public final long kills;
-
-  /**
-   * Number of double kills */
-  public final long doubleKills;
-
-  /**
-   * Flag indicating if participant destroyed the first inhibitor */
-  public final boolean firstInhibitorKill;
-
-  /**
-   * True damage taken */
-  public final long trueDamageTaken;
-
-  /**
-   * If game was a dominion game, number of node neutralizations */
-  public final long nodeNeutralize;
-
-  /**
-   * Flag indicating if participant got first blood */
-  public final boolean firstBloodKill;
-
-  /**
-   * Number of assists */
-  public final long assists;
-
-  /**
-   * Number of deaths */
-  public final long deaths;
-
-  /**
-   * Neutral minions killed */
-  public final long neutralMinionsKilled;
-
-  /**
-   * If game was a dominion game, player's combat score, otherwise 0 */
-  public final long combatPlayerScore;
-
-  /**
-   * Vision wards purchased */
-  public final long visionWardsBoughtInGame;
-
-  /**
-   * Physical damage dealt to champions */
-  public final long physicalDamageDealtToChampions;
-
-  /**
-   * Gold spent */
-  public final long goldSpent;
-
-  /**
-   * True damage dealt */
-  public final long trueDamageDealt;
-
-  /**
-   * True damage dealt to champions */
-  public final long trueDamageDealtToChampions;
-
-  /**
-   * Champion level achieved */
-  public final long champLevel;
-
-  /**
-   * Number of penta kills */
-  public final long pentaKills;
-
-  /**
-   * Flag indicating if participant got an assist on the first inhibitor */
-  public final boolean firstInhibitorAssist;
-
-  /**
-   * Flag indicating if participant destroyed the first tower */
-  public final boolean firstTowerKill;
-
-  /**
-   * Total heal amount */
-  public final long totalHeal;
-
-  /**
-   * If game was a dominion game, number of node captures */
-  public final long nodeCapture;
-
-  /**
-   * Sight wards purchased */
-  public final long sightWardsBoughtInGame;
-
-  /**
-   * Total damage dealt to champions */
-  public final long totalDamageDealtToChampions;
-
-  /**
-   * Total units healed */
-  public final long totalUnitsHealed;
-
-  /**
-   * Number of inhibitor kills */
-  public final long inhibitorKills;
-
-  /**
-   * If game was a dominion game, team rank of the player's total score (e.g., 1-5) */
-  public final long totalScoreRank;
-
-  /**
-   * Total damage taken */
-  public final long totalDamageTaken;
-
-  /**
-   * Physical damage dealt */
   public final long physicalDamageDealt;
 
-  /**
-   * Physical damage taken */
+  public final int neutralMinionsKilledTeamJungle;
+
+  public final long magicDamageDealt;
+
+  public final int totalPlayerScore;
+
+  public final int deaths;
+
+  public final boolean win;
+
+  public final int neutralMinionsKilledEnemyJungle;
+
+  public final int altarsCaptured;
+
+  public final int largestCriticalStrike;
+
+  public final long totalDamageDealt;
+
+  public final long magicDamageDealtToChampions;
+
+  public final int visionWardsBoughtInGame;
+
+  public final long damageDealtToObjectives;
+
+  public final int largestKillingSpree;
+
+  public final int item1;
+
+  public final int quadraKills;
+
+  public final int teamObjective;
+
+  public final int totalTimeCrowdControlDealt;
+
+  public final int longestTimeSpentLiving;
+
+  public final int wardsKilled;
+
+  public final boolean firstTowerAssist;
+
+  public final boolean firstTowerKill;
+
+  public final int item2;
+
+  public final int item3;
+
+  public final int item0;
+
+  public final boolean firstBloodAssist;
+
+  public final long visionScore;
+
+  public final int wardsPlaced;
+
+  public final int item4;
+
+  public final int item5;
+
+  public final int item6;
+
+  public final int turretKills;
+
+  public final int tripleKills;
+
+  public final long damageSelfMitigated;
+
+  public final int champLevel;
+
+  public final int nodeNeutralizeAssist;
+
+  public final boolean firstInhibitorKill;
+
+  public final int goldEarned;
+
+  public final long magicalDamageTaken;
+
+  public final int kills;
+
+  public final int doubleKills;
+
+  public final int nodeCaptureAssist;
+
+  public final long trueDamageTaken;
+
+  public final int nodeNeutralize;
+
+  public final boolean firstInhibitorAssist;
+
+  public final int assists;
+
+  public final int unrealKills;
+
+  public final int neutralMinionsKilled;
+
+  public final int objectivePlayerScore;
+
+  public final int combatPlayerScore;
+
+  public final long damageDealtToTurrets;
+
+  public final int altarsNeutralized;
+
+  public final long physicalDamageDealtToChampions;
+
+  public final int goldSpent;
+
+  public final long trueDamageDealt;
+
+  public final long trueDamageDealtToChampions;
+
+  public final int participantId;
+
+  public final int pentaKills;
+
+  public final long totalHeal;
+
+  public final int totalMinionsKilled;
+
+  public final boolean firstBloodKill;
+
+  public final int nodeCapture;
+
+  public final int largestMultiKill;
+
+  public final int sightWardsBoughtInGame;
+
+  public final long totalDamageDealtToChampions;
+
+  public final int totalUnitsHealed;
+
+  public final int inhibitorKills;
+
+  public final int totalScoreRank;
+
+  public final long totalDamageTaken;
+
+  public final int killingSprees;
+
+  public final long timeCCingOthers;
+
   public final long physicalDamageTaken;
 
-  public ParticipantStats(final long neutralMinionsKilledTeamJungle, final long wardsKilled,
-      final long unrealKills, final long objectivePlayerScore, final long largestCriticalStrike,
-      final long totalDamageDealt, final long magicDamageDealtToChampions,
-      final long largestMultiKill, final long largestKillingSpree, final long item1,
-      final long quadraKills, final long magicDamageTaken, final long towerKills,
-      final long totalTimeCrowdControlDealt, final long totalPlayerScore,
-      final boolean firstTowerAssist, final boolean winner, final long goldEarned, final long item2,
-      final long item3, final long item0, final boolean firstBloodAssist, final long item6,
-      final long wardsPlaced, final long item4, final long item5, final long minionsKilled,
-      final long teamObjective, final long tripleKills, final long neutralMinionsKilledEnemyJungle,
-      final long nodeNeutralizeAssist, final long nodeCaptureAssist, final long killingSprees,
-      final long magicDamageDealt, final long kills, final long doubleKills,
-      final boolean firstInhibitorKill, final long trueDamageTaken, final long nodeNeutralize,
-      final boolean firstBloodKill, final long assists, final long deaths,
-      final long neutralMinionsKilled, final long combatPlayerScore,
-      final long visionWardsBoughtInGame, final long physicalDamageDealtToChampions,
-      final long goldSpent, final long trueDamageDealt, final long trueDamageDealtToChampions,
-      final long champLevel, final long pentaKills, final boolean firstInhibitorAssist,
-      final boolean firstTowerKill, final long totalHeal, final long nodeCapture,
-      final long sightWardsBoughtInGame, final long totalDamageDealtToChampions,
-      final long totalUnitsHealed, final long inhibitorKills, final long totalScoreRank,
-      final long totalDamageTaken, final long physicalDamageDealt, final long physicalDamageTaken) {
+  public ParticipantStats(final long physicalDamageDealt, final int neutralMinionsKilledTeamJungle,
+      final long magicDamageDealt, final int totalPlayerScore, final int deaths, final boolean win,
+      final int neutralMinionsKilledEnemyJungle, final int altarsCaptured,
+      final int largestCriticalStrike, final long totalDamageDealt,
+      final long magicDamageDealtToChampions, final int visionWardsBoughtInGame,
+      final long damageDealtToObjectives, final int largestKillingSpree, final int item1,
+      final int quadraKills, final int teamObjective, final int totalTimeCrowdControlDealt,
+      final int longestTimeSpentLiving, final int wardsKilled, final boolean firstTowerAssist,
+      final boolean firstTowerKill, final int item2, final int item3, final int item0,
+      final boolean firstBloodAssist, final long visionScore, final int wardsPlaced,
+      final int item4, final int item5, final int item6, final int turretKills,
+      final int tripleKills, final long damageSelfMitigated, final int champLevel,
+      final int nodeNeutralizeAssist, final boolean firstInhibitorKill, final int goldEarned,
+      final long magicalDamageTaken, final int kills, final int doubleKills,
+      final int nodeCaptureAssist, final long trueDamageTaken, final int nodeNeutralize,
+      final boolean firstInhibitorAssist, final int assists, final int unrealKills,
+      final int neutralMinionsKilled, final int objectivePlayerScore, final int combatPlayerScore,
+      final long damageDealtToTurrets, final int altarsNeutralized,
+      final long physicalDamageDealtToChampions, final int goldSpent, final long trueDamageDealt,
+      final long trueDamageDealtToChampions, final int participantId, final int pentaKills,
+      final long totalHeal, final int totalMinionsKilled, final boolean firstBloodKill,
+      final int nodeCapture, final int largestMultiKill, final int sightWardsBoughtInGame,
+      final long totalDamageDealtToChampions, final int totalUnitsHealed, final int inhibitorKills,
+      final int totalScoreRank, final long totalDamageTaken, final int killingSprees,
+      final long timeCCingOthers, final long physicalDamageTaken) {
+    this.physicalDamageDealt = physicalDamageDealt;
     this.neutralMinionsKilledTeamJungle = neutralMinionsKilledTeamJungle;
-    this.wardsKilled = wardsKilled;
-    this.unrealKills = unrealKills;
-    this.objectivePlayerScore = objectivePlayerScore;
+    this.magicDamageDealt = magicDamageDealt;
+    this.totalPlayerScore = totalPlayerScore;
+    this.deaths = deaths;
+    this.win = win;
+    this.neutralMinionsKilledEnemyJungle = neutralMinionsKilledEnemyJungle;
+    this.altarsCaptured = altarsCaptured;
     this.largestCriticalStrike = largestCriticalStrike;
     this.totalDamageDealt = totalDamageDealt;
     this.magicDamageDealtToChampions = magicDamageDealtToChampions;
-    this.largestMultiKill = largestMultiKill;
+    this.visionWardsBoughtInGame = visionWardsBoughtInGame;
+    this.damageDealtToObjectives = damageDealtToObjectives;
     this.largestKillingSpree = largestKillingSpree;
     this.item1 = item1;
     this.quadraKills = quadraKills;
-    this.magicDamageTaken = magicDamageTaken;
-    this.towerKills = towerKills;
+    this.teamObjective = teamObjective;
     this.totalTimeCrowdControlDealt = totalTimeCrowdControlDealt;
-    this.totalPlayerScore = totalPlayerScore;
+    this.longestTimeSpentLiving = longestTimeSpentLiving;
+    this.wardsKilled = wardsKilled;
     this.firstTowerAssist = firstTowerAssist;
-    this.winner = winner;
-    this.goldEarned = goldEarned;
+    this.firstTowerKill = firstTowerKill;
     this.item2 = item2;
     this.item3 = item3;
     this.item0 = item0;
     this.firstBloodAssist = firstBloodAssist;
-    this.item6 = item6;
+    this.visionScore = visionScore;
     this.wardsPlaced = wardsPlaced;
     this.item4 = item4;
     this.item5 = item5;
-    this.minionsKilled = minionsKilled;
-    this.teamObjective = teamObjective;
+    this.item6 = item6;
+    this.turretKills = turretKills;
     this.tripleKills = tripleKills;
-    this.neutralMinionsKilledEnemyJungle = neutralMinionsKilledEnemyJungle;
+    this.damageSelfMitigated = damageSelfMitigated;
+    this.champLevel = champLevel;
     this.nodeNeutralizeAssist = nodeNeutralizeAssist;
-    this.nodeCaptureAssist = nodeCaptureAssist;
-    this.killingSprees = killingSprees;
-    this.magicDamageDealt = magicDamageDealt;
+    this.firstInhibitorKill = firstInhibitorKill;
+    this.goldEarned = goldEarned;
+    this.magicalDamageTaken = magicalDamageTaken;
     this.kills = kills;
     this.doubleKills = doubleKills;
-    this.firstInhibitorKill = firstInhibitorKill;
+    this.nodeCaptureAssist = nodeCaptureAssist;
     this.trueDamageTaken = trueDamageTaken;
     this.nodeNeutralize = nodeNeutralize;
-    this.firstBloodKill = firstBloodKill;
+    this.firstInhibitorAssist = firstInhibitorAssist;
     this.assists = assists;
-    this.deaths = deaths;
+    this.unrealKills = unrealKills;
     this.neutralMinionsKilled = neutralMinionsKilled;
+    this.objectivePlayerScore = objectivePlayerScore;
     this.combatPlayerScore = combatPlayerScore;
-    this.visionWardsBoughtInGame = visionWardsBoughtInGame;
+    this.damageDealtToTurrets = damageDealtToTurrets;
+    this.altarsNeutralized = altarsNeutralized;
     this.physicalDamageDealtToChampions = physicalDamageDealtToChampions;
     this.goldSpent = goldSpent;
     this.trueDamageDealt = trueDamageDealt;
     this.trueDamageDealtToChampions = trueDamageDealtToChampions;
-    this.champLevel = champLevel;
+    this.participantId = participantId;
     this.pentaKills = pentaKills;
-    this.firstInhibitorAssist = firstInhibitorAssist;
-    this.firstTowerKill = firstTowerKill;
     this.totalHeal = totalHeal;
+    this.totalMinionsKilled = totalMinionsKilled;
+    this.firstBloodKill = firstBloodKill;
     this.nodeCapture = nodeCapture;
+    this.largestMultiKill = largestMultiKill;
     this.sightWardsBoughtInGame = sightWardsBoughtInGame;
     this.totalDamageDealtToChampions = totalDamageDealtToChampions;
     this.totalUnitsHealed = totalUnitsHealed;
     this.inhibitorKills = inhibitorKills;
     this.totalScoreRank = totalScoreRank;
     this.totalDamageTaken = totalDamageTaken;
-    this.physicalDamageDealt = physicalDamageDealt;
+    this.killingSprees = killingSprees;
+    this.timeCCingOthers = timeCCingOthers;
     this.physicalDamageTaken = physicalDamageTaken;
   }
 
@@ -357,134 +259,152 @@ public class ParticipantStats implements Serializable {
     if (!(obj instanceof ParticipantStats)) return false;
     final ParticipantStats other = (ParticipantStats) obj;
     return true
+        && Objects.equal(physicalDamageDealt, other.physicalDamageDealt)
         && Objects.equal(neutralMinionsKilledTeamJungle, other.neutralMinionsKilledTeamJungle)
-        && Objects.equal(wardsKilled, other.wardsKilled)
-        && Objects.equal(unrealKills, other.unrealKills)
-        && Objects.equal(objectivePlayerScore, other.objectivePlayerScore)
+        && Objects.equal(magicDamageDealt, other.magicDamageDealt)
+        && Objects.equal(totalPlayerScore, other.totalPlayerScore)
+        && Objects.equal(deaths, other.deaths)
+        && Objects.equal(win, other.win)
+        && Objects.equal(neutralMinionsKilledEnemyJungle, other.neutralMinionsKilledEnemyJungle)
+        && Objects.equal(altarsCaptured, other.altarsCaptured)
         && Objects.equal(largestCriticalStrike, other.largestCriticalStrike)
         && Objects.equal(totalDamageDealt, other.totalDamageDealt)
         && Objects.equal(magicDamageDealtToChampions, other.magicDamageDealtToChampions)
-        && Objects.equal(largestMultiKill, other.largestMultiKill)
+        && Objects.equal(visionWardsBoughtInGame, other.visionWardsBoughtInGame)
+        && Objects.equal(damageDealtToObjectives, other.damageDealtToObjectives)
         && Objects.equal(largestKillingSpree, other.largestKillingSpree)
         && Objects.equal(item1, other.item1)
         && Objects.equal(quadraKills, other.quadraKills)
-        && Objects.equal(magicDamageTaken, other.magicDamageTaken)
-        && Objects.equal(towerKills, other.towerKills)
+        && Objects.equal(teamObjective, other.teamObjective)
         && Objects.equal(totalTimeCrowdControlDealt, other.totalTimeCrowdControlDealt)
-        && Objects.equal(totalPlayerScore, other.totalPlayerScore)
+        && Objects.equal(longestTimeSpentLiving, other.longestTimeSpentLiving)
+        && Objects.equal(wardsKilled, other.wardsKilled)
         && Objects.equal(firstTowerAssist, other.firstTowerAssist)
-        && Objects.equal(winner, other.winner)
-        && Objects.equal(goldEarned, other.goldEarned)
+        && Objects.equal(firstTowerKill, other.firstTowerKill)
         && Objects.equal(item2, other.item2)
         && Objects.equal(item3, other.item3)
         && Objects.equal(item0, other.item0)
         && Objects.equal(firstBloodAssist, other.firstBloodAssist)
-        && Objects.equal(item6, other.item6)
+        && Objects.equal(visionScore, other.visionScore)
         && Objects.equal(wardsPlaced, other.wardsPlaced)
         && Objects.equal(item4, other.item4)
         && Objects.equal(item5, other.item5)
-        && Objects.equal(minionsKilled, other.minionsKilled)
-        && Objects.equal(teamObjective, other.teamObjective)
+        && Objects.equal(item6, other.item6)
+        && Objects.equal(turretKills, other.turretKills)
         && Objects.equal(tripleKills, other.tripleKills)
-        && Objects.equal(neutralMinionsKilledEnemyJungle, other.neutralMinionsKilledEnemyJungle)
+        && Objects.equal(damageSelfMitigated, other.damageSelfMitigated)
+        && Objects.equal(champLevel, other.champLevel)
         && Objects.equal(nodeNeutralizeAssist, other.nodeNeutralizeAssist)
-        && Objects.equal(nodeCaptureAssist, other.nodeCaptureAssist)
-        && Objects.equal(killingSprees, other.killingSprees)
-        && Objects.equal(magicDamageDealt, other.magicDamageDealt)
+        && Objects.equal(firstInhibitorKill, other.firstInhibitorKill)
+        && Objects.equal(goldEarned, other.goldEarned)
+        && Objects.equal(magicalDamageTaken, other.magicalDamageTaken)
         && Objects.equal(kills, other.kills)
         && Objects.equal(doubleKills, other.doubleKills)
-        && Objects.equal(firstInhibitorKill, other.firstInhibitorKill)
+        && Objects.equal(nodeCaptureAssist, other.nodeCaptureAssist)
         && Objects.equal(trueDamageTaken, other.trueDamageTaken)
         && Objects.equal(nodeNeutralize, other.nodeNeutralize)
-        && Objects.equal(firstBloodKill, other.firstBloodKill)
+        && Objects.equal(firstInhibitorAssist, other.firstInhibitorAssist)
         && Objects.equal(assists, other.assists)
-        && Objects.equal(deaths, other.deaths)
+        && Objects.equal(unrealKills, other.unrealKills)
         && Objects.equal(neutralMinionsKilled, other.neutralMinionsKilled)
+        && Objects.equal(objectivePlayerScore, other.objectivePlayerScore)
         && Objects.equal(combatPlayerScore, other.combatPlayerScore)
-        && Objects.equal(visionWardsBoughtInGame, other.visionWardsBoughtInGame)
+        && Objects.equal(damageDealtToTurrets, other.damageDealtToTurrets)
+        && Objects.equal(altarsNeutralized, other.altarsNeutralized)
         && Objects.equal(physicalDamageDealtToChampions, other.physicalDamageDealtToChampions)
         && Objects.equal(goldSpent, other.goldSpent)
         && Objects.equal(trueDamageDealt, other.trueDamageDealt)
         && Objects.equal(trueDamageDealtToChampions, other.trueDamageDealtToChampions)
-        && Objects.equal(champLevel, other.champLevel)
+        && Objects.equal(participantId, other.participantId)
         && Objects.equal(pentaKills, other.pentaKills)
-        && Objects.equal(firstInhibitorAssist, other.firstInhibitorAssist)
-        && Objects.equal(firstTowerKill, other.firstTowerKill)
         && Objects.equal(totalHeal, other.totalHeal)
+        && Objects.equal(totalMinionsKilled, other.totalMinionsKilled)
+        && Objects.equal(firstBloodKill, other.firstBloodKill)
         && Objects.equal(nodeCapture, other.nodeCapture)
+        && Objects.equal(largestMultiKill, other.largestMultiKill)
         && Objects.equal(sightWardsBoughtInGame, other.sightWardsBoughtInGame)
         && Objects.equal(totalDamageDealtToChampions, other.totalDamageDealtToChampions)
         && Objects.equal(totalUnitsHealed, other.totalUnitsHealed)
         && Objects.equal(inhibitorKills, other.inhibitorKills)
         && Objects.equal(totalScoreRank, other.totalScoreRank)
         && Objects.equal(totalDamageTaken, other.totalDamageTaken)
-        && Objects.equal(physicalDamageDealt, other.physicalDamageDealt)
+        && Objects.equal(killingSprees, other.killingSprees)
+        && Objects.equal(timeCCingOthers, other.timeCCingOthers)
         && Objects.equal(physicalDamageTaken, other.physicalDamageTaken);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
+        physicalDamageDealt,
         neutralMinionsKilledTeamJungle,
-        wardsKilled,
-        unrealKills,
-        objectivePlayerScore,
+        magicDamageDealt,
+        totalPlayerScore,
+        deaths,
+        win,
+        neutralMinionsKilledEnemyJungle,
+        altarsCaptured,
         largestCriticalStrike,
         totalDamageDealt,
         magicDamageDealtToChampions,
-        largestMultiKill,
+        visionWardsBoughtInGame,
+        damageDealtToObjectives,
         largestKillingSpree,
         item1,
         quadraKills,
-        magicDamageTaken,
-        towerKills,
+        teamObjective,
         totalTimeCrowdControlDealt,
-        totalPlayerScore,
+        longestTimeSpentLiving,
+        wardsKilled,
         firstTowerAssist,
-        winner,
-        goldEarned,
+        firstTowerKill,
         item2,
         item3,
         item0,
         firstBloodAssist,
-        item6,
+        visionScore,
         wardsPlaced,
         item4,
         item5,
-        minionsKilled,
-        teamObjective,
+        item6,
+        turretKills,
         tripleKills,
-        neutralMinionsKilledEnemyJungle,
+        damageSelfMitigated,
+        champLevel,
         nodeNeutralizeAssist,
-        nodeCaptureAssist,
-        killingSprees,
-        magicDamageDealt,
+        firstInhibitorKill,
+        goldEarned,
+        magicalDamageTaken,
         kills,
         doubleKills,
-        firstInhibitorKill,
+        nodeCaptureAssist,
         trueDamageTaken,
         nodeNeutralize,
-        firstBloodKill,
+        firstInhibitorAssist,
         assists,
-        deaths,
+        unrealKills,
         neutralMinionsKilled,
+        objectivePlayerScore,
         combatPlayerScore,
-        visionWardsBoughtInGame,
+        damageDealtToTurrets,
+        altarsNeutralized,
         physicalDamageDealtToChampions,
         goldSpent,
         trueDamageDealt,
         trueDamageDealtToChampions,
-        champLevel,
+        participantId,
         pentaKills,
-        firstInhibitorAssist,
-        firstTowerKill,
         totalHeal,
+        totalMinionsKilled,
+        firstBloodKill,
         nodeCapture,
+        largestMultiKill,
         sightWardsBoughtInGame,
         totalDamageDealtToChampions,
         totalUnitsHealed,
         inhibitorKills,
         totalScoreRank,
         totalDamageTaken,
-        physicalDamageDealt,
+        killingSprees,
+        timeCCingOthers,
         physicalDamageTaken);}
 }

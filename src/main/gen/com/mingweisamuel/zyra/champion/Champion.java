@@ -10,19 +10,19 @@ import java.lang.Override;
  *
  * This object contains champion information..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#champion-v1.2/GET_getChampions">Riot API reference</a> on Thu Mar 23 10:53:08 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampions">Riot API reference</a> on Tue May 16 19:55:45 PDT 2017. */
 public class Champion implements Serializable {
   /**
    * Ranked play enabled flag. */
   public final boolean rankedPlayEnabled;
 
   /**
-   * Bot Match Made enabled flag (for Co-op vs. AI games). */
-  public final boolean botMmEnabled;
-
-  /**
    * Bot enabled flag (for custom games). */
   public final boolean botEnabled;
+
+  /**
+   * Bot Match Made enabled flag (for Co-op vs. AI games). */
+  public final boolean botMmEnabled;
 
   /**
    * Indicates if the champion is active. */
@@ -36,11 +36,11 @@ public class Champion implements Serializable {
    * Champion ID. For static information correlating to champion IDs, please refer to the LoL Static Data API. */
   public final long id;
 
-  public Champion(final boolean rankedPlayEnabled, final boolean botMmEnabled,
-      final boolean botEnabled, final boolean active, final boolean freeToPlay, final long id) {
+  public Champion(final boolean rankedPlayEnabled, final boolean botEnabled,
+      final boolean botMmEnabled, final boolean active, final boolean freeToPlay, final long id) {
     this.rankedPlayEnabled = rankedPlayEnabled;
-    this.botMmEnabled = botMmEnabled;
     this.botEnabled = botEnabled;
+    this.botMmEnabled = botMmEnabled;
     this.active = active;
     this.freeToPlay = freeToPlay;
     this.id = id;
@@ -53,8 +53,8 @@ public class Champion implements Serializable {
     final Champion other = (Champion) obj;
     return true
         && Objects.equal(rankedPlayEnabled, other.rankedPlayEnabled)
-        && Objects.equal(botMmEnabled, other.botMmEnabled)
         && Objects.equal(botEnabled, other.botEnabled)
+        && Objects.equal(botMmEnabled, other.botMmEnabled)
         && Objects.equal(active, other.active)
         && Objects.equal(freeToPlay, other.freeToPlay)
         && Objects.equal(id, other.id);}
@@ -63,8 +63,8 @@ public class Champion implements Serializable {
   public int hashCode() {
     return Objects.hashCode(0,
         rankedPlayEnabled,
-        botMmEnabled,
         botEnabled,
+        botMmEnabled,
         active,
         freeToPlay,
         id);}

@@ -1,4 +1,4 @@
-package com.mingweisamuel.zyra.matchList;
+package com.mingweisamuel.zyra.matchlist;
 
 import com.google.common.base.Objects;
 import java.io.Serializable;
@@ -11,8 +11,10 @@ import java.lang.String;
  *
  * This object contains match reference information.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#matchlist-v2.2/GET_getMatchList">Riot API reference</a> on Thu Mar 23 10:53:08 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#matchlist-v2.2/GET_getMatchList">Riot API reference</a> on Mon May 15 17:36:46 PDT 2017. */
 public class MatchReference implements Serializable {
+  /**
+   * (Legal values: MID, MIDDLE, TOP, JUNGLE, BOT, BOTTOM) */
   public final String lane;
 
   public final long champion;
@@ -25,10 +27,16 @@ public class MatchReference implements Serializable {
 
   public final long matchId;
 
+  /**
+   * (Legal values: RANKED_FLEX_SR, RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5, TEAM_BUILDER_DRAFT_RANKED_5x5, TEAM_BUILDER_RANKED_SOLO) */
   public final String queue;
 
+  /**
+   * (Legal values: DUO, NONE, SOLO, DUO_CARRY, DUO_SUPPORT) */
   public final String role;
 
+  /**
+   * (Legal values: PRESEASON3, SEASON3, PRESEASON2014, SEASON2014, PRESEASON2015, SEASON2015, PRESEASON2016, SEASON2016, PRESEASON2017, SEASON2017) */
   public final String season;
 
   public MatchReference(final String lane, final long champion, final String platformId,

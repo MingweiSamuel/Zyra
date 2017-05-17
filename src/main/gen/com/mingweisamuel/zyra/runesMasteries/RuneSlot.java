@@ -10,7 +10,7 @@ import java.lang.Override;
  *
  * This object contains rune slot information..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#runes-masteries-v1.4/GET_getRunePagesBySummonerIds">Riot API reference</a> on Thu Mar 23 10:53:08 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#runes-masteries-v1.4/GET_getRunePagesBySummonerIds">Riot API reference</a> on Mon May 15 17:36:46 PDT 2017. */
 public class RuneSlot implements Serializable {
   /**
    * Rune ID associated with the rune slot. For static information correlating to rune IDs, please refer to the LoL Static Data API. */

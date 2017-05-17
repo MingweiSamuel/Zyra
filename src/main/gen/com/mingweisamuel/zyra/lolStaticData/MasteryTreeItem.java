@@ -11,7 +11,7 @@ import java.lang.String;
  *
  * This object contains mastery tree item data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getMasteryList">Riot API reference</a> on Thu Mar 23 10:53:08 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getMasteryList">Riot API reference</a> on Mon May 15 17:36:46 PDT 2017. */
 public class MasteryTreeItem implements Serializable {
   public final int masteryId;
 

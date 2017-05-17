@@ -8,19 +8,13 @@ import java.lang.Override;
 /**
  * Mastery.<br><br>
  *
- * This object contains mastery information.<br><br>
- *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v2.2/GET_getMatchByIdAndTournamentCode">Riot API reference</a> on Thu Mar 23 10:53:08 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Riot API reference</a> on Tue May 16 19:55:45 PDT 2017. */
 public class Mastery implements Serializable {
-  /**
-   * Mastery ID */
-  public final long masteryId;
+  public final int masteryId;
 
-  /**
-   * Mastery rank */
-  public final long rank;
+  public final int rank;
 
-  public Mastery(final long masteryId, final long rank) {
+  public Mastery(final int masteryId, final int rank) {
     this.masteryId = masteryId;
     this.rank = rank;
   }

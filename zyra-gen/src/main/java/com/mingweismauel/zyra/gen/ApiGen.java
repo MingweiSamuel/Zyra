@@ -1,6 +1,7 @@
 package com.mingweismauel.zyra.gen;
 
 import com.google.common.base.CaseFormat;
+import com.google.common.collect.Iterables;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.javapoet.ClassName;
@@ -23,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -32,6 +34,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 /**
  * Generates the API code from the online API reference HTML.
@@ -42,6 +46,7 @@ public class ApiGen {
 
     public static void main(String... args) throws IOException {
 
+        //noinspection ResultOfMethodCallIgnored
         SOURCE_DESTINATION.mkdirs();
 
         Document doc = Jsoup.connect("https://developer.riotgames.com/api-methods").get();
@@ -68,7 +73,7 @@ public class ApiGen {
 
             String rawName = apiOptionElement.ownText();
             String normalizedName = normalizeEndpointName(rawName);
-            if (IGNORED_ENDPOINTS.contains(normalizedName))
+            if (IGNORED_ENDPOINTSS.contains(normalizedName) || !rawName.endsWith("v3"))
                 continue;
 
             ApiGen gen = new ApiGen(json.get("html"), rawName, normalizedName);
@@ -84,12 +89,8 @@ public class ApiGen {
 
     private final Set<String> processedDtos = new HashSet<>();
 
-    private final StringBuilder docstringBuilder = new StringBuilder();
-
-    private TypeSpec.Builder typeBuilder;
-
     /**
-     * Represents a ENDPOINT*S*
+     * Represents an ENDPOINT*S*
      * @param html
      * @param endpointsRawName
      * @param endpointsNormalizedName
@@ -104,51 +105,150 @@ public class ApiGen {
 
     public void compile() {
         Document apiDoc = Jsoup.parse(html);
-        typeBuilder = TypeSpec.classBuilder(endpointsNormalizedName + "Endpoints");
+        TypeSpec.Builder typeBuilder = TypeSpec.classBuilder(endpointsNormalizedName + "Endpoints");
+        typeBuilder.addModifiers(Modifier.PUBLIC, Modifier.FINAL);
+        typeBuilder.superclass(ClassName.bestGuess("com.mingweisamuel.zyra.Endpoints"));
+        typeBuilder.addJavadoc(endpointsRawName);
+        typeBuilder.addJavadoc("\nThis class is automatically generated and should not be modified directly.\n");
+
+        MethodSpec.Builder constructorBuilder = MethodSpec.constructorBuilder();
+        constructorBuilder.addParameter(
+            ClassName.bestGuess("com.mingweisamuel.zyra.RiotApi"), "riotApi", Modifier.FINAL);
+        constructorBuilder.addCode("super(riotApi);\n");
+        typeBuilder.addMethod(constructorBuilder.build());
+
         System.out.printf("%s (%s)%n", endpointsRawName, endpointsNormalizedName);
 
         Elements endpoints = apiDoc.getElementsByClass("operation");
-        endpoints.stream().map(EndpointGen::new).forEach(EndpointGen::compile);
+        List<EndpointGen> endpointGens = endpoints.stream().map(EndpointGen::new)
+            .filter(eg -> !IGNORED_ENDPOINTS.contains(endpointsNormalizedName + '.' + eg.methodName))
+            .collect(Collectors.toList());
+        endpointGens.stream().map(EndpointGen::compile).flatMap(List::stream).forEach(typeBuilder::addMethod);
+
+        TypeSpec typeSpec = typeBuilder.build();
+        JavaFile javaFile = JavaFile.builder(PACKAGE, typeSpec).build();
+        try {
+            javaFile.writeTo(SOURCE_DESTINATION);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private class EndpointGen {
 
         private final Element endpoint;
+        private final String methodName;
+        private final String requestUrl;
         private final String url;
-        private TypeName returnType = null;
+        private final boolean nonRateLimited;
 
+        private TypeName returnType = null;
+        private final StringBuilder docstringBuilder = new StringBuilder();
+
+        private final List<EndpointParameter> endpointParametersPath = new LinkedList<>();
         private final List<EndpointParameter> endpointParametersReq = new LinkedList<>();
         private final List<EndpointParameter> endpointParametersOpt = new LinkedList<>();
 
         public EndpointGen(Element endpoint) {
             this.endpoint = endpoint;
+            this.methodName = endpoint.id().substring(1);
+            this.requestUrl = endpoint.child(0).child(1).child(0).ownText();
+            this.nonRateLimited = NON_RATE_LIMITED_ENDPOINTSS.contains(this.methodName);
+
             url = "https://developer.riotgames.com/api-methods/" +
                 endpoint.child(0).child(0).child(0).attr("href");
-            System.out.printf("    %s (%s)%n", endpoint.id().substring(1), url);
+            docstringBuilder.append(String.format("<a href=\"%s\">%s</a><br>\n", url, "Link to Portal"));
         }
 
-        public void compile() {
+        public List<MethodSpec> compile() {
+            System.out.printf("    %s (%s)%n", methodName, url);
+
             Elements apiBlocks = endpoint.getElementsByClass("api_block");
             apiBlocks.forEach(this::processApiBlock);
+
+            LinkedList<MethodSpec> methodSpecs = new LinkedList<>();
+
+            for (int optArgs = endpointParametersOpt.size(); optArgs >= 0; optArgs--) {
+
+                MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(methodName);
+                methodBuilder.addModifiers(Modifier.PUBLIC);
+                methodBuilder.returns(returnType);
+                methodBuilder.addException(ExecutionException.class);
+                methodBuilder.addComment(
+                    "This method is automatically generated and should not be modified directly.");
+                methodBuilder.addJavadoc(docstringBuilder.toString());
+
+                StringBuilder code = new StringBuilder("return this.").append(methodName).append('(');
+
+                // region param
+                TypeName regionType = ClassName.bestGuess("com.mingweisamuel.zyra.enums.Region");
+                methodBuilder.addParameter(ParameterSpec.builder(regionType, "region", Modifier.FINAL).build());
+                methodBuilder.addJavadoc("@param region Region to execute against.");
+                code.append("region, ");
+
+                for (EndpointParameter requiredParam :
+                    Iterables.concat(endpointParametersPath, endpointParametersReq)) {
+
+                    methodBuilder.addParameter(requiredParam.spec);
+                    methodBuilder.addJavadoc("@param $L (required) $L\n", requiredParam.spec.name, requiredParam.desc);
+                    code.append(requiredParam.spec.name).append(", ");
+                }
+
+                for (EndpointParameter optionalParam : endpointParametersOpt.subList(0, optArgs)) {
+
+                    methodBuilder.addParameter(optionalParam.spec);
+                    methodBuilder.addJavadoc("@param $L (optional) $L\n", optionalParam.spec.name, optionalParam.desc);
+                    code.append(optionalParam.spec.name).append(", ");
+                }
+
+                for (int i = optArgs; i < endpointParametersOpt.size(); i++)
+                    code.append("null, ");
+                code.setLength(code.length() - 2);
+                code.append(");");
+
+                if (optArgs == endpointParametersOpt.size()) {
+                    methodBuilder.addCode("$T url = $L;\n", String.class, this.getUrlCode());
+                    methodBuilder.addCode("$T type = $L;\n", Type.class, this.getGsonTypeCode());
+                    String optParamsStr = buildOptionalParams();
+                    if (optParamsStr.isEmpty()) {
+                        methodBuilder.addCode("return riotApi.getBasic$L(url, region, type);",
+                            nonRateLimited ? "NonRateLimited" : "");
+                    }
+                    else {
+                        methodBuilder.addCode("return riotApi.getBasic$L(url, region, type, $T.makeParams($L));",
+                            nonRateLimited ? "NonRateLimited" : "",
+                            ClassName.bestGuess("com.mingweisamuel.zyra.RiotApi"),
+                            optParamsStr);
+                    }
+                }
+                else
+                    methodBuilder.addCode(code.toString());
+
+                methodSpecs.add(methodBuilder.build());
+            }
+
+            return methodSpecs;
         }
 
         private void processApiBlock(Element apiBlock) {
             Element titleH4 = apiBlock.getElementsByTag("h4").first();
-            switch (titleH4.ownText().toLowerCase()) {
+            switch (titleH4.ownText().trim().toLowerCase()) {
             case "response classes":
                 processEndpointDtos(apiBlock);
                 break;
             case "implementation notes":
-                docstringBuilder.append(apiBlock.toString());
+                docstringBuilder.append("Implementation Notes:<br>\n").append(apiBlock.child(1).text()).append('\n');
                 break;
             case "response errors":
                 //TODO
                 break;
             case "path parameters":
-            case "query parameters":
-                processParameters(apiBlock);
+                processParameters(apiBlock, true);
                 break;
-            case "select region to execute against":
+            case "query parameters":
+                processParameters(apiBlock, false);
+                break;
+            case "rate limit notes":
             default:
                 // nop
                 break;
@@ -165,11 +265,12 @@ public class ApiGen {
             // second is return value
             String returnTypeStr = dtos.get(1).text().trim();
             returnTypeStr = returnTypeStr.replaceFirst("^Return value: ", "");
-            this.returnType = getTypeFromString(returnTypeStr, PACKAGE);
+            this.returnType = getTypeFromString(returnTypeStr, dtoPackage).box();
             // rest are DTOs
             for (int i = 2; i < dtos.size(); i++) {
-                if ("div".equals(dtos.get(i).tagName()))
+                if ("div".equals(dtos.get(i).tagName())) {
                     createDto(dtos.get(i));
+                }
             }
         }
 
@@ -178,14 +279,11 @@ public class ApiGen {
          *
          * @param apiBlock H4 Path Parameters
          */
-        private void processParameters(Element apiBlock) {
+        private void processParameters(Element apiBlock, boolean arePathParams) {
             if (returnType == null)
                 throw new IllegalStateException("return type not found before path parameters");
 
             System.out.println("        Params:");
-
-            List<ParameterSpec> parameterSpecs = new LinkedList<>();
-            int requiredSpecs = 0;
 
             Element paramTableBody = apiBlock.getElementsByTag("tbody").first();
             Elements paramTrs = paramTableBody.getElementsByTag("tr");
@@ -193,8 +291,13 @@ public class ApiGen {
                 String paramName = paramTr.child(0).ownText();
                 String paramRequiredStr = paramTr.child(0).getElementsByClass("required").first().ownText();
                 boolean paramRequired = "required".equals(paramRequiredStr);
+                if (!paramRequired && arePathParams) { // error in docs
+                    paramRequired = true;
+                }
                 String paramTypeStr = paramTr.child(2).text();
                 TypeName paramType = getTypeFromString(paramTypeStr); //TODO championId (?)
+                if (!paramRequired) // optional parameters nullable
+                    paramType = paramType.box();
                 String paramDesc = paramTr.child(3).text();
 
                 System.out.printf("            %s %s (%s) - %s%n",
@@ -205,7 +308,9 @@ public class ApiGen {
                 EndpointParameter endpointParameter = new EndpointParameter(paramSpec, paramDesc);
 
                 // add to lists
-                if (paramRequired)
+                if (arePathParams)
+                    endpointParametersPath.add(endpointParameter);
+                else if (paramRequired)
                     endpointParametersReq.add(endpointParameter);
                 else
                     endpointParametersOpt.add(endpointParameter);
@@ -314,6 +419,41 @@ public class ApiGen {
             return true;
         }
 
+        public CodeBlock getGsonTypeCode() {
+            if (returnType instanceof ParameterizedTypeName) {
+
+                TypeSpec typeTokenType = TypeSpec.anonymousClassBuilder("").addSuperinterface(ParameterizedTypeName.get(
+                    ClassName.bestGuess("com.google.gson.reflect.TypeToken"), returnType)).build();
+
+                return CodeBlock.of("$L.getType()", typeTokenType);
+            }
+            return CodeBlock.of("$T.class", returnType);
+        }
+
+        public CodeBlock getUrlCode() {
+            String requestUrlNormalized = requestUrl
+                .replaceFirst("\\{\\S+?}", "%1\\$s")
+                .replaceFirst("\\{\\S+?}", "%2\\$s");
+
+            StringBuilder argsBuilder = new StringBuilder();
+            for (EndpointParameter param : endpointParametersPath) {
+                argsBuilder.append(", ").append(param.spec.name);
+            }
+
+            return CodeBlock.of("String.format($S$L)", requestUrlNormalized, argsBuilder.toString());
+        }
+
+        private String buildOptionalParams() {
+            StringBuilder paramsBuilder = new StringBuilder();
+            if (!endpointParametersOpt.isEmpty()) {
+                for (EndpointParameter param : endpointParametersOpt)
+                    paramsBuilder.append("\"").append(param.spec.name)
+                        .append("\", ").append(param.spec.name).append(", ");
+                paramsBuilder.setLength(paramsBuilder.length() - 2);
+                paramsBuilder.append(")");
+            }
+            return paramsBuilder.toString();
+        }
     }
 
     // PARAMETER CLASS //
@@ -341,51 +481,49 @@ public class ApiGen {
     private static String normalizeEndpointName(String name) {
         name = name.toLowerCase().replaceFirst("-v\\d+(?:\\.\\d+)?", "");
         name = CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, name);
-        if (NORMAL_ENDPOINTS.containsKey(name))
-            name = NORMAL_ENDPOINTS.get(name);
         return name;
     }
 
-    /** Special endpoint endpointsNormalizedName cases. */
-    private static final HashMap<String, String> NORMAL_ENDPOINTS = new HashMap<>();
-    static {
-        NORMAL_ENDPOINTS.put("Championmastery", "ChampionMastery");
-        NORMAL_ENDPOINTS.put("Matchlist", "MatchList");
-    }
+    /** Ignore tournament endpoint*s* (for now). */
+    private static final HashSet<String> IGNORED_ENDPOINTSS =
+        new HashSet<>(Arrays.asList("Tournament", "TournamentStub"));
 
-    /**  Ignore tournament endpoints (for now). */
+    /** Ignore tournament-related match endpoints. */
     private static final HashSet<String> IGNORED_ENDPOINTS =
-        new HashSet<>(Arrays.asList("TournamentProvider", "TournamentStub"));
+        new HashSet<>(Arrays.asList("Match.getMatchIdsByTournamentCode", "Match.getMatchByTournamentCode"));
+
+    private static final HashSet<String> NON_RATE_LIMITED_ENDPOINTSS =
+        new HashSet<>(Arrays.asList("LolStatus", "StaticData"));
 
     /** DTO field type overrides. */
     private static final Map<String, TypeName> FIELD_TYPES = new HashMap<>();
     static {
-        FIELD_TYPES.put("LolStaticData.ChampionSpell.effect", ParameterizedTypeName.get(ClassName.get(List.class),
+        FIELD_TYPES.put("StaticData.ChampionSpell.effect", ParameterizedTypeName.get(ClassName.get(List.class),
             ParameterizedTypeName.get(List.class, Double.class)));
-        FIELD_TYPES.put("LolStaticData.ChampionSpell.range", ParameterizedTypeName.get(List.class, Integer.class));
-        FIELD_TYPES.put("LolStaticData.SummonerSpell.effect", ParameterizedTypeName.get(ClassName.get(List.class),
+        FIELD_TYPES.put("StaticData.ChampionSpell.range", ParameterizedTypeName.get(List.class, Integer.class));
+        FIELD_TYPES.put("StaticData.SummonerSpell.effect", ParameterizedTypeName.get(ClassName.get(List.class),
             ParameterizedTypeName.get(List.class, Double.class)));
-        FIELD_TYPES.put("LolStaticData.SummonerSpell.range", ParameterizedTypeName.get(List.class, Integer.class));
+        FIELD_TYPES.put("StaticData.SummonerSpell.range", ParameterizedTypeName.get(List.class, Integer.class));
         // Map<String, Item> -> Map<Integer, Item>
-        FIELD_TYPES.put("LolStaticData.ItemList.data",
+        FIELD_TYPES.put("StaticData.ItemList.data",
             ParameterizedTypeName.get(ClassName.get(Map.class),TypeName.INT.box(),
                 ClassName.bestGuess("com.mingweisamuel.zyra.lolStaticData.Item")));
         // Map<String, Boolean> -> Map<Integer, Boolean>
-        FIELD_TYPES.put("LolStaticData.Item.maps", ParameterizedTypeName.get(Map.class, Integer.class, Boolean.class));
+        FIELD_TYPES.put("StaticData.Item.maps", ParameterizedTypeName.get(Map.class, Integer.class, Boolean.class));
         // Map<String, MapDetails> -> Map<Integer, MapDetails>
-        FIELD_TYPES.put("LolStaticData.MapData.data",
+        FIELD_TYPES.put("StaticData.MapData.data",
             ParameterizedTypeName.get(ClassName.get(Map.class), TypeName.LONG.box(),
                 ClassName.bestGuess("com.mingweisamuel.zyra.lolStaticData.MapDetails")));
         // Map<String, Mastery> -> Map<Integer, Mastery>
-        FIELD_TYPES.put("LolStaticData.MasteryList.data",
+        FIELD_TYPES.put("StaticData.MasteryList.data",
             ParameterizedTypeName.get(ClassName.get(Map.class), TypeName.INT.box(),
                 ClassName.bestGuess("com.mingweisamuel.zyra.lolStaticData.Mastery")));
         // Map<String, Rune> -> Map<Integer, Rune>
-        FIELD_TYPES.put("LolStaticData.RuneList.data",
+        FIELD_TYPES.put("StaticData.RuneList.data",
             ParameterizedTypeName.get(ClassName.get(Map.class), TypeName.INT.box(),
                 ClassName.bestGuess("com.mingweisamuel.zyra.lolStaticData.Rune")));
         // Map<String, SummonerSpell> -> Map<Integer, SummonerSpell>
-        FIELD_TYPES.put("LolStaticData.SummonerSpellList.data", ParameterizedTypeName.get(ClassName.get(Map.class),
+        FIELD_TYPES.put("StaticData.SummonerSpellList.data", ParameterizedTypeName.get(ClassName.get(Map.class),
             TypeName.INT.box(), ClassName.bestGuess("com.mingweisamuel.zyra.lolStaticData.SummonerSpell")));
     }
 

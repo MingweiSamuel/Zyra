@@ -6,62 +6,42 @@ import com.mingweisamuel.zyra.enums.Region;
 import java.lang.Boolean;
 import java.lang.String;
 import java.lang.reflect.Type;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 /**
- * This class is automagically generated from the <a href="https://developer.riotgames.com/api/methods">Riot API reference</a>.
- *
- * @version champion-v1.2 */
-public class ChampionEndpoints {
-  private static final Type GET_ALL__TYPE = ChampionList.class;
-
-  private static final String GET_ALL__URL = "/api/lol/%1$s/v1.2/champion";
-
-  private static final Type GET__TYPE = Champion.class;
-
-  private static final String GET__URL = "/api/lol/%1$s/v1.2/champion/%2$s";
-
-  private final RiotApi riotApi;
-
-  public ChampionEndpoints(final RiotApi riotApi) {
-    this.riotApi = riotApi;}
+ * champion-v3
+ * This class is automatically generated and should not be modified directly.
+ */
+public final class ChampionEndpoints extends Endpoints {
+  ChampionEndpoints(final RiotApi riotApi) {
+    super(riotApi);
+  }
 
   /**
-   * @param region Region to query.
-   * @param freeToPlay Riot API description: Optional filter param to retrieve only free to play champions. */
-  public ChampionList getAll(final Region region, final Boolean freeToPlay) throws
+   * <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampions">Link to Portal</a><br>
+   * @param region Region to execute against.@param freeToPlay (optional) Optional filter param to retrieve only free to play champions.
+   */
+  public ChampionList getChampions(final Region region, final Boolean freeToPlay) throws
       ExecutionException {
-    return riotApi.getBasic(String.format(GET_ALL__URL, region), region, GET_ALL__TYPE,
-        riotApi.makeParams("freeToPlay", freeToPlay));}
+    // This method is automatically generated and should not be modified directly.
+    String url = String.format("/lol/platform/v3/champions");
+    Type type = ChampionList.class;
+    return riotApi.getBasic(url, region, type, RiotApi.makeParams("freeToPlay", freeToPlay)));}
 
   /**
-   * @param region Region to query.
-   * @param freeToPlay Riot API description: Optional filter param to retrieve only free to play champions. */
-  public CompletableFuture<ChampionList> getAllAsync(final Region region,
-      final Boolean freeToPlay) {
-    return riotApi.getBasicAsync(String.format(GET_ALL__URL, region), region, GET_ALL__TYPE,
-        riotApi.makeParams("freeToPlay", freeToPlay));}
+   * <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampions">Link to Portal</a><br>
+   * @param region Region to execute against. */
+  public ChampionList getChampions(final Region region) throws ExecutionException {
+    // This method is automatically generated and should not be modified directly.
+    return this.getChampions(region, null);}
 
   /**
-   * @param region Region to query. */
-  public ChampionList getAll(final Region region) throws ExecutionException {
-    return getAll(region, null);}
-
-  /**
-   * @param region Region to query. */
-  public CompletableFuture<ChampionList> getAllAsync(final Region region) {
-    return getAllAsync(region, null);}
-
-  /**
-   * @param region Region to query.
-   * @param id Riot API description: ID of the champion to retrieve. */
-  public Champion get(final Region region, final int id) throws ExecutionException {
-    return riotApi.getBasic(String.format(GET__URL, region, id), region, GET__TYPE);}
-
-  /**
-   * @param region Region to query.
-   * @param id Riot API description: ID of the champion to retrieve. */
-  public CompletableFuture<Champion> getAsync(final Region region, final int id) {
-    return riotApi.getBasicAsync(String.format(GET__URL, region, id), region, GET__TYPE);}
+   * <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampionsById">Link to Portal</a><br>
+   * @param region Region to execute against.@param id (required) Champion ID
+   */
+  public Champion getChampionsById(final Region region, final int id) throws ExecutionException {
+    // This method is automatically generated and should not be modified directly.
+    String url = String.format("/lol/platform/v3/champions/%1$s", id);
+    Type type = Champion.class;
+    return riotApi.getBasic(url, region, type);}
 }

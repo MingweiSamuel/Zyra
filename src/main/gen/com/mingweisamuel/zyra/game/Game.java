@@ -12,10 +12,10 @@ import java.util.List;
  *
  * This object contains game information..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#game-v1.3/GET_getRecentGames">Riot API reference</a> on Thu Mar 23 10:53:08 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#game-v1.3/GET_getRecentGames">Riot API reference</a> on Mon May 15 17:36:46 PDT 2017. */
 public class Game implements Serializable {
   /**
-   * Game type. */
+   * Game type. (Legal values: CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME) */
   public final String gameType;
 
   /**
@@ -35,7 +35,7 @@ public class Game implements Serializable {
   public final long createDate;
 
   /**
-   * Game mode. */
+   * Game mode. (Legal values: CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO, SIEGE) */
   public final String gameMode;
 
   /**
@@ -47,7 +47,7 @@ public class Game implements Serializable {
   public final boolean invalid;
 
   /**
-   * Game sub-type. */
+   * Game sub-type. (Legal values: NONE, NORMAL, BOT, RANKED_SOLO_5x5, RANKED_PREMADE_3x3, RANKED_PREMADE_5x5, ODIN_UNRANKED, RANKED_TEAM_3x3, RANKED_TEAM_5x5, NORMAL_3x3, BOT_3x3, CAP_5x5, ARAM_UNRANKED_5x5, ONEFORALL_5x5, FIRSTBLOOD_1x1, FIRSTBLOOD_2x2, SR_6x6, URF, URF_BOT, NIGHTMARE_BOT, ASCENSION, HEXAKILL, KING_PORO, COUNTER_PICK, BILGEWATER, SIEGE, RANKED_FLEX_SR, RANKED_FLEX_TT) */
   public final String subType;
 
   /**

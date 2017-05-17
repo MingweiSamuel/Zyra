@@ -8,19 +8,13 @@ import java.lang.Override;
 /**
  * Rune.<br><br>
  *
- * This object contains rune information.<br><br>
- *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v2.2/GET_getMatchByIdAndTournamentCode">Riot API reference</a> on Thu Mar 23 10:53:08 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Riot API reference</a> on Tue May 16 19:55:45 PDT 2017. */
 public class Rune implements Serializable {
-  /**
-   * Rune ID */
-  public final long runeId;
+  public final int runeId;
 
-  /**
-   * Rune rank */
-  public final long rank;
+  public final int rank;
 
-  public Rune(final long runeId, final long rank) {
+  public Rune(final int runeId, final int rank) {
     this.runeId = runeId;
     this.rank = rank;
   }

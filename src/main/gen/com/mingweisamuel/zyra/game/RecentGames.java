@@ -11,7 +11,7 @@ import java.util.List;
  *
  * This object contains recent games information..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#game-v1.3/GET_getRecentGames">Riot API reference</a> on Thu Mar 23 10:53:08 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#game-v1.3/GET_getRecentGames">Riot API reference</a> on Mon May 15 17:36:46 PDT 2017. */
 public class RecentGames implements Serializable {
   /**
    * Collection of recent games played (max 10). */

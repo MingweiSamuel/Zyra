@@ -10,15 +10,15 @@ import java.lang.Override;
  *
  * This object contains single Champion Mastery information for player and champion combination..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#championmastery/GET_getChampionMastery">Riot API reference</a> on Thu Mar 23 10:53:08 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getAllChampionMasteries">Riot API reference</a> on Tue May 16 19:55:45 PDT 2017. */
 public class ChampionMastery implements Serializable {
-  /**
-   * Champion level for specified player and champion combination. */
-  public final int championLevel;
-
   /**
    * Is chest granted for this champion or not in current season. */
   public final boolean chestGranted;
+
+  /**
+   * Champion level for specified player and champion combination. */
+  public final int championLevel;
 
   /**
    * Total number of champion points for this player and champion combination - they are used to determine championLevel. */
@@ -44,12 +44,12 @@ public class ChampionMastery implements Serializable {
    * Last time this champion was played by this player - in Unix milliseconds time format. */
   public final long lastPlayTime;
 
-  public ChampionMastery(final int championLevel, final boolean chestGranted,
+  public ChampionMastery(final boolean chestGranted, final int championLevel,
       final int championPoints, final int championId, final long playerId,
       final long championPointsUntilNextLevel, final long championPointsSinceLastLevel,
       final long lastPlayTime) {
-    this.championLevel = championLevel;
     this.chestGranted = chestGranted;
+    this.championLevel = championLevel;
     this.championPoints = championPoints;
     this.championId = championId;
     this.playerId = playerId;
@@ -64,8 +64,8 @@ public class ChampionMastery implements Serializable {
     if (!(obj instanceof ChampionMastery)) return false;
     final ChampionMastery other = (ChampionMastery) obj;
     return true
-        && Objects.equal(championLevel, other.championLevel)
         && Objects.equal(chestGranted, other.chestGranted)
+        && Objects.equal(championLevel, other.championLevel)
         && Objects.equal(championPoints, other.championPoints)
         && Objects.equal(championId, other.championId)
         && Objects.equal(playerId, other.playerId)
@@ -76,8 +76,8 @@ public class ChampionMastery implements Serializable {
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        championLevel,
         chestGranted,
+        championLevel,
         championPoints,
         championId,
         playerId,

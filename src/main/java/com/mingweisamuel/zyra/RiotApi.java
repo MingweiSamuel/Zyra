@@ -43,15 +43,13 @@ public class RiotApi implements Closeable {
 
     public final ChampionEndpoints champions = new ChampionEndpoints(this);
     public final ChampionMasteryEndpoints championMasteries = new ChampionMasteryEndpoints(this);
-    public final CurrentGameEndpoints currentGame = new CurrentGameEndpoints(this);
-    public final FeaturedGamesEndpoints featuredGames = new FeaturedGamesEndpoints(this);
-    public final GameEndpoints games = new GameEndpoints(this);
     public final LeagueEndpoints leagues = new LeagueEndpoints(this);
-    public final LolStaticDataEndpoints staticData = new LolStaticDataEndpoints(this);
+    public final SpectatorEndpoints spectator = new SpectatorEndpoints(this);
+    public final StaticDataEndpoints staticData = new StaticDataEndpoints(this);
     public final LolStatusEndpoints status = new LolStatusEndpoints(this);
+    public final MasteriesEndpoints masteries = new MasteriesEndpoints(this);
     public final MatchEndpoints matches = new MatchEndpoints(this);
-    public final MatchListEndpoints matchlist = new MatchListEndpoints(this);
-    public final StatsEndpoints stats = new StatsEndpoints(this);
+    public final RunesEndpoints runes = new RunesEndpoints(this);
     public final SummonerEndpoints summoners = new SummonerEndpoints(this);
 
 

@@ -13,18 +13,18 @@ import java.util.List;
  *
  * This object contains game event information. Note that not all legal type values documented below are valid for all games. Event data evolves over time and certain values may be relevant only for older or newer games..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v2.2/GET_getMatchByIdAndTournamentCode">Riot API reference</a> on Thu Mar 23 10:53:08 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v2.2/GET_getMatchByIdAndTournamentCode">Riot API reference</a> on Mon May 15 17:36:46 PDT 2017. */
 public class Event implements Serializable {
   /**
    * The starting item ID of the event. Only present if relevant. */
   public final int itemBefore;
 
   /**
-   * Event type. */
+   * Event type. (Legal values: ASCENDED_EVENT, BUILDING_KILL, CAPTURE_POINT, CHAMPION_KILL, ELITE_MONSTER_KILL, ITEM_DESTROYED, ITEM_PURCHASED, ITEM_SOLD, ITEM_UNDO, PORO_KING_SUMMON, SKILL_LEVEL_UP, WARD_KILL, WARD_PLACED) */
   public final String eventType;
 
   /**
-   * The tower type of the event. Only present if relevant. */
+   * The tower type of the event. Only present if relevant. (Legal values: BASE_TURRET, FOUNTAIN_TURRET, INNER_TURRET, NEXUS_TURRET, OUTER_TURRET, UNDEFINED_TURRET) */
   public final String towerType;
 
   /**
@@ -36,7 +36,7 @@ public class Event implements Serializable {
   public final int itemAfter;
 
   /**
-   * The ascended type of the event. Only present if relevant. Note that CLEAR_ASCENDED refers to when a participants kills the ascended player. */
+   * The ascended type of the event. Only present if relevant. Note that CLEAR_ASCENDED refers to when a participants kills the ascended player. (Legal values: CHAMPION_ASCENDED, CLEAR_ASCENDED, MINION_ASCENDED) */
   public final String ascendedType;
 
   /**
@@ -44,11 +44,11 @@ public class Event implements Serializable {
   public final int killerId;
 
   /**
-   * The level up type of the event. Only present if relevant. */
+   * The level up type of the event. Only present if relevant. (Legal values: EVOLVE, NORMAL) */
   public final String levelUpType;
 
   /**
-   * The point captured in the event. Only present if relevant. */
+   * The point captured in the event. Only present if relevant. (Legal values: POINT_A, POINT_B, POINT_C, POINT_D, POINT_E) */
   public final String pointCaptured;
 
   /**
@@ -56,15 +56,15 @@ public class Event implements Serializable {
   public final List<Integer> assistingParticipantIds;
 
   /**
-   * The ward type of the event. Only present if relevant. */
+   * The ward type of the event. Only present if relevant. (Legal values: BLUE_TRINKET, SIGHT_WARD, TEEMO_MUSHROOM, UNDEFINED, VISION_WARD, YELLOW_TRINKET, YELLOW_TRINKET_UPGRADE) */
   public final String wardType;
 
   /**
-   * The monster type of the event. Only present if relevant. */
+   * The monster type of the event. Only present if relevant. (Legal values: BARON_NASHOR, BLUE_GOLEM, DRAGON, RED_LIZARD, RIFTHERALD, VILEMAW) */
   public final String monsterType;
 
   /**
-   * The building type of the event. Only present if relevant. */
+   * The building type of the event. Only present if relevant. (Legal values: INHIBITOR_BUILDING, TOWER_BUILDING) */
   public final String buildingType;
 
   /**
@@ -84,7 +84,7 @@ public class Event implements Serializable {
   public final String monsterSubType;
 
   /**
-   * The lane type of the event. Only present if relevant. */
+   * The lane type of the event. Only present if relevant. (Legal values: BOT_LANE, MID_LANE, TOP_LANE) */
   public final String laneType;
 
   /**

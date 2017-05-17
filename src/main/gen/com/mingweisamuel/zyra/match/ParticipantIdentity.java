@@ -8,16 +8,10 @@ import java.lang.Override;
 /**
  * ParticipantIdentity.<br><br>
  *
- * This object contains participant identity information.<br><br>
- *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v2.2/GET_getMatchByIdAndTournamentCode">Riot API reference</a> on Thu Mar 23 10:53:08 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Riot API reference</a> on Tue May 16 19:55:45 PDT 2017. */
 public class ParticipantIdentity implements Serializable {
-  /**
-   * Player information */
   public final Player player;
 
-  /**
-   * Participant ID */
   public final int participantId;
 
   public ParticipantIdentity(final Player player, final int participantId) {

@@ -12,7 +12,7 @@ import java.util.List;
  *
  * This object contains champion level tip data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getChampionList">Riot API reference</a> on Thu Mar 23 10:53:08 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getChampionList">Riot API reference</a> on Mon May 15 17:36:46 PDT 2017. */
 public class LevelTip implements Serializable {
   public final List<String> effect;
 

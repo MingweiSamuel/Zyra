@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * This object contains language strings data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getLanguageStrings">Riot API reference</a> on Thu Mar 23 10:53:08 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v1.2/GET_getLanguageStrings">Riot API reference</a> on Mon May 15 17:36:46 PDT 2017. */
 public class LanguageStrings implements Serializable {
   public final Map<String, String> data;
 
