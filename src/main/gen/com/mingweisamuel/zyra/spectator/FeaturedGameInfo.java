@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * FeaturedGameInfo.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getFeaturedGames">Riot API reference</a> on Tue May 16 19:55:45 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getFeaturedGames">Riot API reference</a> on Tue May 16 20:00:39 PDT 2017. */
 public class FeaturedGameInfo implements Serializable {
   /**
    * The ID of the game */

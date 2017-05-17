@@ -14,7 +14,7 @@ import java.util.List;
  *
  * This object contains champion spell data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getChampionList">Riot API reference</a> on Tue May 16 19:55:45 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getChampionList">Riot API reference</a> on Tue May 16 20:00:39 PDT 2017. */
 public class ChampionSpell implements Serializable {
   public final String cooldownBurn;
 
