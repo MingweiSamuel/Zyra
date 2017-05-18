@@ -9,8 +9,6 @@ import com.mingweisamuel.zyra.spectator.Participant;
 import com.mingweisamuel.zyra.summoner.Summoner;
 import org.junit.Test;
 
-import java.util.Collections;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
