@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Matchlist.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Riot API reference</a> on Wed May 17 19:48:11 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Riot API reference</a> on Wed May 17 20:12:12 PDT 2017. */
 public class Matchlist implements Serializable {
   public final List<MatchReference> matches;
 

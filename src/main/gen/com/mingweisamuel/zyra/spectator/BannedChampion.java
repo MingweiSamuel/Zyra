@@ -8,7 +8,7 @@ import java.lang.Override;
 /**
  * BannedChampion.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getCurrentGameInfoBySummoner">Riot API reference</a> on Wed May 17 19:48:11 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getCurrentGameInfoBySummoner">Riot API reference</a> on Wed May 17 20:12:12 PDT 2017. */
 public class BannedChampion implements Serializable {
   /**
    * The turn during which the champion was banned */

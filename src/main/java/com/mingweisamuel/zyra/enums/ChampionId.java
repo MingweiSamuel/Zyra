@@ -7,10 +7,7 @@ public class ChampionId {
     private ChampionId() {}
 
     /**
-     * ID for combined statistics in the {@link com.mingweisamuel.zyra.StatsEndpoints}. This value (0) can not be
-     * used in endpoint requests.
-     *
-     * @see com.mingweisamuel.zyra.stats.ChampionStats#id
+     * Placeholder value. This value (zero, 0) can not be used in endpoint requests.
      */
     public static final int ALL = 0;
 

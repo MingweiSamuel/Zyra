@@ -21,7 +21,8 @@ public final class RunesEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#runes-v3/GET_getRunePagesBySummonerId">Link to Portal</a><br>
-   * @param region Region to execute against.@param summonerId (required) Summoner ID
+   * @param region Region to execute against.
+   * @param summonerId (required) Summoner ID
    */
   public RunePages getRunePagesBySummonerId(final Region region, final String summonerId) throws
       ExecutionException {
@@ -33,7 +34,8 @@ public final class RunesEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#runes-v3/GET_getRunePagesBySummonerId">Link to Portal</a><br>
-   * @param region Region to execute against.@param summonerId (required) Summoner ID
+   * @param region Region to execute against.
+   * @param summonerId (required) Summoner ID
    */
   public CompletableFuture<RunePages> getRunePagesBySummonerIdAsync(final Region region,
       final String summonerId) throws ExecutionException {

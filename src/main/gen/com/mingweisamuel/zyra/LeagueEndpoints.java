@@ -24,7 +24,8 @@ public final class LeagueEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getChallengerLeague">Link to Portal</a><br>
-   * @param region Region to execute against.@param queue (required) 
+   * @param region Region to execute against.
+   * @param queue (required) 
    */
   public LeagueList getChallengerLeague(final Region region, final String queue) throws
       ExecutionException {
@@ -36,7 +37,8 @@ public final class LeagueEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getChallengerLeague">Link to Portal</a><br>
-   * @param region Region to execute against.@param queue (required) 
+   * @param region Region to execute against.
+   * @param queue (required) 
    */
   public CompletableFuture<LeagueList> getChallengerLeagueAsync(final Region region,
       final String queue) throws ExecutionException {
@@ -48,7 +50,8 @@ public final class LeagueEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getAllLeaguesForSummoner">Link to Portal</a><br>
-   * @param region Region to execute against.@param summonerId (required) 
+   * @param region Region to execute against.
+   * @param summonerId (required) 
    */
   public List<LeagueList> getAllLeaguesForSummoner(final Region region, final long summonerId)
       throws ExecutionException {
@@ -61,7 +64,8 @@ public final class LeagueEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getAllLeaguesForSummoner">Link to Portal</a><br>
-   * @param region Region to execute against.@param summonerId (required) 
+   * @param region Region to execute against.
+   * @param summonerId (required) 
    */
   public CompletableFuture<List<LeagueList>> getAllLeaguesForSummonerAsync(final Region region,
       final long summonerId) throws ExecutionException {
@@ -74,7 +78,8 @@ public final class LeagueEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getMasterLeague">Link to Portal</a><br>
-   * @param region Region to execute against.@param queue (required) 
+   * @param region Region to execute against.
+   * @param queue (required) 
    */
   public LeagueList getMasterLeague(final Region region, final String queue) throws
       ExecutionException {
@@ -86,7 +91,8 @@ public final class LeagueEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getMasterLeague">Link to Portal</a><br>
-   * @param region Region to execute against.@param queue (required) 
+   * @param region Region to execute against.
+   * @param queue (required) 
    */
   public CompletableFuture<LeagueList> getMasterLeagueAsync(final Region region, final String queue)
       throws ExecutionException {
@@ -98,7 +104,8 @@ public final class LeagueEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getAllLeaguePositionsForSummoner">Link to Portal</a><br>
-   * @param region Region to execute against.@param summonerId (required) 
+   * @param region Region to execute against.
+   * @param summonerId (required) 
    */
   public List<LeaguePosition> getAllLeaguePositionsForSummoner(final Region region,
       final long summonerId) throws ExecutionException {
@@ -111,7 +118,8 @@ public final class LeagueEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getAllLeaguePositionsForSummoner">Link to Portal</a><br>
-   * @param region Region to execute against.@param summonerId (required) 
+   * @param region Region to execute against.
+   * @param summonerId (required) 
    */
   public CompletableFuture<List<LeaguePosition>> getAllLeaguePositionsForSummonerAsync(final Region region,
       final long summonerId) throws ExecutionException {

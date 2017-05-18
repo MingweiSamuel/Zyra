@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * This object contains rune list data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getRuneList">Riot API reference</a> on Wed May 17 19:48:11 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getRuneList">Riot API reference</a> on Wed May 17 20:12:12 PDT 2017. */
 public class RuneList implements Serializable {
   public final Map<Integer, Rune> data;
 

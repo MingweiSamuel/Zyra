@@ -26,7 +26,8 @@ public final class MatchEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Link to Portal</a><br>
-   * @param region Region to execute against.@param matchId (required) The match ID.
+   * @param region Region to execute against.
+   * @param matchId (required) The match ID.
    */
   public Match getMatch(final Region region, final long matchId) throws ExecutionException {
     // This method is automatically generated and should not be modified directly.
@@ -37,7 +38,8 @@ public final class MatchEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Link to Portal</a><br>
-   * @param region Region to execute against.@param matchId (required) The match ID.
+   * @param region Region to execute against.
+   * @param matchId (required) The match ID.
    */
   public CompletableFuture<Match> getMatchAsync(final Region region, final long matchId) throws
       ExecutionException {
@@ -51,7 +53,8 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. Note that if either beginIndex or endIndex are specified, then both must be specified and endIndex must be greater than beginIndex. If endTime is specified, but not beginTime, then beginTime is effectively the start of the account's match history. If beginTime is specified, but not endTime, then endTime is effectively the current time. Note that endTime should be greater than beginTime if both are specified, although there is no maximum limit on their range.
-   * @param region Region to execute against.@param accountId (required) The account ID.
+   * @param region Region to execute against.
+   * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
    * @param beginTime (optional) The begin time to use for filtering matchlist specified as epoch milliseconds.
    * @param endIndex (optional) The end index to use for filtering matchlist.
@@ -74,7 +77,8 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. Note that if either beginIndex or endIndex are specified, then both must be specified and endIndex must be greater than beginIndex. If endTime is specified, but not beginTime, then beginTime is effectively the start of the account's match history. If beginTime is specified, but not endTime, then endTime is effectively the current time. Note that endTime should be greater than beginTime if both are specified, although there is no maximum limit on their range.
-   * @param region Region to execute against.@param accountId (required) The account ID.
+   * @param region Region to execute against.
+   * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
    * @param beginTime (optional) The begin time to use for filtering matchlist specified as epoch milliseconds.
    * @param endIndex (optional) The end index to use for filtering matchlist.
@@ -97,7 +101,8 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. Note that if either beginIndex or endIndex are specified, then both must be specified and endIndex must be greater than beginIndex. If endTime is specified, but not beginTime, then beginTime is effectively the start of the account's match history. If beginTime is specified, but not endTime, then endTime is effectively the current time. Note that endTime should be greater than beginTime if both are specified, although there is no maximum limit on their range.
-   * @param region Region to execute against.@param accountId (required) The account ID.
+   * @param region Region to execute against.
+   * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
    * @param beginTime (optional) The begin time to use for filtering matchlist specified as epoch milliseconds.
    * @param endIndex (optional) The end index to use for filtering matchlist.
@@ -117,7 +122,8 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. Note that if either beginIndex or endIndex are specified, then both must be specified and endIndex must be greater than beginIndex. If endTime is specified, but not beginTime, then beginTime is effectively the start of the account's match history. If beginTime is specified, but not endTime, then endTime is effectively the current time. Note that endTime should be greater than beginTime if both are specified, although there is no maximum limit on their range.
-   * @param region Region to execute against.@param accountId (required) The account ID.
+   * @param region Region to execute against.
+   * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
    * @param beginTime (optional) The begin time to use for filtering matchlist specified as epoch milliseconds.
    * @param endIndex (optional) The end index to use for filtering matchlist.
@@ -137,7 +143,8 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. Note that if either beginIndex or endIndex are specified, then both must be specified and endIndex must be greater than beginIndex. If endTime is specified, but not beginTime, then beginTime is effectively the start of the account's match history. If beginTime is specified, but not endTime, then endTime is effectively the current time. Note that endTime should be greater than beginTime if both are specified, although there is no maximum limit on their range.
-   * @param region Region to execute against.@param accountId (required) The account ID.
+   * @param region Region to execute against.
+   * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
    * @param beginTime (optional) The begin time to use for filtering matchlist specified as epoch milliseconds.
    * @param endIndex (optional) The end index to use for filtering matchlist.
@@ -155,7 +162,8 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. Note that if either beginIndex or endIndex are specified, then both must be specified and endIndex must be greater than beginIndex. If endTime is specified, but not beginTime, then beginTime is effectively the start of the account's match history. If beginTime is specified, but not endTime, then endTime is effectively the current time. Note that endTime should be greater than beginTime if both are specified, although there is no maximum limit on their range.
-   * @param region Region to execute against.@param accountId (required) The account ID.
+   * @param region Region to execute against.
+   * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
    * @param beginTime (optional) The begin time to use for filtering matchlist specified as epoch milliseconds.
    * @param endIndex (optional) The end index to use for filtering matchlist.
@@ -173,7 +181,8 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. Note that if either beginIndex or endIndex are specified, then both must be specified and endIndex must be greater than beginIndex. If endTime is specified, but not beginTime, then beginTime is effectively the start of the account's match history. If beginTime is specified, but not endTime, then endTime is effectively the current time. Note that endTime should be greater than beginTime if both are specified, although there is no maximum limit on their range.
-   * @param region Region to execute against.@param accountId (required) The account ID.
+   * @param region Region to execute against.
+   * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
    * @param beginTime (optional) The begin time to use for filtering matchlist specified as epoch milliseconds.
    * @param endIndex (optional) The end index to use for filtering matchlist.
@@ -190,7 +199,8 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. Note that if either beginIndex or endIndex are specified, then both must be specified and endIndex must be greater than beginIndex. If endTime is specified, but not beginTime, then beginTime is effectively the start of the account's match history. If beginTime is specified, but not endTime, then endTime is effectively the current time. Note that endTime should be greater than beginTime if both are specified, although there is no maximum limit on their range.
-   * @param region Region to execute against.@param accountId (required) The account ID.
+   * @param region Region to execute against.
+   * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
    * @param beginTime (optional) The begin time to use for filtering matchlist specified as epoch milliseconds.
    * @param endIndex (optional) The end index to use for filtering matchlist.
@@ -207,7 +217,8 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. Note that if either beginIndex or endIndex are specified, then both must be specified and endIndex must be greater than beginIndex. If endTime is specified, but not beginTime, then beginTime is effectively the start of the account's match history. If beginTime is specified, but not endTime, then endTime is effectively the current time. Note that endTime should be greater than beginTime if both are specified, although there is no maximum limit on their range.
-   * @param region Region to execute against.@param accountId (required) The account ID.
+   * @param region Region to execute against.
+   * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
    * @param beginTime (optional) The begin time to use for filtering matchlist specified as epoch milliseconds.
    * @param endIndex (optional) The end index to use for filtering matchlist.
@@ -223,7 +234,8 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. Note that if either beginIndex or endIndex are specified, then both must be specified and endIndex must be greater than beginIndex. If endTime is specified, but not beginTime, then beginTime is effectively the start of the account's match history. If beginTime is specified, but not endTime, then endTime is effectively the current time. Note that endTime should be greater than beginTime if both are specified, although there is no maximum limit on their range.
-   * @param region Region to execute against.@param accountId (required) The account ID.
+   * @param region Region to execute against.
+   * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
    * @param beginTime (optional) The begin time to use for filtering matchlist specified as epoch milliseconds.
    * @param endIndex (optional) The end index to use for filtering matchlist.
@@ -239,7 +251,8 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. Note that if either beginIndex or endIndex are specified, then both must be specified and endIndex must be greater than beginIndex. If endTime is specified, but not beginTime, then beginTime is effectively the start of the account's match history. If beginTime is specified, but not endTime, then endTime is effectively the current time. Note that endTime should be greater than beginTime if both are specified, although there is no maximum limit on their range.
-   * @param region Region to execute against.@param accountId (required) The account ID.
+   * @param region Region to execute against.
+   * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
    * @param beginTime (optional) The begin time to use for filtering matchlist specified as epoch milliseconds.
    */
@@ -253,7 +266,8 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. Note that if either beginIndex or endIndex are specified, then both must be specified and endIndex must be greater than beginIndex. If endTime is specified, but not beginTime, then beginTime is effectively the start of the account's match history. If beginTime is specified, but not endTime, then endTime is effectively the current time. Note that endTime should be greater than beginTime if both are specified, although there is no maximum limit on their range.
-   * @param region Region to execute against.@param accountId (required) The account ID.
+   * @param region Region to execute against.
+   * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
    * @param beginTime (optional) The begin time to use for filtering matchlist specified as epoch milliseconds.
    */
@@ -267,7 +281,8 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. Note that if either beginIndex or endIndex are specified, then both must be specified and endIndex must be greater than beginIndex. If endTime is specified, but not beginTime, then beginTime is effectively the start of the account's match history. If beginTime is specified, but not endTime, then endTime is effectively the current time. Note that endTime should be greater than beginTime if both are specified, although there is no maximum limit on their range.
-   * @param region Region to execute against.@param accountId (required) The account ID.
+   * @param region Region to execute against.
+   * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
    */
   public Matchlist getMatchlist(final Region region, final long accountId,
@@ -280,7 +295,8 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. Note that if either beginIndex or endIndex are specified, then both must be specified and endIndex must be greater than beginIndex. If endTime is specified, but not beginTime, then beginTime is effectively the start of the account's match history. If beginTime is specified, but not endTime, then endTime is effectively the current time. Note that endTime should be greater than beginTime if both are specified, although there is no maximum limit on their range.
-   * @param region Region to execute against.@param accountId (required) The account ID.
+   * @param region Region to execute against.
+   * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
    */
   public CompletableFuture<Matchlist> getMatchlistAsync(final Region region, final long accountId,
@@ -293,7 +309,8 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. Note that if either beginIndex or endIndex are specified, then both must be specified and endIndex must be greater than beginIndex. If endTime is specified, but not beginTime, then beginTime is effectively the start of the account's match history. If beginTime is specified, but not endTime, then endTime is effectively the current time. Note that endTime should be greater than beginTime if both are specified, although there is no maximum limit on their range.
-   * @param region Region to execute against.@param accountId (required) The account ID.
+   * @param region Region to execute against.
+   * @param accountId (required) The account ID.
    */
   public Matchlist getMatchlist(final Region region, final long accountId) throws
       ExecutionException {
@@ -305,7 +322,8 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. Note that if either beginIndex or endIndex are specified, then both must be specified and endIndex must be greater than beginIndex. If endTime is specified, but not beginTime, then beginTime is effectively the start of the account's match history. If beginTime is specified, but not endTime, then endTime is effectively the current time. Note that endTime should be greater than beginTime if both are specified, although there is no maximum limit on their range.
-   * @param region Region to execute against.@param accountId (required) The account ID.
+   * @param region Region to execute against.
+   * @param accountId (required) The account ID.
    */
   public CompletableFuture<Matchlist> getMatchlistAsync(final Region region, final long accountId)
       throws ExecutionException {
@@ -315,7 +333,8 @@ public final class MatchEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getRecentMatchlist">Link to Portal</a><br>
-   * @param region Region to execute against.@param accountId (required) The account ID.
+   * @param region Region to execute against.
+   * @param accountId (required) The account ID.
    */
   public Matchlist getRecentMatchlist(final Region region, final long accountId) throws
       ExecutionException {
@@ -327,7 +346,8 @@ public final class MatchEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getRecentMatchlist">Link to Portal</a><br>
-   * @param region Region to execute against.@param accountId (required) The account ID.
+   * @param region Region to execute against.
+   * @param accountId (required) The account ID.
    */
   public CompletableFuture<Matchlist> getRecentMatchlistAsync(final Region region,
       final long accountId) throws ExecutionException {
@@ -341,7 +361,8 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchTimeline">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all matches have timeline data.
-   * @param region Region to execute against.@param matchId (required) The match ID.
+   * @param region Region to execute against.
+   * @param matchId (required) The match ID.
    */
   public MatchTimeline getMatchTimeline(final Region region, final long matchId) throws
       ExecutionException {
@@ -355,7 +376,8 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchTimeline">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all matches have timeline data.
-   * @param region Region to execute against.@param matchId (required) The match ID.
+   * @param region Region to execute against.
+   * @param matchId (required) The match ID.
    */
   public CompletableFuture<MatchTimeline> getMatchTimelineAsync(final Region region,
       final long matchId) throws ExecutionException {

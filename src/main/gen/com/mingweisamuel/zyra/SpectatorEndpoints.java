@@ -22,7 +22,8 @@ public final class SpectatorEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getCurrentGameInfoBySummoner">Link to Portal</a><br>
-   * @param region Region to execute against.@param summonerId (required) The ID of the summoner.
+   * @param region Region to execute against.
+   * @param summonerId (required) The ID of the summoner.
    */
   public CurrentGameInfo getCurrentGameInfoBySummoner(final Region region, final long summonerId)
       throws ExecutionException {
@@ -34,7 +35,8 @@ public final class SpectatorEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getCurrentGameInfoBySummoner">Link to Portal</a><br>
-   * @param region Region to execute against.@param summonerId (required) The ID of the summoner.
+   * @param region Region to execute against.
+   * @param summonerId (required) The ID of the summoner.
    */
   public CompletableFuture<CurrentGameInfo> getCurrentGameInfoBySummonerAsync(final Region region,
       final long summonerId) throws ExecutionException {
@@ -46,7 +48,8 @@ public final class SpectatorEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getFeaturedGames">Link to Portal</a><br>
-   * @param region Region to execute against. */
+   * @param region Region to execute against.
+   */
   public FeaturedGames getFeaturedGames(final Region region) throws ExecutionException {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/spectator/v3/featured-games";
@@ -56,7 +59,8 @@ public final class SpectatorEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getFeaturedGames">Link to Portal</a><br>
-   * @param region Region to execute against. */
+   * @param region Region to execute against.
+   */
   public CompletableFuture<FeaturedGames> getFeaturedGamesAsync(final Region region) throws
       ExecutionException {
     // This method is automatically generated and should not be modified directly.

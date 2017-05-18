@@ -12,7 +12,7 @@ import java.util.List;
  *
  * This object contains champion data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getChampionList">Riot API reference</a> on Wed May 17 19:48:11 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getChampionList">Riot API reference</a> on Wed May 17 20:12:12 PDT 2017. */
 public class Champion implements Serializable {
   public final Info info;
 

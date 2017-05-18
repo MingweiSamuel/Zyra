@@ -65,7 +65,7 @@ public class Queue {
     public static final String SIEGE = "SIEGE";
 
     /**
-     * Specific values for {@link com.mingweisamuel.zyra.stats.PlayerStatsSummary#playerStatSummaryType}.
+     * Olde specific values for stats playerStatSummaryType.
      */
     public static class SummaryType {
         private SummaryType() {}

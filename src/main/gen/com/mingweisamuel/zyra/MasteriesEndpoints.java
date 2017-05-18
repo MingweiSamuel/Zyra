@@ -21,7 +21,8 @@ public final class MasteriesEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#masteries-v3/GET_getMasteryPagesBySummonerId">Link to Portal</a><br>
-   * @param region Region to execute against.@param summonerId (required) Summoner ID
+   * @param region Region to execute against.
+   * @param summonerId (required) Summoner ID
    */
   public MasteryPages getMasteryPagesBySummonerId(final Region region, final String summonerId)
       throws ExecutionException {
@@ -33,7 +34,8 @@ public final class MasteriesEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#masteries-v3/GET_getMasteryPagesBySummonerId">Link to Portal</a><br>
-   * @param region Region to execute against.@param summonerId (required) Summoner ID
+   * @param region Region to execute against.
+   * @param summonerId (required) Summoner ID
    */
   public CompletableFuture<MasteryPages> getMasteryPagesBySummonerIdAsync(final Region region,
       final String summonerId) throws ExecutionException {

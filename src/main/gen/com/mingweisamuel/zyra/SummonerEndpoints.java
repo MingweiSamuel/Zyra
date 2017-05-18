@@ -21,7 +21,8 @@ public final class SummonerEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#summoner-v3/GET_getByAccountId">Link to Portal</a><br>
-   * @param region Region to execute against.@param accountId (required) 
+   * @param region Region to execute against.
+   * @param accountId (required) 
    */
   public Summoner getByAccountId(final Region region, final long accountId) throws
       ExecutionException {
@@ -33,7 +34,8 @@ public final class SummonerEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#summoner-v3/GET_getByAccountId">Link to Portal</a><br>
-   * @param region Region to execute against.@param accountId (required) 
+   * @param region Region to execute against.
+   * @param accountId (required) 
    */
   public CompletableFuture<Summoner> getByAccountIdAsync(final Region region, final long accountId)
       throws ExecutionException {
@@ -45,7 +47,8 @@ public final class SummonerEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#summoner-v3/GET_getBySummonerName">Link to Portal</a><br>
-   * @param region Region to execute against.@param summonerName (required) Summoner Name
+   * @param region Region to execute against.
+   * @param summonerName (required) Summoner Name
    */
   public Summoner getBySummonerName(final Region region, final String summonerName) throws
       ExecutionException {
@@ -57,7 +60,8 @@ public final class SummonerEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#summoner-v3/GET_getBySummonerName">Link to Portal</a><br>
-   * @param region Region to execute against.@param summonerName (required) Summoner Name
+   * @param region Region to execute against.
+   * @param summonerName (required) Summoner Name
    */
   public CompletableFuture<Summoner> getBySummonerNameAsync(final Region region,
       final String summonerName) throws ExecutionException {
@@ -69,7 +73,8 @@ public final class SummonerEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#summoner-v3/GET_getBySummonerId">Link to Portal</a><br>
-   * @param region Region to execute against.@param summonerId (required) Summoner ID
+   * @param region Region to execute against.
+   * @param summonerId (required) Summoner ID
    */
   public Summoner getBySummonerId(final Region region, final long summonerId) throws
       ExecutionException {
@@ -81,7 +86,8 @@ public final class SummonerEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#summoner-v3/GET_getBySummonerId">Link to Portal</a><br>
-   * @param region Region to execute against.@param summonerId (required) Summoner ID
+   * @param region Region to execute against.
+   * @param summonerId (required) Summoner ID
    */
   public CompletableFuture<Summoner> getBySummonerIdAsync(final Region region,
       final long summonerId) throws ExecutionException {

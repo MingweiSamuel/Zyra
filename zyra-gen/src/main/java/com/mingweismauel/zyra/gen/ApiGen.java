@@ -200,9 +200,9 @@ public class ApiGen {
                 // region param
                 TypeName regionType = ClassName.bestGuess("com.mingweisamuel.zyra.enums.Region");
                 methodBuilderSync.addParameter(ParameterSpec.builder(regionType, "region", Modifier.FINAL).build());
-                methodBuilderSync.addJavadoc("@param region Region to execute against.");
+                methodBuilderSync.addJavadoc("@param region Region to execute against.\n");
                 methodBuilderAsync.addParameter(ParameterSpec.builder(regionType, "region", Modifier.FINAL).build());
-                methodBuilderAsync.addJavadoc("@param region Region to execute against.");
+                methodBuilderAsync.addJavadoc("@param region Region to execute against.\n");
                 code.append("region, ");
 
                 for (EndpointParameter requiredParam :

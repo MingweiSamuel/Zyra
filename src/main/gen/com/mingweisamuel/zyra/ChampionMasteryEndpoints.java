@@ -24,7 +24,8 @@ public final class ChampionMasteryEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getAllChampionMasteries">Link to Portal</a><br>
-   * @param region Region to execute against.@param summonerId (required) Summoner ID associated with the player
+   * @param region Region to execute against.
+   * @param summonerId (required) Summoner ID associated with the player
    */
   public List<ChampionMastery> getAllChampionMasteries(final Region region, final long summonerId)
       throws ExecutionException {
@@ -37,7 +38,8 @@ public final class ChampionMasteryEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getAllChampionMasteries">Link to Portal</a><br>
-   * @param region Region to execute against.@param summonerId (required) Summoner ID associated with the player
+   * @param region Region to execute against.
+   * @param summonerId (required) Summoner ID associated with the player
    */
   public CompletableFuture<List<ChampionMastery>> getAllChampionMasteriesAsync(final Region region,
       final long summonerId) throws ExecutionException {
@@ -50,7 +52,8 @@ public final class ChampionMasteryEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getChampionMastery">Link to Portal</a><br>
-   * @param region Region to execute against.@param championId (required) Champion ID to retrieve Champion Mastery for
+   * @param region Region to execute against.
+   * @param championId (required) Champion ID to retrieve Champion Mastery for
    * @param summonerId (required) Summoner ID associated with the player
    */
   public ChampionMastery getChampionMastery(final Region region, final long championId,
@@ -63,7 +66,8 @@ public final class ChampionMasteryEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getChampionMastery">Link to Portal</a><br>
-   * @param region Region to execute against.@param championId (required) Champion ID to retrieve Champion Mastery for
+   * @param region Region to execute against.
+   * @param championId (required) Champion ID to retrieve Champion Mastery for
    * @param summonerId (required) Summoner ID associated with the player
    */
   public CompletableFuture<ChampionMastery> getChampionMasteryAsync(final Region region,
@@ -76,7 +80,8 @@ public final class ChampionMasteryEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getChampionMasteryScore">Link to Portal</a><br>
-   * @param region Region to execute against.@param summonerId (required) Summoner ID associated with the player
+   * @param region Region to execute against.
+   * @param summonerId (required) Summoner ID associated with the player
    */
   public Integer getChampionMasteryScore(final Region region, final long summonerId) throws
       ExecutionException {
@@ -88,7 +93,8 @@ public final class ChampionMasteryEndpoints extends Endpoints {
 
   /**
    * <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getChampionMasteryScore">Link to Portal</a><br>
-   * @param region Region to execute against.@param summonerId (required) Summoner ID associated with the player
+   * @param region Region to execute against.
+   * @param summonerId (required) Summoner ID associated with the player
    */
   public CompletableFuture<Integer> getChampionMasteryScoreAsync(final Region region,
       final long summonerId) throws ExecutionException {
