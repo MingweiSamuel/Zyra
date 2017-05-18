@@ -12,7 +12,7 @@ import java.util.List;
  *
  * This object contains champion recommended data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getChampionList">Riot API reference</a> on Wed May 17 21:34:50 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getChampionList">Riot API reference</a> on Wed May 17 21:53:10 PDT 2017. */
 public class Recommended implements Serializable {
   public final String map;
 

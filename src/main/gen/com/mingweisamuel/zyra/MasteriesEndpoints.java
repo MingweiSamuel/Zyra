@@ -38,7 +38,7 @@ public final class MasteriesEndpoints extends Endpoints {
    * @param summonerId (required) Summoner ID
    */
   public CompletableFuture<MasteryPages> getMasteryPagesBySummonerIdAsync(final Region region,
-      final long summonerId) throws ExecutionException {
+      final long summonerId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/platform/v3/masteries/by-summoner/%1$s", summonerId);
     Type type = MasteryPages.class;

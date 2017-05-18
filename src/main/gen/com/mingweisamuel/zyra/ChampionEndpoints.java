@@ -40,7 +40,7 @@ public final class ChampionEndpoints extends Endpoints {
    * @param freeToPlay (optional) Optional filter param to retrieve only free to play champions.
    */
   public CompletableFuture<ChampionList> getChampionsAsync(final Region region,
-      final Boolean freeToPlay) throws ExecutionException {
+      final Boolean freeToPlay) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/platform/v3/champions";
     Type type = ChampionList.class;
@@ -60,8 +60,7 @@ public final class ChampionEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampions">Link to Portal</a><br>
    * @param region Region to execute against.
    */
-  public CompletableFuture<ChampionList> getChampionsAsync(final Region region) throws
-      ExecutionException {
+  public CompletableFuture<ChampionList> getChampionsAsync(final Region region) {
     // This method is automatically generated and should not be modified directly.
     return this.getChampionsAsync(region, null);
   }
@@ -83,8 +82,7 @@ public final class ChampionEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param id (required) Champion ID
    */
-  public CompletableFuture<Champion> getChampionsByIdAsync(final Region region, final int id) throws
-      ExecutionException {
+  public CompletableFuture<Champion> getChampionsByIdAsync(final Region region, final int id) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/platform/v3/champions/%1$s", id);
     Type type = Champion.class;

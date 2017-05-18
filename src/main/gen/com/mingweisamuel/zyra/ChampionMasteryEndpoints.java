@@ -42,7 +42,7 @@ public final class ChampionMasteryEndpoints extends Endpoints {
    * @param summonerId (required) Summoner ID associated with the player
    */
   public CompletableFuture<List<ChampionMastery>> getAllChampionMasteriesAsync(final Region region,
-      final long summonerId) throws ExecutionException {
+      final long summonerId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/champion-mastery/v3/champion-masteries/by-summoner/%1$s", summonerId);
     Type type = new TypeToken<List<ChampionMastery>>() {
@@ -71,7 +71,7 @@ public final class ChampionMasteryEndpoints extends Endpoints {
    * @param summonerId (required) Summoner ID associated with the player
    */
   public CompletableFuture<ChampionMastery> getChampionMasteryAsync(final Region region,
-      final long championId, final long summonerId) throws ExecutionException {
+      final long championId, final long summonerId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/champion-mastery/v3/champion-masteries/by-summoner/%1$s/by-champion/%2$s", championId, summonerId);
     Type type = ChampionMastery.class;
@@ -97,7 +97,7 @@ public final class ChampionMasteryEndpoints extends Endpoints {
    * @param summonerId (required) Summoner ID associated with the player
    */
   public CompletableFuture<Integer> getChampionMasteryScoreAsync(final Region region,
-      final long summonerId) throws ExecutionException {
+      final long summonerId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/champion-mastery/v3/scores/by-summoner/%1$s", summonerId);
     Type type = Integer.class;

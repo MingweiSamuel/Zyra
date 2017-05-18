@@ -41,7 +41,7 @@ public final class LeagueEndpoints extends Endpoints {
    * @param queue (required) 
    */
   public CompletableFuture<LeagueList> getChallengerLeagueAsync(final Region region,
-      final String queue) throws ExecutionException {
+      final String queue) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/league/v3/challengerleagues/by-queue/%1$s", queue);
     Type type = LeagueList.class;
@@ -68,7 +68,7 @@ public final class LeagueEndpoints extends Endpoints {
    * @param summonerId (required) 
    */
   public CompletableFuture<List<LeagueList>> getAllLeaguesForSummonerAsync(final Region region,
-      final long summonerId) throws ExecutionException {
+      final long summonerId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/league/v3/leagues/by-summoner/%1$s", summonerId);
     Type type = new TypeToken<List<LeagueList>>() {
@@ -94,8 +94,8 @@ public final class LeagueEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param queue (required) 
    */
-  public CompletableFuture<LeagueList> getMasterLeagueAsync(final Region region, final String queue)
-      throws ExecutionException {
+  public CompletableFuture<LeagueList> getMasterLeagueAsync(final Region region,
+      final String queue) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/league/v3/masterleagues/by-queue/%1$s", queue);
     Type type = LeagueList.class;
@@ -122,7 +122,7 @@ public final class LeagueEndpoints extends Endpoints {
    * @param summonerId (required) 
    */
   public CompletableFuture<List<LeaguePosition>> getAllLeaguePositionsForSummonerAsync(final Region region,
-      final long summonerId) throws ExecutionException {
+      final long summonerId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/league/v3/positions/by-summoner/%1$s", summonerId);
     Type type = new TypeToken<List<LeaguePosition>>() {

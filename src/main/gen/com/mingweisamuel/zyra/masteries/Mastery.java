@@ -10,7 +10,7 @@ import java.lang.Override;
  *
  * This object contains mastery information..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#masteries-v3/GET_getMasteryPagesBySummonerId">Riot API reference</a> on Wed May 17 21:34:50 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#masteries-v3/GET_getMasteryPagesBySummonerId">Riot API reference</a> on Wed May 17 21:53:10 PDT 2017. */
 public class Mastery implements Serializable {
   /**
    * Mastery ID. For static information correlating to masteries, please refer to the LoL Static Data API. */

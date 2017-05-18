@@ -67,7 +67,7 @@ public final class StaticDataEndpoints extends Endpoints {
    */
   public CompletableFuture<ChampionList> getChampionListAsync(final Region region,
       final String version, final Collection<String> champListData, final Boolean dataById,
-      final String locale) throws ExecutionException {
+      final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/champions";
     Type type = ChampionList.class;
@@ -99,8 +99,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param dataById (optional) If specified as true, the returned data map will use the champions' IDs as the keys. If not specified or specified as false, the returned data map will use the champions' keys instead.
    */
   public CompletableFuture<ChampionList> getChampionListAsync(final Region region,
-      final String version, final Collection<String> champListData, final Boolean dataById) throws
-      ExecutionException {
+      final String version, final Collection<String> champListData, final Boolean dataById) {
     // This method is automatically generated and should not be modified directly.
     return this.getChampionListAsync(region, version, champListData, dataById, null);
   }
@@ -128,7 +127,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param champListData (optional) Tags to return additional data. Only type, version, data, id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public CompletableFuture<ChampionList> getChampionListAsync(final Region region,
-      final String version, final Collection<String> champListData) throws ExecutionException {
+      final String version, final Collection<String> champListData) {
     // This method is automatically generated and should not be modified directly.
     return this.getChampionListAsync(region, version, champListData, null, null);
   }
@@ -154,7 +153,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
   public CompletableFuture<ChampionList> getChampionListAsync(final Region region,
-      final String version) throws ExecutionException {
+      final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getChampionListAsync(region, version, null, null, null);
   }
@@ -176,8 +175,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * Not all data specified below is returned by default. See the champListData parameter for more information.
    * @param region Region to execute against.
    */
-  public CompletableFuture<ChampionList> getChampionListAsync(final Region region) throws
-      ExecutionException {
+  public CompletableFuture<ChampionList> getChampionListAsync(final Region region) {
     // This method is automatically generated and should not be modified directly.
     return this.getChampionListAsync(region, null, null, null, null);
   }
@@ -211,8 +209,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param champData (optional) Tags to return additional data. Only id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public CompletableFuture<Champion> getChampionByIdAsync(final Region region, final int id,
-      final String version, final String locale, final Collection<String> champData) throws
-      ExecutionException {
+      final String version, final String locale, final Collection<String> champData) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/champions/%1$s", id);
     Type type = Champion.class;
@@ -244,7 +241,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public CompletableFuture<Champion> getChampionByIdAsync(final Region region, final int id,
-      final String version, final String locale) throws ExecutionException {
+      final String version, final String locale) {
     // This method is automatically generated and should not be modified directly.
     return this.getChampionByIdAsync(region, id, version, locale, null);
   }
@@ -272,7 +269,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
   public CompletableFuture<Champion> getChampionByIdAsync(final Region region, final int id,
-      final String version) throws ExecutionException {
+      final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getChampionByIdAsync(region, id, version, null, null);
   }
@@ -296,8 +293,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param id (required) Champion ID
    */
-  public CompletableFuture<Champion> getChampionByIdAsync(final Region region, final int id) throws
-      ExecutionException {
+  public CompletableFuture<Champion> getChampionByIdAsync(final Region region, final int id) {
     // This method is automatically generated and should not be modified directly.
     return this.getChampionByIdAsync(region, id, null, null, null);
   }
@@ -329,7 +325,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public CompletableFuture<ItemList> getItemListAsync(final Region region, final String version,
-      final Collection<String> itemListData, final String locale) throws ExecutionException {
+      final Collection<String> itemListData, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/items";
     Type type = ItemList.class;
@@ -359,7 +355,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param itemListData (optional) Tags to return additional data. Only type, version, basic, data, id, name, plaintext, group, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public CompletableFuture<ItemList> getItemListAsync(final Region region, final String version,
-      final Collection<String> itemListData) throws ExecutionException {
+      final Collection<String> itemListData) {
     // This method is automatically generated and should not be modified directly.
     return this.getItemListAsync(region, version, itemListData, null);
   }
@@ -383,8 +379,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
-  public CompletableFuture<ItemList> getItemListAsync(final Region region, final String version)
-      throws ExecutionException {
+  public CompletableFuture<ItemList> getItemListAsync(final Region region, final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getItemListAsync(region, version, null, null);
   }
@@ -406,8 +401,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * Not all data specified below is returned by default. See the itemListData parameter for more information.
    * @param region Region to execute against.
    */
-  public CompletableFuture<ItemList> getItemListAsync(final Region region) throws
-      ExecutionException {
+  public CompletableFuture<ItemList> getItemListAsync(final Region region) {
     // This method is automatically generated and should not be modified directly.
     return this.getItemListAsync(region, null, null, null);
   }
@@ -441,8 +435,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public CompletableFuture<Item> getItemByIdAsync(final Region region, final int id,
-      final String version, final Collection<String> itemData, final String locale) throws
-      ExecutionException {
+      final String version, final Collection<String> itemData, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/items/%1$s", id);
     Type type = Item.class;
@@ -474,7 +467,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param itemData (optional) Tags to return additional data. Only id, name, plaintext, group, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public CompletableFuture<Item> getItemByIdAsync(final Region region, final int id,
-      final String version, final Collection<String> itemData) throws ExecutionException {
+      final String version, final Collection<String> itemData) {
     // This method is automatically generated and should not be modified directly.
     return this.getItemByIdAsync(region, id, version, itemData, null);
   }
@@ -502,7 +495,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
   public CompletableFuture<Item> getItemByIdAsync(final Region region, final int id,
-      final String version) throws ExecutionException {
+      final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getItemByIdAsync(region, id, version, null, null);
   }
@@ -526,8 +519,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param id (required) Item ID
    */
-  public CompletableFuture<Item> getItemByIdAsync(final Region region, final int id) throws
-      ExecutionException {
+  public CompletableFuture<Item> getItemByIdAsync(final Region region, final int id) {
     // This method is automatically generated and should not be modified directly.
     return this.getItemByIdAsync(region, id, null, null, null);
   }
@@ -553,7 +545,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public CompletableFuture<LanguageStrings> getLanguageStringsAsync(final Region region,
-      final String version, final String locale) throws ExecutionException {
+      final String version, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/language-strings";
     Type type = LanguageStrings.class;
@@ -577,7 +569,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
   public CompletableFuture<LanguageStrings> getLanguageStringsAsync(final Region region,
-      final String version) throws ExecutionException {
+      final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getLanguageStringsAsync(region, version, null);
   }
@@ -595,8 +587,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
    * @param region Region to execute against.
    */
-  public CompletableFuture<LanguageStrings> getLanguageStringsAsync(final Region region) throws
-      ExecutionException {
+  public CompletableFuture<LanguageStrings> getLanguageStringsAsync(final Region region) {
     // This method is automatically generated and should not be modified directly.
     return this.getLanguageStringsAsync(region, null, null);
   }
@@ -617,8 +608,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getLanguages">Link to Portal</a><br>
    * @param region Region to execute against.
    */
-  public CompletableFuture<List<String>> getLanguagesAsync(final Region region) throws
-      ExecutionException {
+  public CompletableFuture<List<String>> getLanguagesAsync(final Region region) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/languages";
     Type type = new TypeToken<List<String>>() {
@@ -647,7 +637,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public CompletableFuture<MapData> getMapDataAsync(final Region region, final String version,
-      final String locale) throws ExecutionException {
+      final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/maps";
     Type type = MapData.class;
@@ -669,8 +659,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
-  public CompletableFuture<MapData> getMapDataAsync(final Region region, final String version)
-      throws ExecutionException {
+  public CompletableFuture<MapData> getMapDataAsync(final Region region, final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getMapDataAsync(region, version, null);
   }
@@ -688,7 +677,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getMapData">Link to Portal</a><br>
    * @param region Region to execute against.
    */
-  public CompletableFuture<MapData> getMapDataAsync(final Region region) throws ExecutionException {
+  public CompletableFuture<MapData> getMapDataAsync(final Region region) {
     // This method is automatically generated and should not be modified directly.
     return this.getMapDataAsync(region, null, null);
   }
@@ -720,8 +709,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public CompletableFuture<MasteryList> getMasteryListAsync(final Region region,
-      final String version, final Collection<String> masteryListData, final String locale) throws
-      ExecutionException {
+      final String version, final Collection<String> masteryListData, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/masteries";
     Type type = MasteryList.class;
@@ -751,7 +739,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param masteryListData (optional) Tags to return additional data. Only type, version, data, id, name, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public CompletableFuture<MasteryList> getMasteryListAsync(final Region region,
-      final String version, final Collection<String> masteryListData) throws ExecutionException {
+      final String version, final Collection<String> masteryListData) {
     // This method is automatically generated and should not be modified directly.
     return this.getMasteryListAsync(region, version, masteryListData, null);
   }
@@ -777,7 +765,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
   public CompletableFuture<MasteryList> getMasteryListAsync(final Region region,
-      final String version) throws ExecutionException {
+      final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getMasteryListAsync(region, version, null, null);
   }
@@ -799,8 +787,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * Not all data specified below is returned by default. See the masteryListData parameter for more information.
    * @param region Region to execute against.
    */
-  public CompletableFuture<MasteryList> getMasteryListAsync(final Region region) throws
-      ExecutionException {
+  public CompletableFuture<MasteryList> getMasteryListAsync(final Region region) {
     // This method is automatically generated and should not be modified directly.
     return this.getMasteryListAsync(region, null, null, null);
   }
@@ -835,8 +822,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public CompletableFuture<Mastery> getMasteryByIdAsync(final Region region, final int id,
-      final Collection<String> masteryData, final String version, final String locale) throws
-      ExecutionException {
+      final Collection<String> masteryData, final String version, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/masteries/%1$s", id);
     Type type = Mastery.class;
@@ -868,7 +854,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
   public CompletableFuture<Mastery> getMasteryByIdAsync(final Region region, final int id,
-      final Collection<String> masteryData, final String version) throws ExecutionException {
+      final Collection<String> masteryData, final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getMasteryByIdAsync(region, id, masteryData, version, null);
   }
@@ -896,7 +882,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param masteryData (optional) Tags to return additional data. Only id, name, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public CompletableFuture<Mastery> getMasteryByIdAsync(final Region region, final int id,
-      final Collection<String> masteryData) throws ExecutionException {
+      final Collection<String> masteryData) {
     // This method is automatically generated and should not be modified directly.
     return this.getMasteryByIdAsync(region, id, masteryData, null, null);
   }
@@ -920,8 +906,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param id (required) Mastery ID
    */
-  public CompletableFuture<Mastery> getMasteryByIdAsync(final Region region, final int id) throws
-      ExecutionException {
+  public CompletableFuture<Mastery> getMasteryByIdAsync(final Region region, final int id) {
     // This method is automatically generated and should not be modified directly.
     return this.getMasteryByIdAsync(region, id, null, null, null);
   }
@@ -947,7 +932,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public CompletableFuture<ProfileIconData> getProfileIconsAsync(final Region region,
-      final String version, final String locale) throws ExecutionException {
+      final String version, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/profile-icons";
     Type type = ProfileIconData.class;
@@ -971,7 +956,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
   public CompletableFuture<ProfileIconData> getProfileIconsAsync(final Region region,
-      final String version) throws ExecutionException {
+      final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getProfileIconsAsync(region, version, null);
   }
@@ -989,8 +974,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
    * @param region Region to execute against.
    */
-  public CompletableFuture<ProfileIconData> getProfileIconsAsync(final Region region) throws
-      ExecutionException {
+  public CompletableFuture<ProfileIconData> getProfileIconsAsync(final Region region) {
     // This method is automatically generated and should not be modified directly.
     return this.getProfileIconsAsync(region, null, null);
   }
@@ -1010,7 +994,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getRealm">Link to Portal</a><br>
    * @param region Region to execute against.
    */
-  public CompletableFuture<Realm> getRealmAsync(final Region region) throws ExecutionException {
+  public CompletableFuture<Realm> getRealmAsync(final Region region) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/realms";
     Type type = Realm.class;
@@ -1044,7 +1028,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public CompletableFuture<RuneList> getRuneListAsync(final Region region, final String version,
-      final Collection<String> runeListData, final String locale) throws ExecutionException {
+      final Collection<String> runeListData, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/runes";
     Type type = RuneList.class;
@@ -1074,7 +1058,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param runeListData (optional) Tags to return additional data. Only type, version, data, id, name, rune, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public CompletableFuture<RuneList> getRuneListAsync(final Region region, final String version,
-      final Collection<String> runeListData) throws ExecutionException {
+      final Collection<String> runeListData) {
     // This method is automatically generated and should not be modified directly.
     return this.getRuneListAsync(region, version, runeListData, null);
   }
@@ -1098,8 +1082,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
-  public CompletableFuture<RuneList> getRuneListAsync(final Region region, final String version)
-      throws ExecutionException {
+  public CompletableFuture<RuneList> getRuneListAsync(final Region region, final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getRuneListAsync(region, version, null, null);
   }
@@ -1121,8 +1104,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * Not all data specified below is returned by default. See the runeListData parameter for more information.
    * @param region Region to execute against.
    */
-  public CompletableFuture<RuneList> getRuneListAsync(final Region region) throws
-      ExecutionException {
+  public CompletableFuture<RuneList> getRuneListAsync(final Region region) {
     // This method is automatically generated and should not be modified directly.
     return this.getRuneListAsync(region, null, null, null);
   }
@@ -1156,8 +1138,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public CompletableFuture<Rune> getRuneByIdAsync(final Region region, final int id,
-      final String version, final Collection<String> runeData, final String locale) throws
-      ExecutionException {
+      final String version, final Collection<String> runeData, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/runes/%1$s", id);
     Type type = Rune.class;
@@ -1189,7 +1170,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param runeData (optional) Tags to return additional data. Only id, name, rune, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public CompletableFuture<Rune> getRuneByIdAsync(final Region region, final int id,
-      final String version, final Collection<String> runeData) throws ExecutionException {
+      final String version, final Collection<String> runeData) {
     // This method is automatically generated and should not be modified directly.
     return this.getRuneByIdAsync(region, id, version, runeData, null);
   }
@@ -1217,7 +1198,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
   public CompletableFuture<Rune> getRuneByIdAsync(final Region region, final int id,
-      final String version) throws ExecutionException {
+      final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getRuneByIdAsync(region, id, version, null, null);
   }
@@ -1241,8 +1222,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param id (required) Rune ID
    */
-  public CompletableFuture<Rune> getRuneByIdAsync(final Region region, final int id) throws
-      ExecutionException {
+  public CompletableFuture<Rune> getRuneByIdAsync(final Region region, final int id) {
     // This method is automatically generated and should not be modified directly.
     return this.getRuneByIdAsync(region, id, null, null, null);
   }
@@ -1278,7 +1258,7 @@ public final class StaticDataEndpoints extends Endpoints {
    */
   public CompletableFuture<SummonerSpellList> getSummonerSpellListAsync(final Region region,
       final String version, final Collection<String> spellListData, final Boolean dataById,
-      final String locale) throws ExecutionException {
+      final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/summoner-spells";
     Type type = SummonerSpellList.class;
@@ -1310,8 +1290,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param dataById (optional) If specified as true, the returned data map will use the spells' IDs as the keys. If not specified or specified as false, the returned data map will use the spells' keys instead.
    */
   public CompletableFuture<SummonerSpellList> getSummonerSpellListAsync(final Region region,
-      final String version, final Collection<String> spellListData, final Boolean dataById) throws
-      ExecutionException {
+      final String version, final Collection<String> spellListData, final Boolean dataById) {
     // This method is automatically generated and should not be modified directly.
     return this.getSummonerSpellListAsync(region, version, spellListData, dataById, null);
   }
@@ -1339,7 +1318,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param spellListData (optional) Tags to return additional data. Only type, version, data, id, key, name, description, and summonerLevel are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public CompletableFuture<SummonerSpellList> getSummonerSpellListAsync(final Region region,
-      final String version, final Collection<String> spellListData) throws ExecutionException {
+      final String version, final Collection<String> spellListData) {
     // This method is automatically generated and should not be modified directly.
     return this.getSummonerSpellListAsync(region, version, spellListData, null, null);
   }
@@ -1365,7 +1344,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
   public CompletableFuture<SummonerSpellList> getSummonerSpellListAsync(final Region region,
-      final String version) throws ExecutionException {
+      final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getSummonerSpellListAsync(region, version, null, null, null);
   }
@@ -1387,8 +1366,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * Not all data specified below is returned by default. See the spellListData parameter for more information.
    * @param region Region to execute against.
    */
-  public CompletableFuture<SummonerSpellList> getSummonerSpellListAsync(final Region region) throws
-      ExecutionException {
+  public CompletableFuture<SummonerSpellList> getSummonerSpellListAsync(final Region region) {
     // This method is automatically generated and should not be modified directly.
     return this.getSummonerSpellListAsync(region, null, null, null, null);
   }
@@ -1422,8 +1400,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public CompletableFuture<SummonerSpell> getSummonerSpellByIdAsync(final Region region,
-      final int id, final String version, final Collection<String> spellData, final String locale)
-      throws ExecutionException {
+      final int id, final String version, final Collection<String> spellData, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/summoner-spells/%1$s", id);
     Type type = SummonerSpell.class;
@@ -1455,8 +1432,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param spellData (optional) Tags to return additional data. Only id, key, name, description, and summonerLevel are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public CompletableFuture<SummonerSpell> getSummonerSpellByIdAsync(final Region region,
-      final int id, final String version, final Collection<String> spellData) throws
-      ExecutionException {
+      final int id, final String version, final Collection<String> spellData) {
     // This method is automatically generated and should not be modified directly.
     return this.getSummonerSpellByIdAsync(region, id, version, spellData, null);
   }
@@ -1484,7 +1460,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
   public CompletableFuture<SummonerSpell> getSummonerSpellByIdAsync(final Region region,
-      final int id, final String version) throws ExecutionException {
+      final int id, final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getSummonerSpellByIdAsync(region, id, version, null, null);
   }
@@ -1510,7 +1486,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param id (required) Summoner spell ID
    */
   public CompletableFuture<SummonerSpell> getSummonerSpellByIdAsync(final Region region,
-      final int id) throws ExecutionException {
+      final int id) {
     // This method is automatically generated and should not be modified directly.
     return this.getSummonerSpellByIdAsync(region, id, null, null, null);
   }
@@ -1531,8 +1507,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getVersions">Link to Portal</a><br>
    * @param region Region to execute against.
    */
-  public CompletableFuture<List<String>> getVersionsAsync(final Region region) throws
-      ExecutionException {
+  public CompletableFuture<List<String>> getVersionsAsync(final Region region) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/versions";
     Type type = new TypeToken<List<String>>() {

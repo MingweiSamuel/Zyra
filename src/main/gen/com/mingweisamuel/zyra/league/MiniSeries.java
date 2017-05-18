@@ -9,7 +9,7 @@ import java.lang.String;
 /**
  * MiniSeries.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getChallengerLeague">Riot API reference</a> on Wed May 17 21:34:50 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getChallengerLeague">Riot API reference</a> on Wed May 17 21:53:10 PDT 2017. */
 public class MiniSeries implements Serializable {
   public final int wins;
 

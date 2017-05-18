@@ -41,8 +41,7 @@ public final class MatchEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param matchId (required) The match ID.
    */
-  public CompletableFuture<Match> getMatchAsync(final Region region, final long matchId) throws
-      ExecutionException {
+  public CompletableFuture<Match> getMatchAsync(final Region region, final long matchId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/match/v3/matches/%1$s", matchId);
     Type type = Match.class;
@@ -90,7 +89,7 @@ public final class MatchEndpoints extends Endpoints {
   public CompletableFuture<Matchlist> getMatchlistAsync(final Region region, final long accountId,
       final List<Integer> queue, final Long beginTime, final Integer endIndex,
       final List<Integer> season, final List<Integer> champion, final Integer beginIndex,
-      final Long endTime) throws ExecutionException {
+      final Long endTime) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/match/v3/matchlists/by-account/%1$s", accountId);
     Type type = Matchlist.class;
@@ -133,8 +132,7 @@ public final class MatchEndpoints extends Endpoints {
    */
   public CompletableFuture<Matchlist> getMatchlistAsync(final Region region, final long accountId,
       final List<Integer> queue, final Long beginTime, final Integer endIndex,
-      final List<Integer> season, final List<Integer> champion, final Integer beginIndex) throws
-      ExecutionException {
+      final List<Integer> season, final List<Integer> champion, final Integer beginIndex) {
     // This method is automatically generated and should not be modified directly.
     return this.getMatchlistAsync(region, accountId, queue, beginTime, endIndex, season, champion, beginIndex, null);
   }
@@ -172,7 +170,7 @@ public final class MatchEndpoints extends Endpoints {
    */
   public CompletableFuture<Matchlist> getMatchlistAsync(final Region region, final long accountId,
       final List<Integer> queue, final Long beginTime, final Integer endIndex,
-      final List<Integer> season, final List<Integer> champion) throws ExecutionException {
+      final List<Integer> season, final List<Integer> champion) {
     // This method is automatically generated and should not be modified directly.
     return this.getMatchlistAsync(region, accountId, queue, beginTime, endIndex, season, champion, null, null);
   }
@@ -208,7 +206,7 @@ public final class MatchEndpoints extends Endpoints {
    */
   public CompletableFuture<Matchlist> getMatchlistAsync(final Region region, final long accountId,
       final List<Integer> queue, final Long beginTime, final Integer endIndex,
-      final List<Integer> season) throws ExecutionException {
+      final List<Integer> season) {
     // This method is automatically generated and should not be modified directly.
     return this.getMatchlistAsync(region, accountId, queue, beginTime, endIndex, season, null, null, null);
   }
@@ -241,8 +239,7 @@ public final class MatchEndpoints extends Endpoints {
    * @param endIndex (optional) The end index to use for filtering matchlist.
    */
   public CompletableFuture<Matchlist> getMatchlistAsync(final Region region, final long accountId,
-      final List<Integer> queue, final Long beginTime, final Integer endIndex) throws
-      ExecutionException {
+      final List<Integer> queue, final Long beginTime, final Integer endIndex) {
     // This method is automatically generated and should not be modified directly.
     return this.getMatchlistAsync(region, accountId, queue, beginTime, endIndex, null, null, null, null);
   }
@@ -272,7 +269,7 @@ public final class MatchEndpoints extends Endpoints {
    * @param beginTime (optional) The begin time to use for filtering matchlist specified as epoch milliseconds.
    */
   public CompletableFuture<Matchlist> getMatchlistAsync(final Region region, final long accountId,
-      final List<Integer> queue, final Long beginTime) throws ExecutionException {
+      final List<Integer> queue, final Long beginTime) {
     // This method is automatically generated and should not be modified directly.
     return this.getMatchlistAsync(region, accountId, queue, beginTime, null, null, null, null, null);
   }
@@ -300,7 +297,7 @@ public final class MatchEndpoints extends Endpoints {
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
    */
   public CompletableFuture<Matchlist> getMatchlistAsync(final Region region, final long accountId,
-      final List<Integer> queue) throws ExecutionException {
+      final List<Integer> queue) {
     // This method is automatically generated and should not be modified directly.
     return this.getMatchlistAsync(region, accountId, queue, null, null, null, null, null, null);
   }
@@ -325,8 +322,7 @@ public final class MatchEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param accountId (required) The account ID.
    */
-  public CompletableFuture<Matchlist> getMatchlistAsync(final Region region, final long accountId)
-      throws ExecutionException {
+  public CompletableFuture<Matchlist> getMatchlistAsync(final Region region, final long accountId) {
     // This method is automatically generated and should not be modified directly.
     return this.getMatchlistAsync(region, accountId, null, null, null, null, null, null, null);
   }
@@ -350,7 +346,7 @@ public final class MatchEndpoints extends Endpoints {
    * @param accountId (required) The account ID.
    */
   public CompletableFuture<Matchlist> getRecentMatchlistAsync(final Region region,
-      final long accountId) throws ExecutionException {
+      final long accountId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/match/v3/matchlists/by-account/%1$s/recent", accountId);
     Type type = Matchlist.class;
@@ -380,7 +376,7 @@ public final class MatchEndpoints extends Endpoints {
    * @param matchId (required) The match ID.
    */
   public CompletableFuture<MatchTimeline> getMatchTimelineAsync(final Region region,
-      final long matchId) throws ExecutionException {
+      final long matchId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/match/v3/timelines/by-match/%1$s", matchId);
     Type type = MatchTimeline.class;

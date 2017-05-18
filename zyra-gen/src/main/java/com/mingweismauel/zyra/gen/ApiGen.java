@@ -190,7 +190,6 @@ public class ApiGen {
                 methodBuilderAsync.addModifiers(Modifier.PUBLIC);
                 methodBuilderAsync.returns(ParameterizedTypeName.get(
                     ClassName.get(CompletableFuture.class), returnType));
-                methodBuilderAsync.addException(ExecutionException.class);
                 methodBuilderAsync.addComment(
                     "This method is automatically generated and should not be modified directly.");
                 methodBuilderAsync.addJavadoc(docstringBuilder.toString());
