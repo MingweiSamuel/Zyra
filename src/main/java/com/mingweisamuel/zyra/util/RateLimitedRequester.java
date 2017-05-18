@@ -5,8 +5,8 @@ import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.Param;
 import org.asynchttpclient.Response;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,7 +21,7 @@ public class RateLimitedRequester extends Requester {
     public static final int RETRIES_DEFAULT = 3;
 
     /** Root url for Riot API requests. */
-    private static final String RIOT_ROOT_URL = "%s.api.pvp.net";
+    private static final String RIOT_ROOT_URL = "%s.api.riotgames.com";
 
     /** Retry-After header name. */
     private static final String HEADER_RETRY_AFTER = "Retry-After";
@@ -55,24 +55,28 @@ public class RateLimitedRequester extends Requester {
     }
 
     public CompletableFuture<Response> getRequestNonRateLimitedAsync(
-            String relativeUrl, Region region, Param... params) {
-        return getRequestAsync(String.format(RIOT_ROOT_URL, region), relativeUrl, params).toCompletableFuture()
+            String relativeUrl, Region region, List<Param> params) {
+        return getRequestAsync(String.format(RIOT_ROOT_URL, region.getSubdomain()), relativeUrl, params)
+                .toCompletableFuture()
                 .thenApply(r -> {
                     if (Arrays.binarySearch(STATUS_SUCCESS, r.getStatusCode()) >= 0)
                         return r;
                     throw new RiotResponseException(
-                            String.format("Non rate limited request failed, no retries (%d).", r.getStatusCode()), r);
+                            String.format("Non rate limited request failed, no retries (%d). %s"
+                                , r.getStatusCode(), r.getUri()), r);
                 });
     }
 
-    public CompletableFuture<Response> getRequestRateLimitedAsync(String relativeUrl, Region region, Param... params) {
+    public CompletableFuture<Response> getRequestRateLimitedAsync(
+            String relativeUrl, Region region, List<Param> params) {
         return getRequestRateLimitedAsyncInternal(relativeUrl, region, 0, params);
     }
     private CompletableFuture<Response> getRequestRateLimitedAsyncInternal(
-            final String relativeUrl, final Region region, final int retryCount, final Param... params) {
+            final String relativeUrl, final Region region, final int retryCount, final List<Param> params) {
         final RateLimiter limiter = getRateLimiter(region);
         return limiter.acquireAsync()
-                .thenCompose(v -> getRequestAsync(String.format(RIOT_ROOT_URL, region), relativeUrl, params))
+                .thenCompose(v -> getRequestAsync(String.format(RIOT_ROOT_URL, region.getSubdomain()),
+                    relativeUrl, params))
                 .whenComplete((r, e) -> limiter.release()) // release limiter regardless of success or failure.
                 .thenCompose(r -> {
                     // if response was successful, return response
@@ -85,14 +89,13 @@ public class RateLimitedRequester extends Requester {
                     if (retryAfter != null)
                         limiter.setRetryAfter(Long.parseLong(retryAfter) * 1000 + 50);
                     // if the status code is not 429 and not a 5**, or if we are out of retries, throw an exception.
-                    //TODO league endpoint sometimes returns 400s for no reason.
                     if (r.getStatusCode() != 429 && r.getStatusCode() != 400 && r.getStatusCode() < 500
                             || retryCount >= retries) {
                         throw new RiotResponseException(String.format("Async request failed after %d retries (%d).",
                                 retryCount, r.getStatusCode()), r);
                     }
                     // otherwise retry request.
-                    return getRequestRateLimitedAsyncInternal(relativeUrl, region, retryCount + 1);
+                    return getRequestRateLimitedAsyncInternal(relativeUrl, region, retryCount + 1, params);
                 });
     }
 

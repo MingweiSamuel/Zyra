@@ -4,6 +4,7 @@ import com.google.common.base.CaseFormat;
 import com.google.common.collect.Iterables;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.FieldSpec;
@@ -28,12 +29,15 @@ import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
@@ -110,6 +114,10 @@ public class ApiGen {
         typeBuilder.superclass(ClassName.bestGuess("com.mingweisamuel.zyra.Endpoints"));
         typeBuilder.addJavadoc(endpointsRawName);
         typeBuilder.addJavadoc("\nThis class is automatically generated and should not be modified directly.\n");
+        AnnotationSpec.Builder suppressWarningsBuilder = AnnotationSpec.builder(SuppressWarnings.class);
+        suppressWarningsBuilder.addMember("value", "{$S, $S, $S}",
+            "unused", "SameParameterValue", "SpellCheckingInspection");
+        typeBuilder.addAnnotation(suppressWarningsBuilder.build());
 
         MethodSpec.Builder constructorBuilder = MethodSpec.constructorBuilder();
         constructorBuilder.addParameter(
@@ -153,7 +161,7 @@ public class ApiGen {
             this.endpoint = endpoint;
             this.methodName = endpoint.id().substring(1);
             this.requestUrl = endpoint.child(0).child(1).child(0).ownText();
-            this.nonRateLimited = NON_RATE_LIMITED_ENDPOINTSS.contains(this.methodName);
+            this.nonRateLimited = NON_RATE_LIMITED_ENDPOINTSS.contains(endpointsNormalizedName);
 
             url = "https://developer.riotgames.com/api-methods/" +
                 endpoint.child(0).child(0).child(0).attr("href");
@@ -170,61 +178,90 @@ public class ApiGen {
 
             for (int optArgs = endpointParametersOpt.size(); optArgs >= 0; optArgs--) {
 
-                MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder(methodName);
-                methodBuilder.addModifiers(Modifier.PUBLIC);
-                methodBuilder.returns(returnType);
-                methodBuilder.addException(ExecutionException.class);
-                methodBuilder.addComment(
+                MethodSpec.Builder methodBuilderSync = MethodSpec.methodBuilder(methodName);
+                methodBuilderSync.addModifiers(Modifier.PUBLIC);
+                methodBuilderSync.returns(returnType);
+                methodBuilderSync.addException(ExecutionException.class);
+                methodBuilderSync.addComment(
                     "This method is automatically generated and should not be modified directly.");
-                methodBuilder.addJavadoc(docstringBuilder.toString());
+                methodBuilderSync.addJavadoc(docstringBuilder.toString());
 
-                StringBuilder code = new StringBuilder("return this.").append(methodName).append('(');
+                MethodSpec.Builder methodBuilderAsync = MethodSpec.methodBuilder(methodName + "Async");
+                methodBuilderAsync.addModifiers(Modifier.PUBLIC);
+                methodBuilderAsync.returns(ParameterizedTypeName.get(
+                    ClassName.get(CompletableFuture.class), returnType));
+                methodBuilderAsync.addException(ExecutionException.class);
+                methodBuilderAsync.addComment(
+                    "This method is automatically generated and should not be modified directly.");
+                methodBuilderAsync.addJavadoc(docstringBuilder.toString());
+
+                StringBuilder code = new StringBuilder("(");
 
                 // region param
                 TypeName regionType = ClassName.bestGuess("com.mingweisamuel.zyra.enums.Region");
-                methodBuilder.addParameter(ParameterSpec.builder(regionType, "region", Modifier.FINAL).build());
-                methodBuilder.addJavadoc("@param region Region to execute against.");
+                methodBuilderSync.addParameter(ParameterSpec.builder(regionType, "region", Modifier.FINAL).build());
+                methodBuilderSync.addJavadoc("@param region Region to execute against.");
+                methodBuilderAsync.addParameter(ParameterSpec.builder(regionType, "region", Modifier.FINAL).build());
+                methodBuilderAsync.addJavadoc("@param region Region to execute against.");
                 code.append("region, ");
 
                 for (EndpointParameter requiredParam :
                     Iterables.concat(endpointParametersPath, endpointParametersReq)) {
 
-                    methodBuilder.addParameter(requiredParam.spec);
-                    methodBuilder.addJavadoc("@param $L (required) $L\n", requiredParam.spec.name, requiredParam.desc);
+                    methodBuilderSync.addParameter(requiredParam.spec);
+                    methodBuilderSync.addJavadoc("@param $L (required) $L\n",
+                        requiredParam.spec.name, requiredParam.desc);
+                    methodBuilderAsync.addParameter(requiredParam.spec);
+                    methodBuilderAsync.addJavadoc("@param $L (required) $L\n",
+                        requiredParam.spec.name, requiredParam.desc);
                     code.append(requiredParam.spec.name).append(", ");
                 }
 
                 for (EndpointParameter optionalParam : endpointParametersOpt.subList(0, optArgs)) {
 
-                    methodBuilder.addParameter(optionalParam.spec);
-                    methodBuilder.addJavadoc("@param $L (optional) $L\n", optionalParam.spec.name, optionalParam.desc);
+                    methodBuilderSync.addParameter(optionalParam.spec);
+                    methodBuilderSync.addJavadoc("@param $L (optional) $L\n",
+                        optionalParam.spec.name, optionalParam.desc);
+                    methodBuilderAsync.addParameter(optionalParam.spec);
+                    methodBuilderAsync.addJavadoc("@param $L (optional) $L\n",
+                        optionalParam.spec.name, optionalParam.desc);
                     code.append(optionalParam.spec.name).append(", ");
                 }
 
                 for (int i = optArgs; i < endpointParametersOpt.size(); i++)
                     code.append("null, ");
                 code.setLength(code.length() - 2);
-                code.append(");");
+                code.append(");\n");
 
                 if (optArgs == endpointParametersOpt.size()) {
-                    methodBuilder.addCode("$T url = $L;\n", String.class, this.getUrlCode());
-                    methodBuilder.addCode("$T type = $L;\n", Type.class, this.getGsonTypeCode());
+                    methodBuilderSync.addCode("$T url = $L;\n", String.class, this.getUrlCode());
+                    methodBuilderSync.addCode("$T type = $L;\n", Type.class, this.getGsonTypeCode());
+                    methodBuilderAsync.addCode("$T url = $L;\n", String.class, this.getUrlCode());
+                    methodBuilderAsync.addCode("$T type = $L;\n", Type.class, this.getGsonTypeCode());
                     String optParamsStr = buildOptionalParams();
                     if (optParamsStr.isEmpty()) {
-                        methodBuilder.addCode("return riotApi.getBasic$L(url, region, type);",
-                            nonRateLimited ? "NonRateLimited" : "");
+                        methodBuilderSync.addCode("return riotApi.getBasic$L(url, region, type, $T.emptyList());\n",
+                            nonRateLimited ? "NonRateLimited" : "", Collections.class);
+                        methodBuilderAsync.addCode(
+                            "return riotApi.getBasic$LAsync(url, region, type, $T.emptyList());\n",
+                            nonRateLimited ? "NonRateLimited" : "", Collections.class);
                     }
                     else {
-                        methodBuilder.addCode("return riotApi.getBasic$L(url, region, type, $T.makeParams($L));",
-                            nonRateLimited ? "NonRateLimited" : "",
-                            ClassName.bestGuess("com.mingweisamuel.zyra.RiotApi"),
-                            optParamsStr);
+                        methodBuilderSync.addCode(
+                            "return riotApi.getBasic$L(url, region, type, riotApi.makeParams($L));\n",
+                            nonRateLimited ? "NonRateLimited" : "", optParamsStr);
+                        methodBuilderAsync.addCode(
+                            "return riotApi.getBasic$LAsync(url, region, type, riotApi.makeParams($L));\n",
+                            nonRateLimited ? "NonRateLimited" : "", optParamsStr);
                     }
                 }
-                else
-                    methodBuilder.addCode(code.toString());
+                else {
+                    methodBuilderSync.addCode("return this." + methodName + code.toString());
+                    methodBuilderAsync.addCode("return this." + methodName + "Async" + code.toString());
+                }
 
-                methodSpecs.add(methodBuilder.build());
+                methodSpecs.add(methodBuilderSync.build());
+                methodSpecs.add(methodBuilderAsync.build());
             }
 
             return methodSpecs;
@@ -251,9 +288,7 @@ public class ApiGen {
             case "rate limit notes":
             default:
                 // nop
-                break;
             }
-            //TODO endpoint methods
         }
 
         private void processEndpointDtos(Element apiBlock) {
@@ -294,14 +329,24 @@ public class ApiGen {
                 if (!paramRequired && arePathParams) { // error in docs
                     paramRequired = true;
                 }
-                String paramTypeStr = paramTr.child(2).text();
-                TypeName paramType = getTypeFromString(paramTypeStr); //TODO championId (?)
+                TypeName paramType;
+                String paramTypeKey = endpointsNormalizedName + '.' + methodName + ':' + paramName;
+                if (PARAM_TYPES.containsKey(paramTypeKey)) {
+                    paramType = PARAM_TYPES.get(paramTypeKey);
+                }
+                else {
+                    String paramTypeStr = paramTr.child(2).text();
+                    paramType = getTypeFromString(paramTypeStr);
+                    if ("true".equals(paramTr.child(1).child(0).attr("multiple"))) {
+                        paramType = ParameterizedTypeName.get(ClassName.get(Collection.class), paramType);
+                    }
+                }
                 if (!paramRequired) // optional parameters nullable
                     paramType = paramType.box();
                 String paramDesc = paramTr.child(3).text();
 
-                System.out.printf("            %s %s (%s) - %s%n",
-                    paramTypeStr, paramName, paramRequiredStr, paramDesc);
+                System.out.printf("            %s %s (%s) - %s%n", paramType.toString(), paramName,
+                    paramRequired ? "required" : "optional", paramDesc);
 
                 ParameterSpec.Builder paramBuilder = ParameterSpec.builder(paramType, paramName, Modifier.FINAL);
                 ParameterSpec paramSpec = paramBuilder.build();
@@ -435,6 +480,9 @@ public class ApiGen {
                 .replaceFirst("\\{\\S+?}", "%1\\$s")
                 .replaceFirst("\\{\\S+?}", "%2\\$s");
 
+            if (requestUrl.equals(requestUrlNormalized))
+                return CodeBlock.of("$S", requestUrl);
+
             StringBuilder argsBuilder = new StringBuilder();
             for (EndpointParameter param : endpointParametersPath) {
                 argsBuilder.append(", ").append(param.spec.name);
@@ -450,7 +498,6 @@ public class ApiGen {
                     paramsBuilder.append("\"").append(param.spec.name)
                         .append("\", ").append(param.spec.name).append(", ");
                 paramsBuilder.setLength(paramsBuilder.length() - 2);
-                paramsBuilder.append(")");
             }
             return paramsBuilder.toString();
         }
@@ -493,7 +540,15 @@ public class ApiGen {
         new HashSet<>(Arrays.asList("Match.getMatchIdsByTournamentCode", "Match.getMatchByTournamentCode"));
 
     private static final HashSet<String> NON_RATE_LIMITED_ENDPOINTSS =
-        new HashSet<>(Arrays.asList("LolStatus", "StaticData"));
+        new HashSet<>();
+//        new HashSet<>(Arrays.asList("LolStatus", "StaticData")); //TODO
+
+    /** Method return type overrides. */
+    private static final Map<String, TypeName> PARAM_TYPES = new HashMap<>();
+    static {
+        PARAM_TYPES.put("Summoner.getByAccountId:accountId", TypeName.LONG);
+        PARAM_TYPES.put("Summoner.getBySummonerId:summonerId", TypeName.LONG);
+    }
 
     /** DTO field type overrides. */
     private static final Map<String, TypeName> FIELD_TYPES = new HashMap<>();
@@ -507,24 +562,24 @@ public class ApiGen {
         // Map<String, Item> -> Map<Integer, Item>
         FIELD_TYPES.put("StaticData.ItemList.data",
             ParameterizedTypeName.get(ClassName.get(Map.class),TypeName.INT.box(),
-                ClassName.bestGuess("com.mingweisamuel.zyra.lolStaticData.Item")));
+                ClassName.bestGuess("com.mingweisamuel.zyra.staticData.Item")));
         // Map<String, Boolean> -> Map<Integer, Boolean>
         FIELD_TYPES.put("StaticData.Item.maps", ParameterizedTypeName.get(Map.class, Integer.class, Boolean.class));
         // Map<String, MapDetails> -> Map<Integer, MapDetails>
         FIELD_TYPES.put("StaticData.MapData.data",
             ParameterizedTypeName.get(ClassName.get(Map.class), TypeName.LONG.box(),
-                ClassName.bestGuess("com.mingweisamuel.zyra.lolStaticData.MapDetails")));
+                ClassName.bestGuess("com.mingweisamuel.zyra.staticData.MapDetails")));
         // Map<String, Mastery> -> Map<Integer, Mastery>
         FIELD_TYPES.put("StaticData.MasteryList.data",
             ParameterizedTypeName.get(ClassName.get(Map.class), TypeName.INT.box(),
-                ClassName.bestGuess("com.mingweisamuel.zyra.lolStaticData.Mastery")));
+                ClassName.bestGuess("com.mingweisamuel.zyra.staticData.Mastery")));
         // Map<String, Rune> -> Map<Integer, Rune>
         FIELD_TYPES.put("StaticData.RuneList.data",
             ParameterizedTypeName.get(ClassName.get(Map.class), TypeName.INT.box(),
-                ClassName.bestGuess("com.mingweisamuel.zyra.lolStaticData.Rune")));
+                ClassName.bestGuess("com.mingweisamuel.zyra.staticData.Rune")));
         // Map<String, SummonerSpell> -> Map<Integer, SummonerSpell>
         FIELD_TYPES.put("StaticData.SummonerSpellList.data", ParameterizedTypeName.get(ClassName.get(Map.class),
-            TypeName.INT.box(), ClassName.bestGuess("com.mingweisamuel.zyra.lolStaticData.SummonerSpell")));
+            TypeName.INT.box(), ClassName.bestGuess("com.mingweisamuel.zyra.staticData.SummonerSpell")));
     }
 
     /**

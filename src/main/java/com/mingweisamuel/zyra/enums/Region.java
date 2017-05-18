@@ -35,7 +35,7 @@ public enum Region {
     /** Tencent publisher - China. Not functional in endpoints. */
     TENCENT(null),
     /** Global. */
-    GLOBAL(null);
+    GLOBAL("global");
 
     /**
      * The Platform ID of the region.
@@ -44,6 +44,9 @@ public enum Region {
     public final String platform;
     Region(String platform) {
         this.platform = platform;
+    }
+    public String getSubdomain() {
+        return this.platform.toLowerCase();
     }
 
     @Override

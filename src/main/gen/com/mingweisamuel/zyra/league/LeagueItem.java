@@ -9,7 +9,7 @@ import java.lang.String;
 /**
  * LeagueItem.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getChallengerLeague">Riot API reference</a> on Tue May 16 20:00:39 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getChallengerLeague">Riot API reference</a> on Wed May 17 19:48:11 PDT 2017. */
 public class LeagueItem implements Serializable {
   public final String rank;
 

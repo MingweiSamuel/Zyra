@@ -18,11 +18,11 @@ public class ApiChampionTest extends ApiTest {
 
     @Test
     public void getAll() throws ExecutionException {
-        checkGetAll(api.champions.getAll(Region.NA));
+        checkGetAll(api.champions.getChampions(Region.NA));
     }
     @Test
     public void getAllAsync() throws ExecutionException, InterruptedException {
-        api.champions.getAllAsync(Region.NA).thenAccept(this::checkGetAll).get();
+        api.champions.getChampionsAsync(Region.NA).thenAccept(this::checkGetAll).get();
     }
     private void checkGetAll(ChampionList result) {
         int free = 0;
@@ -37,11 +37,11 @@ public class ApiChampionTest extends ApiTest {
 
     @Test
     public void get() throws ExecutionException {
-        checkGet(api.champions.get(Region.NA, ZYRA));
+        checkGet(api.champions.getChampionsById(Region.NA, ZYRA));
     }
     @Test
     public void getAsync() throws ExecutionException, InterruptedException {
-        api.champions.getAsync(Region.NA, ZYRA).thenAccept(this::checkGet).get();
+        api.champions.getChampionsByIdAsync(Region.NA, ZYRA).thenAccept(this::checkGet).get();
     }
     private void checkGet(Champion result) {
         assertEquals(143, result.id);

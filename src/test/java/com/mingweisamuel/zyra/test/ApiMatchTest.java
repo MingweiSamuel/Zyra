@@ -2,10 +2,10 @@ package com.mingweisamuel.zyra.test;
 
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.enums.TeamId;
-import com.mingweisamuel.zyra.match.BannedChampion;
-import com.mingweisamuel.zyra.match.MatchDetail;
+import com.mingweisamuel.zyra.match.Match;
 import com.mingweisamuel.zyra.match.ParticipantIdentity;
-import com.mingweisamuel.zyra.match.Team;
+import com.mingweisamuel.zyra.match.TeamBans;
+import com.mingweisamuel.zyra.match.TeamStats;
 import org.junit.Test;
 
 import java.util.concurrent.ExecutionException;
@@ -27,17 +27,17 @@ public class ApiMatchTest extends ApiTest {
 
     @Test
     public void get() throws ExecutionException {
-        checkGet(api.matches.get(Region.NA, 2398184332L));
+        checkGet(api.matches.getMatch(Region.NA, 2398184332L));
     }
     @Test
     public void getAsync() throws ExecutionException, InterruptedException {
-        api.matches.getAsync(Region.NA, 2398184332L).thenAccept(this::checkGet).get();
+        api.matches.getMatchAsync(Region.NA, 2398184332L).thenAccept(this::checkGet).get();
     }
-    private void checkGet(MatchDetail match) {
+    private void checkGet(Match match) {
         // http://matchhistory.na.leagueoflegends.com/en/#match-details/NA1/2398184332/51405?tab=overview
-        assertEquals(2398184332L, match.matchId);
+        assertEquals(2398184332L, match.gameId);
         assertEquals(11, match.mapId);
-        assertEquals(1568, match.matchDuration);
+        assertEquals(1568, match.gameDuration);
         boolean c9sneaky = false;
         for (ParticipantIdentity identity : match.participantIdentities)
             if (identity.player.summonerId == 51405)
@@ -45,17 +45,17 @@ public class ApiMatchTest extends ApiTest {
         assertTrue("C9 Sneaky not found", c9sneaky);
         assertEquals(2, match.teams.size());
         int[] bans = {0, CAMILLE, RENGAR, KATARINA, AATROX, RYZE, LEBLANC};
-        for (Team team : match.teams) {
+        for (TeamStats team : match.teams) {
             if (team.teamId == TeamId.BLUE) {
-                assertTrue(team.winner);
+                assertEquals("Win", team.win);
                 assertFalse(team.firstBlood);
             }
             else {
-                assertFalse(team.winner);
+                assertEquals("Fail", team.win);
                 assertTrue(team.firstBlood);
             }
             assertEquals(3, team.bans.size());
-            for (BannedChampion ban : team.bans)
+            for (TeamBans ban : team.bans)
                 assertEquals(bans[ban.pickTurn], ban.championId);
         }
     }

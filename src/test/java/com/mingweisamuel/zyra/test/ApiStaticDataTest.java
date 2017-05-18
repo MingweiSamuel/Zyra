@@ -3,19 +3,19 @@ package com.mingweisamuel.zyra.test;
 import com.mingweisamuel.zyra.enums.ChampionId;
 import com.mingweisamuel.zyra.enums.LocaleUtil;
 import com.mingweisamuel.zyra.enums.Region;
-import com.mingweisamuel.zyra.lolStaticData.Champion;
-import com.mingweisamuel.zyra.lolStaticData.ChampionList;
-import com.mingweisamuel.zyra.lolStaticData.Item;
-import com.mingweisamuel.zyra.lolStaticData.ItemList;
-import com.mingweisamuel.zyra.lolStaticData.LanguageStrings;
-import com.mingweisamuel.zyra.lolStaticData.MapData;
-import com.mingweisamuel.zyra.lolStaticData.Mastery;
-import com.mingweisamuel.zyra.lolStaticData.MasteryList;
-import com.mingweisamuel.zyra.lolStaticData.Realm;
-import com.mingweisamuel.zyra.lolStaticData.Rune;
-import com.mingweisamuel.zyra.lolStaticData.RuneList;
-import com.mingweisamuel.zyra.lolStaticData.SummonerSpell;
-import com.mingweisamuel.zyra.lolStaticData.SummonerSpellList;
+import com.mingweisamuel.zyra.staticData.Champion;
+import com.mingweisamuel.zyra.staticData.ChampionList;
+import com.mingweisamuel.zyra.staticData.Item;
+import com.mingweisamuel.zyra.staticData.ItemList;
+import com.mingweisamuel.zyra.staticData.LanguageStrings;
+import com.mingweisamuel.zyra.staticData.MapData;
+import com.mingweisamuel.zyra.staticData.Mastery;
+import com.mingweisamuel.zyra.staticData.MasteryList;
+import com.mingweisamuel.zyra.staticData.Realm;
+import com.mingweisamuel.zyra.staticData.Rune;
+import com.mingweisamuel.zyra.staticData.RuneList;
+import com.mingweisamuel.zyra.staticData.SummonerSpell;
+import com.mingweisamuel.zyra.staticData.SummonerSpellList;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -32,20 +32,21 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Integration tests for {@link com.mingweisamuel.zyra.LolStaticDataEndpoints}.
+ * Integration tests for {@link com.mingweisamuel.zyra.StaticDataEndpoints}.
+ * TODO: test getProfileIcons
  */
 public class ApiStaticDataTest extends ApiTest {
 
     //region champion
     @Test
     public void getChampions() throws ExecutionException {
-        checkGetChampions(
-                api.staticData.getChampions(Region.NA, LocaleUtil.zh_CN, null, null, Arrays.asList("skins", "image")));
+        checkGetChampions(api.staticData.getChampionList(Region.NA, null,
+            Arrays.asList("skins", "image"), null, LocaleUtil.zh_CN));
     }
     @Test
     public void getChampionsAsync() throws ExecutionException, InterruptedException {
-        api.staticData.getChampionsAsync(Region.NA, LocaleUtil.zh_CN, null, null, Arrays.asList("skins", "image"))
-                .thenAccept(this::checkGetChampions).get();
+        api.staticData.getChampionListAsync(Region.NA, null, Arrays.asList("skins", "image"), null, LocaleUtil.zh_CN)
+            .thenAccept(this::checkGetChampions).get();
     }
     private void checkGetChampions(ChampionList result) {
         assertNotNull(result);
@@ -55,19 +56,20 @@ public class ApiStaticDataTest extends ApiTest {
 
     @Test
     public void getChampion() throws ExecutionException {
-        checkGetChampion(api.staticData.getChampion(Region.NA, ChampionId.ZYRA, LocaleUtil.zh_CN, null,
-                Arrays.asList("skins", "image")));
+        checkGetChampion(api.staticData.getChampionById(Region.NA, ChampionId.ZYRA, null,
+            LocaleUtil.zh_CN, Arrays.asList("skins", "image")));
     }
     @Test
     public void getChampionAsync() throws ExecutionException, InterruptedException {
-        api.staticData.getChampionAsync(
-                Region.NA, ChampionId.ZYRA, LocaleUtil.zh_CN, null, Arrays.asList("skins", "image"))
-                .thenAccept(this::checkGetChampion).get();
+        api.staticData.getChampionByIdAsync(Region.NA, ChampionId.ZYRA, null,
+            LocaleUtil.zh_CN, Arrays.asList("skins", "image"))
+            .thenAccept(this::checkGetChampion).get();
     }
     private void checkGetChampion(Champion result) {
         assertNull(result.allytips);
         assertNull(result.blurb);
         assertEquals("\u8346\u68d8\u4e4b\u5174", result.name);
+        assertNotNull("image is null", result.image);
         assertEquals("Zyra.png", result.image.full);
         assertEquals(5, result.skins.size());
         assertEquals("\u91ce\u706b\u4e4b\u85e4 \u5a55\u62c9", result.skins.get(1).name);
@@ -77,13 +79,13 @@ public class ApiStaticDataTest extends ApiTest {
     //region items
     @Test
     public void getItems() throws ExecutionException {
-        checkGetItems(
-                api.staticData.getItems(Region.NA, LocaleUtil.zh_CN, null, Arrays.asList("gold", "image", "maps")));
+        checkGetItems(api.staticData.getItemList(Region.NA, null,
+            Arrays.asList("gold", "image", "maps"), LocaleUtil.zh_CN));
     }
     @Test
     public void getItemsAsync() throws ExecutionException, InterruptedException {
-        api.staticData.getItemsAsync(Region.NA, LocaleUtil.zh_CN, null, Arrays.asList("gold", "image", "maps"))
-                .thenAccept(this::checkGetItems).get();
+        api.staticData.getItemListAsync(Region.NA, null, Arrays.asList("gold", "image", "maps"), LocaleUtil.zh_CN)
+            .thenAccept(this::checkGetItems).get();
     }
     private void checkGetItems(ItemList result) {
         assertNotNull(result);
@@ -94,19 +96,20 @@ public class ApiStaticDataTest extends ApiTest {
 
     @Test
     public void getItem() throws ExecutionException {
-        checkGetItem(api.staticData.getItem(Region.NA, 3107, LocaleUtil.zh_CN, null,
-                Arrays.asList("gold", "image", "maps")));
+        checkGetItem(api.staticData.getItemById(Region.NA, 3107, null,
+            Arrays.asList("gold", "image", "maps"), LocaleUtil.zh_CN));
     }
     @Test
     public void getItemAsync() throws ExecutionException, InterruptedException {
-        api.staticData.getItemAsync(
-                Region.NA, 3107, LocaleUtil.zh_CN, null, Arrays.asList("gold", "image", "maps"))
-                .thenAccept(this::checkGetItem).get();
+        api.staticData.getItemByIdAsync(Region.NA, 3107, null,
+            Arrays.asList("gold", "image", "maps"), LocaleUtil.zh_CN)
+            .thenAccept(this::checkGetItem).get();
     }
     private void checkGetItem(Item result) {
         assertNull(result.sanitizedDescription);
         // Redemption
         assertEquals("\u6551\u8d4e", result.name);
+        assertNotNull("gold is null", result.gold);
         assertEquals(2100, result.gold.total);
         assertEquals("3107.png", result.image.full);
         assertTrue(result.maps.get(11));
@@ -116,11 +119,11 @@ public class ApiStaticDataTest extends ApiTest {
     //region language
     @Test
     public void getLanguageStrings() throws ExecutionException {
-        checkGetLanguageStrings(api.staticData.getLanguageStrings(Region.NA, LocaleUtil.zh_CN));
+        checkGetLanguageStrings(api.staticData.getLanguageStrings(Region.NA, null, LocaleUtil.zh_CN));
     }
     @Test
     public void getLanguageStringsAsync() throws ExecutionException, InterruptedException {
-        api.staticData.getLanguageStringsAsync(Region.NA, LocaleUtil.zh_CN)
+        api.staticData.getLanguageStringsAsync(Region.NA, null, LocaleUtil.zh_CN)
                 .thenAccept(this::checkGetLanguageStrings).get();
     }
     private void checkGetLanguageStrings(LanguageStrings result) {
@@ -154,11 +157,11 @@ public class ApiStaticDataTest extends ApiTest {
     //region maps
     @Test
     public void getMaps() throws ExecutionException {
-        checkGetMaps(api.staticData.getMaps(Region.NA));
+        checkGetMaps(api.staticData.getMapData(Region.NA));
     }
     @Test
     public void getMapsAsync() throws ExecutionException, InterruptedException {
-        api.staticData.getMapsAsync(Region.NA).thenAccept(this::checkGetMaps).get();
+        api.staticData.getMapDataAsync(Region.NA).thenAccept(this::checkGetMaps).get();
     }
     private void checkGetMaps(MapData result) {
         assertEquals("map", result.type);
@@ -170,12 +173,12 @@ public class ApiStaticDataTest extends ApiTest {
     //region mastery
     @Test
     public void getMasteries() throws ExecutionException {
-        checkGetMasteries(
-                api.staticData.getMasteries(Region.NA, LocaleUtil.zh_CN, null, Arrays.asList("ranks", "image")));
+        checkGetMasteries(api.staticData.getMasteryList(Region.NA, null,
+            Arrays.asList("ranks", "image"), LocaleUtil.zh_CN));
     }
     @Test
     public void getMasteriesAsync() throws ExecutionException, InterruptedException {
-        api.staticData.getMasteriesAsync(Region.NA, LocaleUtil.zh_CN, null, Arrays.asList("ranks", "image"))
+        api.staticData.getMasteryListAsync(Region.NA, null, Arrays.asList("ranks", "image"), LocaleUtil.zh_CN)
                 .thenAccept(this::checkGetMasteries).get();
     }
     private void checkGetMasteries(MasteryList result) {
@@ -188,12 +191,12 @@ public class ApiStaticDataTest extends ApiTest {
 
     @Test
     public void getMastery() throws ExecutionException {
-        checkGetMastery(
-                api.staticData.getMastery(Region.NA, 6363, LocaleUtil.zh_CN, null, Arrays.asList("ranks", "image")));
+        checkGetMastery(api.staticData.getMasteryById(Region.NA, 6363,
+            Arrays.asList("ranks", "image"), null, LocaleUtil.zh_CN));
     }
     @Test
     public void getMasteryAsync() throws ExecutionException, InterruptedException {
-        api.staticData.getMasteryAsync(Region.NA, 6363, LocaleUtil.zh_CN, null, Arrays.asList("ranks", "image"))
+        api.staticData.getMasteryByIdAsync(Region.NA, 6363, Arrays.asList("ranks", "image"), null, LocaleUtil.zh_CN)
                 .thenAccept(this::checkGetMastery).get();
     }
     private void checkGetMastery(Mastery result) {
@@ -223,11 +226,11 @@ public class ApiStaticDataTest extends ApiTest {
     //region rune
     @Test
     public void getRunes() throws ExecutionException {
-        checkGetRunes(api.staticData.getRunes(Region.NA, LocaleUtil.zh_CN, null, Collections.singleton("all")));
+        checkGetRunes(api.staticData.getRuneList(Region.NA, null, Collections.singleton("all"), LocaleUtil.zh_CN));
     }
     @Test
     public void getRunesAsync() throws ExecutionException, InterruptedException {
-        api.staticData.getRunesAsync(Region.NA, LocaleUtil.zh_CN, null, Collections.singleton("all"))
+        api.staticData.getRuneListAsync(Region.NA, null, Collections.singleton("all"), LocaleUtil.zh_CN)
                 .thenAccept(this::checkGetRunes).get();
     }
     private void checkGetRunes(RuneList result) {
@@ -240,11 +243,11 @@ public class ApiStaticDataTest extends ApiTest {
 
     @Test
     public void getRune() throws ExecutionException {
-        checkGetRune(api.staticData.getRune(Region.NA, 5337, LocaleUtil.zh_CN, null, Collections.singleton("all")));
+        checkGetRune(api.staticData.getRuneById(Region.NA, 5337, null, Collections.singleton("all"), LocaleUtil.zh_CN));
     }
     @Test
     public void getRuneAsync() throws ExecutionException, InterruptedException {
-        api.staticData.getRuneAsync(Region.NA, 5337, LocaleUtil.zh_CN, null, Collections.singleton("all"))
+        api.staticData.getRuneByIdAsync(Region.NA, 5337, null, Collections.singleton("all"), LocaleUtil.zh_CN)
                 .thenAccept(this::checkGetRune).get();
     }
     private void checkGetRune(Rune result) {
@@ -260,12 +263,13 @@ public class ApiStaticDataTest extends ApiTest {
     //region summoner-spells
     @Test
     public void getSummonerSpells() throws ExecutionException {
-        testGetSummonerSpells(api.staticData.getSummonerSpells(
-                Region.NA, LocaleUtil.zh_CN, null, true, Arrays.asList("image", "range")));
+        testGetSummonerSpells(api.staticData.getSummonerSpellList(
+            Region.NA, null, Arrays.asList("image", "range"), true, LocaleUtil.zh_CN));
     }
     @Test
     public void getSummonerSpellsAsync() throws ExecutionException, InterruptedException {
-        api.staticData.getSummonerSpellsAsync(Region.NA, LocaleUtil.zh_CN, null, true, Arrays.asList("image", "range"))
+        api.staticData.getSummonerSpellListAsync(
+            Region.NA, null, Arrays.asList("image", "range"), true, LocaleUtil.zh_CN)
             .thenAccept(this::testGetSummonerSpells).get();
     }
     private void testGetSummonerSpells(SummonerSpellList result) {
@@ -278,18 +282,19 @@ public class ApiStaticDataTest extends ApiTest {
 
     @Test
     public void getSummonerSpell() throws ExecutionException {
-        testGetSummonerSpell(
-                api.staticData.getSummonerSpell(Region.NA, 4, LocaleUtil.zh_CN, null, Arrays.asList("image", "range")));
+        testGetSummonerSpell(api.staticData.getSummonerSpellById(Region.NA, 4, null,
+            Arrays.asList("image", "range"), LocaleUtil.zh_CN));
     }
     @Test
     public void getSummonerSpellAsync() throws ExecutionException, InterruptedException {
-        api.staticData.getSummonerSpellAsync(Region.NA, 4, LocaleUtil.zh_CN, null, Arrays.asList("image", "range"))
+        api.staticData.getSummonerSpellByIdAsync(Region.NA, 4, null, Arrays.asList("image", "range"), LocaleUtil.zh_CN)
                 .thenAccept(this::testGetSummonerSpell).get();
     }
     private void testGetSummonerSpell(SummonerSpell result) {
         // Flash
         assertEquals("\u95ea\u73b0", result.name);
         assertEquals(4, result.id);
+        assertNotNull("image is null", result.image);
         assertEquals("SummonerFlash.png", result.image.full);
         assertEquals(8, result.summonerLevel);
         assertEquals(425, (int) result.range.get(0));

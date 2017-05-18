@@ -1,7 +1,6 @@
 package com.mingweisamuel.zyra.staticData;
 
 import com.google.common.base.Objects;
-import com.mingweisamuel.zyra.lolStaticData.Item;
 import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.Object;
@@ -15,7 +14,7 @@ import java.util.Map;
  *
  * This object contains item list data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getItemList">Riot API reference</a> on Tue May 16 20:00:39 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getItemList">Riot API reference</a> on Wed May 17 19:48:11 PDT 2017. */
 public class ItemList implements Serializable {
   public final Map<Integer, Item> data;
 

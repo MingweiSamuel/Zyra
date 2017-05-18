@@ -8,6 +8,7 @@ import org.asynchttpclient.Response;
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -52,10 +53,10 @@ public class Requester implements Closeable {
      * @param relativeUrl
      * @return a CompletableFuture of the response
      */
-    public CompletableFuture<Response> getRequestAsync(String rootUrl, String relativeUrl, Param... params) {
+    public CompletableFuture<Response> getRequestAsync(String rootUrl, String relativeUrl, List<Param> params) {
         return client.prepareGet(String.format("https://%s%s", rootUrl, relativeUrl))
                 .addQueryParam(API_KEY_PARAMETER, apiKey)
-                .addQueryParams(Arrays.asList(params))
+                .addQueryParams(params)
                 .execute().toCompletableFuture();
     }
 

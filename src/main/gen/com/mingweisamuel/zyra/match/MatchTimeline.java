@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * MatchTimeline.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchTimeline">Riot API reference</a> on Tue May 16 20:00:39 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchTimeline">Riot API reference</a> on Wed May 17 19:48:11 PDT 2017. */
 public class MatchTimeline implements Serializable {
   public final List<MatchFrame> frames;
 

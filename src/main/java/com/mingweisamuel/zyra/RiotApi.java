@@ -16,6 +16,7 @@ import org.asynchttpclient.Param;
 import java.io.Closeable;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,7 +31,7 @@ import java.util.stream.StreamSupport;
 
 /**
  * Riot API.
- */ //TODO
+ */
 public class RiotApi implements Closeable {
 
     /** Joins stuff with commas. */
@@ -232,7 +233,7 @@ public class RiotApi implements Closeable {
     }
 
     //region util
-    <T> T getBasic(String url, Region region, Type type, Param... params) throws ExecutionException {
+    <T> T getBasic(String url, Region region, Type type, List<Param> params) throws ExecutionException {
         try {
             return this.<T>getBasicAsync(url, region, type, params).get();
         } catch (InterruptedException e) {
@@ -241,13 +242,13 @@ public class RiotApi implements Closeable {
         }
     }
 
-    <T> CompletableFuture<T> getBasicAsync(String url, Region region, Type type, Param... params) {
+    <T> CompletableFuture<T> getBasicAsync(String url, Region region, Type type, List<Param> params) {
         return requester.get().getRequestRateLimitedAsync(url, region, params)
                 .thenApply(r -> r.getStatusCode() != 200 ? null :
                         gson.fromJson(r.getResponseBody(), type));
     }
 
-    <T> T getBasicNonRateLimited(String url, Region region, Type type, Param... params) throws ExecutionException {
+    <T> T getBasicNonRateLimited(String url, Region region, Type type, List<Param> params) throws ExecutionException {
         try {
             return this.<T>getBasicNonRateLimitedAsync(url, region, type, params).get();
         } catch (InterruptedException e) {
@@ -256,7 +257,7 @@ public class RiotApi implements Closeable {
         }
     }
 
-    <T> CompletableFuture<T> getBasicNonRateLimitedAsync(String url, Region region, Type type, Param... params) {
+    <T> CompletableFuture<T> getBasicNonRateLimitedAsync(String url, Region region, Type type, List<Param> params) {
         return requester.get().getRequestNonRateLimitedAsync(url, region, params)
                 .thenApply(r -> r.getStatusCode() != 200 ? null :
                         gson.fromJson(r.getResponseBody(), type));
@@ -279,7 +280,8 @@ public class RiotApi implements Closeable {
         Map<K, V> result = new ConcurrentHashMap<>();
         final RateLimitedRequester requester = this.requester.get();
         CompletableFuture[] groupTasks = StreamSupport.stream(groups.spliterator(), false).map(group ->
-                requester.getRequestRateLimitedAsync(url.replace("@", joiner.join(group)), region)
+                requester.getRequestRateLimitedAsync(
+                        url.replace("@", joiner.join(group)), region, Collections.emptyList())
                         .<Map<K, V>>thenApply(r -> r.getStatusCode() != 200 ?
                                 Collections.emptyMap() : gson.fromJson(r.getResponseBody(), type))
                         .thenAccept(result::putAll))
@@ -287,7 +289,7 @@ public class RiotApi implements Closeable {
         return CompletableFuture.allOf(groupTasks).thenApply(v -> result);
     }
 
-    <T> T getNonApi(String fullUrl, Type type, Param... params) throws ExecutionException {
+    <T> T getNonApi(String fullUrl, Type type, List<Param> params) throws ExecutionException {
         try {
             return this.<T>getNonApiAsync(fullUrl, type, params).get();
         } catch (InterruptedException e) {
@@ -296,7 +298,7 @@ public class RiotApi implements Closeable {
         }
     }
 
-    <T> CompletableFuture<T> getNonApiAsync(String fullUrl, Type type, Param... params) {
+    <T> CompletableFuture<T> getNonApiAsync(String fullUrl, Type type, List<Param> params) {
         return requester.get().getRequestAsync(fullUrl, "", params)
                 .thenApply(r -> gson.fromJson(r.getResponseBody(), type));
     }
@@ -344,22 +346,25 @@ public class RiotApi implements Closeable {
      * @param paired
      * @return
      */
-    Param[] makeParams(Object... paired) {
+    List<Param> makeParams(Object... paired) {
 
-        int nulls = 0;
-        for (Object obj : paired)
-            if (obj == null)
-                nulls++;
-
-        Param[] result = new Param[paired.length / 2 - nulls];
-        int j = 0;
+        ArrayList<Param> result = new ArrayList<>(paired.length / 2);
         for (int i = 0; i < paired.length; i += 2) {
-            if (paired[i + 1] == null)
-                continue;
+
+            Object key = paired[i];
+            if (key == null)
+                throw new IllegalStateException("Cannot have null param key");
+
             Object value = paired[i + 1];
-            if (value instanceof Collection)
-                value = joiner.join((Collection) value);
-            result[j++] = new Param(paired[i].toString(), value.toString());
+            if (value == null)
+                continue;
+
+            if (value instanceof Collection) {
+                for (Object v : ((Collection<?>) value))
+                    result.add(new Param(key.toString(), v.toString()));
+            }
+            else
+                result.add(new Param(key.toString(), value.toString()));
         }
         return result;
     }

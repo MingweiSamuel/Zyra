@@ -1,9 +1,8 @@
 package com.mingweisamuel.zyra.test;
 
-import com.mingweisamuel.zyra.MatchListEndpoints;
 import com.mingweisamuel.zyra.enums.Region;
-import com.mingweisamuel.zyra.enums.Season;
-import com.mingweisamuel.zyra.matchList.MatchList;
+import com.mingweisamuel.zyra.match.Matchlist;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -13,21 +12,22 @@ import static com.mingweisamuel.zyra.enums.ChampionId.DRAVEN;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Integration tests for {@link MatchListEndpoints}.
+ * Integration tests for {@link com.mingweisamuel.zyra.MatchEndpoints}.
  */
+@Ignore
 public class ApiMatchListTest extends ApiTest {
 
     @Test
-    public void get() throws ExecutionException {
-        checkGet(api.matchlist.get(Region.NA, 51405, Collections.singleton(DRAVEN), null,
-                Collections.singleton(Season.SEASON2016)));
+    public void get() throws ExecutionException { // C9 Sneaky's Account ID
+        checkGet(api.matches.getMatchlist(Region.NA, 78247, null, null, null,
+            Collections.singletonList(16), Collections.singletonList(DRAVEN)));
     }
     @Test
     public void getAsync() throws ExecutionException, InterruptedException {
-        api.matchlist.getAsync(Region.NA, 51405, Collections.singleton(DRAVEN), null,
-                Collections.singleton(Season.SEASON2016)).thenAccept(this::checkGet).get();
+        api.matches.getMatchlistAsync(Region.NA, 78247, null, null, null,
+            Collections.singletonList(16), Collections.singletonList(DRAVEN)).thenAccept(this::checkGet).get();
     }
-    private void checkGet(MatchList result) {
+    private void checkGet(Matchlist result) {
         assertEquals(0, result.startIndex);
         assertEquals(18, result.endIndex);
         assertEquals(18, result.totalGames);
@@ -37,6 +37,6 @@ public class ApiMatchListTest extends ApiTest {
                 2220389541L, 2217936310L, 2203146757L, 2174080519L, 2174003071L, 2172905917L, 2172288759L, 2143848249L,
                 2119419310L, 2092895493L};
         for (int i = 0; i < result.matches.size(); i++)
-            assertEquals(expected[i], result.matches.get(i).matchId);
+            assertEquals(expected[i], result.matches.get(i).gameId);
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
  *
  * This object contains rune page information..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#runes-v3/GET_getRunePagesBySummonerId">Riot API reference</a> on Tue May 16 20:00:39 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#runes-v3/GET_getRunePagesBySummonerId">Riot API reference</a> on Wed May 17 19:48:11 PDT 2017. */
 public class RunePage implements Serializable {
   /**
    * Indicates if the page is the current page. */

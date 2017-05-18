@@ -14,7 +14,7 @@ import java.util.List;
  *
  * This object contains summoner spell data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getSummonerSpellList">Riot API reference</a> on Tue May 16 20:00:39 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getSummonerSpellList">Riot API reference</a> on Wed May 17 19:48:11 PDT 2017. */
 public class SummonerSpell implements Serializable {
   public final List<SpellVars> vars;
 

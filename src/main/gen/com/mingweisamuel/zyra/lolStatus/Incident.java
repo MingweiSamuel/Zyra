@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Incident.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-status-v3/GET_getShardData">Riot API reference</a> on Tue May 16 20:00:39 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-status-v3/GET_getShardData">Riot API reference</a> on Wed May 17 19:48:11 PDT 2017. */
 public class Incident implements Serializable {
   public final boolean active;
 
