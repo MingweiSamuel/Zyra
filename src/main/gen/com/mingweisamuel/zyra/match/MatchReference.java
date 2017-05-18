@@ -9,7 +9,7 @@ import java.lang.String;
 /**
  * MatchReference.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Riot API reference</a> on Wed May 17 20:12:12 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Riot API reference</a> on Wed May 17 21:34:50 PDT 2017. */
 public class MatchReference implements Serializable {
   public final String lane;
 

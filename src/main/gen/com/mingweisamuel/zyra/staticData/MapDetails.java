@@ -13,7 +13,7 @@ import java.util.List;
  *
  * This object contains map details data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getMapData">Riot API reference</a> on Wed May 17 20:12:12 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getMapData">Riot API reference</a> on Wed May 17 21:34:50 PDT 2017. */
 public class MapDetails implements Serializable {
   public final String mapName;
 

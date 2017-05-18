@@ -546,6 +546,9 @@ public class ApiGen {
     /** Method return type overrides. */
     private static final Map<String, TypeName> PARAM_TYPES = new HashMap<>();
     static {
+        PARAM_TYPES.put("Masteries.getMasteryPagesBySummonerId:summonerId", TypeName.LONG);
+        PARAM_TYPES.put("Runes.getRunePagesBySummonerId:summonerId", TypeName.LONG);
+
         PARAM_TYPES.put("Summoner.getByAccountId:accountId", TypeName.LONG);
         PARAM_TYPES.put("Summoner.getBySummonerId:summonerId", TypeName.LONG);
     }
