@@ -33,7 +33,6 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Integration tests for {@link com.mingweisamuel.zyra.StaticDataEndpoints}.
- * TODO: test getProfileIcons
  */
 public class ApiStaticDataTest extends ApiTest {
 
