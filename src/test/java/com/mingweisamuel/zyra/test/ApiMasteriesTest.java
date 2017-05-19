@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Integration tests for {@link com.mingweisamuel.zyra.MasteriesEndpoints}.
  */
-public class MasteriesTest extends ApiTest {
+public class ApiMasteriesTest extends ApiTest {
 
     @Test
     public void getMasteries() throws ExecutionException {
@@ -28,9 +28,10 @@ public class MasteriesTest extends ApiTest {
     }
     @Test
     public void getMasteriesAsync() throws ExecutionException, InterruptedException {
-        api.masteries.getMasteryPagesBySummonerIdAsync(Region.NA, 51405).thenAccept(this::checkGetMasteries).get();
+        api.masteries.getMasteryPagesBySummonerIdAsync(Region.NA, 51405)
+            .thenAccept(ApiMasteriesTest::checkGetMasteries).get();
     }
-    private void checkGetMasteries(MasteryPages result) {
+    public static void checkGetMasteries(MasteryPages result) {
         assertEquals(51405, result.summonerId);
         assertNotNull(result.pages);
         assertTrue("Invalid num pages: " + result.pages.size(), 2 <= result.pages.size() && result.pages.size() <= 20);

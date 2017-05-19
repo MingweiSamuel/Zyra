@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Integration tests for {@link com.mingweisamuel.zyra.RunesEndpoints}.
  */
-public class RunesTest extends ApiTest {
+public class ApiRunesTest extends ApiTest {
 
     @Test
     public void getRunes() throws ExecutionException {
@@ -29,9 +29,9 @@ public class RunesTest extends ApiTest {
     }
     @Test
     public void getProfileIconsAsync() throws ExecutionException, InterruptedException {
-        api.runes.getRunePagesBySummonerIdAsync(Region.NA, 51405).thenAccept(this::checkGetRunes).get();
+        api.runes.getRunePagesBySummonerIdAsync(Region.NA, 51405).thenAccept(ApiRunesTest::checkGetRunes).get();
     }
-    private void checkGetRunes(RunePages result) {
+    public static void checkGetRunes(RunePages result) {
         Set<Long> expected = new HashSet<>(Arrays.asList(
             2706294L, 2706295L, 5526340L, 28433182L, 28433184L, 28433185L, 28433186L, 28433187L, 28433188L,
             41178176L, 55520448L, 55520449L, 55520450L, 55520451L, 55520452L, 55520453L, 55520454L, 55520455L,
