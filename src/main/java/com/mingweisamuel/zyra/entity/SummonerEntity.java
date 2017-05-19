@@ -244,9 +244,4 @@ public class SummonerEntity extends Entity {
         return EntityApi.complete(getCurrentGameInfoAsync());
     }
     //endregion
-
-    private void validate() {
-        if (invalid)
-            throw new IllegalStateException("Summoner invalid", exception);
-    }
 }

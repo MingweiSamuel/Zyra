@@ -19,4 +19,9 @@ public abstract class Entity {
         this.entityApi = entityApi;
         this.region = region;
     }
+
+    protected void validate() {
+        if (invalid)
+            throw new IllegalStateException("Summoner invalid", exception);
+    }
 }
