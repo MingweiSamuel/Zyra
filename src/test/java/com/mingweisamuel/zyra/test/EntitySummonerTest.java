@@ -5,10 +5,8 @@ import com.mingweisamuel.zyra.entity.SummonerEntity;
 import com.mingweisamuel.zyra.enums.Queue;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.enums.Tier;
-import com.mingweisamuel.zyra.league.LeagueItem;
 import com.mingweisamuel.zyra.league.LeaguePosition;
 import com.mingweisamuel.zyra.masteries.MasteryPages;
-import com.mingweisamuel.zyra.runes.RunePage;
 import com.mingweisamuel.zyra.runes.RunePages;
 import com.mingweisamuel.zyra.spectator.CurrentGameInfo;
 import org.junit.Test;
@@ -17,10 +15,9 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
- * Tests for {@link SummonerEntity}.
+ * Tests for {@link com.mingweisamuel.zyra.entity.SummonerEntity}.
  */
 public class EntitySummonerTest extends EntityTest {
 

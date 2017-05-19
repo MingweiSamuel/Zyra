@@ -3,6 +3,7 @@ package com.mingweisamuel.zyra.entity;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.match.Match;
 import com.mingweisamuel.zyra.match.MatchTimeline;
+import com.mingweisamuel.zyra.util.AsyncUtils;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
@@ -29,6 +30,11 @@ public class MatchEntity extends Entity {
         this.matchId = matchId;
     }
 
+    /** Returns the unique match id. Does not need to wait for any tasks to complete. */
+    public long getMatchId() {
+        return matchId;
+    }
+
     public CompletableFuture<Match> getInfoAsync() {
         validate();
         return matchInfo.updateAndGet(f -> {
@@ -39,7 +45,7 @@ public class MatchEntity extends Entity {
     }
     public Match getInfo() {
         validate();
-        return EntityApi.complete(getInfoAsync());
+        return AsyncUtils.complete(getInfoAsync());
     }
 
     public CompletableFuture<MatchTimeline> getTimelineAsync() {
@@ -52,7 +58,7 @@ public class MatchEntity extends Entity {
     }
     public MatchTimeline getTimeline() {
         validate();
-        return EntityApi.complete(getTimelineAsync());
+        return AsyncUtils.complete(getTimelineAsync());
     }
 
     @Override

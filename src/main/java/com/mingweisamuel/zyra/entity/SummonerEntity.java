@@ -8,6 +8,7 @@ import com.mingweisamuel.zyra.masteries.MasteryPages;
 import com.mingweisamuel.zyra.runes.RunePages;
 import com.mingweisamuel.zyra.spectator.CurrentGameInfo;
 import com.mingweisamuel.zyra.summoner.Summoner;
+import com.mingweisamuel.zyra.util.AsyncUtils;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -125,7 +126,7 @@ public class SummonerEntity extends Entity {
     }
     public long getSummonerId() {
         validate();
-        return EntityApi.complete(getSummonerIdAsync());
+        return AsyncUtils.complete(getSummonerIdAsync());
     }
 
     public CompletableFuture<Long> getAccountIdAsync() {
@@ -134,7 +135,7 @@ public class SummonerEntity extends Entity {
     }
     public long getAccountId() {
         validate();
-        return EntityApi.complete(getAccountIdAsync());
+        return AsyncUtils.complete(getAccountIdAsync());
     }
 
     public CompletableFuture<String> getStandardizedNameAsync() {
@@ -147,7 +148,7 @@ public class SummonerEntity extends Entity {
     }
     public String getStandardizedName() {
         validate();
-        return EntityApi.complete(getStandardizedNameAsync());
+        return AsyncUtils.complete(getStandardizedNameAsync());
     }
     //endregion
 
@@ -157,12 +158,12 @@ public class SummonerEntity extends Entity {
         return summonerInfo.updateAndGet(f -> {
             if (f != null)
                 return f;
-            return entityApi.riotApi.summoners.getBySummonerIdAsync(region, EntityApi.complete(summonerId.get()));
+            return entityApi.riotApi.summoners.getBySummonerIdAsync(region, AsyncUtils.complete(summonerId.get()));
         });
     }
     public Summoner getSummonerInfo() {
         validate();
-        return EntityApi.complete(getSummonerInfoAsync());
+        return AsyncUtils.complete(getSummonerInfoAsync());
     }
     //endregion
 
@@ -173,12 +174,12 @@ public class SummonerEntity extends Entity {
             if (f != null)
                 return f;
             return entityApi.riotApi.championMasteries.getAllChampionMasteriesAsync(
-                region, EntityApi.complete(summonerId.get()));
+                region, AsyncUtils.complete(summonerId.get()));
         });
     }
     public List<ChampionMastery> getChampionMasteries() {
         validate();
-        return EntityApi.complete(getChampionMasteriesAsync());
+        return AsyncUtils.complete(getChampionMasteriesAsync());
     }
     //endregion
 
@@ -189,12 +190,12 @@ public class SummonerEntity extends Entity {
             if (f != null)
                 return f;
             return entityApi.riotApi.leagues.getAllLeaguePositionsForSummonerAsync(
-                region, EntityApi.complete(summonerId.get()));
+                region, AsyncUtils.complete(summonerId.get()));
         });
     }
     public List<LeaguePosition> getLeaguePositions() {
         validate();
-        return EntityApi.complete(getLeaguePositionsAsync());
+        return AsyncUtils.complete(getLeaguePositionsAsync());
     }
     //endregion
 
@@ -205,12 +206,12 @@ public class SummonerEntity extends Entity {
             if (f != null)
                 return f;
             return entityApi.riotApi.masteries.getMasteryPagesBySummonerIdAsync(
-                region, EntityApi.complete(summonerId.get()));
+                region, AsyncUtils.complete(summonerId.get()));
         });
     }
     public MasteryPages getMasteryPages() {
         validate();
-        return EntityApi.complete(getMasteryPagesAsync());
+        return AsyncUtils.complete(getMasteryPagesAsync());
     }
     //endregion
 
@@ -220,12 +221,12 @@ public class SummonerEntity extends Entity {
         return runePages.updateAndGet(f -> {
             if (f != null)
                 return f;
-            return entityApi.riotApi.runes.getRunePagesBySummonerIdAsync(region, EntityApi.complete(summonerId.get()));
+            return entityApi.riotApi.runes.getRunePagesBySummonerIdAsync(region, AsyncUtils.complete(summonerId.get()));
         });
     }
     public RunePages getRunePages() {
         validate();
-        return EntityApi.complete(getRunePagesAsync());
+        return AsyncUtils.complete(getRunePagesAsync());
     }
     //endregion
 
@@ -236,12 +237,12 @@ public class SummonerEntity extends Entity {
             if (f != null)
                 return f;
             return entityApi.riotApi.spectator.getCurrentGameInfoBySummonerAsync(
-                region, EntityApi.complete(summonerId.get()));
+                region, AsyncUtils.complete(summonerId.get()));
         });
     }
     public CurrentGameInfo getCurrentGameInfo() {
         validate();
-        return EntityApi.complete(getCurrentGameInfoAsync());
+        return AsyncUtils.complete(getCurrentGameInfoAsync());
     }
     //endregion
 }

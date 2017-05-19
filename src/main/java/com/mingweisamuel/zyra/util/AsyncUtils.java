@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutionException;
 public class AsyncUtils {
     private AsyncUtils() {}
 
-    public static <T> T get(CompletableFuture<T> future) {
+    public static <T> T complete(CompletableFuture<T> future) {
         try {
             return future.get();
         } catch (InterruptedException | ExecutionException e) {

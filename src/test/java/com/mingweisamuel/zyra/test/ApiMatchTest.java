@@ -36,9 +36,9 @@ public class ApiMatchTest extends ApiTest {
     }
     @Test
     public void getAsync() throws ExecutionException, InterruptedException {
-        api.matches.getMatchAsync(Region.NA, 2398184332L).thenAccept(this::checkGet).get();
+        api.matches.getMatchAsync(Region.NA, 2398184332L).thenAccept(ApiMatchTest::checkGet).get();
     }
-    private void checkGet(Match match) {
+    public static void checkGet(Match match) {
         // http://matchhistory.na.leagueoflegends.com/en/#match-details/NA1/2398184332/51405?tab=overview
         assertEquals(2398184332L, match.gameId);
         assertEquals(11, match.mapId);
