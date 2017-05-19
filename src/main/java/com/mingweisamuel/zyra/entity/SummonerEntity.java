@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * A high-level representation of a Summoner.
+ * A high-level representation of a Summoner. Thread-safe.
  */
 public class SummonerEntity extends Entity {
 

@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * A high-level representation of a match.
+ * A high-level representation of a match. Thread-safe.
  */
 public class MatchEntity extends Entity {
 

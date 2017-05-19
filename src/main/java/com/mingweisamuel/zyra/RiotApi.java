@@ -34,9 +34,6 @@ import java.util.stream.StreamSupport;
  */
 public class RiotApi implements Closeable {
 
-    /** Joins stuff with commas. */
-    private final Joiner joiner = Joiner.on(',');
-
     /** Json parser. */
     private final Gson gson = new Gson();
     /** Web requester. */
@@ -263,32 +260,6 @@ public class RiotApi implements Closeable {
                         gson.fromJson(r.getResponseBody(), type));
     }
 
-    <I, K, V> Map<K, V> getMap(
-            String url, Region region, Iterable<I> input, int groupSize, Type type)
-            throws ExecutionException {
-        try {
-            return this.<I, K, V>getMapAsync(url, region, input, groupSize, type).get();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new IllegalStateException();
-        }
-    }
-
-    <I, K, V> CompletableFuture<Map<K, V>> getMapAsync(
-            String url, Region region, Iterable<I> input, int groupSize, Type type) {
-        Iterable<List<I>> groups = Iterables.partition(input, groupSize);
-        Map<K, V> result = new ConcurrentHashMap<>();
-        final RateLimitedRequester requester = this.requester.get();
-        CompletableFuture[] groupTasks = StreamSupport.stream(groups.spliterator(), false).map(group ->
-                requester.getRequestRateLimitedAsync(
-                        url.replace("@", joiner.join(group)), region, Collections.emptyList())
-                        .<Map<K, V>>thenApply(r -> r.getStatusCode() != 200 ?
-                                Collections.emptyMap() : gson.fromJson(r.getResponseBody(), type))
-                        .thenAccept(result::putAll))
-                .toArray(CompletableFuture[]::new);
-        return CompletableFuture.allOf(groupTasks).thenApply(v -> result);
-    }
-
     <T> T getNonApi(String fullUrl, Type type, List<Param> params) throws ExecutionException {
         try {
             return this.<T>getNonApiAsync(fullUrl, type, params).get();
@@ -303,43 +274,6 @@ public class RiotApi implements Closeable {
                 .thenApply(r -> gson.fromJson(r.getResponseBody(), type));
     }
     //endregion
-
-    //region util-static
-    /**
-     * Applies an API function multiple times, mapping the input of the function to the result of calling the
-     * function on that input.
-     *
-     * @param func Function to apply.
-     * @param inputs Inputs to send to the function.
-     * @param <I> Input type.
-     * @param <T> Result type.
-     * @return Map of input values to result values.
-     */
-    static <I, T> Map<I, T> makeBatch(Function<I, T> func, Iterable<I> inputs) {
-        Map<I, T> result = new HashMap<>();
-        for (I input : inputs)
-            result.put(input, func.apply(input));
-        return result;
-    }
-
-    /**
-     * Asynchronously applies an API function multiple times, mapping the input of the function to the result of calling
-     * the function on that input.
-     *
-     * @param func Function to apply.
-     * @param inputs Inputs to send to the function.
-     * @param <I> Input type.
-     * @param <T> Result type.
-     * @return CompletableFuture of Map of input values to result values.
-     */
-    static <I, T> CompletableFuture<Map<I, T>> makeBatchAsync(
-            Function<I, CompletableFuture<T>> func, Iterable<I> inputs) {
-        final ConcurrentMap<I, T> result = new ConcurrentHashMap<>();
-        CompletableFuture[] tasks = StreamSupport.stream(inputs.spliterator(), false)
-                .map(i -> func.apply(i).thenAccept(t -> result.put(i, t)))
-                .toArray(CompletableFuture[]::new);
-        return CompletableFuture.allOf(tasks).thenApply(v -> result);
-    }
 
     /**
      * Creates params from each pair of elements. Must be an even number of elements. Key values must be non-null.

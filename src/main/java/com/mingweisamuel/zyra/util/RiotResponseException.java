@@ -2,9 +2,6 @@ package com.mingweisamuel.zyra.util;
 
 import org.asynchttpclient.Response;
 
-/**
- * Created by Mingw on 2017-01-02.
- */
 public class RiotResponseException extends RuntimeException {
 
     private final Response response;

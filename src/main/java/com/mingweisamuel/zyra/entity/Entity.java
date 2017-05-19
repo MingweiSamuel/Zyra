@@ -3,7 +3,7 @@ package com.mingweisamuel.zyra.entity;
 import com.mingweisamuel.zyra.enums.Region;
 
 /**
- * An superclass of high level "Entity" abstractions of Summoners and Matches.
+ * An superclass of high level "Entity" abstractions of Summoners and Matches. Should be thread-safe.
  */
 public abstract class Entity {
 
