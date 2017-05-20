@@ -1,14 +1,19 @@
 package com.mingweisamuel.zyra.entity;
 
+import com.google.common.collect.Lists;
 import com.mingweisamuel.zyra.RiotApi;
 import com.mingweisamuel.zyra.championMastery.ChampionMastery;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.league.LeaguePosition;
 import com.mingweisamuel.zyra.masteries.MasteryPages;
+import com.mingweisamuel.zyra.match.Matchlist;
+import com.mingweisamuel.zyra.match.Player;
 import com.mingweisamuel.zyra.runes.RunePages;
 import com.mingweisamuel.zyra.spectator.CurrentGameInfo;
 import com.mingweisamuel.zyra.summoner.Summoner;
 import com.mingweisamuel.zyra.util.AsyncUtils;
+import com.mingweisamuel.zyra.util.LazyRetryable;
+import com.mingweisamuel.zyra.util.LazyRetryableFuture;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -19,93 +24,93 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class SummonerEntity extends Entity {
 
+    //region static constructors
     static SummonerEntity create(EntityApi entityApi, Region region, long summonerId) {
-        SummonerEntity entity = new SummonerEntity(entityApi, region);
-        entity.summonerId.set(CompletableFuture.completedFuture(summonerId));
-
-        initializeSummoner(entity, entityApi.riotApi.summoners.getBySummonerIdAsync(region, summonerId));
-
-        return entity;
+        LazyRetryableFuture<Summoner> summonerFuture = new LazyRetryableFuture<>(() ->
+            entityApi.riotApi.summoners.getBySummonerIdAsync(region, summonerId));
+        LazyRetryableFuture<Long> summonerIdFuture = LazyRetryableFuture.completedFuture(summonerId);
+        LazyRetryableFuture<Long> accountIdFuture = summonerFuture.thenApply(s -> s.accountId);
+        LazyRetryableFuture<String> standardizedNameFuture =
+            summonerFuture.thenApply(s -> RiotApi.standardizeName(s.name));
+        return new SummonerEntity(entityApi, region, summonerFuture, summonerIdFuture,
+            accountIdFuture, standardizedNameFuture);
     }
     static SummonerEntity create(EntityApi entityApi, Region region, long summonerId, long accountId) {
-        SummonerEntity entity = new SummonerEntity(entityApi, region);
-        entity.summonerId.set(CompletableFuture.completedFuture(summonerId));
-        entity.accountId.set(CompletableFuture.completedFuture(accountId));
-        return entity;
+        LazyRetryableFuture<Summoner> summonerFuture = new LazyRetryableFuture<>(() ->
+            entityApi.riotApi.summoners.getBySummonerIdAsync(region, summonerId));
+        LazyRetryableFuture<Long> summonerIdFuture = LazyRetryableFuture.completedFuture(summonerId);
+        LazyRetryableFuture<Long> accountIdFuture = LazyRetryableFuture.completedFuture(accountId);
+        LazyRetryableFuture<String> standardizedNameFuture =
+            summonerFuture.thenApply(s -> RiotApi.standardizeName(s.name));
+        return new SummonerEntity(entityApi, region, summonerFuture, summonerIdFuture,
+            accountIdFuture, standardizedNameFuture);
+    }
+    static SummonerEntity create(EntityApi entityApi, Region region, long summonerId, long accountId, String name) {
+        LazyRetryableFuture<Summoner> summonerFuture = new LazyRetryableFuture<>(() ->
+            entityApi.riotApi.summoners.getBySummonerIdAsync(region, summonerId));
+        LazyRetryableFuture<Long> summonerIdFuture = LazyRetryableFuture.completedFuture(summonerId);
+        LazyRetryableFuture<Long> accountIdFuture = LazyRetryableFuture.completedFuture(accountId);
+        LazyRetryableFuture<String> standardizedNameFuture =
+            LazyRetryableFuture.completedFuture(RiotApi.standardizeName(name));
+        return new SummonerEntity(entityApi, region, summonerFuture, summonerIdFuture,
+            accountIdFuture, standardizedNameFuture);
+    }
+    static SummonerEntity create(EntityApi entityApi, Region region, Summoner summoner) {
+        LazyRetryableFuture<Summoner> summonerFuture = LazyRetryableFuture.completedFuture(summoner);
+        LazyRetryableFuture<Long> summonerIdFuture = LazyRetryableFuture.completedFuture(summoner.id);
+        LazyRetryableFuture<Long> accountIdFuture = LazyRetryableFuture.completedFuture(summoner.accountId);
+        LazyRetryableFuture<String> standardizedNameFuture =
+            LazyRetryableFuture.completedFuture(RiotApi.standardizeName(summoner.name));
+        return new SummonerEntity(entityApi, region, summonerFuture, summonerIdFuture,
+            accountIdFuture, standardizedNameFuture);
     }
     static SummonerEntity createFromAccountId(EntityApi entityApi, Region region, long accountId) {
-        SummonerEntity entity = new SummonerEntity(entityApi, region);
-        entity.accountId.set(CompletableFuture.completedFuture(accountId));
-
-        initializeSummoner(entity, entityApi.riotApi.summoners.getByAccountIdAsync(region, accountId));
-
-        return entity;
-    }
-    static SummonerEntity createFromName(final EntityApi entityApi, final Region region, final String name) {
-        SummonerEntity entity = new SummonerEntity(entityApi, region);
-        entity.standardizedName.set(CompletableFuture.completedFuture(RiotApi.standardizeName(name)));
-
-        initializeSummoner(entity, entityApi.riotApi.summoners.getBySummonerNameAsync(region, name));
-
-        return entity;
-    }
-
-    private static void initializeSummoner(
-            final SummonerEntity entity, final CompletableFuture<Summoner> summonerFuture) {
-
-        final CompletableFuture<Long> summonerIdFuture = summonerFuture.thenApply(s -> s.id);
-        final CompletableFuture<Long> accountIdFuture = summonerFuture.thenApply(s -> s.accountId);
-        final CompletableFuture<String> standardizedNameFuture =
+        LazyRetryableFuture<Summoner> summonerFuture = new LazyRetryableFuture<>(() ->
+            entityApi.riotApi.summoners.getByAccountIdAsync(region, accountId));
+        LazyRetryableFuture<Long> summonerIdFuture = summonerFuture.thenApply(s -> s.id);
+        LazyRetryableFuture<Long> accountIdFuture = LazyRetryableFuture.completedFuture(accountId);
+        LazyRetryableFuture<String> standardizedNameFuture =
             summonerFuture.thenApply(s -> RiotApi.standardizeName(s.name));
-
-        entity.summonerId.compareAndSet(null, summonerIdFuture);
-        entity.accountId.compareAndSet(null, accountIdFuture);
-        entity.standardizedName.compareAndSet(null, standardizedNameFuture);
-        entity.summonerInfo.set(summonerFuture);
-
-        // Resets fields on failure
-        summonerFuture.exceptionally(e -> {
-            entity.summonerId.compareAndSet(summonerIdFuture, null);
-            entity.accountId.compareAndSet(accountIdFuture, null);
-            entity.summonerInfo.compareAndSet(summonerFuture, null);
-            entity.standardizedName.compareAndSet(standardizedNameFuture, null);
-            entity.invalid = true;
-            entity.exception = e;
-            return null;
-        });
+        return new SummonerEntity(entityApi, region, summonerFuture, summonerIdFuture,
+            accountIdFuture, standardizedNameFuture);
     }
-
-    /*
-     * CompletableFutures are null if no data has been requested.
-     * Non-null Futures indicated data has been requested.
-     */
+    static SummonerEntity createFromName(EntityApi entityApi, Region region, String name) {
+        LazyRetryableFuture<Summoner> summonerFuture = new LazyRetryableFuture<>(() ->
+            entityApi.riotApi.summoners.getBySummonerNameAsync(region, name));
+        LazyRetryableFuture<Long> summonerIdFuture = summonerFuture.thenApply(s -> s.id);
+        LazyRetryableFuture<Long> accountIdFuture = summonerFuture.thenApply(s -> s.accountId);
+        LazyRetryableFuture<String> standardizedNameFuture =
+            LazyRetryableFuture.completedFuture(RiotApi.standardizeName(name));
+        return new SummonerEntity(entityApi, region, summonerFuture, summonerIdFuture,
+            accountIdFuture, standardizedNameFuture);
+    }
+    static SummonerEntity createFromPlayer(EntityApi entityApi, Player player) {
+        Region region = Region.parse(player.currentPlatformId);
+        return create(entityApi, region, player.summonerId, player.currentAccountId, player.summonerName);
+    }
+    //endregion
 
     /** Unique summoner ID, used in most endpoints. */
-    private final AtomicReference<CompletableFuture<Long>> summonerId = new AtomicReference<>(null);
+    private final LazyRetryableFuture<Long> summonerId;
     /** Unique Riot account ID, used to obtain matchlist. */
-    private final AtomicReference<CompletableFuture<Long>> accountId = new AtomicReference<>(null);
+    private final LazyRetryableFuture<Long> accountId;
     /** Summoner name standardized, {@link com.mingweisamuel.zyra.RiotApi#standardizeName(String)}. */
-    private final AtomicReference<CompletableFuture<String>> standardizedName = new AtomicReference<>(null);
+    private final LazyRetryableFuture<String> standardizedName;
 
     /** General summoner info. */
-    private final AtomicReference<CompletableFuture<Summoner>> summonerInfo = new AtomicReference<>(null);
-
+    private final LazyRetryableFuture<Summoner> summonerInfo;
     /** Summoner champion mastery information. */
-    private final AtomicReference<CompletableFuture<List<ChampionMastery>>> championMasteries =
-        new AtomicReference<>(null);
-
+    private final LazyRetryableFuture<List<ChampionMastery>> championMasteries;
     /** League position (rank). */
-    private final AtomicReference<CompletableFuture<List<LeaguePosition>>> leaguePositions =
-        new AtomicReference<>(null);
-
+    private final LazyRetryableFuture<List<LeaguePosition>> leaguePositions;
     /** Mastery pages. */
-    private final AtomicReference<CompletableFuture<MasteryPages>> masteryPages = new AtomicReference<>(null);
-
+    private final LazyRetryableFuture<MasteryPages> masteryPages;
     /** Rune pages. */
-    private final AtomicReference<CompletableFuture<RunePages>> runePages = new AtomicReference<>(null);
-
+    private final LazyRetryableFuture<RunePages> runePages;
     /** Current game information. */
-    private final AtomicReference<CompletableFuture<CurrentGameInfo>> currentGameInfo = new AtomicReference<>(null);
+    private final LazyRetryableFuture<CurrentGameInfo> currentGameInfo;
+    /** Recent match list information. */
+    private final LazyRetryableFuture<Matchlist> recentMatchlist;
 
     /**
      * Creates an uninitialized SummonerEntity. This constructor should not be used directly.
@@ -114,135 +119,132 @@ public class SummonerEntity extends Entity {
      *
      * @param entityApi EntityApi reference. {@link #entityApi}.
      * @param region Region this summoner exists in. {@link #region}.
+     * @param summonerId
+     * @param accountId
+     * @param standardizedName
      */
-    private SummonerEntity(EntityApi entityApi, Region region) {
+    private SummonerEntity(EntityApi entityApi, Region region, LazyRetryableFuture<Summoner> summonerInfo,
+            LazyRetryableFuture<Long> summonerId, LazyRetryableFuture<Long> accountId,
+            LazyRetryableFuture<String> standardizedName) {
         super(entityApi, region);
+        this.summonerInfo = summonerInfo;
+        this.summonerId = summonerId;
+        this.accountId = accountId;
+        this.standardizedName = standardizedName;
+
+        this.championMasteries = new LazyRetryableFuture<>(() ->
+            entityApi.riotApi.championMasteries.getAllChampionMasteriesAsync(region, summonerId.getSync()));
+        this.leaguePositions = new LazyRetryableFuture<>(() ->
+            entityApi.riotApi.leagues.getAllLeaguePositionsForSummonerAsync(region, summonerId.getSync()));
+        this.masteryPages = new LazyRetryableFuture<>(() ->
+            entityApi.riotApi.masteries.getMasteryPagesBySummonerIdAsync(region, summonerId.getSync()));
+        this.runePages = new LazyRetryableFuture<>(() ->
+            entityApi.riotApi.runes.getRunePagesBySummonerIdAsync(region, summonerId.getSync()));
+        this.currentGameInfo = new LazyRetryableFuture<>(() ->
+            entityApi.riotApi.spectator.getCurrentGameInfoBySummonerAsync(region, summonerId.getSync()));
+        this.recentMatchlist = new LazyRetryableFuture<>(() ->
+            entityApi.riotApi.matches.getRecentMatchlistAsync(region, accountId.getSync()));
     }
 
     // region IDs
+    public boolean hasLoadedSummonerId() {
+        return summonerId.created();
+    }
     public CompletableFuture<Long> getSummonerIdAsync() {
-        validate();
         return summonerId.get();
     }
     public long getSummonerId() {
-        validate();
-        return AsyncUtils.complete(getSummonerIdAsync());
+        return summonerId.getSync();
     }
 
+    public boolean hasLoadedAccountId() {
+        return accountId.created();
+    }
     public CompletableFuture<Long> getAccountIdAsync() {
-        validate();
         return accountId.get();
     }
     public long getAccountId() {
-        validate();
-        return AsyncUtils.complete(getAccountIdAsync());
+        return accountId.getSync();
     }
 
     public CompletableFuture<String> getStandardizedNameAsync() {
-        validate();
-        return standardizedName.updateAndGet(f -> {
-            if (f != null)
-                return f;
-            return getSummonerInfoAsync().thenApply(s -> RiotApi.standardizeName(s.name));
-        });
+        return standardizedName.get();
     }
     public String getStandardizedName() {
-        validate();
-        return AsyncUtils.complete(getStandardizedNameAsync());
+        return standardizedName.getSync();
     }
     //endregion
 
     //region summonerInfo
     public CompletableFuture<Summoner> getSummonerInfoAsync() {
-        validate();
-        return summonerInfo.updateAndGet(f -> {
-            if (f != null)
-                return f;
-            return entityApi.riotApi.summoners.getBySummonerIdAsync(region, AsyncUtils.complete(summonerId.get()));
-        });
+        return summonerInfo.get();
     }
     public Summoner getSummonerInfo() {
-        validate();
-        return AsyncUtils.complete(getSummonerInfoAsync());
+        return summonerInfo.getSync();
     }
     //endregion
 
     //region championMasteries
     public CompletableFuture<List<ChampionMastery>> getChampionMasteriesAsync() {
-        validate();
-        return championMasteries.updateAndGet(f -> {
-            if (f != null)
-                return f;
-            return entityApi.riotApi.championMasteries.getAllChampionMasteriesAsync(
-                region, AsyncUtils.complete(summonerId.get()));
-        });
+        return championMasteries.get();
     }
     public List<ChampionMastery> getChampionMasteries() {
-        validate();
-        return AsyncUtils.complete(getChampionMasteriesAsync());
+        return championMasteries.getSync();
     }
     //endregion
 
     //region leaguePosition
     public CompletableFuture<List<LeaguePosition>> getLeaguePositionsAsync() {
-        validate();
-        return leaguePositions.updateAndGet(f -> {
-            if (f != null)
-                return f;
-            return entityApi.riotApi.leagues.getAllLeaguePositionsForSummonerAsync(
-                region, AsyncUtils.complete(summonerId.get()));
-        });
+        return leaguePositions.get();
     }
     public List<LeaguePosition> getLeaguePositions() {
-        validate();
-        return AsyncUtils.complete(getLeaguePositionsAsync());
+        return leaguePositions.getSync();
     }
     //endregion
 
     //region masteryPages
     public CompletableFuture<MasteryPages> getMasteryPagesAsync() {
-        validate();
-        return masteryPages.updateAndGet(f -> {
-            if (f != null)
-                return f;
-            return entityApi.riotApi.masteries.getMasteryPagesBySummonerIdAsync(
-                region, AsyncUtils.complete(summonerId.get()));
-        });
+        return masteryPages.get();
     }
     public MasteryPages getMasteryPages() {
-        validate();
-        return AsyncUtils.complete(getMasteryPagesAsync());
+        return masteryPages.getSync();
     }
     //endregion
 
     //region runePages
     public CompletableFuture<RunePages> getRunePagesAsync() {
-        validate();
-        return runePages.updateAndGet(f -> {
-            if (f != null)
-                return f;
-            return entityApi.riotApi.runes.getRunePagesBySummonerIdAsync(region, AsyncUtils.complete(summonerId.get()));
-        });
+        return runePages.get();
     }
     public RunePages getRunePages() {
-        validate();
-        return AsyncUtils.complete(getRunePagesAsync());
+        return runePages.getSync();
     }
     //endregion
 
     //region currentGameInfo
     public CompletableFuture<CurrentGameInfo> getCurrentGameInfoAsync() {
-        validate();
-        return currentGameInfo.updateAndGet(f -> {
-            if (f != null)
-                return f;
-            return entityApi.riotApi.spectator.getCurrentGameInfoBySummonerAsync(
-                region, AsyncUtils.complete(summonerId.get()));
-        });
+        return currentGameInfo.get();
     }
     public CurrentGameInfo getCurrentGameInfo() {
-        validate();
-        return AsyncUtils.complete(getCurrentGameInfoAsync());
+        return currentGameInfo.getSync();
+    }
+    //endregion
+
+    //region match
+    public CompletableFuture<Matchlist> getRecentMatchlistAsync() {
+        return recentMatchlist.get();
+    }
+    public Matchlist getRecentMatchlist() {
+        return recentMatchlist.getSync();
+    }
+
+    public CompletableFuture<List<MatchEntity>> getRecentMatchEntitiesAsync() {
+        return getRecentMatchlistAsync().thenApply(this::getRecentMatchEntitiesHelper);
+    }
+    public List<MatchEntity> getRecentMatchEntities() {
+        return getRecentMatchEntitiesHelper(getRecentMatchlist());
+    }
+    private List<MatchEntity> getRecentMatchEntitiesHelper(Matchlist ml) {
+        return Lists.transform(ml.matches, m -> entityApi.getMatch(region, m.gameId));
     }
     //endregion
 }

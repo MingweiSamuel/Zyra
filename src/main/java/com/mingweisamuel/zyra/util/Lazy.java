@@ -5,18 +5,20 @@ import java.util.function.Supplier;
 /**
  * Lazy loading. Creates single instances only when needed. Thread safe.
  */
-public class Lazy<T> {
+public class Lazy<T> implements Supplier<T> {
 
     /** The value. Null if not yet created. */
-    private volatile T value = null;
+    protected volatile T value = null;
     /** The supplier. Null if already used. */
-    private volatile Supplier<T> supplier;
+    protected volatile Supplier<T> supplier;
 
     /**
      * Creates a Lazy using SUPPLIER.
-     * @param supplier Supplier of the value (only called once).
+     * @param supplier Supplier of the value. Only called once.
      */
     public Lazy(Supplier<T> supplier) {
+        if (supplier == null)
+            throw new NullPointerException("supplier cannot be null");
         this.supplier = supplier;
     }
 
@@ -26,10 +28,20 @@ public class Lazy<T> {
     }
 
     /** @return the instance. Creates it if needed. */
-    public synchronized T get() {
-        if (value == null) {
+    @Override
+    public T get() {
+        if (created())
+            return value;
+        return getInternal();
+    }
+    /**
+     * Helper to avoid synchronizing {@link #get()}.
+     * @return the instance.
+     */
+    protected synchronized T getInternal() {
+        if (supplier != null) {
             value = supplier.get();
-            supplier = null; // let GC collect supplier
+            supplier = null;
         }
         return value;
     }
