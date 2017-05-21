@@ -1,13 +1,16 @@
 package com.mingweisamuel.zyra.entity;
 
+import com.google.common.collect.Lists;
 import com.mingweisamuel.zyra.enums.Region;
+import com.mingweisamuel.zyra.enums.TeamId;
 import com.mingweisamuel.zyra.match.Match;
+import com.mingweisamuel.zyra.match.MatchParticipantFrame;
 import com.mingweisamuel.zyra.match.MatchTimeline;
 import com.mingweisamuel.zyra.match.Participant;
 import com.mingweisamuel.zyra.match.ParticipantIdentity;
 import com.mingweisamuel.zyra.match.TeamStats;
 import com.mingweisamuel.zyra.util.AsyncUtils;
-import com.mingweisamuel.zyra.util.LazyRetryableFuture;
+import com.mingweisamuel.zyra.util.LazyResetableFuture;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,19 +29,19 @@ public class MatchEntity extends Entity {
     private final long matchId;
 
     /** The match's general information.  */
-    private final LazyRetryableFuture<Match> matchInfo;
+    private final LazyResetableFuture<Match> matchInfo;
     /** The match's timeline. */
-    private final LazyRetryableFuture<MatchTimeline> timeline;
+    private final LazyResetableFuture<MatchTimeline> timeline;
 
     /** The match's participant entities. */
-    private final LazyRetryableFuture<List<ParticipantEntity>> participants;
+    private final LazyResetableFuture<List<ParticipantEntity>> participants;
 
     private MatchEntity(EntityApi entityApi, Region region, long matchId) {
         super(entityApi, region);
         this.matchId = matchId;
 
-        matchInfo = new LazyRetryableFuture<>(() -> entityApi.riotApi.matches.getMatchAsync(region, matchId));
-        timeline = new LazyRetryableFuture<>(() -> entityApi.riotApi.matches.getMatchTimelineAsync(region, matchId));
+        matchInfo = new LazyResetableFuture<>(() -> entityApi.riotApi.matches.getMatchAsync(region, matchId));
+        timeline = new LazyResetableFuture<>(() -> entityApi.riotApi.matches.getMatchTimelineAsync(region, matchId));
         participants = matchInfo.thenApply(m -> {
             List<ParticipantEntity> result = new ArrayList<>(m.participantIdentities.size());
             for (ParticipantIdentity pid : m.participantIdentities)
@@ -115,23 +118,34 @@ public class MatchEntity extends Entity {
 
         private final Participant participant;
 
-        private ParticipantEntity(int participantId) {
-            this(participantId, null);
-        }
+        private final TeamStats teamStats;
+
+        private final LazyResetableFuture<List<MatchParticipantFrame>> timeline;
+
+        /**
+         * Creats a participant entity.
+         * @param participantId The participant id. Required.
+         * @param summonerEntity Summoner entity, can be null if {@link ParticipantIdentity#player} not provided by api.
+         */
         private ParticipantEntity(int participantId, SummonerEntity summonerEntity) {
             super(MatchEntity.this.entityApi, summonerEntity == null ? MatchEntity.this.region : summonerEntity.region);
             this.participantId = participantId;
             this.summonerEntity = summonerEntity;
 
-            for (Participant participant : MatchEntity.this.getInfo().participants) {
-                if (this.participantId == participant.participantId) {
-                    this.participant = participant;
-                    return;
-                }
-            }
-            throw new IllegalStateException("Failed to find participant: " + participantId);
+            // doesn't need async because getInfo() must already have been pulled.
+            this.participant = MatchEntity.this.getInfo().participants.stream()
+                .filter(p -> this.participantId == p.participantId).findAny()
+                .orElseThrow(() -> new IllegalStateException("Participant with id not found: " + participantId));
+            this.teamStats = MatchEntity.this.getInfo().teams.stream()
+                .filter(t -> participant.teamId == t.teamId).findAny()
+                .orElseThrow(() -> new IllegalStateException("TeamStats for teamId not found: " + participant.teamId));
+
+            //noinspection ConstantConditions
+            this.timeline = MatchEntity.this.timeline
+                .thenApply(t -> Lists.transform(t.frames, mf -> mf.participantFrames.get(participantId)));
         }
 
+        /** @return The participant's unique id for the match. */
         public int getParticipantId() {
             return participantId;
         }
@@ -145,20 +159,33 @@ public class MatchEntity extends Entity {
             return summonerEntity;
         }
 
-        // Does not need async because info must've been pulled for ParticipantEntities to exist. */
+        /** @return The Participant information. */
         public Participant getParticipant() {
             return participant;
         }
+        /** @return The participant's teamId. See {@link com.mingweisamuel.zyra.enums.TeamId}. */
         public int getTeamId() {
             return participant.teamId;
         }
+        /** @return The participant's team's stats. */
+        public TeamStats getTeamStats() {
+            return teamStats;
+        }
+        /** @return {@code true} if the participant won, {@code false} if the participant lost. */
         public boolean isWinner() {
-            for (TeamStats team : MatchEntity.this.getInfo().teams) {
-                if (participant.teamId == team.teamId) {
+            return TeamId.WIN.equals(teamStats.win);
+        }
 
-                }
-            }
-            throw new IllegalStateException("Team for participant not found.");
+        /** @return A CompletableFuture for this participant's timeline, which is a list of MatchParticipantFrames. */
+        public CompletableFuture<List<MatchParticipantFrame>> getTimelineAsync() {
+            return timeline.get();
+        }
+        /**
+         * @return This participant's timeline, which is a list of MatchParticipantFrames. May block while waiting
+         * for data.
+         */
+        public List<MatchParticipantFrame> getTimeline() {
+            return timeline.getSync();
         }
     }
 

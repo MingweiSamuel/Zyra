@@ -3,10 +3,9 @@ package com.mingweisamuel.zyra.util;
 import java.util.function.Supplier;
 
 /**
- * A Lazy that has retrying and reseting functionality.
- * TODO
+ * A Lazy that has reseting functionality.
  */
-public class LazyRetryable<T> extends Lazy<T> {
+public class LazyResetable<T> extends Lazy<T> {
 
     private volatile boolean created = false;
 
@@ -14,7 +13,7 @@ public class LazyRetryable<T> extends Lazy<T> {
      * Creates a Lazy using SUPPLIER.
      * @param supplier Supplier of the value. May be called multiple times for retries or resets.
      */
-    public LazyRetryable(Supplier<T> supplier) {
+    public LazyResetable(Supplier<T> supplier) {
         super(supplier);
     }
 
@@ -29,5 +28,15 @@ public class LazyRetryable<T> extends Lazy<T> {
             value = supplier.get();
         }
         return value;
+    }
+
+    /** Resets the LazyResetable. The original supplier will be called if {@link #get()} is called. */
+    public void reset() {
+        if (!created())
+            return;
+        synchronized (this) {
+            created = false;
+            value = null; // gc
+        }
     }
 }
