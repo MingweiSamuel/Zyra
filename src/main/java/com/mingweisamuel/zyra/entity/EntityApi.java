@@ -1,16 +1,25 @@
 package com.mingweisamuel.zyra.entity;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import com.mingweisamuel.zyra.RiotApi;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.match.Player;
 import com.mingweisamuel.zyra.summoner.Summoner;
 
+import java.util.concurrent.ExecutionException;
+
 /**
- * API for interacting with entities. Also acts as a builder for entity classes.
+ * API for interacting with entities. Also acts as a builder and cache for entity instances.
+ * TODO caching
  */
 public class EntityApi {
 
+    /** RiotApi instance. */
     final RiotApi riotApi;
+
+    /** Cache for match entities. */
+    private final Cache<Long, MatchEntity> matchEntityCache = CacheBuilder.newBuilder().softValues().build();
 
     public EntityApi(RiotApi riotApi) {
         this.riotApi = riotApi;
@@ -41,6 +50,10 @@ public class EntityApi {
     }
 
     public MatchEntity getMatch(Region region, long matchId) {
-        return MatchEntity.create(this, region, matchId);
+        try {
+            return matchEntityCache.get(matchId, () -> MatchEntity.create(this, region, matchId));
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

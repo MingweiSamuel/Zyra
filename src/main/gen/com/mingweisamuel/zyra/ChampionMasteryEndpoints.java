@@ -10,7 +10,6 @@ import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 /**
  * champion-mastery-v3
@@ -27,8 +26,7 @@ public final class ChampionMasteryEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param summonerId (required) Summoner ID associated with the player
    */
-  public List<ChampionMastery> getAllChampionMasteries(final Region region, final long summonerId)
-      throws ExecutionException {
+  public List<ChampionMastery> getAllChampionMasteries(final Region region, final long summonerId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/champion-mastery/v3/champion-masteries/by-summoner/%1$s", summonerId);
     Type type = new TypeToken<List<ChampionMastery>>() {
@@ -57,7 +55,7 @@ public final class ChampionMasteryEndpoints extends Endpoints {
    * @param summonerId (required) Summoner ID associated with the player
    */
   public ChampionMastery getChampionMastery(final Region region, final long championId,
-      final long summonerId) throws ExecutionException {
+      final long summonerId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/champion-mastery/v3/champion-masteries/by-summoner/%1$s/by-champion/%2$s", championId, summonerId);
     Type type = ChampionMastery.class;
@@ -83,8 +81,7 @@ public final class ChampionMasteryEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param summonerId (required) Summoner ID associated with the player
    */
-  public Integer getChampionMasteryScore(final Region region, final long summonerId) throws
-      ExecutionException {
+  public Integer getChampionMasteryScore(final Region region, final long summonerId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/champion-mastery/v3/scores/by-summoner/%1$s", summonerId);
     Type type = Integer.class;

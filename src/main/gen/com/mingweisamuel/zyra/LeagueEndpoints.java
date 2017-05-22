@@ -10,7 +10,6 @@ import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 /**
  * league-v3
@@ -27,8 +26,7 @@ public final class LeagueEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param queue (required) 
    */
-  public LeagueList getChallengerLeague(final Region region, final String queue) throws
-      ExecutionException {
+  public LeagueList getChallengerLeague(final Region region, final String queue) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/league/v3/challengerleagues/by-queue/%1$s", queue);
     Type type = LeagueList.class;
@@ -53,8 +51,7 @@ public final class LeagueEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param summonerId (required) 
    */
-  public List<LeagueList> getAllLeaguesForSummoner(final Region region, final long summonerId)
-      throws ExecutionException {
+  public List<LeagueList> getAllLeaguesForSummoner(final Region region, final long summonerId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/league/v3/leagues/by-summoner/%1$s", summonerId);
     Type type = new TypeToken<List<LeagueList>>() {
@@ -81,8 +78,7 @@ public final class LeagueEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param queue (required) 
    */
-  public LeagueList getMasterLeague(final Region region, final String queue) throws
-      ExecutionException {
+  public LeagueList getMasterLeague(final Region region, final String queue) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/league/v3/masterleagues/by-queue/%1$s", queue);
     Type type = LeagueList.class;
@@ -108,7 +104,7 @@ public final class LeagueEndpoints extends Endpoints {
    * @param summonerId (required) 
    */
   public List<LeaguePosition> getAllLeaguePositionsForSummoner(final Region region,
-      final long summonerId) throws ExecutionException {
+      final long summonerId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/league/v3/positions/by-summoner/%1$s", summonerId);
     Type type = new TypeToken<List<LeaguePosition>>() {

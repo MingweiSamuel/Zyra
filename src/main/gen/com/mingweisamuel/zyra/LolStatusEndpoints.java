@@ -7,7 +7,6 @@ import java.lang.SuppressWarnings;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 /**
  * lol-status-v3
@@ -23,7 +22,7 @@ public final class LolStatusEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#lol-status-v3/GET_getShardData">Link to Portal</a><br>
    * @param region Region to execute against.
    */
-  public ShardStatus getShardData(final Region region) throws ExecutionException {
+  public ShardStatus getShardData(final Region region) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/status/v3/shard-data";
     Type type = ShardStatus.class;

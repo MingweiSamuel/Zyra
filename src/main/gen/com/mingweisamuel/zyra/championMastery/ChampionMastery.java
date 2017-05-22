@@ -10,7 +10,7 @@ import java.lang.Override;
  *
  * This object contains single Champion Mastery information for player and champion combination..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getAllChampionMasteries">Riot API reference</a> on Wed May 17 21:53:10 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getAllChampionMasteries">Riot API reference</a> on Sun May 21 18:03:38 PDT 2017. */
 public class ChampionMastery implements Serializable {
   /**
    * Is chest granted for this champion or not in current season. */

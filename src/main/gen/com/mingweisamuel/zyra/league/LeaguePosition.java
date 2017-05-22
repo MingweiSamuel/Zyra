@@ -9,7 +9,7 @@ import java.lang.String;
 /**
  * LeaguePosition.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getAllLeaguePositionsForSummoner">Riot API reference</a> on Wed May 17 21:53:10 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getAllLeaguePositionsForSummoner">Riot API reference</a> on Sun May 21 18:03:38 PDT 2017. */
 public class LeaguePosition implements Serializable {
   public final String rank;
 

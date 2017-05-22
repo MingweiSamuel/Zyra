@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class ApiSummonerTest extends ApiTest {
 
     @Test
-    public void getBySummonerId() throws ExecutionException {
+    public void getBySummonerId() {
         checkSummoner(api.summoners.getBySummonerId(Region.NA, 51405));
     }
     @Test
@@ -24,7 +24,7 @@ public class ApiSummonerTest extends ApiTest {
         api.summoners.getBySummonerIdAsync(Region.NA, 51405).thenAccept(this::checkSummoner).get();
     }
     @Test
-    public void getBySummonerName() throws ExecutionException {
+    public void getBySummonerName() {
         checkSummoner(api.summoners.getBySummonerName(Region.NA, "c 9 SnEAKY"));
     }
     @Test
@@ -32,7 +32,7 @@ public class ApiSummonerTest extends ApiTest {
         api.summoners.getBySummonerNameAsync(Region.NA, "c 9 SnEAKY").thenAccept(this::checkSummoner).get();
     }
     @Test
-    public void getByAccountId() throws ExecutionException {
+    public void getByAccountId() {
         checkSummoner(api.summoners.getByAccountId(Region.NA, 78247));
     }
     @Test

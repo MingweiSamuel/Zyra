@@ -8,7 +8,6 @@ import java.lang.SuppressWarnings;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 /**
  * spectator-v3
@@ -25,8 +24,7 @@ public final class SpectatorEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param summonerId (required) The ID of the summoner.
    */
-  public CurrentGameInfo getCurrentGameInfoBySummoner(final Region region, final long summonerId)
-      throws ExecutionException {
+  public CurrentGameInfo getCurrentGameInfoBySummoner(final Region region, final long summonerId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/spectator/v3/active-games/by-summoner/%1$s", summonerId);
     Type type = CurrentGameInfo.class;
@@ -50,7 +48,7 @@ public final class SpectatorEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getFeaturedGames">Link to Portal</a><br>
    * @param region Region to execute against.
    */
-  public FeaturedGames getFeaturedGames(final Region region) throws ExecutionException {
+  public FeaturedGames getFeaturedGames(final Region region) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/spectator/v3/featured-games";
     Type type = FeaturedGames.class;

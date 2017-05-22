@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class ApiGameTest extends ApiTest {
 
     @Test
-    public void getRecent() throws ExecutionException {
+    public void getRecent() {
         checkGetRecent(api.matches.getRecentMatchlist(Region.NA, 78247)); // C9 Sneaky's Account ID
     }
     @Test

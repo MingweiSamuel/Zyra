@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 public class ApiComboFeaturedGamesSummonerCurrentGameTest extends ApiTest {
 
     @Test
-    public void get() throws ExecutionException {
+    public void get() {
         FeaturedGames featured = api.spectator.getFeaturedGames(Region.NA);
         checkFeatured(featured);
         outer:

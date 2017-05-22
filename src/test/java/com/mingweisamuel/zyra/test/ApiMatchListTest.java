@@ -18,14 +18,14 @@ import static org.junit.Assert.assertEquals;
 public class ApiMatchListTest extends ApiTest {
 
     @Test
-    public void get() throws ExecutionException { // C9 Sneaky's Account ID
+    public void get() { // C9 Sneaky's Account ID
         checkGet(api.matches.getMatchlist(Region.NA, 78247, null, null, null,
             Collections.singletonList(16), Collections.singletonList(DRAVEN)));
     }
     @Test
     public void getAsync() throws ExecutionException, InterruptedException {
-        api.matches.getMatchlistAsync(Region.NA, 78247, null, null, null,
-            Collections.singletonList(16), Collections.singletonList(DRAVEN)).thenAccept(this::checkGet).get();
+        api.matches.getMatchlistAsync(Region.NA, 78247, Collections.singletonList(16), null, null,
+            Collections.singletonList(DRAVEN)).thenAccept(this::checkGet).get();
     }
     private void checkGet(Matchlist result) {
         assertEquals(0, result.startIndex);

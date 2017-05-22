@@ -31,11 +31,13 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -174,6 +176,16 @@ public class ApiGen {
             Elements apiBlocks = endpoint.getElementsByClass("api_block");
             apiBlocks.forEach(this::processApiBlock);
 
+            //
+            String methodKey = endpointsNormalizedName + '.' + methodName;
+            if (PARAM_OPT_ORDERS.containsKey(methodKey)) {
+                List<String> order = PARAM_OPT_ORDERS.get(methodKey);
+                endpointParametersOpt.sort(Comparator.comparingInt(a -> order.indexOf(a.spec.name)));
+                if (!order.contains(endpointParametersOpt.get(0).spec.name))
+                    throw new NoSuchElementException("Name missing: " + endpointParametersOpt.get(0).spec.name);
+            }
+
+            //
             LinkedList<MethodSpec> methodSpecs = new LinkedList<>();
 
             for (int optArgs = endpointParametersOpt.size(); optArgs >= 0; optArgs--) {
@@ -181,7 +193,6 @@ public class ApiGen {
                 MethodSpec.Builder methodBuilderSync = MethodSpec.methodBuilder(methodName);
                 methodBuilderSync.addModifiers(Modifier.PUBLIC);
                 methodBuilderSync.returns(returnType);
-                methodBuilderSync.addException(ExecutionException.class);
                 methodBuilderSync.addComment(
                     "This method is automatically generated and should not be modified directly.");
                 methodBuilderSync.addJavadoc(docstringBuilder.toString());
@@ -362,7 +373,7 @@ public class ApiGen {
         }
 
         /**
-         * creates a dto from an Element.
+         * Creates a dto from an Element.
          *
          * @param dto Element, nested under .api_block, with header h4 "response classes".
          * @return
@@ -542,7 +553,7 @@ public class ApiGen {
         new HashSet<>();
 //        new HashSet<>(Arrays.asList("LolStatus", "StaticData")); //TODO
 
-    /** Method return type overrides. */
+    /** Method param type overrides. */
     private static final Map<String, TypeName> PARAM_TYPES = new HashMap<>();
     static {
         PARAM_TYPES.put("Masteries.getMasteryPagesBySummonerId:summonerId", TypeName.LONG);
@@ -550,6 +561,13 @@ public class ApiGen {
 
         PARAM_TYPES.put("Summoner.getByAccountId:accountId", TypeName.LONG);
         PARAM_TYPES.put("Summoner.getBySummonerId:summonerId", TypeName.LONG);
+    }
+
+    /** Method param orders. */
+    private static final Map<String, List<String>> PARAM_OPT_ORDERS = new HashMap<>();
+    static {
+        PARAM_OPT_ORDERS.put("Match.getMatchlist", Arrays.asList("queue", "beginTime", "endTime", "champion", "season",
+            "beginIndex", "endIndex"));
     }
 
     /** DTO field type overrides. */

@@ -2,13 +2,18 @@ package com.mingweisamuel.zyra.test;
 
 import com.mingweisamuel.zyra.RiotApi;
 import org.junit.Rule;
+import org.junit.rules.DisableOnDebug;
 import org.junit.rules.TestRule;
+import org.junit.rules.Timeout;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
 import java.util.concurrent.ExecutionException;
 
 public class ApiTest {
+
+    @Rule
+    public TestRule globalTimeout = new DisableOnDebug(Timeout.seconds(120));
 
     protected static final RiotApi api = RiotApi.builder(System.getenv("API_KEY"))
             .setConcurrentRequestsMax(Integer.parseInt(System.getProperty("testThreadCount")))

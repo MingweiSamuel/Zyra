@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 public class ApiRunesTest extends ApiTest {
 
     @Test
-    public void getRunes() throws ExecutionException {
+    public void getRunes() {
         checkGetRunes(api.runes.getRunePagesBySummonerId(Region.NA, 51405));
     }
     @Test

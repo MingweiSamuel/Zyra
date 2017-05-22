@@ -31,7 +31,7 @@ import static org.junit.Assert.assertTrue;
 public class ApiMatchTest extends ApiTest {
 
     @Test
-    public void get() throws ExecutionException {
+    public void get() {
         checkGet(api.matches.getMatch(Region.NA, 2398184332L));
     }
     @Test
@@ -66,7 +66,7 @@ public class ApiMatchTest extends ApiTest {
     }
 
     @Test
-    public void getTimeline() throws ExecutionException {
+    public void getTimeline() {
         checkGetTimeline(api.matches.getMatchTimeline(Region.NA, 2398184332L));
     }
     @Test

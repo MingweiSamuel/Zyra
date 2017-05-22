@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 public class ApiStatusTest extends ApiTest {
 
     @Test
-    public void get() throws ExecutionException {
+    public void get() {
         checkGet(api.status.getShardData(Region.NA));
     }
     @Test

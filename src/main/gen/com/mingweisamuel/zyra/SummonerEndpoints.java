@@ -7,7 +7,6 @@ import java.lang.SuppressWarnings;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 /**
  * summoner-v3
@@ -24,8 +23,7 @@ public final class SummonerEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param accountId (required) 
    */
-  public Summoner getByAccountId(final Region region, final long accountId) throws
-      ExecutionException {
+  public Summoner getByAccountId(final Region region, final long accountId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/summoner/v3/summoners/by-account/%1$s", accountId);
     Type type = Summoner.class;
@@ -50,8 +48,7 @@ public final class SummonerEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param summonerName (required) Summoner Name
    */
-  public Summoner getBySummonerName(final Region region, final String summonerName) throws
-      ExecutionException {
+  public Summoner getBySummonerName(final Region region, final String summonerName) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/summoner/v3/summoners/by-name/%1$s", summonerName);
     Type type = Summoner.class;
@@ -76,8 +73,7 @@ public final class SummonerEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param summonerId (required) Summoner ID
    */
-  public Summoner getBySummonerId(final Region region, final long summonerId) throws
-      ExecutionException {
+  public Summoner getBySummonerId(final Region region, final long summonerId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/summoner/v3/summoners/%1$s", summonerId);
     Type type = Summoner.class;

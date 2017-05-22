@@ -8,7 +8,7 @@ import java.lang.Override;
 /**
  * Rune.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getCurrentGameInfoBySummoner">Riot API reference</a> on Wed May 17 21:53:10 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getCurrentGameInfoBySummoner">Riot API reference</a> on Sun May 21 18:03:38 PDT 2017. */
 public class Rune implements Serializable {
   /**
    * The count of this rune used by the participant */

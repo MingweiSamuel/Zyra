@@ -10,7 +10,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * A Lazy specifically for CompletableFutures with reset functionality. Adds the {@link #getSync()} method for
+ * A Lazy specifically for CompletableFutures with reset functionality. Adds the {@link #join()} method for
  * convenience.<br><br>
  *
  * Note: Methods implementing {@link CompletionStage} keep a reference to the original LazyResetableFuture so they
@@ -40,8 +40,8 @@ public final class LazyResetableFuture<T> extends LazyResetable<CompletableFutur
      * Synchronously returns the result of the inner CompletableFuture. May throw exceptions TODO.
      * @return The inner value.
      */
-    public T getSync() {
-        return AsyncUtils.complete(get());
+    public T join() {
+        return get().join();
     }
 
     //region CompletionStage methods

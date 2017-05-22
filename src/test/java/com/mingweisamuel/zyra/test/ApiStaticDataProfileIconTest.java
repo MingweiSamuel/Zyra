@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 public class ApiStaticDataProfileIconTest extends ApiTest {
 
     @Test
-    public void getProfileIcons() throws ExecutionException {
+    public void getProfileIcons() {
         checkGetProfileIcons(api.staticData.getProfileIcons(Region.NA));
     }
     @Test

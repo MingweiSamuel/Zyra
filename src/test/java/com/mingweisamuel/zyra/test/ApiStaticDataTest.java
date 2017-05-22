@@ -38,7 +38,7 @@ public class ApiStaticDataTest extends ApiTest {
 
     //region champion
     @Test
-    public void getChampions() throws ExecutionException {
+    public void getChampions() {
         checkGetChampions(api.staticData.getChampionList(Region.NA, null,
             Arrays.asList("skins", "image"), null, LocaleUtil.zh_CN));
     }
@@ -54,7 +54,7 @@ public class ApiStaticDataTest extends ApiTest {
     }
 
     @Test
-    public void getChampion() throws ExecutionException {
+    public void getChampion() {
         checkGetChampion(api.staticData.getChampionById(Region.NA, ChampionId.ZYRA, null,
             LocaleUtil.zh_CN, Arrays.asList("skins", "image")));
     }
@@ -77,7 +77,7 @@ public class ApiStaticDataTest extends ApiTest {
 
     //region items
     @Test
-    public void getItems() throws ExecutionException {
+    public void getItems() {
         checkGetItems(api.staticData.getItemList(Region.NA, null,
             Arrays.asList("gold", "image", "maps"), LocaleUtil.zh_CN));
     }
@@ -94,7 +94,7 @@ public class ApiStaticDataTest extends ApiTest {
     }
 
     @Test
-    public void getItem() throws ExecutionException {
+    public void getItem() {
         checkGetItem(api.staticData.getItemById(Region.NA, 3107, null,
             Arrays.asList("gold", "image", "maps"), LocaleUtil.zh_CN));
     }
@@ -117,7 +117,7 @@ public class ApiStaticDataTest extends ApiTest {
 
     //region language
     @Test
-    public void getLanguageStrings() throws ExecutionException {
+    public void getLanguageStrings() {
         checkGetLanguageStrings(api.staticData.getLanguageStrings(Region.NA, null, LocaleUtil.zh_CN));
     }
     @Test
@@ -133,7 +133,7 @@ public class ApiStaticDataTest extends ApiTest {
     }
 
     @Test
-    public void getLanguages() throws ExecutionException {
+    public void getLanguages() {
         checkGetLanguages(api.staticData.getLanguages(Region.NA));
     }
     @Test
@@ -155,7 +155,7 @@ public class ApiStaticDataTest extends ApiTest {
 
     //region maps
     @Test
-    public void getMaps() throws ExecutionException {
+    public void getMaps() {
         checkGetMaps(api.staticData.getMapData(Region.NA));
     }
     @Test
@@ -171,7 +171,7 @@ public class ApiStaticDataTest extends ApiTest {
 
     //region mastery
     @Test
-    public void getMasteries() throws ExecutionException {
+    public void getMasteries() {
         checkGetMasteries(api.staticData.getMasteryList(Region.NA, null,
             Arrays.asList("ranks", "image"), LocaleUtil.zh_CN));
     }
@@ -189,7 +189,7 @@ public class ApiStaticDataTest extends ApiTest {
     }
 
     @Test
-    public void getMastery() throws ExecutionException {
+    public void getMastery() {
         checkGetMastery(api.staticData.getMasteryById(Region.NA, 6363,
             Arrays.asList("ranks", "image"), null, LocaleUtil.zh_CN));
     }
@@ -210,7 +210,7 @@ public class ApiStaticDataTest extends ApiTest {
 
     //region realm
     @Test
-    public void getRealm() throws ExecutionException {
+    public void getRealm() {
         checkGetRealm(api.staticData.getRealm(Region.NA));
     }
     @Test
@@ -224,7 +224,7 @@ public class ApiStaticDataTest extends ApiTest {
 
     //region rune
     @Test
-    public void getRunes() throws ExecutionException {
+    public void getRunes() {
         checkGetRunes(api.staticData.getRuneList(Region.NA, null, Collections.singleton("all"), LocaleUtil.zh_CN));
     }
     @Test
@@ -241,7 +241,7 @@ public class ApiStaticDataTest extends ApiTest {
     }
 
     @Test
-    public void getRune() throws ExecutionException {
+    public void getRune() {
         checkGetRune(api.staticData.getRuneById(Region.NA, 5337, null, Collections.singleton("all"), LocaleUtil.zh_CN));
     }
     @Test
@@ -261,7 +261,7 @@ public class ApiStaticDataTest extends ApiTest {
 
     //region summoner-spells
     @Test
-    public void getSummonerSpells() throws ExecutionException {
+    public void getSummonerSpells() {
         testGetSummonerSpells(api.staticData.getSummonerSpellList(
             Region.NA, null, Arrays.asList("image", "range"), true, LocaleUtil.zh_CN));
     }
@@ -280,7 +280,7 @@ public class ApiStaticDataTest extends ApiTest {
     }
 
     @Test
-    public void getSummonerSpell() throws ExecutionException {
+    public void getSummonerSpell() {
         testGetSummonerSpell(api.staticData.getSummonerSpellById(Region.NA, 4, null,
             Arrays.asList("image", "range"), LocaleUtil.zh_CN));
     }
@@ -302,7 +302,7 @@ public class ApiStaticDataTest extends ApiTest {
 
     //region versions
     @Test
-    public void getVersions() throws ExecutionException {
+    public void getVersions() {
         checkGetVersions(api.staticData.getVersions(Region.NA));
     }
     @Test

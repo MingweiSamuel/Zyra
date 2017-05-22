@@ -230,13 +230,8 @@ public class RiotApi implements Closeable {
     }
 
     //region util
-    <T> T getBasic(String url, Region region, Type type, List<Param> params) throws ExecutionException {
-        try {
-            return this.<T>getBasicAsync(url, region, type, params).get();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new IllegalStateException();
-        }
+    <T> T getBasic(String url, Region region, Type type, List<Param> params) {
+        return this.<T>getBasicAsync(url, region, type, params).join();
     }
 
     <T> CompletableFuture<T> getBasicAsync(String url, Region region, Type type, List<Param> params) {
@@ -245,13 +240,8 @@ public class RiotApi implements Closeable {
                         gson.fromJson(r.getResponseBody(), type));
     }
 
-    <T> T getBasicNonRateLimited(String url, Region region, Type type, List<Param> params) throws ExecutionException {
-        try {
-            return this.<T>getBasicNonRateLimitedAsync(url, region, type, params).get();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new IllegalStateException();
-        }
+    <T> T getBasicNonRateLimited(String url, Region region, Type type, List<Param> params) {
+        return this.<T>getBasicNonRateLimitedAsync(url, region, type, params).join();
     }
 
     <T> CompletableFuture<T> getBasicNonRateLimitedAsync(String url, Region region, Type type, List<Param> params) {
@@ -260,13 +250,8 @@ public class RiotApi implements Closeable {
                         gson.fromJson(r.getResponseBody(), type));
     }
 
-    <T> T getNonApi(String fullUrl, Type type, List<Param> params) throws ExecutionException {
-        try {
-            return this.<T>getNonApiAsync(fullUrl, type, params).get();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new IllegalStateException();
-        }
+    <T> T getNonApi(String fullUrl, Type type, List<Param> params) {
+        return this.<T>getNonApiAsync(fullUrl, type, params).join();
     }
 
     <T> CompletableFuture<T> getNonApiAsync(String fullUrl, Type type, List<Param> params) {

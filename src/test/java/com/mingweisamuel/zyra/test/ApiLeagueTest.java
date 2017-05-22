@@ -51,7 +51,7 @@ public class ApiLeagueTest extends ApiTest {
     }
 
     @Test
-    public void getEntries() throws ExecutionException {
+    public void getEntries() {
         checkGetEntries(api.leagues.getAllLeaguesForSummoner(Region.NA, 51405));
     }
     @Test
@@ -83,7 +83,7 @@ public class ApiLeagueTest extends ApiTest {
     }
 
     @Test
-    public void getTop() throws ExecutionException {
+    public void getTop() {
         checkGetTop(api.leagues.getChallengerLeague(Region.NA, Queue.RANKED_SOLO_5x5),
                 api.leagues.getMasterLeague(Region.NA, Queue.RANKED_SOLO_5x5));
     }

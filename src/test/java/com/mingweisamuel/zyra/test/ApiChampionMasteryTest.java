@@ -31,7 +31,7 @@ import static org.junit.Assert.assertTrue;
 public class ApiChampionMasteryTest extends ApiTest {
 
     @Test
-    public void getChampion() throws ExecutionException {
+    public void getChampion() {
         ChampionMastery result = api.championMasteries.getChampionMastery(Region.NA, 69009277L, ZYRA);
         assertEquals(7, result.championLevel);
         assertTrue(result.championPoints > 244_000);
@@ -47,7 +47,7 @@ public class ApiChampionMasteryTest extends ApiTest {
     }
 
     @Test
-    public void getChampions() throws ExecutionException {
+    public void getChampions() {
         Set<Integer> topChamps = new HashSet<>(Arrays.asList(ZYRA, SORAKA, MORGANA, SONA, JANNA, EKKO, NAMI, TARIC,
                 POPPY, ASHE));
         List<ChampionMastery> champData = api.championMasteries.getAllChampionMasteries(Region.NA, 69009277);
@@ -72,7 +72,7 @@ public class ApiChampionMasteryTest extends ApiTest {
     }
 
     @Test
-    public void getScore() throws ExecutionException {
+    public void getScore() {
         // http://www.lolking.net/summoner/euw/20401158/0#champ-mastery
         int score = api.championMasteries.getChampionMasteryScore(Region.EUW, 20401158);
         assertTrue("" + score, 806 <= score && score < 900);

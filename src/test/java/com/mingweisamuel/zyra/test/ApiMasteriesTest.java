@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 public class ApiMasteriesTest extends ApiTest {
 
     @Test
-    public void getMasteries() throws ExecutionException {
+    public void getMasteries() {
         checkGetMasteries(api.masteries.getMasteryPagesBySummonerId(Region.NA, 51405));
     }
     @Test

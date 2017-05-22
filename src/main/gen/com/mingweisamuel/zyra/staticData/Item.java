@@ -15,7 +15,7 @@ import java.util.Map;
  *
  * This object contains item data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getItemList">Riot API reference</a> on Wed May 17 21:53:10 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getItemList">Riot API reference</a> on Sun May 21 18:03:38 PDT 2017. */
 public class Item implements Serializable {
   /**
    * Data Dragon includes the gold field for basic data, which is shared by both rune and item. However, only items have a gold field on them, representing their gold cost in the store. Since runes are not sold in the store, they have no gold cost. */

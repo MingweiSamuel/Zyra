@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 public class ApiChampionTest extends ApiTest {
 
     @Test
-    public void getAll() throws ExecutionException {
+    public void getAll() {
         checkGetAll(api.champions.getChampions(Region.NA));
     }
     @Test
@@ -36,7 +36,7 @@ public class ApiChampionTest extends ApiTest {
     }
 
     @Test
-    public void get() throws ExecutionException {
+    public void get() {
         checkGet(api.champions.getChampionsById(Region.NA, ZYRA));
     }
     @Test

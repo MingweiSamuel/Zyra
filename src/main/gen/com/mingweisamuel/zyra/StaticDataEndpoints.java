@@ -24,7 +24,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 /**
  * static-data-v3
@@ -47,8 +46,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public ChampionList getChampionList(final Region region, final String version,
-      final Collection<String> champListData, final Boolean dataById, final String locale) throws
-      ExecutionException {
+      final Collection<String> champListData, final Boolean dataById, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/champions";
     Type type = ChampionList.class;
@@ -84,7 +82,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param dataById (optional) If specified as true, the returned data map will use the champions' IDs as the keys. If not specified or specified as false, the returned data map will use the champions' keys instead.
    */
   public ChampionList getChampionList(final Region region, final String version,
-      final Collection<String> champListData, final Boolean dataById) throws ExecutionException {
+      final Collection<String> champListData, final Boolean dataById) {
     // This method is automatically generated and should not be modified directly.
     return this.getChampionList(region, version, champListData, dataById, null);
   }
@@ -113,7 +111,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param champListData (optional) Tags to return additional data. Only type, version, data, id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public ChampionList getChampionList(final Region region, final String version,
-      final Collection<String> champListData) throws ExecutionException {
+      final Collection<String> champListData) {
     // This method is automatically generated and should not be modified directly.
     return this.getChampionList(region, version, champListData, null, null);
   }
@@ -139,8 +137,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
-  public ChampionList getChampionList(final Region region, final String version) throws
-      ExecutionException {
+  public ChampionList getChampionList(final Region region, final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getChampionList(region, version, null, null, null);
   }
@@ -164,7 +161,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * Not all data specified below is returned by default. See the champListData parameter for more information.
    * @param region Region to execute against.
    */
-  public ChampionList getChampionList(final Region region) throws ExecutionException {
+  public ChampionList getChampionList(final Region region) {
     // This method is automatically generated and should not be modified directly.
     return this.getChampionList(region, null, null, null, null);
   }
@@ -191,7 +188,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param champData (optional) Tags to return additional data. Only id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public Champion getChampionById(final Region region, final int id, final String version,
-      final String locale, final Collection<String> champData) throws ExecutionException {
+      final String locale, final Collection<String> champData) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/champions/%1$s", id);
     Type type = Champion.class;
@@ -226,7 +223,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public Champion getChampionById(final Region region, final int id, final String version,
-      final String locale) throws ExecutionException {
+      final String locale) {
     // This method is automatically generated and should not be modified directly.
     return this.getChampionById(region, id, version, locale, null);
   }
@@ -254,8 +251,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param id (required) Champion ID
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
-  public Champion getChampionById(final Region region, final int id, final String version) throws
-      ExecutionException {
+  public Champion getChampionById(final Region region, final int id, final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getChampionById(region, id, version, null, null);
   }
@@ -281,7 +277,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param id (required) Champion ID
    */
-  public Champion getChampionById(final Region region, final int id) throws ExecutionException {
+  public Champion getChampionById(final Region region, final int id) {
     // This method is automatically generated and should not be modified directly.
     return this.getChampionById(region, id, null, null, null);
   }
@@ -308,7 +304,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public ItemList getItemList(final Region region, final String version,
-      final Collection<String> itemListData, final String locale) throws ExecutionException {
+      final Collection<String> itemListData, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/items";
     Type type = ItemList.class;
@@ -341,7 +337,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param itemListData (optional) Tags to return additional data. Only type, version, basic, data, id, name, plaintext, group, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public ItemList getItemList(final Region region, final String version,
-      final Collection<String> itemListData) throws ExecutionException {
+      final Collection<String> itemListData) {
     // This method is automatically generated and should not be modified directly.
     return this.getItemList(region, version, itemListData, null);
   }
@@ -367,7 +363,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
-  public ItemList getItemList(final Region region, final String version) throws ExecutionException {
+  public ItemList getItemList(final Region region, final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getItemList(region, version, null, null);
   }
@@ -390,7 +386,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * Not all data specified below is returned by default. See the itemListData parameter for more information.
    * @param region Region to execute against.
    */
-  public ItemList getItemList(final Region region) throws ExecutionException {
+  public ItemList getItemList(final Region region) {
     // This method is automatically generated and should not be modified directly.
     return this.getItemList(region, null, null, null);
   }
@@ -417,7 +413,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public Item getItemById(final Region region, final int id, final String version,
-      final Collection<String> itemData, final String locale) throws ExecutionException {
+      final Collection<String> itemData, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/items/%1$s", id);
     Type type = Item.class;
@@ -452,7 +448,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param itemData (optional) Tags to return additional data. Only id, name, plaintext, group, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public Item getItemById(final Region region, final int id, final String version,
-      final Collection<String> itemData) throws ExecutionException {
+      final Collection<String> itemData) {
     // This method is automatically generated and should not be modified directly.
     return this.getItemById(region, id, version, itemData, null);
   }
@@ -480,8 +476,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param id (required) Item ID
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
-  public Item getItemById(final Region region, final int id, final String version) throws
-      ExecutionException {
+  public Item getItemById(final Region region, final int id, final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getItemById(region, id, version, null, null);
   }
@@ -507,7 +502,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param id (required) Item ID
    */
-  public Item getItemById(final Region region, final int id) throws ExecutionException {
+  public Item getItemById(final Region region, final int id) {
     // This method is automatically generated and should not be modified directly.
     return this.getItemById(region, id, null, null, null);
   }
@@ -531,7 +526,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public LanguageStrings getLanguageStrings(final Region region, final String version,
-      final String locale) throws ExecutionException {
+      final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/language-strings";
     Type type = LanguageStrings.class;
@@ -557,8 +552,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
-  public LanguageStrings getLanguageStrings(final Region region, final String version) throws
-      ExecutionException {
+  public LanguageStrings getLanguageStrings(final Region region, final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getLanguageStrings(region, version, null);
   }
@@ -578,7 +572,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
    * @param region Region to execute against.
    */
-  public LanguageStrings getLanguageStrings(final Region region) throws ExecutionException {
+  public LanguageStrings getLanguageStrings(final Region region) {
     // This method is automatically generated and should not be modified directly.
     return this.getLanguageStrings(region, null, null);
   }
@@ -596,7 +590,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getLanguages">Link to Portal</a><br>
    * @param region Region to execute against.
    */
-  public List<String> getLanguages(final Region region) throws ExecutionException {
+  public List<String> getLanguages(final Region region) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/languages";
     Type type = new TypeToken<List<String>>() {
@@ -622,8 +616,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
-  public MapData getMapData(final Region region, final String version, final String locale) throws
-      ExecutionException {
+  public MapData getMapData(final Region region, final String version, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/maps";
     Type type = MapData.class;
@@ -649,7 +642,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
-  public MapData getMapData(final Region region, final String version) throws ExecutionException {
+  public MapData getMapData(final Region region, final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getMapData(region, version, null);
   }
@@ -668,7 +661,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getMapData">Link to Portal</a><br>
    * @param region Region to execute against.
    */
-  public MapData getMapData(final Region region) throws ExecutionException {
+  public MapData getMapData(final Region region) {
     // This method is automatically generated and should not be modified directly.
     return this.getMapData(region, null, null);
   }
@@ -692,7 +685,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public MasteryList getMasteryList(final Region region, final String version,
-      final Collection<String> masteryListData, final String locale) throws ExecutionException {
+      final Collection<String> masteryListData, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/masteries";
     Type type = MasteryList.class;
@@ -725,7 +718,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param masteryListData (optional) Tags to return additional data. Only type, version, data, id, name, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public MasteryList getMasteryList(final Region region, final String version,
-      final Collection<String> masteryListData) throws ExecutionException {
+      final Collection<String> masteryListData) {
     // This method is automatically generated and should not be modified directly.
     return this.getMasteryList(region, version, masteryListData, null);
   }
@@ -751,8 +744,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
-  public MasteryList getMasteryList(final Region region, final String version) throws
-      ExecutionException {
+  public MasteryList getMasteryList(final Region region, final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getMasteryList(region, version, null, null);
   }
@@ -776,7 +768,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * Not all data specified below is returned by default. See the masteryListData parameter for more information.
    * @param region Region to execute against.
    */
-  public MasteryList getMasteryList(final Region region) throws ExecutionException {
+  public MasteryList getMasteryList(final Region region) {
     // This method is automatically generated and should not be modified directly.
     return this.getMasteryList(region, null, null, null);
   }
@@ -803,8 +795,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public Mastery getMasteryById(final Region region, final int id,
-      final Collection<String> masteryData, final String version, final String locale) throws
-      ExecutionException {
+      final Collection<String> masteryData, final String version, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/masteries/%1$s", id);
     Type type = Mastery.class;
@@ -839,7 +830,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
   public Mastery getMasteryById(final Region region, final int id,
-      final Collection<String> masteryData, final String version) throws ExecutionException {
+      final Collection<String> masteryData, final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getMasteryById(region, id, masteryData, version, null);
   }
@@ -868,7 +859,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param masteryData (optional) Tags to return additional data. Only id, name, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public Mastery getMasteryById(final Region region, final int id,
-      final Collection<String> masteryData) throws ExecutionException {
+      final Collection<String> masteryData) {
     // This method is automatically generated and should not be modified directly.
     return this.getMasteryById(region, id, masteryData, null, null);
   }
@@ -894,7 +885,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param id (required) Mastery ID
    */
-  public Mastery getMasteryById(final Region region, final int id) throws ExecutionException {
+  public Mastery getMasteryById(final Region region, final int id) {
     // This method is automatically generated and should not be modified directly.
     return this.getMasteryById(region, id, null, null, null);
   }
@@ -918,7 +909,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public ProfileIconData getProfileIcons(final Region region, final String version,
-      final String locale) throws ExecutionException {
+      final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/profile-icons";
     Type type = ProfileIconData.class;
@@ -944,8 +935,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
-  public ProfileIconData getProfileIcons(final Region region, final String version) throws
-      ExecutionException {
+  public ProfileIconData getProfileIcons(final Region region, final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getProfileIcons(region, version, null);
   }
@@ -965,7 +955,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
    * @param region Region to execute against.
    */
-  public ProfileIconData getProfileIcons(final Region region) throws ExecutionException {
+  public ProfileIconData getProfileIcons(final Region region) {
     // This method is automatically generated and should not be modified directly.
     return this.getProfileIcons(region, null, null);
   }
@@ -983,7 +973,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getRealm">Link to Portal</a><br>
    * @param region Region to execute against.
    */
-  public Realm getRealm(final Region region) throws ExecutionException {
+  public Realm getRealm(final Region region) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/realms";
     Type type = Realm.class;
@@ -1011,7 +1001,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public RuneList getRuneList(final Region region, final String version,
-      final Collection<String> runeListData, final String locale) throws ExecutionException {
+      final Collection<String> runeListData, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/runes";
     Type type = RuneList.class;
@@ -1044,7 +1034,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param runeListData (optional) Tags to return additional data. Only type, version, data, id, name, rune, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public RuneList getRuneList(final Region region, final String version,
-      final Collection<String> runeListData) throws ExecutionException {
+      final Collection<String> runeListData) {
     // This method is automatically generated and should not be modified directly.
     return this.getRuneList(region, version, runeListData, null);
   }
@@ -1070,7 +1060,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
-  public RuneList getRuneList(final Region region, final String version) throws ExecutionException {
+  public RuneList getRuneList(final Region region, final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getRuneList(region, version, null, null);
   }
@@ -1093,7 +1083,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * Not all data specified below is returned by default. See the runeListData parameter for more information.
    * @param region Region to execute against.
    */
-  public RuneList getRuneList(final Region region) throws ExecutionException {
+  public RuneList getRuneList(final Region region) {
     // This method is automatically generated and should not be modified directly.
     return this.getRuneList(region, null, null, null);
   }
@@ -1120,7 +1110,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public Rune getRuneById(final Region region, final int id, final String version,
-      final Collection<String> runeData, final String locale) throws ExecutionException {
+      final Collection<String> runeData, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/runes/%1$s", id);
     Type type = Rune.class;
@@ -1155,7 +1145,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param runeData (optional) Tags to return additional data. Only id, name, rune, and description are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public Rune getRuneById(final Region region, final int id, final String version,
-      final Collection<String> runeData) throws ExecutionException {
+      final Collection<String> runeData) {
     // This method is automatically generated and should not be modified directly.
     return this.getRuneById(region, id, version, runeData, null);
   }
@@ -1183,8 +1173,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param id (required) Rune ID
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
-  public Rune getRuneById(final Region region, final int id, final String version) throws
-      ExecutionException {
+  public Rune getRuneById(final Region region, final int id, final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getRuneById(region, id, version, null, null);
   }
@@ -1210,7 +1199,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param id (required) Rune ID
    */
-  public Rune getRuneById(final Region region, final int id) throws ExecutionException {
+  public Rune getRuneById(final Region region, final int id) {
     // This method is automatically generated and should not be modified directly.
     return this.getRuneById(region, id, null, null, null);
   }
@@ -1238,8 +1227,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public SummonerSpellList getSummonerSpellList(final Region region, final String version,
-      final Collection<String> spellListData, final Boolean dataById, final String locale) throws
-      ExecutionException {
+      final Collection<String> spellListData, final Boolean dataById, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/summoner-spells";
     Type type = SummonerSpellList.class;
@@ -1275,7 +1263,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param dataById (optional) If specified as true, the returned data map will use the spells' IDs as the keys. If not specified or specified as false, the returned data map will use the spells' keys instead.
    */
   public SummonerSpellList getSummonerSpellList(final Region region, final String version,
-      final Collection<String> spellListData, final Boolean dataById) throws ExecutionException {
+      final Collection<String> spellListData, final Boolean dataById) {
     // This method is automatically generated and should not be modified directly.
     return this.getSummonerSpellList(region, version, spellListData, dataById, null);
   }
@@ -1304,7 +1292,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param spellListData (optional) Tags to return additional data. Only type, version, data, id, key, name, description, and summonerLevel are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public SummonerSpellList getSummonerSpellList(final Region region, final String version,
-      final Collection<String> spellListData) throws ExecutionException {
+      final Collection<String> spellListData) {
     // This method is automatically generated and should not be modified directly.
     return this.getSummonerSpellList(region, version, spellListData, null, null);
   }
@@ -1330,8 +1318,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
-  public SummonerSpellList getSummonerSpellList(final Region region, final String version) throws
-      ExecutionException {
+  public SummonerSpellList getSummonerSpellList(final Region region, final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getSummonerSpellList(region, version, null, null, null);
   }
@@ -1355,7 +1342,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * Not all data specified below is returned by default. See the spellListData parameter for more information.
    * @param region Region to execute against.
    */
-  public SummonerSpellList getSummonerSpellList(final Region region) throws ExecutionException {
+  public SummonerSpellList getSummonerSpellList(final Region region) {
     // This method is automatically generated and should not be modified directly.
     return this.getSummonerSpellList(region, null, null, null, null);
   }
@@ -1382,7 +1369,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
   public SummonerSpell getSummonerSpellById(final Region region, final int id, final String version,
-      final Collection<String> spellData, final String locale) throws ExecutionException {
+      final Collection<String> spellData, final String locale) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/summoner-spells/%1$s", id);
     Type type = SummonerSpell.class;
@@ -1417,7 +1404,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param spellData (optional) Tags to return additional data. Only id, key, name, description, and summonerLevel are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
   public SummonerSpell getSummonerSpellById(final Region region, final int id, final String version,
-      final Collection<String> spellData) throws ExecutionException {
+      final Collection<String> spellData) {
     // This method is automatically generated and should not be modified directly.
     return this.getSummonerSpellById(region, id, version, spellData, null);
   }
@@ -1445,8 +1432,8 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param id (required) Summoner spell ID
    * @param version (optional) Data dragon version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
-  public SummonerSpell getSummonerSpellById(final Region region, final int id, final String version)
-      throws ExecutionException {
+  public SummonerSpell getSummonerSpellById(final Region region, final int id,
+      final String version) {
     // This method is automatically generated and should not be modified directly.
     return this.getSummonerSpellById(region, id, version, null, null);
   }
@@ -1472,8 +1459,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param id (required) Summoner spell ID
    */
-  public SummonerSpell getSummonerSpellById(final Region region, final int id) throws
-      ExecutionException {
+  public SummonerSpell getSummonerSpellById(final Region region, final int id) {
     // This method is automatically generated and should not be modified directly.
     return this.getSummonerSpellById(region, id, null, null, null);
   }
@@ -1495,7 +1481,7 @@ public final class StaticDataEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getVersions">Link to Portal</a><br>
    * @param region Region to execute against.
    */
-  public List<String> getVersions(final Region region) throws ExecutionException {
+  public List<String> getVersions(final Region region) {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/versions";
     Type type = new TypeToken<List<String>>() {

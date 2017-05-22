@@ -130,17 +130,17 @@ public class SummonerEntity extends Entity {
         this.standardizedName = standardizedName;
 
         this.championMasteries = new LazyResetableFuture<>(() ->
-            entityApi.riotApi.championMasteries.getAllChampionMasteriesAsync(region, summonerId.getSync()));
+            entityApi.riotApi.championMasteries.getAllChampionMasteriesAsync(region, summonerId.join()));
         this.leaguePositions = new LazyResetableFuture<>(() ->
-            entityApi.riotApi.leagues.getAllLeaguePositionsForSummonerAsync(region, summonerId.getSync()));
+            entityApi.riotApi.leagues.getAllLeaguePositionsForSummonerAsync(region, summonerId.join()));
         this.masteryPages = new LazyResetableFuture<>(() ->
-            entityApi.riotApi.masteries.getMasteryPagesBySummonerIdAsync(region, summonerId.getSync()));
+            entityApi.riotApi.masteries.getMasteryPagesBySummonerIdAsync(region, summonerId.join()));
         this.runePages = new LazyResetableFuture<>(() ->
-            entityApi.riotApi.runes.getRunePagesBySummonerIdAsync(region, summonerId.getSync()));
+            entityApi.riotApi.runes.getRunePagesBySummonerIdAsync(region, summonerId.join()));
         this.currentGameInfo = new LazyResetableFuture<>(() ->
-            entityApi.riotApi.spectator.getCurrentGameInfoBySummonerAsync(region, summonerId.getSync()));
+            entityApi.riotApi.spectator.getCurrentGameInfoBySummonerAsync(region, summonerId.join()));
         this.recentMatchlist = new LazyResetableFuture<>(() ->
-            entityApi.riotApi.matches.getRecentMatchlistAsync(region, accountId.getSync()));
+            entityApi.riotApi.matches.getRecentMatchlistAsync(region, accountId.join()));
     }
 
     // region IDs
@@ -151,7 +151,7 @@ public class SummonerEntity extends Entity {
         return summonerId.get();
     }
     public long getSummonerId() {
-        return summonerId.getSync();
+        return summonerId.join();
     }
 
     public boolean hasLoadedAccountId() {
@@ -161,14 +161,14 @@ public class SummonerEntity extends Entity {
         return accountId.get();
     }
     public long getAccountId() {
-        return accountId.getSync();
+        return accountId.join();
     }
 
     public CompletableFuture<String> getStandardizedNameAsync() {
         return standardizedName.get();
     }
     public String getStandardizedName() {
-        return standardizedName.getSync();
+        return standardizedName.join();
     }
     //endregion
 
@@ -177,7 +177,7 @@ public class SummonerEntity extends Entity {
         return summonerInfo.get();
     }
     public Summoner getSummonerInfo() {
-        return summonerInfo.getSync();
+        return summonerInfo.join();
     }
     //endregion
 
@@ -186,7 +186,7 @@ public class SummonerEntity extends Entity {
         return championMasteries.get();
     }
     public List<ChampionMastery> getChampionMasteries() {
-        return championMasteries.getSync();
+        return championMasteries.join();
     }
     //endregion
 
@@ -195,7 +195,7 @@ public class SummonerEntity extends Entity {
         return leaguePositions.get();
     }
     public List<LeaguePosition> getLeaguePositions() {
-        return leaguePositions.getSync();
+        return leaguePositions.join();
     }
     //endregion
 
@@ -204,7 +204,7 @@ public class SummonerEntity extends Entity {
         return masteryPages.get();
     }
     public MasteryPages getMasteryPages() {
-        return masteryPages.getSync();
+        return masteryPages.join();
     }
     //endregion
 
@@ -213,7 +213,7 @@ public class SummonerEntity extends Entity {
         return runePages.get();
     }
     public RunePages getRunePages() {
-        return runePages.getSync();
+        return runePages.join();
     }
     //endregion
 
@@ -222,7 +222,7 @@ public class SummonerEntity extends Entity {
         return currentGameInfo.get();
     }
     public CurrentGameInfo getCurrentGameInfo() {
-        return currentGameInfo.getSync();
+        return currentGameInfo.join();
     }
     //endregion
 
@@ -231,7 +231,7 @@ public class SummonerEntity extends Entity {
         return recentMatchlist.get();
     }
     public Matchlist getRecentMatchlist() {
-        return recentMatchlist.getSync();
+        return recentMatchlist.join();
     }
 
     public CompletableFuture<List<MatchEntity>> getRecentMatchEntitiesAsync() {

@@ -41,7 +41,7 @@ public class EntitySummonerTest extends EntityTest {
         SummonerEntity summoner = eApi.getSummonerByName(Region.NA, "c 9s NE  aky");
         validate(summoner);
     }
-    public void validate(SummonerEntity summoner) {
+    public static void validate(SummonerEntity summoner) {
         // basic
         assertEquals("c9sneaky", summoner.getStandardizedName());
         assertEquals(51405, summoner.getSummonerId());

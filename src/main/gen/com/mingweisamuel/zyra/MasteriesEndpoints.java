@@ -7,7 +7,6 @@ import java.lang.SuppressWarnings;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 /**
  * masteries-v3
@@ -24,8 +23,7 @@ public final class MasteriesEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param summonerId (required) Summoner ID
    */
-  public MasteryPages getMasteryPagesBySummonerId(final Region region, final long summonerId) throws
-      ExecutionException {
+  public MasteryPages getMasteryPagesBySummonerId(final Region region, final long summonerId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/platform/v3/masteries/by-summoner/%1$s", summonerId);
     Type type = MasteryPages.class;
