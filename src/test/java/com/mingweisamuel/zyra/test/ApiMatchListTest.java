@@ -2,20 +2,18 @@ package com.mingweisamuel.zyra.test;
 
 import com.mingweisamuel.zyra.enums.ChampionId;
 import com.mingweisamuel.zyra.enums.Region;
+import com.mingweisamuel.zyra.match.MatchReference;
 import com.mingweisamuel.zyra.match.Matchlist;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Collections;
-import java.util.concurrent.ExecutionException;
 
-import static com.mingweisamuel.zyra.enums.ChampionId.DRAVEN;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Integration tests for {@link com.mingweisamuel.zyra.MatchEndpoints}.
- * TODO recent matchlist
  */
 public class ApiMatchListTest extends ApiTest {
 
@@ -42,6 +40,30 @@ public class ApiMatchListTest extends ApiTest {
         for (int i = 0; i < 3; i++) {
             assertNotNull(matchlist.matches.get(i));
             assertEquals(expected[i], matchlist.matches.get(i).gameId);
+        }
+    }
+
+    @Test
+    public void getRecent() {
+        checkGetRecent(api.matches.getRecentMatchlist(Region.NA, 78247));
+    }
+    @Test
+    public void getRecentAsync() {
+        api.matches.getRecentMatchlistAsync(Region.NA, 78247).thenAccept(ApiMatchListTest::checkGetRecent).join();
+    }
+    public static void checkGetRecent(Matchlist matchlist) {
+        assertNotNull(matchlist);
+        assertNotNull(matchlist.matches);
+        assertEquals(matchlist.totalGames, matchlist.matches.size());
+
+        long after = 1494737245688L;
+        long timestamp = Long.MAX_VALUE;
+        for (MatchReference match : matchlist.matches) {
+            assertNotNull(match);
+            assertTrue(match.timestamp >= after);
+            // check descending
+            assertTrue(match.timestamp < timestamp);
+            timestamp = match.timestamp;
         }
     }
 }

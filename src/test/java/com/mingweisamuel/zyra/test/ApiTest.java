@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 public class ApiTest {
 
     @Rule
-    public TestRule globalTimeout = new DisableOnDebug(Timeout.seconds(120));
+    public TestRule globalTimeout = new DisableOnDebug(Timeout.seconds(60));
 
     protected static final RiotApi api = RiotApi.builder(System.getenv("API_KEY"))
             .setConcurrentRequestsMax(Integer.parseInt(System.getProperty("testThreadCount")))

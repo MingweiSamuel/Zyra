@@ -13,7 +13,7 @@ import static org.junit.Assert.assertSame;
 public class EntityMatchTest extends EntityTest {
 
     @Test
-    public void testBasic() {
+    public void getMatchBasic() {
         testBasicValidate(eApi.getMatch(Region.NA, 2398184332L));
     }
     public static void testBasicValidate(MatchEntity match) {
@@ -23,7 +23,7 @@ public class EntityMatchTest extends EntityTest {
     }
 
     @Test
-    public void testSimpleMatchInstanceCaching() {
+    public void simpleMatchInstanceCaching() {
         MatchEntity m1 = eApi.getMatch(Region.NA, 2398184332L);
         MatchEntity m2 = eApi.getMatch(Region.NA, 2398184332L);
         assertSame(m1, m2);

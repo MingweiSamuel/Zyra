@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 public class EntitySummonerMatchQueryTest extends EntityTest {
 
     @Test
-    public void testQuery1() {
+    public void getQuery1() {
         SummonerEntity sneaky = eApi.getSummoner(Region.NA, 51405);
 
         // set query params. query is always dirty before any requests.

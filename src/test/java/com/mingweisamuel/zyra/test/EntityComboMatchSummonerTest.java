@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 public class EntityComboMatchSummonerTest extends EntityTest {
 
     @Test
-    public void testCombo() {
+    public void getCombo() {
         MatchEntity match = eApi.getMatch(Region.NA, 2398184332L);
 
         ApiMatchTest.checkGet(match.getInfo());

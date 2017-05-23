@@ -19,24 +19,7 @@ import static org.junit.Assert.fail;
 public class FutureTest {
 
     @Rule
-    public final Timeout timeout = Timeout.seconds(30);
-
-    @Test
-    public void testCompletableFutureNonlinear() throws ExecutionException, InterruptedException {
-        CompletableFuture<String> f1 = CompletableFuture.supplyAsync(() -> {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                fail();
-            }
-            return "foo";
-        });
-        CompletableFuture<String> f2 = f1.thenApply(s -> s + " bar");
-        assertEquals("foo bar", f2.get());
-        CompletableFuture<String> f3 = f1.thenApply(s -> s + " baz");
-        assertEquals("foo baz", f3.get());
-    }
+    public final Timeout timeout = Timeout.seconds(10);
 
     @Test
     public void testResetableFutureBasic1() {
@@ -76,5 +59,50 @@ public class FutureTest {
         assertEquals("foo", f1.join());
         assertTrue(f1.created());
         assertTrue(f1.isDone());
+    }
+
+    @Test
+    public void testIsDoneAsync() {
+        LazyResetableFuture<String> f1 = new LazyResetableFuture<>(() -> CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(500);
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+                fail();
+            }
+            return "foo";
+        }));
+        assertFalse(f1.created());
+        assertFalse(f1.isDone());
+
+        f1.get();
+        assertTrue(f1.created());
+        assertFalse(f1.isDone());
+
+        f1.join();
+        assertTrue(f1.created());
+        assertTrue(f1.isDone());
+
+        f1.reset();
+        assertFalse(f1.created());
+        assertFalse(f1.isDone());
+    }
+
+    @Test
+    public void testCompletableFutureNonlinear() throws ExecutionException, InterruptedException {
+        CompletableFuture<String> f1 = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                fail();
+            }
+            return "foo";
+        });
+        CompletableFuture<String> f2 = f1.thenApply(s -> s + " bar");
+        assertEquals("foo bar", f2.get());
+        CompletableFuture<String> f3 = f1.thenApply(s -> s + " baz");
+        assertEquals("foo baz", f3.get());
     }
 }

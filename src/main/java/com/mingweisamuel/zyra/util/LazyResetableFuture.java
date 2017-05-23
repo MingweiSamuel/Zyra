@@ -37,7 +37,7 @@ public final class LazyResetableFuture<T> extends LazyResetable<CompletableFutur
     }
 
     /**
-     * Synchronously returns the result of the inner CompletableFuture. May throw exceptions TODO.
+     * Synchronously returns the result of the inner CompletableFuture. May throw exceptions.
      * @return The inner value.
      */
     public T join() {
