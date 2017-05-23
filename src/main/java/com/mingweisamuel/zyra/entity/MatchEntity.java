@@ -1,5 +1,6 @@
 package com.mingweisamuel.zyra.entity;
 
+import com.google.common.collect.Lists;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.enums.TeamId;
 import com.mingweisamuel.zyra.match.Match;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 /**
  * A high-level representation of a match. Thread-safe.
@@ -34,8 +36,11 @@ public class MatchEntity extends Entity {
     /** The match's timeline. */
     private final LazyResetableFuture<MatchTimeline> timeline;
 
-    /** The match's participantInfo entities. */
+    /** The match's participant entities. */
     private final LazyResetableFuture<List<ParticipantEntity>> participants;
+
+    /** The match's team entities. */
+    private final LazyResetableFuture<List<TeamEntity>> teams;
 
     private MatchEntity(EntityApi entityApi, Region region, long matchId) {
         super(entityApi, region);
@@ -43,14 +48,10 @@ public class MatchEntity extends Entity {
 
         matchInfo = new LazyResetableFuture<>(() -> entityApi.riotApi.matches.getMatchAsync(region, matchId));
         timeline = new LazyResetableFuture<>(() -> entityApi.riotApi.matches.getMatchTimelineAsync(region, matchId));
-        participants = matchInfo.thenApply(m -> {
-            List<ParticipantEntity> result = new ArrayList<>(m.participantIdentities.size());
-            for (ParticipantIdentity pid : m.participantIdentities) {
-                result.add(new ParticipantEntity(pid.participantId, m,
-                    pid.player != null ? entityApi.getSummonerFromPlayer(pid.player) : null));
-            }
-            return result;
-        });
+        participants = matchInfo.thenApply(m -> new ArrayList<>(Lists.transform(
+            m.participantIdentities, pid -> new ParticipantEntity(
+                pid.participantId, m,pid.player != null ? entityApi.getSummonerFromPlayer(pid.player) : null))));
+        teams = matchInfo.thenApply(m -> new ArrayList<>(Lists.transform(m.teams, TeamEntity::new)));
     }
 
     /** Returns the unique match id. Does not need to wait for any tasks to complete. */
@@ -84,25 +85,43 @@ public class MatchEntity extends Entity {
         return participants.join();
     }
 
-    /**
-     * See {@link com.mingweisamuel.zyra.enums.TeamId}.
-     * @param teamId Team id.
-     * @return List of participants on team. Empty list if bad teamId.
-     */
-    public CompletableFuture<List<ParticipantEntity>> getParticipantsOnTeam(int teamId) {
-        return getParticipantsAsync().thenApply(participants -> {
-            List<ParticipantEntity> result = new ArrayList<>(participants.size() / 2);
-            for (ParticipantEntity participant : participants)
-                if (participant.getTeamId() == teamId)
-                    result.add(participant);
-            return result;
-        });
+    public CompletableFuture<List<TeamEntity>> getTeamsAsync() {
+        return teams.get();
     }
-
-    public CompletableFuture<ParticipantIdentity> getParticipantFromSummoner(SummonerEntity summoner) {
-        return null; // TODO
+    public List<TeamEntity> getTeams() {
+        return teams.join();
     }
     //endregion
+
+    /**
+     * An entity representation of a team in a single match.
+     */
+    public class TeamEntity extends Entity {
+
+        private final TeamStats teamStats;
+
+        private TeamEntity(TeamStats teamStats) {
+            super(MatchEntity.this.entityApi, MatchEntity.this.region);
+            this.teamStats = teamStats;
+        }
+
+        public int getTeamId() {
+            return teamStats.teamId;
+        }
+
+        public TeamStats getTeamStats() {
+            return teamStats;
+        }
+
+        public boolean isWinner() {
+            return TeamId.WIN.equals(teamStats.win);
+        }
+
+        public List<ParticipantEntity> getParticipants() {
+            return MatchEntity.this.getParticipants().stream()
+                .filter(p -> this.getTeamId() == p.getTeamId()).collect(Collectors.toList());
+        }
+    }
 
     /**
      * A entity representation of a participantInfo in a single match. May or may not be associated with a SummonerEntity.
@@ -113,8 +132,6 @@ public class MatchEntity extends Entity {
         private final SummonerEntity summonerEntity;
 
         private final Participant participantInfo;
-
-        private final TeamStats teamStats;
 
         private final LazyResetableFuture<SortedMap<Long, MatchParticipantFrame>> timeline;
 
@@ -134,9 +151,6 @@ public class MatchEntity extends Entity {
             this.participantInfo = matchInfo.participants.stream()
                 .filter(p -> this.participantId == p.participantId).findAny()
                 .orElseThrow(() -> new IllegalStateException("Participant with id not found: " + participantId));
-            this.teamStats = matchInfo.teams.stream()
-                .filter(t -> participantInfo.teamId == t.teamId).findAny()
-                .orElseThrow(() -> new IllegalStateException("TeamStats for teamId not found: " + participantInfo.teamId));
 
             //noinspection ConstantConditions
             this.timeline = MatchEntity.this.timeline
@@ -166,26 +180,26 @@ public class MatchEntity extends Entity {
         public Participant getParticipantInfo() {
             return participantInfo;
         }
-        /** @return The participantInfo's teamId. See {@link com.mingweisamuel.zyra.enums.TeamId}. */
+        /** @return The participant's teamId. See {@link com.mingweisamuel.zyra.enums.TeamId}. */
         public int getTeamId() {
             return participantInfo.teamId;
         }
-        /** @return The participantInfo's team's stats. */
-        public TeamStats getTeamStats() {
-            return teamStats;
-        }
-        /** @return {@code true} if the participantInfo won, {@code false} if the participantInfo lost. */
-        public boolean isWinner() {
-            return TeamId.WIN.equals(teamStats.win);
+        /** @return The participant's TeamEntity. */
+        public TeamEntity getTeam() {
+            return MatchEntity.this.getTeams().stream()
+                .filter(t -> this.getTeamId() == t.getTeamId()).findAny().orElse(null);
         }
 
-        /** @return A CompletableFuture for this participantInfo's timeline, which is a list of MatchParticipantFrames. */
+        /**
+         * @return A CompletableFuture for this participant's timeline, which is a map from timestamps (long) to
+         * MatchParticipantFrames. The map is sorted in chronological order (ascending timestamps).
+         */
         public CompletableFuture<SortedMap<Long, MatchParticipantFrame>> getTimelineAsync() {
             return timeline.get();
         }
         /**
-         * @return This participantInfo's timeline, which is a map from timestamps (long) to MatchParticipantFrames.
-         * The list is sorted in chronological order (ascending timestamps).<br>
+         * @return This participant's timeline, which is a map from timestamps (long) to MatchParticipantFrames.
+         * The map is sorted in chronological order (ascending timestamps).<br>
          * May block while waiting for data.
          */
         public SortedMap<Long, MatchParticipantFrame> getTimeline() {

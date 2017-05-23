@@ -13,7 +13,9 @@ import com.mingweisamuel.zyra.spectator.CurrentGameInfo;
 import com.mingweisamuel.zyra.summoner.Summoner;
 import com.mingweisamuel.zyra.util.LazyResetableFuture;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -82,6 +84,8 @@ public class SummonerEntity extends Entity {
             accountIdFuture, standardizedNameFuture);
     }
     static SummonerEntity createFromPlayer(EntityApi entityApi, Player player) {
+        if (player == null)
+            return null;
         Region region = Region.parse(player.currentPlatformId);
         return create(entityApi, region, player.summonerId, player.currentAccountId, player.summonerName);
     }
@@ -108,6 +112,22 @@ public class SummonerEntity extends Entity {
     private final LazyResetableFuture<CurrentGameInfo> currentGameInfo;
     /** Recent match list information. */
     private final LazyResetableFuture<Matchlist> recentMatchlist;
+
+    /** Lock on updating the query parameters. */
+    private final Object queryLock = new Object();
+    private volatile boolean queryDirty = true;
+    private volatile List<Integer> queryQueues = null;
+    private volatile Long queryBeginTime = null;
+    private volatile Long queryEndTime = null;
+    private volatile List<Integer> queryChampions = null;
+    private volatile List<Integer> querySeasons = null;
+    private volatile Integer queryBeginIndex = null;
+    private volatile Integer queryEndIndex = null;
+    /**
+     * Summoner matchlist information, based on the query parameters above. Each summoner instance caches a single
+     * matchlist query. Sending additional queries will overwrite the previous.
+     */
+    private final LazyResetableFuture<Matchlist> queryMatchlist;
 
     /**
      * Creates an uninitialized SummonerEntity. This constructor should not be used directly.
@@ -141,10 +161,13 @@ public class SummonerEntity extends Entity {
             entityApi.riotApi.spectator.getCurrentGameInfoBySummonerAsync(region, summonerId.join()));
         this.recentMatchlist = new LazyResetableFuture<>(() ->
             entityApi.riotApi.matches.getRecentMatchlistAsync(region, accountId.join()));
+        this.queryMatchlist = new LazyResetableFuture<>(() ->
+            entityApi.riotApi.matches.getMatchlistAsync(region, accountId.join(), queryQueues, queryBeginTime,
+                queryEndTime, queryChampions, querySeasons, queryBeginIndex, queryEndIndex));
     }
 
     // region IDs
-    public boolean hasLoadedSummonerId() {
+    public boolean loadedSummonerId() {
         return summonerId.created();
     }
     public CompletableFuture<Long> getSummonerIdAsync() {
@@ -154,7 +177,7 @@ public class SummonerEntity extends Entity {
         return summonerId.join();
     }
 
-    public boolean hasLoadedAccountId() {
+    public boolean loadedAccountId() {
         return accountId.created();
     }
     public CompletableFuture<Long> getAccountIdAsync() {
@@ -173,75 +196,272 @@ public class SummonerEntity extends Entity {
     //endregion
 
     //region summonerInfo
+    public boolean loadedSummonerInfo() {
+        return summonerInfo.isDone();
+    }
     public CompletableFuture<Summoner> getSummonerInfoAsync() {
         return summonerInfo.get();
     }
     public Summoner getSummonerInfo() {
         return summonerInfo.join();
     }
+    public void resetSummonerInfo() {
+        summonerInfo.reset();
+    }
     //endregion
 
     //region championMasteries
+    public boolean loadedChampionMasteries() {
+        return championMasteries.isDone();
+    }
     public CompletableFuture<List<ChampionMastery>> getChampionMasteriesAsync() {
         return championMasteries.get();
     }
     public List<ChampionMastery> getChampionMasteries() {
         return championMasteries.join();
     }
+    public void resetChampionMasteries() {
+        championMasteries.reset();
+    }
     //endregion
 
     //region leaguePosition
+    public boolean loadedLeaguePositions() {
+        return leaguePositions.isDone();
+    }
     public CompletableFuture<List<LeaguePosition>> getLeaguePositionsAsync() {
         return leaguePositions.get();
     }
     public List<LeaguePosition> getLeaguePositions() {
         return leaguePositions.join();
     }
+    public void resetLeaguePositions() {
+        leaguePositions.reset();
+    }
     //endregion
 
     //region masteryPages
+    public boolean loadedMasteryPages() {
+        return masteryPages.isDone();
+    }
     public CompletableFuture<MasteryPages> getMasteryPagesAsync() {
         return masteryPages.get();
     }
     public MasteryPages getMasteryPages() {
         return masteryPages.join();
     }
+    public void resetMasteryPages() {
+        masteryPages.reset();
+    }
     //endregion
 
     //region runePages
+    public boolean loadedRunePages() {
+        return runePages.isDone();
+    }
     public CompletableFuture<RunePages> getRunePagesAsync() {
         return runePages.get();
     }
     public RunePages getRunePages() {
         return runePages.join();
     }
+    public void resetRunePages() {
+        runePages.reset();
+    }
     //endregion
 
     //region currentGameInfo
+    public boolean loadedCurrentGameInfo() {
+        return currentGameInfo.isDone();
+    }
     public CompletableFuture<CurrentGameInfo> getCurrentGameInfoAsync() {
         return currentGameInfo.get();
     }
     public CurrentGameInfo getCurrentGameInfo() {
         return currentGameInfo.join();
     }
+    public void resetCurrentGameInfo() {
+        currentGameInfo.reset();
+    }
     //endregion
 
-    //region match
+    //region matches recent
+    public boolean loadedRecentMatchlist() {
+        return recentMatchlist.isDone();
+    }
     public CompletableFuture<Matchlist> getRecentMatchlistAsync() {
         return recentMatchlist.get();
     }
     public Matchlist getRecentMatchlist() {
         return recentMatchlist.join();
     }
+    public void resetRecentMatchlist() {
+        recentMatchlist.reset();
+    }
 
     public CompletableFuture<List<MatchEntity>> getRecentMatchEntitiesAsync() {
-        return getRecentMatchlistAsync().thenApply(this::getRecentMatchEntitiesHelper);
+        return getRecentMatchlistAsync().thenApply(this::matchlistToMatches);
     }
     public List<MatchEntity> getRecentMatchEntities() {
-        return getRecentMatchEntitiesHelper(getRecentMatchlist());
-    }
-    private List<MatchEntity> getRecentMatchEntitiesHelper(Matchlist ml) {
-        return Lists.transform(ml.matches, m -> entityApi.getMatch(region, m.gameId));
+        return matchlistToMatches(getRecentMatchlist());
     }
     //endregion
+
+    //region matches query
+    /**
+     * Checks if the query is dirty. Returning true means that the match query parameters have been updated and a new
+     * request must be sent to obtain the matchlists. False means that a call to {@link #getMatchQuery} or
+     * {@link #getMatchQueryEntities} will return immediately.
+     * @return Whether the query is dirty.
+     */
+    public boolean isMatchQueryDirty() {
+        return queryDirty;
+    }
+
+    /**
+     * Removes all query restrictions and marks the match query dirty.
+     */
+    public void resetMatchQuery() {
+        synchronized (queryLock) {
+            queryQueues = null;
+            queryBeginTime = null;
+            queryEndTime = null;
+            queryChampions = null;
+            querySeasons = null;
+            queryBeginIndex = null;
+            queryEndIndex = null;
+        }
+    }
+
+    /**
+     * Sets the queues parameter for a match query.
+     * @param queues Queue id list, or null to remove.
+     * @return Whether the query is dirty.
+     */
+    public boolean setMatchQueryQueues(List<Integer> queues) {
+        synchronized (queryLock) {
+            if (!Objects.equals(queryQueues, queues)) {
+                queryQueues = queues;
+                queryDirty = true;
+            }
+            return queryDirty;
+        }
+    }
+
+    /**
+     * Sets the begin and end time for a match query.<br>
+     * {@code setMatchQueryTimeRange(null, null)} will remove the time restriction.
+     * @param beginTime Begin time in epoch milliseconds, or null to remove.
+     * @param endTime End time in epoch milliseconds, or null to remove.
+     * @return Whether the query is dirty.
+     */
+    public boolean setMatchQueryTimeRange(Long beginTime, Long endTime) {
+        //noinspection Duplicates
+        synchronized (queryLock) {
+            if (queryDirty || !Objects.equals(queryBeginTime, beginTime)) {
+                queryBeginTime = beginTime;
+                queryDirty = true;
+            }
+            if (queryDirty || !Objects.equals(queryEndTime, endTime)) {
+                queryEndTime = endTime;
+                queryDirty = true;
+            }
+            return queryDirty;
+        }
+    }
+
+    /**
+     * Sets the champions for a match query.
+     * @param champions Champions that summoner played in queried matches, or null to remove.
+     * @return Whether the query is dirty.
+     */
+    public boolean setMatchQueryChampions(List<Integer> champions) {
+        synchronized (queryLock) {
+            if (queryDirty || !Objects.equals(queryChampions, champions)) {
+                queryChampions = champions;
+                queryDirty = true;
+            }
+            return queryDirty;
+        }
+    }
+
+    /**
+     * Sets the seasons for a match query.
+     * @param seasons Seasons to return matches from.
+     * @return Whether the query is dirty.
+     */
+    public boolean setMatchQuerySeasons(List<Integer> seasons) {
+        synchronized (queryLock) {
+            if (queryDirty || !Objects.equals(querySeasons, seasons)) {
+                querySeasons = seasons;
+                queryDirty = true;
+            }
+            return queryDirty;
+        }
+    }
+
+    /**
+     * Sets the begin and end indices for a match query.<br>
+     * {@code setMatchQueryIndexRange(null, null)} will remove the index restriction.
+     * @param beginIndex Begin index, or null to remove.
+     * @param endIndex End index, or null to remove.
+     * @return Whether the query is dirty.
+     */
+    public boolean setMatchQueryIndexRange(Integer beginIndex, Integer endIndex) {
+        //noinspection Duplicates
+        synchronized (queryLock) {
+            if (queryDirty || !Objects.equals(queryBeginIndex, beginIndex)) {
+                queryBeginIndex = beginIndex;
+                queryDirty = true;
+            }
+            if (queryDirty || !Objects.equals(queryEndIndex, endIndex)) {
+                queryEndIndex = endIndex;
+                queryDirty = true;
+            }
+            return queryDirty;
+        }
+    }
+
+    /**
+     * Queries matches with the parameters set by {@code setMatchQuery***} methods. Only sends a new request if the
+     * query is marked dirty (parameters have been updated).
+     * @return A CompletableFuture of the Matchlist.
+     */
+    public CompletableFuture<Matchlist> getMatchQueryAsync() {
+        synchronized (queryLock) {
+            if (queryDirty)
+                queryMatchlist.reset();
+            return queryMatchlist.get();
+        }
+    }
+    /**
+     * Queries matches with the parameters set by {@code setMatchQuery***} methods. Only sends a new request if the
+     * query is marked dirty (parameters have been updated).
+     * @return The Matchlist.
+     */
+    public Matchlist getMatchQuery() {
+        return getMatchQueryAsync().join();
+    }
+
+    /**
+     * Queries matches with the parameters set by {@code setMatchQuery***} methods. Only sends a new request if the
+     * query is marked dirty (parameters have been updated).
+     * @return A CompletableFuture of the list of MatchEntities.
+     */
+    public CompletableFuture<List<MatchEntity>> getMatchQueryEntitiesAsync() {
+        return getMatchQueryAsync().thenApply(this::matchlistToMatches);
+    }
+    /**
+     * Queries matches with the parameters set by {@code setMatchQuery***} methods. Only sends a new request if the
+     * query is marked dirty (parameters have been updated).
+     * @return The list of MatchEntities.
+     */
+    public List<MatchEntity> getMatchQueryEntities() {
+        return matchlistToMatches(getMatchQuery());
+    }
+    //endregion
+
+    private List<MatchEntity> matchlistToMatches(Matchlist ml) {
+        return new ArrayList<>(Lists.transform(ml.matches, m -> entityApi.getMatch(region, m.gameId)));
+    }
 }

@@ -1,18 +1,20 @@
 package com.mingweisamuel.zyra.test;
 
 import com.mingweisamuel.zyra.entity.MatchEntity;
+import com.mingweisamuel.zyra.entity.SummonerEntity;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.match.MatchParticipantFrame;
-import com.mingweisamuel.zyra.match.ParticipantTimeline;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 /**
  * Tests for {@link MatchEntity}.
@@ -20,7 +22,7 @@ import static org.junit.Assert.fail;
 public class EntityComboMatchSummonerTest extends EntityTest {
 
     @Test
-    public void test() {
+    public void testCombo() {
         MatchEntity match = eApi.getMatch(Region.NA, 2398184332L);
 
         ApiMatchTest.checkGet(match.getInfo());
@@ -32,7 +34,7 @@ public class EntityComboMatchSummonerTest extends EntityTest {
             assertNotNull(participant.getSummonerEntity());
             if (51405 == participant.getSummonerEntity().getSummonerId()) {
                 sneakyFound = true;
-                assertFalse("Expected loser", participant.isWinner());
+                assertFalse("Expected loser", participant.getTeam().isWinner());
                 EntitySummonerTest.validate(participant.getSummonerEntity());
                 assertNotNull(participant.getTimeline());
                 assertEquals(27, participant.getTimeline().size());
@@ -43,7 +45,7 @@ public class EntityComboMatchSummonerTest extends EntityTest {
 
                 for (Map.Entry<Long, MatchParticipantFrame> entry : participant.getTimeline().entrySet()) {
 
-                    assertTrue("Expected frame's timestamp >= prev timestamp: " + entry.getKey() + " > " + timestamp,
+                    assertTrue("Expected frame's timestamp >= prev timestamp: " + entry.getKey() + " >= " + timestamp,
                         entry.getKey() >= timestamp);
                     timestamp = entry.getKey();
 
@@ -61,10 +63,22 @@ public class EntityComboMatchSummonerTest extends EntityTest {
             }
             else if (21390175 == participant.getSummonerEntity().getSummonerId()) {
                 otherFound = true;
-                assertTrue("Expected winner", participant.isWinner());
+                assertTrue("Expected winner", participant.getTeam().isWinner());
             }
         }
         assertTrue("C9 Sneaky not found", sneakyFound);
         assertTrue("Other random guy not found", otherFound);
+    }
+
+    @Test
+    public void testComboMatchInstanceCaching() {
+        SummonerEntity summoner = eApi.getSummoner(Region.NA, 51405);
+        CompletableFuture<MatchEntity> f = summoner.getRecentMatchlistAsync().thenApply(ml -> {
+            assertNotNull(ml.matches);
+            assertTrue(ml.matches.size() + "", ml.matches.size() > 0);
+            return eApi.getMatch(Region.NA, ml.matches.get(0).gameId);
+        });
+        List<MatchEntity> matchEntities = summoner.getRecentMatchEntities();
+        assertSame(matchEntities.get(0), f.join());
     }
 }

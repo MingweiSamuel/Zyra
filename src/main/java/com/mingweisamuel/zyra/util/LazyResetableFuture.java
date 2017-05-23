@@ -44,6 +44,15 @@ public final class LazyResetableFuture<T> extends LazyResetable<CompletableFutur
         return get().join();
     }
 
+    /**
+     * Returns whether the value has been received. This means the CompletableFuture has been both created and
+     * completed.
+     * @return {@code true} if completed and data is available. {@code false} otherwise.
+     */
+    public boolean isDone() {
+        return created() && get().isDone();
+    }
+
     //region CompletionStage methods
     @Override
     public <U> LazyResetableFuture<U> thenApply(Function<? super T, ? extends U> fn) {

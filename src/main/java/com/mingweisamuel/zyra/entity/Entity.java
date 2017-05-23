@@ -7,9 +7,12 @@ import com.mingweisamuel.zyra.enums.Region;
  */
 public abstract class Entity {
 
+    /** EntityApi instance from which this Entity was created. */
     protected final EntityApi entityApi;
+    /** This Entity's region. */
     protected final Region region;
 
+    /** Creates an entity associated with the given entityApi and region. */
     Entity(EntityApi entityApi, Region region) {
         this.entityApi = entityApi;
         this.region = region;
