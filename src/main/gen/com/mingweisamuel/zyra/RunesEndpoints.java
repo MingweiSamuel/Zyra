@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * runes-v3
+ * runes-v3 endpoints.<br>
  * This class is automatically generated and should not be modified directly.
  */
 @SuppressWarnings({"unused", "SameParameterValue", "SpellCheckingInspection"})

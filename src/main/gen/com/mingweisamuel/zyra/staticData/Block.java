@@ -12,7 +12,7 @@ import java.util.List;
  *
  * This object contains champion recommended block data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getChampionList">Riot API reference</a> on Sun May 21 18:03:38 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getChampionList">Riot API reference</a> on Tue May 23 09:10:03 PDT 2017. */
 public class Block implements Serializable {
   public final List<BlockItem> items;
 

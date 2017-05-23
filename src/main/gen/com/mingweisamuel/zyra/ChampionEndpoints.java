@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * champion-v3
+ * champion-v3 endpoints.<br>
  * This class is automatically generated and should not be modified directly.
  */
 @SuppressWarnings({"unused", "SameParameterValue", "SpellCheckingInspection"})

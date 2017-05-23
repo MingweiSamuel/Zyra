@@ -11,7 +11,7 @@ import java.lang.String;
  *
  * represents a summoner.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#summoner-v3/GET_getByAccountId">Riot API reference</a> on Sun May 21 18:03:38 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#summoner-v3/GET_getByAccountId">Riot API reference</a> on Tue May 23 09:10:03 PDT 2017. */
 public class Summoner implements Serializable {
   /**
    * ID of the summoner icon associated with the summoner. */

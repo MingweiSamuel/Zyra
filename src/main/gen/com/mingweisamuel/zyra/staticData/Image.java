@@ -11,7 +11,7 @@ import java.lang.String;
  *
  * This object contains image data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getChampionList">Riot API reference</a> on Sun May 21 18:03:38 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#static-data-v3/GET_getChampionList">Riot API reference</a> on Tue May 23 09:10:03 PDT 2017. */
 public class Image implements Serializable {
   public final String full;
 

@@ -9,7 +9,7 @@ import java.lang.String;
 /**
  * Translation.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-status-v3/GET_getShardData">Riot API reference</a> on Sun May 21 18:03:38 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-status-v3/GET_getShardData">Riot API reference</a> on Tue May 23 09:10:03 PDT 2017. */
 public class Translation implements Serializable {
   public final String locale;
 

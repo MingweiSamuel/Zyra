@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * static-data-v3
+ * static-data-v3 endpoints.<br>
  * This class is automatically generated and should not be modified directly.
  */
 @SuppressWarnings({"unused", "SameParameterValue", "SpellCheckingInspection"})

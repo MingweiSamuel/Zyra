@@ -1,13 +1,11 @@
 package com.mingweisamuel.zyra;
 
-import com.google.common.base.Joiner;
-import com.google.common.collect.Iterables;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.gson.Gson;
 import com.mingweisamuel.zyra.enums.Region;
+import com.mingweisamuel.zyra.util.Lazy;
 import com.mingweisamuel.zyra.util.RateLimitedRequester;
 import com.mingweisamuel.zyra.util.RateLimiter;
-import com.mingweisamuel.zyra.util.Lazy;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClientConfig;
@@ -18,19 +16,15 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.ExecutionException;
-import java.util.function.Function;
-import java.util.stream.StreamSupport;
 
 /**
- * Riot API.
+ * Riot API. The main class for interacting with the Riot API on a low level.<br><br>
+ *
+ * The {@link com.mingweisamuel.zyra.entity.EntityApi} is simpler and more user-friendly to use.
  */
 public class RiotApi implements Closeable {
 

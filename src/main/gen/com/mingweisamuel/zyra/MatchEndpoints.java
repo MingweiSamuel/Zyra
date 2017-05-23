@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * match-v3
+ * match-v3 endpoints.<br>
  * This class is automatically generated and should not be modified directly.
  */
 @SuppressWarnings({"unused", "SameParameterValue", "SpellCheckingInspection"})

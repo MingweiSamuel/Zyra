@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.net.URL;
@@ -114,7 +115,7 @@ public class ApiGen {
         TypeSpec.Builder typeBuilder = TypeSpec.classBuilder(endpointsNormalizedName + "Endpoints");
         typeBuilder.addModifiers(Modifier.PUBLIC, Modifier.FINAL);
         typeBuilder.superclass(ClassName.bestGuess("com.mingweisamuel.zyra.Endpoints"));
-        typeBuilder.addJavadoc(endpointsRawName);
+        typeBuilder.addJavadoc(endpointsRawName + " endpoints.<br>");
         typeBuilder.addJavadoc("\nThis class is automatically generated and should not be modified directly.\n");
         AnnotationSpec.Builder suppressWarningsBuilder = AnnotationSpec.builder(SuppressWarnings.class);
         suppressWarningsBuilder.addMember("value", "{$S, $S, $S}",
@@ -140,6 +141,25 @@ public class ApiGen {
         try {
             javaFile.writeTo(SOURCE_DESTINATION);
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            File dtoDir = new File(new File(SOURCE_DESTINATION, PACKAGE.replace(".", File.separator)),
+                CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, endpointsNormalizedName));
+
+            try (PrintWriter packageInfo = new PrintWriter(new File(dtoDir, "package-info.java"))) {
+                packageInfo.println("/**");
+                packageInfo.print(" * DTOs for ");
+                packageInfo.print(this.endpointsRawName);
+                packageInfo.println(".<br>");
+                packageInfo.println(" * These DTOs are automatically generated and should not be modified directly.");
+                packageInfo.println(" */");
+                packageInfo.print("package ");
+                packageInfo.print(this.dtoPackage);
+                packageInfo.println(';');
+            }
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -526,7 +546,7 @@ public class ApiGen {
 
     // HELPER STATIC DATA AND METHODS //
 
-    private static final File SOURCE_DESTINATION = new File("src/main/gen/");
+    private static final File SOURCE_DESTINATION = new File("src.main.gen.".replace(".", File.separator));
 
     private static final String PACKAGE = "com.mingweisamuel.zyra";
 

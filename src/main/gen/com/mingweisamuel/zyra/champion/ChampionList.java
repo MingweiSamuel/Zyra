@@ -11,7 +11,7 @@ import java.util.List;
  *
  * This object contains a collection of champion information..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampions">Riot API reference</a> on Sun May 21 18:03:38 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampions">Riot API reference</a> on Tue May 23 09:10:03 PDT 2017. */
 public class ChampionList implements Serializable {
   /**
    * The collection of champion information. */
