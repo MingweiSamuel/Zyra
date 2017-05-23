@@ -26,6 +26,7 @@ public class LazyResetable<T> extends Lazy<T> {
     protected synchronized T getInternal() {
         if (!created) {
             value = supplier.get();
+            created = true;
         }
         return value;
     }

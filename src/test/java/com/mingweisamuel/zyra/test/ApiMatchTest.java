@@ -70,8 +70,8 @@ public class ApiMatchTest extends ApiTest {
         checkGetTimeline(api.matches.getMatchTimeline(Region.NA, 2398184332L));
     }
     @Test
-    public void getTimelineAsync() throws ExecutionException, InterruptedException {
-        api.matches.getMatchTimelineAsync(Region.NA, 2398184332L).thenAccept(ApiMatchTest::checkGetTimeline).get();
+    public void getTimelineAsync() {
+        api.matches.getMatchTimelineAsync(Region.NA, 2398184332L).thenAccept(ApiMatchTest::checkGetTimeline).join();
     }
     public static void checkGetTimeline(MatchTimeline timeline) {
         assertEquals(60_000, timeline.frameInterval);

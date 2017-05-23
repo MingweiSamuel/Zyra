@@ -9,6 +9,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
@@ -64,5 +66,15 @@ public class FutureTest {
         }));
         LazyResetableFuture<String> f2 = f1.thenApply(s -> s + " bar");
         assertEquals("foo bar", f2.join());
+    }
+
+    @Test
+    public void testIsDone() {
+        LazyResetableFuture<String> f1 = new LazyResetableFuture<>(() -> CompletableFuture.completedFuture("foo"));
+        assertFalse(f1.created());
+        assertFalse(f1.isDone());
+        assertEquals("foo", f1.join());
+        assertTrue(f1.created());
+        assertTrue(f1.isDone());
     }
 }

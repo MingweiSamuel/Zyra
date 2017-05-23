@@ -423,6 +423,13 @@ public class SummonerEntity extends Entity {
     }
 
     /**
+     * @return Whether the match query is not dirty and has been loaded.
+     */
+    public boolean loadedMatchQuery() {
+        return !queryDirty && queryMatchlist.isDone();
+    }
+
+    /**
      * Queries matches with the parameters set by {@code setMatchQuery***} methods. Only sends a new request if the
      * query is marked dirty (parameters have been updated).
      * @return A CompletableFuture of the Matchlist.
@@ -431,6 +438,7 @@ public class SummonerEntity extends Entity {
         synchronized (queryLock) {
             if (queryDirty)
                 queryMatchlist.reset();
+            queryDirty = false;
             return queryMatchlist.get();
         }
     }
