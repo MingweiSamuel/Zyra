@@ -334,13 +334,37 @@ public class SummonerEntity extends Entity {
     }
 
     /**
+     * Method for setting all query parameters at once.
+     * @param queues
+     * @param beginTime
+     * @param endTime
+     * @param champions
+     * @param seasons
+     * @param beginIndex
+     * @param endIndex
+     * @return Whether the query is dirty.
+     */
+    public boolean setMatchQueryAll(List<Integer> queues, Long beginTime, Long endTime, List<Integer> champions,
+        List<Integer> seasons, Integer beginIndex, Integer endIndex) {
+
+        synchronized (queryLock) {
+            setMatchQueryQueues(queues);
+            setMatchQueryTimeRange(beginTime, endTime);
+            setMatchQueryChampions(champions);
+            setMatchQuerySeasons(seasons);
+            setMatchQueryIndexRange(beginIndex, endIndex);
+            return queryDirty;
+        }
+    }
+
+    /**
      * Sets the queues parameter for a match query.
      * @param queues Queue id list, or null to remove.
      * @return Whether the query is dirty.
      */
     public boolean setMatchQueryQueues(List<Integer> queues) {
         synchronized (queryLock) {
-            if (!Objects.equals(queryQueues, queues)) {
+            if (queryDirty || !Objects.equals(queryQueues, queues)) {
                 queryQueues = queues;
                 queryDirty = true;
             }

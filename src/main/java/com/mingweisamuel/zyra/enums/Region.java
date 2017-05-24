@@ -1,8 +1,5 @@
 package com.mingweisamuel.zyra.enums;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Region enumeration. Note that {@link #PBE} can only be used for certain endpoints, and {@link #GARENA},
  * {@link #TENCENT}, and {@link #GLOBAL} are not functional in endpoints.
