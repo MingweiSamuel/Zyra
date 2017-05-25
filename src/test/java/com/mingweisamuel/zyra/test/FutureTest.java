@@ -7,6 +7,7 @@ import org.junit.rules.Timeout;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -90,7 +91,7 @@ public class FutureTest {
     }
 
     @Test
-    public void testCompletableFutureNonlinear() throws ExecutionException, InterruptedException {
+    public void testCompletableFutureNonlinear() {
         CompletableFuture<String> f1 = CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(2000);
@@ -101,8 +102,48 @@ public class FutureTest {
             return "foo";
         });
         CompletableFuture<String> f2 = f1.thenApply(s -> s + " bar");
-        assertEquals("foo bar", f2.get());
+        assertEquals("foo bar", f2.join());
         CompletableFuture<String> f3 = f1.thenApply(s -> s + " baz");
-        assertEquals("foo baz", f3.get());
+        assertEquals("foo baz", f3.join());
+    }
+
+    @Test
+    public void testCompletableFutureChaining() {
+        final AtomicInteger n = new AtomicInteger(0);
+        CompletableFuture<Void> f1 = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                fail();
+            }
+            return null;
+        });
+        f1.thenApply(v -> n.getAndIncrement());
+
+        assertEquals(0, n.get());
+        f1.join();
+        assertEquals(1, n.get());
+    }
+
+    @Test
+    public void testResetableFutureChaining() {
+        final AtomicInteger n = new AtomicInteger(0);
+        LazyResetableFuture<Void> f1 = new LazyResetableFuture<>(() -> CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                fail();
+            }
+            return null;
+        }));
+        // LazyResetableFutures are lazy. Never gets run.
+        f1.thenApply(v -> n.getAndIncrement());
+
+        assertEquals(0, n.get());
+        f1.join();
+        // 0 instead of 1
+        assertEquals(0, n.get());
     }
 }

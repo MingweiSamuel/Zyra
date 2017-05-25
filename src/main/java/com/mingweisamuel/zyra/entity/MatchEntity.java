@@ -9,6 +9,7 @@ import com.mingweisamuel.zyra.match.MatchParticipantFrame;
 import com.mingweisamuel.zyra.match.MatchTimeline;
 import com.mingweisamuel.zyra.match.Participant;
 import com.mingweisamuel.zyra.match.ParticipantIdentity;
+import com.mingweisamuel.zyra.match.Player;
 import com.mingweisamuel.zyra.match.TeamStats;
 import com.mingweisamuel.zyra.util.LazyResetableFuture;
 
@@ -50,7 +51,7 @@ public class MatchEntity extends Entity {
         timeline = new LazyResetableFuture<>(() -> entityApi.riotApi.matches.getMatchTimelineAsync(region, matchId));
         participants = matchInfo.thenApply(m -> new ArrayList<>(Lists.transform(
             m.participantIdentities, pid -> new ParticipantEntity(
-                pid.participantId, m,pid.player != null ? entityApi.getSummonerFromPlayer(pid.player) : null))));
+                pid.participantId, m, pid.player != null ? entityApi.getSummonerFromPlayer(pid.player) : null))));
         teams = matchInfo.thenApply(m -> new ArrayList<>(Lists.transform(m.teams, TeamEntity::new)));
     }
 
@@ -59,7 +60,7 @@ public class MatchEntity extends Entity {
         return matchId;
     }
 
-    //region info
+    //region info methods
     public CompletableFuture<Match> getInfoAsync() {
         return matchInfo.get();
     }
@@ -68,7 +69,7 @@ public class MatchEntity extends Entity {
     }
     //endregion
 
-    //region timeline
+    //region timeline methods
     public CompletableFuture<MatchTimeline> getTimelineAsync() {
         return timeline.get();
     }
@@ -77,7 +78,7 @@ public class MatchEntity extends Entity {
     }
     //endregion
 
-    //region summoners
+    //region summoner methods
     public CompletableFuture<List<ParticipantEntity>> getParticipantsAsync() {
         return participants.get();
     }
@@ -93,6 +94,7 @@ public class MatchEntity extends Entity {
     }
     //endregion
 
+    //region TeamEntity
     /**
      * An entity representation of a team in a single match.
      */
@@ -122,7 +124,9 @@ public class MatchEntity extends Entity {
                 .filter(p -> this.getTeamId() == p.getTeamId()).collect(Collectors.toList());
         }
     }
+    //endregion
 
+    //region ParticipantEntity
     /**
      * A entity representation of a participantInfo in a single match. May or may not be associated with a SummonerEntity.
      */
@@ -168,7 +172,10 @@ public class MatchEntity extends Entity {
         }
 
         /**
-         * Gets the summoner entity who played as this participantInfo.
+         * Gets the summoner entity who played as this participantInfo.<br><br>
+         *
+         * May return cached SummonerEntity instance as described in {@link EntityApi#getSummonerFromPlayer(Player)}.
+         *
          * @return The summoner entity. May be {@code null} if summoner entity doesn't exist. This occurs when
          *      matches do not include identity information which usually means the match was unranked.
          */
@@ -206,6 +213,7 @@ public class MatchEntity extends Entity {
             return timeline.join();
         }
     }
+    //endregion
 
     //region equals hashCode
     @Override

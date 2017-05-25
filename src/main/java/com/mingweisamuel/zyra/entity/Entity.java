@@ -17,4 +17,12 @@ public abstract class Entity {
         this.entityApi = entityApi;
         this.region = region;
     }
+
+    /**
+     * This entity's region.
+     * @return The region this entity is associated with.
+     */
+    public Region getRegion() {
+        return region;
+    }
 }

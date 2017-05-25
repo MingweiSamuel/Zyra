@@ -20,12 +20,22 @@ public final class LazyResetableFuture<T> extends LazyResetable<CompletableFutur
 
     /**
      * Creates a completed LazyResetableFuture.
-     * @param value The resulting value
-     * @param <T> Value's type
-     * @return A completed LazyRetrableFuture.
+     * @param value The resulting value.
+     * @param <T> Value's type.
+     * @return A completed LazyResetableFuture.
      */
     public static <T> LazyResetableFuture<T> completedFuture(T value) {
         return new LazyResetableFuture<>(() -> CompletableFuture.completedFuture(value));
+    }
+
+    /**
+     * Creates a LazyResetableFuture with a future that has already been started.
+     * @param future The future.
+     * @param <T> Value's type.
+     * @return A started LazyResetableFuture.
+     */
+    public static <T> LazyResetableFuture<T> startedFuture(CompletableFuture<T> future) {
+        return new LazyResetableFuture<T>(() -> future);
     }
 
     /**

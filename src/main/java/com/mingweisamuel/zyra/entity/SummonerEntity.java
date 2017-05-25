@@ -7,7 +7,6 @@ import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.league.LeaguePosition;
 import com.mingweisamuel.zyra.masteries.MasteryPages;
 import com.mingweisamuel.zyra.match.Matchlist;
-import com.mingweisamuel.zyra.match.Player;
 import com.mingweisamuel.zyra.runes.RunePages;
 import com.mingweisamuel.zyra.spectator.CurrentGameInfo;
 import com.mingweisamuel.zyra.summoner.Summoner;
@@ -82,12 +81,6 @@ public class SummonerEntity extends Entity {
             LazyResetableFuture.completedFuture(RiotApi.standardizeName(name));
         return new SummonerEntity(entityApi, region, summonerFuture, summonerIdFuture,
             accountIdFuture, standardizedNameFuture);
-    }
-    static SummonerEntity createFromPlayer(EntityApi entityApi, Player player) {
-        if (player == null)
-            return null;
-        Region region = Region.parse(player.currentPlatformId);
-        return create(entityApi, region, player.summonerId, player.currentAccountId, player.summonerName);
     }
     //endregion
 
@@ -299,9 +292,20 @@ public class SummonerEntity extends Entity {
         recentMatchlist.reset();
     }
 
+    /**
+     * Gets a CompletableFuture of a list of the recent matches as MatchEntities. May return cached instances as
+     * described in {@link EntityApi#getMatch}.
+     * @return CompletableFuture of List of MatchEntities.
+     */
     public CompletableFuture<List<MatchEntity>> getRecentMatchEntitiesAsync() {
         return getRecentMatchlistAsync().thenApply(this::matchlistToMatches);
     }
+
+    /**
+     * Gets the recent matches as MatchEntities synchronously. May return cached instances as described in
+     * {@link EntityApi#getMatch}.
+     * @return List of MatchEntities.
+     */
     public List<MatchEntity> getRecentMatchEntities() {
         return matchlistToMatches(getRecentMatchlist());
     }
@@ -477,16 +481,22 @@ public class SummonerEntity extends Entity {
 
     /**
      * Queries matches with the parameters set by {@code setMatchQuery***} methods. Only sends a new request if the
-     * query is marked dirty (parameters have been updated).
-     * @return A CompletableFuture of the list of MatchEntities.
+     * query is marked dirty (parameters have been updated).<br><br>
+     *
+     * May returned cached instances as described in {@link EntityApi#getMatch}.
+     *
+     * @return A CompletableFuture of the List of MatchEntities.
      */
     public CompletableFuture<List<MatchEntity>> getMatchQueryEntitiesAsync() {
         return getMatchQueryAsync().thenApply(this::matchlistToMatches);
     }
     /**
      * Queries matches with the parameters set by {@code setMatchQuery***} methods. Only sends a new request if the
-     * query is marked dirty (parameters have been updated).
-     * @return The list of MatchEntities.
+     * query is marked dirty (parameters have been updated).<br><br>
+     *
+     * May returned cached instances as described in {@link EntityApi#getMatch}.
+     *
+     * @return The List of MatchEntities.
      */
     public List<MatchEntity> getMatchQueryEntities() {
         return matchlistToMatches(getMatchQuery());
