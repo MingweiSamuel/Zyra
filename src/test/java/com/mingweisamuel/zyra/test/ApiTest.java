@@ -10,7 +10,7 @@ import org.junit.runners.model.Statement;
 
 import java.util.concurrent.ExecutionException;
 
-public class ApiTest {
+public abstract class ApiTest {
 
     @Rule
     public TestRule globalTimeout = new DisableOnDebug(Timeout.seconds(60));
