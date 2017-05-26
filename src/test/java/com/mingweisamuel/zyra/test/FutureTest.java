@@ -1,6 +1,7 @@
 package com.mingweisamuel.zyra.test;
 
 import com.mingweisamuel.zyra.util.LazyResetableFuture;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.Timeout;
@@ -91,6 +92,7 @@ public class FutureTest {
     }
 
     @Test
+    @Ignore
     public void testCompletableFutureNonlinear() {
         CompletableFuture<String> f1 = CompletableFuture.supplyAsync(() -> {
             try {
@@ -108,6 +110,7 @@ public class FutureTest {
     }
 
     @Test
+    @Ignore
     public void testCompletableFutureChaining() {
         final AtomicInteger n = new AtomicInteger(0);
         CompletableFuture<Void> f1 = CompletableFuture.supplyAsync(() -> {
