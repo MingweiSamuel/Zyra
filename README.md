@@ -79,8 +79,10 @@ dependencies {
 ## Usage
 
 ---
+
 ***Zyra is currently being updated for the version 3 changes. The example code below may not reflect the changes made
  in the most recent versions of Zyra.***
+
 ---
 
 [![Javadoc Stable](https://www.javadoc.io/badge/com.mingweisamuel.zyra/zyra.svg)](https://www.javadoc.io/doc/com.mingweisamuel.zyra/zyra)
