@@ -1,5 +1,12 @@
 # Zyra
 
+---
+
+***Zyra is currently being updated for the version 3.0 changes. If you want to use Zyra, please use the nightly build
+or clone the repository.***
+
+---
+
 [![CircleCI](https://circleci.com/gh/MingweiSamuel/Zyra/tree/develop.svg?style=shield)](https://circleci.com/gh/MingweiSamuel/Zyra/tree/develop)
 
 Java Library for the [Riot Games API](https://developer.riotgames.com/)
