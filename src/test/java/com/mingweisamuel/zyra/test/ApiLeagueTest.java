@@ -12,6 +12,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -105,7 +106,12 @@ public class ApiLeagueTest extends ApiTest {
         }
         assertEquals(Tier.MASTER, master.tier);
         assertEquals("Renekton's Shadows", master.name);
-        for (LeagueItem entry : master.entries)
-            assertTrue(entry.leaguePoints < challengerLp);
+        double masterLp = 0;
+        for (LeagueItem entry : master.entries) {
+            assertNotNull(entry);
+            masterLp += entry.leaguePoints / (double) master.entries.size();
+        }
+        assertTrue("Expected avg master LP to be less than avg challenger LP: " + masterLp + " < " + challengerLp,
+            masterLp < challengerLp);
     }
 }
