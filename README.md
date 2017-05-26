@@ -2,7 +2,7 @@
 
 ---
 
-***Zyra is currently being updated for the version 3.0 changes. If you want to use Zyra, please use the nightly build
+***Zyra is currently being updated for the version 3 changes. If you want to use Zyra, please use the nightly build
 or clone the repository.***
 
 ---
@@ -77,6 +77,11 @@ dependencies {
 ```
 
 ## Usage
+
+---
+***Zyra is currently being updated for the version 3 changes. The example code below may not reflect the changes made
+ in the most recent versions of Zyra.***
+---
 
 [![Javadoc Stable](https://www.javadoc.io/badge/com.mingweisamuel.zyra/zyra.svg)](https://www.javadoc.io/doc/com.mingweisamuel.zyra/zyra)
 [![Javadoc Nightly](https://img.shields.io/github/tag/MingweiSamuel/Zyra.svg?label=javadoc)](https://mingweisamuel.github.io/Zyra/apidocs/)

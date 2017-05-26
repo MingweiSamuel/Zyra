@@ -7,6 +7,8 @@ import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.match.Player;
 import com.mingweisamuel.zyra.summoner.Summoner;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 //TODO configurable caches
@@ -22,7 +24,7 @@ import java.util.concurrent.ExecutionException;
  * Summoners created using the {@link #getSummonerByName} method are not put into any cache. This may change in the
  * future.
  */
-public class EntityApi {
+public class EntityApi implements Closeable {
 
     /** RiotApi instance. */
     final RiotApi riotApi;
@@ -39,6 +41,11 @@ public class EntityApi {
 
     public EntityApi(RiotApi riotApi) {
         this.riotApi = riotApi;
+    }
+
+    @Override
+    public void close() throws IOException {
+        riotApi.close();
     }
 
     //region summoner
