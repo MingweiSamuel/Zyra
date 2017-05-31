@@ -86,6 +86,27 @@ public class MatchEntity extends Entity {
         return participants.join();
     }
 
+    /**
+     * Gets a CompletableFuture of the Participant corresponding to the given SummonerEntity. Will return {@code null}
+     * if the summoner was not found. This may occur in unranked games where identity information is not available.
+     * @param summonerEntity Summoner to find.
+     * @return CompletableFuture of ParticipantEntity, or of {@code null} if not found.
+     */
+    public CompletableFuture<ParticipantEntity> getParticipantAsync(SummonerEntity summonerEntity) {
+        return getParticipantsAsync().thenApply(l -> l.stream().filter(
+            p -> summonerEntity.equals(p.getSummonerEntity())).findAny().orElse(null));
+    }
+    /**
+     * Gets the Participant corresponding to the given SummonerEntity. Will return {@code null} if the summoner was
+     * not found. This may occur in unranked games where identity information is not available.
+     * @param summonerEntity Summoner to find.
+     * @return ParticipantEntity, or {@code null} if not found.
+     */
+    public ParticipantEntity getParticipant(SummonerEntity summonerEntity) {
+        return getParticipantAsync(summonerEntity).join();
+    }
+
+
     public CompletableFuture<List<TeamEntity>> getTeamsAsync() {
         return teams.get();
     }
@@ -216,19 +237,27 @@ public class MatchEntity extends Entity {
     //endregion
 
     //region equals hashCode
+    /**
+     * Returns true if this MatchEntity has the same match ID and is from the same region as OTHER.
+     * @param other Object to compare to.
+     * @return True if equal.
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
 
-        MatchEntity that = (MatchEntity) o;
+        MatchEntity that = (MatchEntity) other;
 
-        return matchId == that.matchId;
+        if (matchId != that.matchId) return false;
+        return region.equals(that.region);
     }
 
     @Override
     public int hashCode() {
-        return (int) (matchId ^ (matchId >>> 32));
+        int result = (int) (matchId ^ (matchId >>> 32));
+        result = 31 * result + region.hashCode();
+        return result;
     }
     //endregion
 }

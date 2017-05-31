@@ -506,4 +506,37 @@ public class SummonerEntity extends Entity {
     private List<MatchEntity> matchlistToMatches(Matchlist ml) {
         return new ArrayList<>(Lists.transform(ml.matches, m -> entityApi.getMatch(region, m.gameId)));
     }
+
+    //region equals hashCode
+
+    /**
+     * Checks that this SummonerEntity is from the same region and has the same summoner ID as OTHER. Will load the
+     * summoner IDs if needed.
+     * @param other Object to compare to.
+     * @return True if equal.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+
+        SummonerEntity entity = (SummonerEntity) other;
+
+        if (getSummonerId() != entity.getSummonerId()) return false;
+        return getRegion() == entity.getRegion();
+    }
+
+    /**
+     * Returns a hashed-sized version of this SummonerEntitiy's summoner ID with the summoner region. Will load the
+     * summoner ID if needed.
+     * @return Summoner ID hash.
+     */
+    @Override
+    public int hashCode() {
+        int result = (int) (getSummonerId() ^ (getSummonerId() >>> 32));
+        result = 31 * result + region.hashCode();
+        return result;
+    }
+
+    //endregion
 }
