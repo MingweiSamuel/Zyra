@@ -13,7 +13,7 @@ Java Library for the [Riot Games API](https://developer.riotgames.com/)
 
 Zyra's goals are *speed* and *reliability*. Zyra has built-in behind-the-scenes multi-threading which
 makes Zyra 6+ times faster than other libraries for large queries. Zyra handles rate limits and large
-requests seamlessly.
+requests seamlessly. Zyra does not support the tournament APIs.
 
 
 ## Features
