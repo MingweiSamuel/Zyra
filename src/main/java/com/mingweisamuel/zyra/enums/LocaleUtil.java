@@ -7,7 +7,7 @@ import java.util.Set;
 
 /**
  * This class contains static String fields corresponding to (hopefully) every supported locale in the
- * {@link com.mingweisamuel.zyra.StaticDataEndpoints} and other endpoints.
+ * {@link com.mingweisamuel.zyra.LolStaticDataEndpoints} and other endpoints.
  */
 public class LocaleUtil {
     private LocaleUtil() {}

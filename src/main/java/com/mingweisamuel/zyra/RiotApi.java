@@ -1,6 +1,5 @@
 package com.mingweisamuel.zyra;
 
-import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.gson.Gson;
 import com.mingweisamuel.zyra.enums.Region;
@@ -217,7 +216,7 @@ public class RiotApi implements Closeable {
         /**
          * Sets a overhead factor for the rate limit. For example, if 0.9 is used, the API will limit requests rate
          * to 90% of the full rate limit. This is to prevent accidental rate limit violations.
-         * @param rateLimitBufferFactor Rate limit buffer factor (0.9 -> 90% of rate limit).
+         * @param rateLimitBufferFactor Rate limit buffer factor (0.9 -&gt; 90% of rate limit).
          * @return This, for chaining.
          */
         public Builder setRateLimitBufferFactor(float rateLimitBufferFactor) {
@@ -280,8 +279,7 @@ public class RiotApi implements Closeable {
 
     @Override
     public void close() throws IOException {
-        if (requester.created())
-            requester.get().close();
+        requester.get().close(); // May create the requester to immediately close it.
     }
 
     //region util
