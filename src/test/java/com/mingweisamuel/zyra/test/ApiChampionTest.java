@@ -32,7 +32,7 @@ public class ApiChampionTest extends ApiTest {
             if (champ.freeToPlay)
                 free++;
         }
-        assertEquals(10, free);
+        assertEquals(12, free);
     }
 
     @Test
