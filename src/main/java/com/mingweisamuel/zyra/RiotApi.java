@@ -1,5 +1,6 @@
 package com.mingweisamuel.zyra;
 
+import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.gson.Gson;
 import com.mingweisamuel.zyra.enums.Region;
@@ -65,7 +66,9 @@ public class RiotApi implements Closeable {
      */
     public static Builder productionBuilder(String apiKey) {
         return new Builder(apiKey).setDefaultRateLimits(true)
-                .setConcurrentRequestsMax(RateLimiter.CONCURRENT_REQUESTS_PRODUCTION_MAX);
+            .setConcurrentRequestsMax(RateLimiter.CONCURRENT_REQUESTS_PRODUCTION_MAX)
+            .setTemporalResolutionFactor(10) // 3000 req/10 sec => 300 req/sec.
+            .setRateLimitBufferFactor(0.95f); // actually just 95% * 300 => 285 req/sec.
     }
 
     /** Riot API builder for obtaining instances of the Riot API. */
@@ -91,6 +94,19 @@ public class RiotApi implements Closeable {
         /** AsyncHttpClient to use. Null for default client. */
         private AsyncHttpClient client = null;
 
+        /** Multiplier of the rate limit to prevent excessive rate limit violations. */
+        private float rateLimitBufferFactor = 1;
+
+        /** Rate limit divisor for running concurrent API instances. */
+        private int concurrentInstances = 1;
+
+        /**
+         * Multiplier of temporal resolution. If this has value 10, then a rate limit of 3000 req/10 sec
+         * will be treated as a rate limit of 300 req/sec.
+         */
+        private float temporalResolutionFactor = 1;
+
+
         /**
          * Creates a builder for a RiotApi instance with the specified API key.
          *
@@ -104,16 +120,22 @@ public class RiotApi implements Closeable {
         }
 
         /**
-         * Builds the RiotApi instance.
+         * Builds the RiotApi instance. Returns a new instances every time this method is called.
          * @return RiotApi instance.
          */
         public RiotApi build() {
             if (client == null) {
                 client = new DefaultAsyncHttpClient(
-                        new DefaultAsyncHttpClientConfig.Builder().setThreadFactory(
-                                new ThreadFactoryBuilder().setDaemon(true).build()).build());
+                    new DefaultAsyncHttpClientConfig.Builder().setThreadFactory(
+                        new ThreadFactoryBuilder().setDaemon(true).build()).build());
             }
-            return new RiotApi(apiKey, rateLimits, client, retries, concurrentRequestsMax);
+            Map<Long, Integer> calculatedRateLimits = new HashMap<>();
+            for (Map.Entry<Long, Integer> rateLimit : rateLimits.entrySet()) {
+                calculatedRateLimits.put((long) Math.ceil(rateLimit.getKey() / temporalResolutionFactor),
+                    (int) Math.floor(rateLimitBufferFactor * rateLimit.getValue() /
+                        (temporalResolutionFactor * concurrentInstances)));
+            }
+            return new RiotApi(apiKey, calculatedRateLimits, client, retries, concurrentRequestsMax);
         }
 
         /**
@@ -185,10 +207,49 @@ public class RiotApi implements Closeable {
         /**
          * Sets the AsyncHttpClient to use.
          * @param client
-         * @return
+         * @return This, for chaining.
          */
         public Builder setClient(AsyncHttpClient client) {
             this.client = client;
+            return this;
+        }
+
+        /**
+         * Sets a overhead factor for the rate limit. For example, if 0.9 is used, the API will limit requests rate
+         * to 90% of the full rate limit. This is to prevent accidental rate limit violations.
+         * @param rateLimitBufferFactor Rate limit buffer factor (0.9 -> 90% of rate limit).
+         * @return This, for chaining.
+         */
+        public Builder setRateLimitBufferFactor(float rateLimitBufferFactor) {
+            this.rateLimitBufferFactor = rateLimitBufferFactor;
+            return this;
+        }
+
+        /**
+         * Sets a multiplier of temporal resolution. For example, if this has value 10, then a production rate limit of
+         * 3000 req/10 sec would be treated as a rate limit of 300 req/sec. This spreads out requests more and helps
+         * prevent accidental rate limit violations.
+         * @param temporalResolutionFactor Factor to multiply temporal resolution by. Should be greater than zero to
+         *     prevent violations (not enforced). Must be positive.
+         * @return This, for chaining.
+         */
+        public Builder setTemporalResolutionFactor(float temporalResolutionFactor) {
+            if (temporalResolutionFactor <= 0)
+                throw new IllegalArgumentException(
+                    "Temporal resolution factor must be positive: " + temporalResolutionFactor);
+            this.temporalResolutionFactor = temporalResolutionFactor;
+            return this;
+        }
+
+        /**
+         * Treats the created instance as one of many parallel instances and divides rate limits appropriately.
+         * @param instances Number of parallel instances.
+         * @return This, for chaining.
+         */
+        public Builder setConcurrentInstances(int instances) {
+            if (instances <= 0)
+                throw new IllegalArgumentException("Instances must be greater than 0: " + instances);
+            this.concurrentInstances = instances;
             return this;
         }
     }
