@@ -12,7 +12,7 @@ import java.util.List;
  *
  * This object contains mastery page information..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#masteries-v3/GET_getMasteryPagesBySummonerId">Riot API reference</a> on Tue May 23 09:10:03 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#masteries-v3/GET_getMasteryPagesBySummonerId">Riot API reference</a> on Mon Jun 05 20:58:07 PDT 2017. */
 public class MasteryPage implements Serializable {
   /**
    * Indicates if the mastery page is the current mastery page. */

@@ -1,8 +1,8 @@
 package com.mingweisamuel.zyra.test;
 
 import com.mingweisamuel.zyra.enums.Region;
-import com.mingweisamuel.zyra.staticData.ProfileIcon;
-import com.mingweisamuel.zyra.staticData.ProfileIconData;
+import com.mingweisamuel.zyra.lolStaticData.ProfileIconData;
+import com.mingweisamuel.zyra.lolStaticData.ProfileIconDetails;
 import org.junit.Test;
 
 import java.util.Map;
@@ -13,7 +13,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Integration tests for {@link com.mingweisamuel.zyra.StaticDataEndpoints#getProfileIcons}.
+ * Integration tests for {@link com.mingweisamuel.zyra.LolStaticDataEndpoints#getProfileIcons}.
  */
 public class ApiStaticDataProfileIconTest extends ApiTest {
 
@@ -29,7 +29,7 @@ public class ApiStaticDataProfileIconTest extends ApiTest {
         assertNotNull(result);
         assertNotNull(result.data);
         assertTrue(result.data.size() + "", result.data.size() >= 1094);
-        for (Map.Entry<Long, ProfileIcon> profileIcon : result.data.entrySet()) {
+        for (Map.Entry<Long, ProfileIconDetails> profileIcon : result.data.entrySet()) {
             assertEquals((long) profileIcon.getKey(), profileIcon.getValue().id);
             assertNotNull(profileIcon.getValue().image);
         }

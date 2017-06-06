@@ -3,13 +3,10 @@ package com.mingweisamuel.zyra.test;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.runes.RunePage;
 import com.mingweisamuel.zyra.runes.RunePages;
-import com.mingweisamuel.zyra.staticData.ProfileIcon;
-import com.mingweisamuel.zyra.staticData.ProfileIconData;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 

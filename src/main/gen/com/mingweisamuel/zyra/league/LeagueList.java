@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * LeagueList.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getChallengerLeague">Riot API reference</a> on Tue May 23 09:10:03 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getChallengerLeague">Riot API reference</a> on Mon Jun 05 20:58:07 PDT 2017. */
 public class LeagueList implements Serializable {
   public final String tier;
 

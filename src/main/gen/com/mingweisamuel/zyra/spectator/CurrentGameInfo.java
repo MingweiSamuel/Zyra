@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * CurrentGameInfo.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getCurrentGameInfoBySummoner">Riot API reference</a> on Tue May 23 09:10:03 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getCurrentGameInfoBySummoner">Riot API reference</a> on Mon Jun 05 20:58:07 PDT 2017. */
 public class CurrentGameInfo implements Serializable {
   /**
    * The ID of the game */

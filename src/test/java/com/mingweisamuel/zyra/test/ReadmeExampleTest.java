@@ -4,8 +4,8 @@ import com.mingweisamuel.zyra.championMastery.ChampionMastery;
 import com.mingweisamuel.zyra.entity.MatchEntity;
 import com.mingweisamuel.zyra.entity.SummonerEntity;
 import com.mingweisamuel.zyra.enums.Region;
-import com.mingweisamuel.zyra.staticData.Champion;
-import com.mingweisamuel.zyra.staticData.ChampionList;
+import com.mingweisamuel.zyra.lolStaticData.Champion;
+import com.mingweisamuel.zyra.lolStaticData.ChampionList;
 import com.mingweisamuel.zyra.summoner.Summoner;
 import org.junit.Test;
 

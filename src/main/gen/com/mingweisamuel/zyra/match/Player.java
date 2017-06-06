@@ -9,7 +9,7 @@ import java.lang.String;
 /**
  * Player.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Riot API reference</a> on Tue May 23 09:10:03 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Riot API reference</a> on Mon Jun 05 20:58:07 PDT 2017. */
 public class Player implements Serializable {
   public final String currentPlatformId;
 
