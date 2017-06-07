@@ -92,13 +92,16 @@ public class ReadmeExampleTest extends EntityTest {
         // pre-load info for recent each matches
         summoner.getRecentMatchEntitiesAsync().thenAccept(l -> l.forEach(MatchEntity::getInfoAsync));
 
-        System.out.println(summoner.getSummonerInfo().name + "'s Recent Matches:");
+        System.out.println(summoner.getSummonerInfo().name + "'s Recent Ranked Matches:");
+        int count = 1;
         for (int i = 0; i < summoner.getRecentMatchEntities().size(); i++) {
 
             MatchEntity match = summoner.getRecentMatchEntities().get(i);
             MatchEntity.ParticipantEntity participant = match.getParticipant(summoner);
+            if (participant == null) // unranked game -> no id info
+                continue;
 
-            System.out.printf("%3d) %-16s %-4s (%2.0fm)%n", i + 1,
+            System.out.printf("%3d) %-16s %-4s (%2.0fm)%n", count++,
                 champs.get("" + participant.getParticipantInfo().championId).name,
                 participant.getTeam().isWinner() ? "Win" : "Loss",
                 match.getInfo().gameDuration / 60.0);
