@@ -105,6 +105,9 @@ public class RiotApi implements Closeable {
          */
         private float temporalResolutionFactor = 1;
 
+        /** Listener for HTTP responses. */
+        private ResponseListener responseListener = null;
+
 
         /**
          * Creates a builder for a RiotApi instance with the specified API key.
@@ -134,7 +137,7 @@ public class RiotApi implements Closeable {
                     (int) Math.floor(rateLimitBufferFactor * rateLimit.getValue() /
                         (temporalResolutionFactor * concurrentInstances)));
             }
-            return new RiotApi(apiKey, calculatedRateLimits, client, retries, concurrentRequestsMax);
+            return new RiotApi(apiKey, calculatedRateLimits, client, retries, concurrentRequestsMax, responseListener);
         }
 
         /**
@@ -251,6 +254,18 @@ public class RiotApi implements Closeable {
             this.concurrentInstances = instances;
             return this;
         }
+
+        /**
+         * Sets a response listener to listen to HTTP responses.
+         * @param responseListener A response listener. Set to {@code null} to clear response listener.
+         * @return This, for chaining.
+         * @deprecated TODO: This logic will change form in the near future.
+         */
+        @Deprecated
+        public Builder setResponseListener(ResponseListener responseListener) {
+            this.responseListener = responseListener;
+            return this;
+        }
     }
 
     /**
@@ -263,9 +278,9 @@ public class RiotApi implements Closeable {
      * @param maxConcurrentRequests
      */
     private RiotApi(String apiKey, Map<Long, Integer> rateLimits, AsyncHttpClient client, int retries,
-            int maxConcurrentRequests) {
-        requester = new Lazy<>(
-                () -> new RateLimitedRequester(apiKey, rateLimits, client, retries, maxConcurrentRequests));
+            int maxConcurrentRequests, ResponseListener responseListener) {
+        requester = new Lazy<>(() ->
+            new RateLimitedRequester(apiKey, rateLimits, client, retries, maxConcurrentRequests, responseListener));
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.mingweisamuel.zyra.util;
 
+import com.mingweisamuel.zyra.ResponseListener;
 import com.mingweisamuel.zyra.enums.Region;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.Param;
@@ -8,6 +9,7 @@ import org.asynchttpclient.Response;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -41,17 +43,21 @@ public class RateLimitedRequester extends Requester {
     /** Number of concurrent requests per region. */
     private final int concurrentRequestsMax;
 
+    /** Listens to HTTP responses. Can be null. */
+    private final Optional<ResponseListener> responseListener;
+
     /** Stores the rate limits to respect. Key is time in milliseconds, value is max requests per that time. */
     private final ConcurrentMap<Long, Integer> rateLimits = new ConcurrentHashMap<>();
     /** Stores the RateLimiter for each Region. */
     private final ConcurrentMap<Region, RateLimiter> rateLimiters = new ConcurrentHashMap<>();
 
     public RateLimitedRequester(String apiKey, Map<Long, Integer> rateLimits, AsyncHttpClient client, int retries,
-            int concurrentRequestsMax) {
+            int concurrentRequestsMax, ResponseListener responseListener) {
         super(apiKey, client);
         this.rateLimits.putAll(rateLimits);
         this.retries = retries;
         this.concurrentRequestsMax = concurrentRequestsMax;
+        this.responseListener = Optional.ofNullable(responseListener);
     }
 
     public CompletableFuture<Response> getRequestNonRateLimitedAsync(
@@ -59,8 +65,11 @@ public class RateLimitedRequester extends Requester {
         return getRequestAsync(String.format(RIOT_ROOT_URL, region.getSubdomain()), relativeUrl, params)
                 .toCompletableFuture()
                 .thenApply(r -> {
-                    if (Arrays.binarySearch(STATUS_SUCCESS, r.getStatusCode()) >= 0)
+                    if (Arrays.binarySearch(STATUS_SUCCESS, r.getStatusCode()) >= 0) {
+                        responseListener.ifPresent(l -> l.onResponse(true, r));
                         return r;
+                    }
+                    responseListener.ifPresent(l -> l.onResponse(false, r));
                     throw new RiotResponseException(
                             String.format("Non rate limited request failed, no retries (%d). %s"
                                 , r.getStatusCode(), r.getUri()), r);
@@ -80,8 +89,11 @@ public class RateLimitedRequester extends Requester {
                 .whenComplete((r, e) -> limiter.release()) // release limiter regardless of success or failure.
                 .thenCompose(r -> {
                     // if response was successful, return response
-                    if (Arrays.binarySearch(STATUS_SUCCESS, r.getStatusCode()) >= 0)
+                    if (Arrays.binarySearch(STATUS_SUCCESS, r.getStatusCode()) >= 0) {
+                        responseListener.ifPresent(l -> l.onResponse(true, r));
                         return CompletableFuture.completedFuture(r);
+                    }
+                    responseListener.ifPresent(l -> l.onResponse(false, r));
                     // if response has Retry-After header, set rateLimiter's retry after.
                     String retryAfter = r.getHeader(HEADER_RETRY_AFTER);
                     //System.out.println(System.currentTimeMillis() + " - RetryAfter: " + retryAfter + ", " +
