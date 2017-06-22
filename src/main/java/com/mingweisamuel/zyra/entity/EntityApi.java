@@ -43,6 +43,11 @@ public class EntityApi implements Closeable {
         this.riotApi = riotApi;
     }
 
+    /** @return The RiotApi this EntityApi uses. */
+    public RiotApi getApi() {
+        return riotApi;
+    }
+
     @Override
     public void close() throws IOException {
         riotApi.close();
@@ -62,7 +67,7 @@ public class EntityApi implements Closeable {
             return summonerIdEntityCache.get(new EntityKey(region, summonerId),
                 () -> SummonerEntity.create(this, region, summonerId));
         } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to create summoner.", e);
         }
     }
 
@@ -84,7 +89,7 @@ public class EntityApi implements Closeable {
                 () -> summonerAccountIdEntityCache.get(new EntityKey(region, accountId),
                     () -> SummonerEntity.create(this, region, summonerId, accountId)));
         } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to create summoner.", e);
         }
     }
 
@@ -107,7 +112,7 @@ public class EntityApi implements Closeable {
                 () -> summonerAccountIdEntityCache.get(new EntityKey(region, accountId),
                     () -> SummonerEntity.create(this, region, summonerId, accountId, name)));
         } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to create summoner.", e);
         }
     }
 
@@ -125,7 +130,7 @@ public class EntityApi implements Closeable {
                 () -> summonerAccountIdEntityCache.get(new EntityKey(region, summoner.accountId),
                     () -> SummonerEntity.create(this, region, summoner)));
         } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to create summoner.", e);
         }
     }
 
@@ -141,7 +146,7 @@ public class EntityApi implements Closeable {
             return summonerAccountIdEntityCache.get(new EntityKey(region, accountId),
                 () -> SummonerEntity.createFromAccountId(this, region, accountId));
         } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to create summoner.", e);
         }
     }
 
@@ -183,7 +188,7 @@ public class EntityApi implements Closeable {
             return matchEntityCache.get(new EntityKey(region, matchId),
                 () -> MatchEntity.create(this, region, matchId));
         } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to create match.", e);
         }
     }
     //endregion

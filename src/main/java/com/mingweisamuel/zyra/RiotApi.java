@@ -67,7 +67,7 @@ public class RiotApi implements Closeable {
         return new Builder(apiKey).setDefaultRateLimits(true)
             .setConcurrentRequestsMax(RateLimiter.CONCURRENT_REQUESTS_PRODUCTION_MAX)
             .setTemporalResolutionFactor(10) // 3000 req/10 sec => 300 req/sec.
-            .setRateLimitBufferFactor(0.95f); // actually just 95% * 300 => 285 req/sec.
+            .setRateLimitOverheadFactor(0.95f); // actually just 95% * 300 => 285 req/sec.
     }
 
     /** Riot API builder for obtaining instances of the Riot API. */
@@ -94,7 +94,7 @@ public class RiotApi implements Closeable {
         private AsyncHttpClient client = null;
 
         /** Multiplier of the rate limit to prevent excessive rate limit violations. */
-        private float rateLimitBufferFactor = 1;
+        private float rateLimitOverheadFactor = 1;
 
         /** Rate limit divisor for running concurrent API instances. */
         private int concurrentInstances = 1;
@@ -134,7 +134,7 @@ public class RiotApi implements Closeable {
             Map<Long, Integer> calculatedRateLimits = new HashMap<>();
             for (Map.Entry<Long, Integer> rateLimit : rateLimits.entrySet()) {
                 calculatedRateLimits.put((long) Math.ceil(rateLimit.getKey() / temporalResolutionFactor),
-                    (int) Math.floor(rateLimitBufferFactor * rateLimit.getValue() /
+                    (int) Math.floor(rateLimitOverheadFactor * rateLimit.getValue() /
                         (temporalResolutionFactor * concurrentInstances)));
             }
             return new RiotApi(apiKey, calculatedRateLimits, client, retries, concurrentRequestsMax, responseListener);
@@ -219,11 +219,11 @@ public class RiotApi implements Closeable {
         /**
          * Sets a overhead factor for the rate limit. For example, if 0.9 is used, the API will limit requests rate
          * to 90% of the full rate limit. This is to prevent accidental rate limit violations.
-         * @param rateLimitBufferFactor Rate limit buffer factor (0.9 -&gt; 90% of rate limit).
+         * @param rateLimitOverheadFactor Rate limit overhead factor (0.9 -&gt; 90% of rate limit).
          * @return This, for chaining.
          */
-        public Builder setRateLimitBufferFactor(float rateLimitBufferFactor) {
-            this.rateLimitBufferFactor = rateLimitBufferFactor;
+        public Builder setRateLimitOverheadFactor(float rateLimitOverheadFactor) {
+            this.rateLimitOverheadFactor = rateLimitOverheadFactor;
             return this;
         }
 

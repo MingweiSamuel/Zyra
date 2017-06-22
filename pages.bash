@@ -28,7 +28,7 @@ $(git -C .. log -1 --no-color | sed 's/^/    /')
 * [Javadoc online](apidocs/)
 * [${project.build.finalName}-javadoc.jar](https://circleci.com/api/v1/project/MingweiSamuel/Zyra/$CIRCLE_BUILD_NUM/artifacts/0/\$CIRCLE_ARTIFACTS/${project.build.finalName}-javadoc.jar)
 * [${project.build.finalName}-sources.jar](https://circleci.com/api/v1/project/MingweiSamuel/Zyra/$CIRCLE_BUILD_NUM/artifacts/0/\$CIRCLE_ARTIFACTS/${project.build.finalName}-sources.jar)
-* [Code Coverage online](coverage/)
+* [Code Coverage](coverage/)
 
 
 ### Jars
