@@ -377,13 +377,18 @@ public class SummonerEntity extends Entity {
     }
 
     /**
-     * Sets the begin and end time for a match query.<br>
+     * Sets the begin and end time for a match query. Both bounds are inclusive.<br>
      * {@code setMatchQueryTimeRange(null, null)} will remove the time restriction.
      * @param beginTime Begin time in epoch milliseconds, or null to remove.
      * @param endTime End time in epoch milliseconds, or null to remove.
      * @return Whether the query is dirty.
+     * @throws IllegalArgumentException If beginTime is greater than endTime.
      */
     public boolean setMatchQueryTimeRange(Long beginTime, Long endTime) {
+        if (beginTime != null && endTime != null && beginTime > endTime) {
+            throw new IllegalArgumentException(
+                "Begin time (" + beginTime + ") must be less than or equal to end time (" + endTime + ").");
+        }
         //noinspection Duplicates
         synchronized (queryLock) {
             if (queryDirty || !Objects.equals(queryBeginTime, beginTime)) {
@@ -429,13 +434,18 @@ public class SummonerEntity extends Entity {
     }
 
     /**
-     * Sets the begin and end indices for a match query.<br>
+     * Sets the begin and end indices for a match query. Range bounds are inclusive (probably).<br>
      * {@code setMatchQueryIndexRange(null, null)} will remove the index restriction.
      * @param beginIndex Begin index, or null to remove.
      * @param endIndex End index, or null to remove.
      * @return Whether the query is dirty.
+     * @throws IllegalArgumentException If beginIndex is greater than endIndex.
      */
     public boolean setMatchQueryIndexRange(Integer beginIndex, Integer endIndex) {
+        if (beginIndex != null && endIndex != null && beginIndex > endIndex) {
+            throw new IllegalArgumentException(
+                "Begin index (" + beginIndex + ") must be less than or equal to end index (" + endIndex + ").");
+        }
         //noinspection Duplicates
         synchronized (queryLock) {
             if (queryDirty || !Objects.equals(queryBeginIndex, beginIndex)) {
