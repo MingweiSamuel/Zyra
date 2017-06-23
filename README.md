@@ -2,8 +2,8 @@
 
 ---
 
-***Zyra is currently being updated for the version 3 changes. If you want to use Zyra, please use the nightly build
-or clone the repository.***
+***Zyra is currently being updated for the version 3 changes. If you want to use Zyra, please use the
+[nightly build](http://www.mingweisamuel.com/Zyra/) or clone & build the repository.***
 
 ---
 
@@ -80,8 +80,8 @@ dependencies {
 
 ---
 
-***Zyra is currently being updated for the version 3 changes. The example code below may not reflect the changes made
- in the most recent versions of Zyra.***
+***Zyra is currently being updated for the version 3 changes. If you want to use Zyra, please use the
+[nightly build](http://www.mingweisamuel.com/Zyra/) or clone & build the repository.***
 
 ---
 
