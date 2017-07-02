@@ -94,6 +94,7 @@ public class ChampionId {
     public static final int PANTHEON = 80;
     public static final int POPPY = 78;
     public static final int QUINN = 133;
+    public static final int RAKAN = 497;
     public static final int RAMMUS = 33;
     public static final int REK_SAI = 421;
     public static final int RENEKTON = 58;
@@ -136,6 +137,7 @@ public class ChampionId {
     public static final int VOLIBEAR = 106;
     public static final int WARWICK = 19;
     public static final int WUKONG = 62;
+    public static final int XAYAH = 498; 
     public static final int XERATH = 101;
     public static final int XIN_ZHAO = 5;
     public static final int YASUO = 157;
