@@ -10,6 +10,7 @@ package com.mingweisamuel.zyra.enums;
 public class Queue {
     private Queue() {}
 
+
     public static final String RANKED_SOLO_5x5 = "RANKED_SOLO_5x5";
     public static final String RANKED_TEAM_3x3 = "RANKED_TEAM_3x3";
     public static final String RANKED_TEAM_5x5 = "RANKED_TEAM_5x5";
@@ -23,10 +24,10 @@ public class Queue {
     public static final String RANKED_FLEX_TT = "RANKED_FLEX_TT";
     public static final String TEAM_BUILDER_RANKED_SOLO = "TEAM_BUILDER_RANKED_SOLO";
 
-    
+
     
     public static final String ASCENSION_5x5 = "ASCENSION_5x5";
-    public static final String ASSASSINATE_5x5 = "ASSASSINATE_5x5"
+    public static final String ASSASSINATE_5x5 = "ASSASSINATE_5x5";
     public static final String ARURF_5X = "ARURF_5X5";
     public static final String ARAM_5x5 = "ARAM_5x5";
     public static final String BILGEWATER_5x5 = "BILGEWATER_5x5";
@@ -47,11 +48,10 @@ public class Queue {
     public static final String NIGHTMARE_BOT_5x5_RANK1 = "NIGHTMARE_BOT_5x5_RANK1";
     public static final String NIGHTMARE_BOT_5x5_RANK2 = "NIGHTMARE_BOT_5x5_RANK2";
     public static final String NIGHTMARE_BOT_5x5_RANK5 = "NIGHTMARE_BOT_5x5_RANK5";
-    public static final String NORMAL_3x3 = "NORMAL_3x3";
     public static final String ODIN_5x5_BLIND = "ODIN_5x5_BLIND";
     public static final String ODIN_5x5_DRAFT = "ODIN_5x5_DRAFT";
     public static final String ONEFORALL_5x5 = "ONEFORALL_5x5";
-    public static final String ONEFORALL_MIRRORMODE_5x5 = "ONEFORALL_MIRRORMODE_5x5"
+    public static final String ONEFORALL_MIRRORMODE_5x5 = "ONEFORALL_MIRRORMODE_5x5";
     public static final String SIEGE = "SIEGE";
     public static final String SR_6x6 = "SR_6x6";
     public static final String URF_5x5 = "URF_5x5";
@@ -75,7 +75,6 @@ public class Queue {
     public static final String KING_PORO = "KING_PORO";
     public static final String COUNTER_PICK = "COUNTER_PICK";
     public static final String BILGEWATER = "BILGEWATER";
-    public static final String SIEGE = "SIEGE";
     
 
     /**
