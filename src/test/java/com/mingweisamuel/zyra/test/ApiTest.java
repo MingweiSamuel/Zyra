@@ -16,6 +16,7 @@ public abstract class ApiTest {
     public TestRule globalTimeout = new DisableOnDebug(Timeout.seconds(60));
 
     protected static final RiotApi api = RiotApi.builder(System.getenv("API_KEY"))
+            .setDefaultRateLimits(true)
             .setConcurrentRequestsMax(Integer.parseInt(System.getProperty("testThreadCount")))
             .setRetries(10).build();
 

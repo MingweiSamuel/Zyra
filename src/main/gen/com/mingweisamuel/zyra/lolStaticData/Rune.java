@@ -12,7 +12,7 @@ import java.util.List;
  *
  * This object contains rune data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Riot API reference</a> on Mon Jun 05 20:58:07 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Riot API reference</a>. */
 public class Rune implements Serializable {
   public final RuneStats stats;
 

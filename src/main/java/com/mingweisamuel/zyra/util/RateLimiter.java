@@ -196,7 +196,6 @@ public class RateLimiter {
                 Integer requestCount = requestCounts.get(timespan);
 
                 if (requestCount == null || initialRequest == null || initialRequest < now - timespan) {
-                    requestCounts.put(timespan, 0);
                     initialRequests.put(timespan, now);
                     requestCount = 0;
                 }

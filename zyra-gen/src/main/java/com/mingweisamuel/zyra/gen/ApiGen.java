@@ -4,42 +4,17 @@ import com.google.common.base.CaseFormat;
 import com.google.common.collect.Iterables;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import javax.lang.model.element.Modifier;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.Serializable;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -88,6 +63,33 @@ public class ApiGen {
 
             ApiGen gen = new ApiGen(json.get("html"), rawName, normalizedName);
             gen.compile();
+        }
+
+        try {
+            File packageDir = new File(SOURCE_DESTINATION, PACKAGE.replace(".", File.separator));
+
+            try (PrintWriter packageInfo = new PrintWriter(new File(packageDir, "package-info.java"))) {
+                packageInfo.print("/**\n" +
+                    " * Contains core elements of the Zyra library, such as {@link com.mingweisamuel.zyra.RiotApi} and all of the endpoint\n" +
+                    " * sets.<br><br>\n" +
+                    " *\n" +
+                    " * {@link com.mingweisamuel.zyra.util} Contains general utilities used internally.<br>\n" +
+                    " * {@link com.mingweisamuel.zyra.enums} Contains general static classes and enums useful for interacting with the\n" +
+                    " * Riot API.<br><br>\n" +
+                    " *\n" +
+                    " * The remaining sub-packages contain generated DTO classes returned by their respective endpoint set. For example,\n" +
+                    " * methods in {@link com.mingweisamuel.zyra.MatchEndpoints} will return classes from the package\n" +
+                    " * {@link com.mingweisamuel.zyra.match}.<br><br>\n" +
+                    " *\n" +
+                    " * The API was last automatically generated from the <a href=\"https://developer.riotgames.com/api-methods/\">Riot API reference</a>\n" +
+                    " * on ");
+                packageInfo.print(timestamp);
+                packageInfo.println(".\n" +
+                    " */\n" +
+                    "package com.mingweisamuel.zyra;");
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -200,11 +202,13 @@ public class ApiGen {
             apiBlocks.forEach(this::processApiBlock);
 
             //
-            String methodKey = endpointsNormalizedName + '.' + methodName;
-            if (PARAM_OPT_ORDERS.containsKey(methodKey)) {
-                List<String> order = PARAM_OPT_ORDERS.get(methodKey);
-                endpointParametersOpt.sort(Comparator.comparingInt(a -> order.indexOf(a.spec.name)));
-                if (!order.contains(endpointParametersOpt.get(0).spec.name))
+            List<String> order = PARAM_OPT_ORDERS.get(endpointsNormalizedName + '.' + methodName);
+            if (order == null)
+                order = PARAM_OPT_ORDERS.get(endpointsNormalizedName + ".*");
+            if (order != null) {
+                final List<String> order2 = order;
+                endpointParametersOpt.sort(Comparator.comparingInt(a -> order2.indexOf(a.spec.name)));
+                if (!endpointParametersOpt.isEmpty() && !order.contains(endpointParametersOpt.get(0).spec.name))
                     throw new NoSuchElementException("Name missing: " + endpointParametersOpt.get(0).spec.name);
             }
 
@@ -424,7 +428,7 @@ public class ApiGen {
             if (!dtoDesc.isEmpty())
                 dtoBuilder.addJavadoc(dtoDesc + ".<br><br>\n\n");
             dtoBuilder.addJavadoc(String.format("This class was automatically generated from the " +
-                "<a href=\"%s\">Riot API reference</a> on %s.", url, timestamp));
+                "<a href=\"%s\">Riot API reference</a>.", url));
 
             // prep constructor, .equals(), and .hashCode()
             ClassName guavaObjectsName = ClassName.bestGuess("com.google.common.base.Objects");
@@ -610,6 +614,7 @@ public class ApiGen {
     static {
         PARAM_OPT_ORDERS.put("Match.getMatchlist", Arrays.asList("queue", "beginTime", "endTime", "champion", "season",
             "beginIndex", "endIndex"));
+        PARAM_OPT_ORDERS.put("LolStaticData.*", Arrays.asList("id", "tags", "dataById", "locale", "version"));
         //TODO others
     }
 

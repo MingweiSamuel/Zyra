@@ -11,7 +11,7 @@ import java.util.List;
  *
  * This object contains masteries information..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#masteries-v3/GET_getMasteryPagesBySummonerId">Riot API reference</a> on Mon Jun 05 20:58:07 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#masteries-v3/GET_getMasteryPagesBySummonerId">Riot API reference</a>. */
 public class MasteryPages implements Serializable {
   /**
    * Collection of mastery pages associated with the summoner. */

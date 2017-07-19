@@ -22,7 +22,7 @@ public class ReadmeExampleTest extends EntityTest {
     public void summonerChampionMasteryStandardTest() {
 
         // get champion data (ignoring version, data) by champion id
-        ChampionList champList = api.staticData.getChampionList(Region.NA, null, null, true);
+        ChampionList champList = api.staticData.getChampionList(Region.NA, null, true);
         Map<String, Champion> champs = champList.data;
 
         // get summoners by name
@@ -53,7 +53,7 @@ public class ReadmeExampleTest extends EntityTest {
 
         // get champion data (ignoring version, data) by champion id
         ChampionList champList =
-            api.staticData.getChampionList(Region.NA, null, null, true);
+            api.staticData.getChampionList(Region.NA, null, true);
         Map<String, Champion> champs = champList.data;
 
 
@@ -84,7 +84,7 @@ public class ReadmeExampleTest extends EntityTest {
 
         // get champion data (ignoring version, data) by champion id
         ChampionList champList =
-            api.staticData.getChampionList(Region.NA, null, null, true);
+            api.staticData.getChampionList(Region.NA, null, true);
         Map<String, Champion> champs = champList.data;
 
         SummonerEntity summoner = eApi.getSummonerByName(Region.NA, "imaqtpie");

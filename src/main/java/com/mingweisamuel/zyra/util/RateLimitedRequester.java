@@ -34,7 +34,6 @@ public class RateLimitedRequester extends Requester {
     /** Ten seconds in milliseconds. */
     public static final long TEN_SECONDS = 10_000;
     /** Ten minutes in milliseconds. */
-
     public static final long TEN_MINUTES = 600_000;
 
     /** Number of times to retry when the request fails, but can still be retried (429, 50*, etc.). */
@@ -71,8 +70,8 @@ public class RateLimitedRequester extends Requester {
                     }
                     responseListener.ifPresent(l -> l.onResponse(false, r));
                     throw new RiotResponseException(
-                            String.format("Non rate limited request failed, no retries (%d). %s"
-                                , r.getStatusCode(), r.getUri()), r);
+                            String.format("Non rate limited request failed, no retries (%d). %s",
+                                r.getStatusCode(), r.getUri()), r);
                 });
     }
 

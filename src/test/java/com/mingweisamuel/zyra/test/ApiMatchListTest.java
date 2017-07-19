@@ -34,10 +34,10 @@ public class ApiMatchListTest extends ApiTest {
         assertEquals(0, matchlist.startIndex);
         assertEquals(3, matchlist.endIndex);
         assertNotNull(matchlist.matches);
-        assertEquals(3, matchlist.matches.size());
 
-        long[] expected = {2398184332L, 2357244372L, 2354486602L};
-        for (int i = 0; i < 3; i++) {
+        long[] expected = {2357244372L, 2354486602L};
+        assertEquals(expected.length, matchlist.matches.size());
+        for (int i = 0; i < expected.length; i++) {
             assertNotNull(matchlist.matches.get(i));
             assertEquals(expected[i], matchlist.matches.get(i).gameId);
         }

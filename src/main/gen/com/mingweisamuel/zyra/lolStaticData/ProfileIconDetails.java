@@ -10,7 +10,7 @@ import java.lang.Override;
  *
  * This object contains profile icon details data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Riot API reference</a> on Mon Jun 05 20:58:07 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Riot API reference</a>. */
 public class ProfileIconDetails implements Serializable {
   public final Image image;
 

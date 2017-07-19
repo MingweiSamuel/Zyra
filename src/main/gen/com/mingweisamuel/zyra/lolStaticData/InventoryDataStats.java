@@ -10,7 +10,7 @@ import java.lang.Override;
  *
  * This object contains stats for inventory (e.g., runes and items)..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemList">Riot API reference</a> on Mon Jun 05 20:58:07 PDT 2017. */
+ * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemList">Riot API reference</a>. */
 public class InventoryDataStats implements Serializable {
   public final double PercentCritDamageMod;
 

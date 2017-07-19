@@ -8,6 +8,9 @@
  *
  * The remaining sub-packages contain generated DTO classes returned by their respective endpoint set. For example,
  * methods in {@link com.mingweisamuel.zyra.MatchEndpoints} will return classes from the package
- * {@link com.mingweisamuel.zyra.match}.
+ * {@link com.mingweisamuel.zyra.match}.<br><br>
+ *
+ * The API was last automatically generated from the <a href="https://developer.riotgames.com/api-methods/">Riot API reference</a>
+ * on Wed Jul 19 00:33:11 PDT 2017.
  */
 package com.mingweisamuel.zyra;

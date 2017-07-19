@@ -23,10 +23,9 @@ public class EntityComboMatchSummonerTest extends EntityTest {
 
     @Test
     public void getCombo() {
-        MatchEntity match = eApi.getMatch(Region.NA, 2398184332L);
+        MatchEntity match = eApi.getMatch(Region.NA, 2357244372L);
 
         ApiMatchTest.checkGet(match.getInfo());
-
         assertNotNull(match.getParticipants());
         boolean sneakyFound = false;
         boolean otherFound = false;
@@ -37,7 +36,7 @@ public class EntityComboMatchSummonerTest extends EntityTest {
                 assertFalse("Expected loser", participant.getTeam().isWinner());
                 EntitySummonerTest.validate(participant.getSummonerEntity());
                 assertNotNull(participant.getTimeline());
-                assertEquals(27, participant.getTimeline().size());
+                assertEquals(29, participant.getTimeline().size());
 
                 long timestamp = 0;
                 int xp = 0;
@@ -52,7 +51,7 @@ public class EntityComboMatchSummonerTest extends EntityTest {
                     MatchParticipantFrame frame = entry.getValue();
                     assertEquals(participant.getParticipantId(), frame.participantId);
                     assertNotNull(frame);
-                    assertNotNull(frame.position);
+                    //assertNotNull(frame.position);
 
                     assertTrue("Expected frame.xp >= xp: " + frame.xp + " >= " + xp, frame.xp >= xp);
                     xp = frame.xp;
@@ -61,9 +60,9 @@ public class EntityComboMatchSummonerTest extends EntityTest {
                     level = frame.level;
                 }
             }
-            else if (21390175 == participant.getSummonerEntity().getSummonerId()) {
+            else if (446965 == participant.getSummonerEntity().getSummonerId()) {
                 otherFound = true;
-                assertTrue("Expected winner", participant.getTeam().isWinner());
+                assertFalse("Expected loser", participant.getTeam().isWinner());
             }
         }
         assertTrue("C9 Sneaky not found", sneakyFound);

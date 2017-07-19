@@ -14,18 +14,18 @@ public class EntityMatchTest extends EntityTest {
 
     @Test
     public void getMatchBasic() {
-        testBasicValidate(eApi.getMatch(Region.NA, 2398184332L));
+        testBasicValidate(eApi.getMatch(Region.NA, 2357244372L));
     }
     public static void testBasicValidate(MatchEntity match) {
-        assertEquals(2398184332L, match.getMatchId());
+        assertEquals(2357244372L, match.getMatchId());
         ApiMatchTest.checkGet(match.getInfo());
         ApiMatchTest.checkGetTimeline(match.getTimeline());
     }
 
     @Test
     public void simpleMatchInstanceCaching() {
-        MatchEntity m1 = eApi.getMatch(Region.NA, 2398184332L);
-        MatchEntity m2 = eApi.getMatch(Region.NA, 2398184332L);
+        MatchEntity m1 = eApi.getMatch(Region.NA, 2357244372L);
+        MatchEntity m2 = eApi.getMatch(Region.NA, 2357244372L);
         assertSame(m1, m2);
     }
 }
