@@ -31,7 +31,7 @@ public class MatchEntity extends Entity {
 
     /** This match's unique id. Set from initialization. */
     private final long matchId;
-    /** Account ID for non-public (un-ranked) match participant identification. */
+    /** Account ID for non-public (unranked) match participant identification. */
     private final Long forAccountId;
 
     /** The match's general information.  */
@@ -64,7 +64,7 @@ public class MatchEntity extends Entity {
     }
 
     /**
-     * Returns the account ID supplied at construction, used for non-public (un-ranked) match participant
+     * Returns the account ID supplied at construction, used for non-public (unranked) match participant
      * identification.
      * @return NULL if no account ID was originally supplied.
      */
@@ -110,7 +110,8 @@ public class MatchEntity extends Entity {
     }
     /**
      * Gets the Participant corresponding to the given SummonerEntity. Will return {@code null} if the summoner was
-     * not found. This may occur in unranked games where identity information is not available.
+     * not found. This usually occurs in unranked games where identity information is not available and forAccountId
+     * was not provided..
      * @param summonerEntity Summoner to find.
      * @return ParticipantEntity, or {@code null} if not found.
      */

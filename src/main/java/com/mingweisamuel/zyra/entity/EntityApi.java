@@ -186,7 +186,7 @@ public class EntityApi implements Closeable {
      *
      * @param region Match's region.
      * @param matchId Match's ID.
-     * @param forAccountId Account ID for non-public (un-ranked) match participant identification.
+     * @param forAccountId Account ID for non-public (unranked) match participant identification.
      * @return MatchEntity instance.
      */
     public MatchEntity getMatch(Region region, long matchId, long forAccountId) {
