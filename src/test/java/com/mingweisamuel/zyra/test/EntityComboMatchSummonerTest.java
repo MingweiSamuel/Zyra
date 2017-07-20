@@ -10,11 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Tests for {@link MatchEntity}.
@@ -72,12 +68,20 @@ public class EntityComboMatchSummonerTest extends EntityTest {
     @Test
     public void testComboMatchInstanceCaching() {
         SummonerEntity summoner = eApi.getSummoner(Region.NA, 51405);
-        CompletableFuture<MatchEntity> f = summoner.getRecentMatchlistAsync().thenApply(ml -> {
+
+        CompletableFuture<MatchEntity> f1 = summoner.getRecentMatchlistAsync().thenApply(ml -> {
             assertNotNull(ml.matches);
             assertTrue(ml.matches.size() + "", ml.matches.size() > 0);
             return eApi.getMatch(Region.NA, ml.matches.get(0).gameId);
         });
         List<MatchEntity> matchEntities = summoner.getRecentMatchEntities();
-        assertSame(matchEntities.get(0), f.join());
+        assertNotSame("Adding forAccountId should reset cache.", matchEntities.get(0), f1);
+
+        CompletableFuture<MatchEntity> f2 = summoner.getRecentMatchlistAsync().thenApply(ml -> {
+            assertNotNull(ml.matches);
+            assertTrue(ml.matches.size() + "", ml.matches.size() > 0);
+            return eApi.getMatch(Region.NA, ml.matches.get(0).gameId);
+        });
+        assertSame("Removing forAccountId should not reset cache.", matchEntities.get(0), f2.join());
     }
 }

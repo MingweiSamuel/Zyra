@@ -9,6 +9,7 @@ import com.mingweisamuel.zyra.summoner.Summoner;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 //TODO configurable caches
@@ -107,6 +108,8 @@ public class EntityApi implements Closeable {
      * @return A SummonerEntity instance.
      */
     public SummonerEntity getSummoner(Region region, long summonerId, long accountId, String name) {
+        if (name == null)
+            throw new NullPointerException("NAME should not be null. Instead, do not supply a fourth argument.");
         try {
             return summonerIdEntityCache.get(new EntityKey(region, summonerId),
                 () -> summonerAccountIdEntityCache.get(new EntityKey(region, accountId),
@@ -159,6 +162,8 @@ public class EntityApi implements Closeable {
      * @return A SummonerEntity instance.
      */
     public SummonerEntity getSummonerByName(Region region, String name) {
+        if (name == null)
+            throw new NullPointerException("NAME should not be null.");
         return SummonerEntity.createFromName(this, region, name);
     }
 
@@ -181,12 +186,31 @@ public class EntityApi implements Closeable {
      *
      * @param region Match's region.
      * @param matchId Match's ID.
+     * @param forAccountId Account ID for non-public (un-ranked) match participant identification.
+     * @return MatchEntity instance.
+     */
+    public MatchEntity getMatch(Region region, long matchId, long forAccountId) {
+        // TODO method not super thread-reliable.
+        EntityKey entityKey = new EntityKey(region, matchId);
+        MatchEntity entity = matchEntityCache.getIfPresent(entityKey);
+        if (entity != null && Objects.equals(forAccountId, entity.getForAccountId()))
+            return entity;
+        entity = MatchEntity.create(this, region, matchId, forAccountId);
+        matchEntityCache.put(entityKey, entity);
+        return entity;
+    }
+
+    /**
+     * Gets a match entity by region and match ID. Will return a matching cached instance if found.
+     *
+     * @param region Match's region.
+     * @param matchId Match's ID.
      * @return MatchEntity instance.
      */
     public MatchEntity getMatch(Region region, long matchId) {
         try {
             return matchEntityCache.get(new EntityKey(region, matchId),
-                () -> MatchEntity.create(this, region, matchId));
+                    () -> MatchEntity.create(this, region, matchId, null));
         } catch (ExecutionException e) {
             throw new RuntimeException("Failed to create match.", e);
         }

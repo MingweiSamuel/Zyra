@@ -27,12 +27,37 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param matchId (required) The match ID.
+   * @param forAccountId (optional) If provided, used to identify the participant to be unobfuscated.
    */
-  public Match getMatch(final Region region, final long matchId) {
+  public Match getMatch(final Region region, final long matchId, final Long forAccountId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/match/v3/matches/%1$s", matchId);
     Type type = Match.class;
-    return riotApi.getBasic(url, region, type, Collections.emptyList());
+    return riotApi.getBasic(url, region, type, riotApi.makeParams("forAccountId", forAccountId));
+  }
+
+  /**
+   * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param matchId (required) The match ID.
+   * @param forAccountId (optional) If provided, used to identify the participant to be unobfuscated.
+   */
+  public CompletableFuture<Match> getMatchAsync(final Region region, final long matchId,
+      final Long forAccountId) {
+    // This method is automatically generated and should not be modified directly.
+    String url = String.format("/lol/match/v3/matches/%1$s", matchId);
+    Type type = Match.class;
+    return riotApi.getBasicAsync(url, region, type, riotApi.makeParams("forAccountId", forAccountId));
+  }
+
+  /**
+   * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param matchId (required) The match ID.
+   */
+  public Match getMatch(final Region region, final long matchId) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getMatch(region, matchId, null);
   }
 
   /**
@@ -42,9 +67,7 @@ public final class MatchEndpoints extends Endpoints {
    */
   public CompletableFuture<Match> getMatchAsync(final Region region, final long matchId) {
     // This method is automatically generated and should not be modified directly.
-    String url = String.format("/lol/match/v3/matches/%1$s", matchId);
-    Type type = Match.class;
-    return riotApi.getBasicAsync(url, region, type, Collections.emptyList());
+    return this.getMatchAsync(region, matchId, null);
   }
 
   /**

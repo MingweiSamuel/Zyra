@@ -25,12 +25,14 @@ import java.util.stream.Collectors;
  */
 public class MatchEntity extends Entity {
 
-    static MatchEntity create(EntityApi entityApi, Region region, long matchId) {
-        return new MatchEntity(entityApi, region, matchId);
+    static MatchEntity create(EntityApi entityApi, Region region, long matchId, Long forAccountId) {
+        return new MatchEntity(entityApi, region, matchId, forAccountId);
     }
 
     /** This match's unique id. Set from initialization. */
     private final long matchId;
+    /** Account ID for non-public (un-ranked) match participant identification. */
+    private final Long forAccountId;
 
     /** The match's general information.  */
     private final LazyResetableFuture<Match> matchInfo;
@@ -43,9 +45,10 @@ public class MatchEntity extends Entity {
     /** The match's team entities. */
     private final LazyResetableFuture<List<TeamEntity>> teams;
 
-    private MatchEntity(EntityApi entityApi, Region region, long matchId) {
+    private MatchEntity(EntityApi entityApi, Region region, long matchId, Long forAccountId) {
         super(entityApi, region);
         this.matchId = matchId;
+        this.forAccountId = forAccountId;
 
         matchInfo = new LazyResetableFuture<>(() -> entityApi.riotApi.matches.getMatchAsync(region, matchId));
         timeline = new LazyResetableFuture<>(() -> entityApi.riotApi.matches.getMatchTimelineAsync(region, matchId));
@@ -58,6 +61,15 @@ public class MatchEntity extends Entity {
     /** Returns the unique match id. Does not need to wait for any tasks to complete. */
     public long getMatchId() {
         return matchId;
+    }
+
+    /**
+     * Returns the account ID supplied at construction, used for non-public (un-ranked) match participant
+     * identification.
+     * @return NULL if no account ID was originally supplied.
+     */
+    public Long getForAccountId() {
+        return forAccountId;
     }
 
     //region info methods

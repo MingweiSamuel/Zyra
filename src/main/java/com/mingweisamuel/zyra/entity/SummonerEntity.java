@@ -514,7 +514,8 @@ public class SummonerEntity extends Entity {
     //endregion
 
     private List<MatchEntity> matchlistToMatches(Matchlist ml) {
-        return new ArrayList<>(Lists.transform(ml.matches, m -> entityApi.getMatch(region, m.gameId)));
+        return new ArrayList<>(Lists.transform(ml.matches,
+            m -> entityApi.getMatch(region, m.gameId, accountId.join())));
     }
 
     //region equals hashCode
