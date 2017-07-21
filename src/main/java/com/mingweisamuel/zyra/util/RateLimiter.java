@@ -2,6 +2,9 @@ package com.mingweisamuel.zyra.util;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
+import java.util.HashMap;
+import java.util.IllegalFormatCodePointException;
+import java.util.IllegalFormatException;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -43,6 +46,33 @@ public class RateLimiter {
     public static final int CONCURRENT_REQUESTS_PRODUCTION_MAX = 25;
     /** The semaphore for limiting the number of concurrent requests. */
     private final Semaphore concurrentRequestSemaphore;
+
+    /**
+     * Returns a rate limit set parsed from a string. The string is made of comma-separated tokens of the form INT:INT
+     * where the left integer is the number of requests allowed per the right integer number of seconds.<br>
+     * Example: 100:1,1000:10,60000:600,360000:3600. 10 requests per 1 second, 1000 requests per 10 seconds, etc.
+     * @param header String matching above format.
+     * @return A rate limit map where the keys are times in seconds and the values are the max requests per key time.
+     * @throws IllegalArgumentException If HEADER format is invalid.
+     */
+    public static Map<Long, Integer> parseRateLimits(String header) {
+        Map<Long, Integer> rateLimits = new HashMap<>();
+        String[] tokens = header.split(",\\s*");
+        for (String token : tokens) {
+            int of = token.indexOf(":");
+            if (of < 0)
+                throw new IllegalArgumentException("Token does not contain colon: \"" + token + "\".");
+            try {
+                int requests = Integer.parseInt(token.substring(0, of));
+                long seconds = Long.parseLong(token.substring(of + 1));
+                rateLimits.put(seconds, requests);
+            }
+            catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Failed to parse integer.", e);
+            }
+        }
+        return rateLimits;
+    }
 
     /**
      * Creates a RateLimiter with the specified rate limits. DateTimeProvider defaults to System::currentTimeMillis.
@@ -145,6 +175,14 @@ public class RateLimiter {
         synchronized (lock) {
             retryAfterTimestamp = dateTimeProvider.now() + delay;
         }
+    }
+
+    /**
+     * Updates the rate limits, removing any old ones.
+     * @param rateLimits
+     */
+    public void updateRateLimits(Map<Long, Integer> rateLimits) {
+        this.rateLimits.replaceAll((timespan, requests) -> rateLimits.get(timespan));
     }
 
     /**

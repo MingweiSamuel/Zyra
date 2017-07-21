@@ -42,6 +42,12 @@ public class RateLimitedRequester extends Requester {
     /** Number of concurrent requests per region. */
     private final int concurrentRequestsMax;
 
+    /** Lock for changing {@link #detectRateLimits}. */
+    private final Object detectRateLimitsLock = new Object();
+    /** Flag to automatically detect rate limits. Should start as true on construction and be marked false after first
+     * request.*/
+    private volatile boolean detectRateLimits = true;
+
     /** Listens to HTTP responses. Can be null. */
     private final Optional<ResponseListener> responseListener;
 
@@ -53,7 +59,10 @@ public class RateLimitedRequester extends Requester {
     public RateLimitedRequester(String apiKey, Map<Long, Integer> rateLimits, AsyncHttpClient client, int retries,
             int concurrentRequestsMax, ResponseListener responseListener) {
         super(apiKey, client);
-        this.rateLimits.putAll(rateLimits);
+        if (rateLimits != null) {
+            this.rateLimits.putAll(rateLimits);
+            detectRateLimits = false;
+        }
         this.retries = retries;
         this.concurrentRequestsMax = concurrentRequestsMax;
         this.responseListener = Optional.ofNullable(responseListener);
@@ -83,8 +92,8 @@ public class RateLimitedRequester extends Requester {
             final String relativeUrl, final Region region, final int retryCount, final List<Param> params) {
         final RateLimiter limiter = getRateLimiter(region);
         return limiter.acquireAsync()
-                .thenCompose(v -> getRequestAsync(String.format(RIOT_ROOT_URL, region.getSubdomain()),
-                    relativeUrl, params))
+                .thenCompose(v -> getRequestAsync(
+                    String.format(RIOT_ROOT_URL, region.getSubdomain()), relativeUrl, params))
                 .whenComplete((r, e) -> limiter.release()) // release limiter regardless of success or failure.
                 .thenCompose(r -> {
                     // if response was successful, return response

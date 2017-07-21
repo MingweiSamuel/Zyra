@@ -78,11 +78,7 @@ public class RiotApi implements Closeable {
 
         /** API rate limits. Key is time span in milliseconds, value is max number of requests allowed during that
          * timespan. */
-        private Map<Long, Integer> rateLimits = new HashMap<>();
-        {
-            rateLimits.put(RateLimitedRequester.TEN_SECONDS, 10);
-            rateLimits.put(RateLimitedRequester.TEN_MINUTES, 500);
-        }
+        private Map<Long, Integer> rateLimits = null;
 
         /** The number of times to retry a request. */
         private int retries = RateLimitedRequester.RETRIES_DEFAULT;
@@ -143,9 +139,11 @@ public class RiotApi implements Closeable {
         /**
          * Set arbitrary rate limits.
          * @param rateLimits Map from long representing time span in milliseconds to int max requests per that time
-         *                   span.
+         * span. Use null to automatically detect rate limits.
          * @return This, for chaining.
+         * @deprecated By default, rate limits are automatically detected.
          */
+        @Deprecated
         public Builder setRateLimits(Map<Long, Integer> rateLimits) {
             this.rateLimits = rateLimits;
             return this;
@@ -156,7 +154,9 @@ public class RiotApi implements Closeable {
          * @param rateLimitPer10Seconds Requests per 10 seconds.
          * @param rateLimitPer10Minutes Requests per 10 minutes.
          * @return This, for chaining.
+         * @deprecated By default, rate limits are automatically detected.
          */
+        @Deprecated
         public Builder setRateLimits(int rateLimitPer10Seconds, int rateLimitPer10Minutes) {
             rateLimits = new HashMap<>();
             rateLimits.put(RateLimitedRequester.TEN_SECONDS, rateLimitPer10Seconds);
@@ -172,7 +172,9 @@ public class RiotApi implements Closeable {
          * @param production If true, set to default production rate limits. If false, set to default development
          *                   rate limits.
          * @return This, for chaining.
+         * @deprecated By default, rate limits are automatically detected.
          */
+        @Deprecated
         public Builder setDefaultRateLimits(boolean production) {
             rateLimits = new HashMap<>();
             if (production) {
@@ -188,7 +190,7 @@ public class RiotApi implements Closeable {
 
         /**
          * Set times to retry failed requests.
-         * @param retries
+         * @param retries Number of times to retry. Must be non-negative.
          * @return This, for chaining.
          */
         public Builder setRetries(int retries) {
@@ -198,7 +200,7 @@ public class RiotApi implements Closeable {
 
         /**
          * Set the maximum number of concurrent requests allowed per region.
-         * @param concurrentRequestsMax
+         * @param concurrentRequestsMax Number of concurrent requests. Must be positive.
          * @return This, for chaining.
          */
         public Builder setConcurrentRequestsMax(int concurrentRequestsMax) {
@@ -208,7 +210,7 @@ public class RiotApi implements Closeable {
 
         /**
          * Sets the AsyncHttpClient to use.
-         * @param client
+         * @param client Client to use.
          * @return This, for chaining.
          */
         public Builder setClient(AsyncHttpClient client) {
@@ -259,7 +261,7 @@ public class RiotApi implements Closeable {
          * Sets a response listener to listen to HTTP responses.
          * @param responseListener A response listener. Set to {@code null} to clear response listener.
          * @return This, for chaining.
-         * @deprecated TODO: This logic will change form in the near future.
+         * @deprecated TODO: This logic will change form in the future.
          */
         @Deprecated
         public Builder setResponseListener(ResponseListener responseListener) {
