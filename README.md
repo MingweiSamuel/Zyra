@@ -1,12 +1,5 @@
 # Zyra
 
----
-
-***Zyra is currently being updated for the version 3 changes. If you want to use Zyra, please use the
-[nightly build](http://www.mingweisamuel.com/Zyra/) or clone & build the repository.***
-
----
-
 [![CircleCI](https://circleci.com/gh/MingweiSamuel/Zyra/tree/develop.svg?style=shield)](https://circleci.com/gh/MingweiSamuel/Zyra/tree/develop)
 
 Java Library for the [Riot Games API](https://developer.riotgames.com/)
@@ -77,13 +70,6 @@ dependencies {
 ```
 
 ## Usage
-
----
-
-***Zyra is currently being updated for the version 3 changes. If you want to use Zyra, please use the
-[nightly build](http://www.mingweisamuel.com/Zyra/) or clone & build the repository.***
-
----
 
 [![Javadoc Stable](https://www.javadoc.io/badge/com.mingweisamuel.zyra/zyra.svg)](https://www.javadoc.io/doc/com.mingweisamuel.zyra/zyra)
 [![Javadoc Nightly](https://img.shields.io/github/tag/MingweiSamuel/Zyra.svg?label=javadoc)](https://mingweisamuel.github.io/Zyra/apidocs/)
@@ -203,8 +189,3 @@ for (Summoner summoner : summoners.values()) {
 There are also asynchronous versions of every endpoint method which return `CompletableFuture`s to allow chaining.
 
 More examples can be found in Zyra's [integration test sources](https://github.com/MingweiSamuel/Zyra/tree/develop/src/test/java/com/mingweisamuel/zyra/test).
-
-### Handling exceptions
-
-TODO
-
