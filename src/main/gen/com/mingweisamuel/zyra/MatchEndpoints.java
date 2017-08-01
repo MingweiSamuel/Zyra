@@ -28,12 +28,40 @@ public final class MatchEndpoints extends Endpoints {
    * @param region Region to execute against.
    * @param matchId (required) The match ID.
    * @param forAccountId (optional) If provided, used to identify the participant to be unobfuscated.
+   * @param forPlatformId (optional) If provided, used to identify the participant to be unobfuscated.
    */
-  public Match getMatch(final Region region, final long matchId, final Long forAccountId) {
+  public Match getMatch(final Region region, final long matchId, final Long forAccountId,
+      final String forPlatformId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/match/v3/matches/%1$s", matchId);
     Type type = Match.class;
-    return riotApi.getBasic(url, region, type, riotApi.makeParams("forAccountId", forAccountId));
+    return riotApi.getBasic(url, region, type, riotApi.makeParams("forAccountId", forAccountId, "forPlatformId", forPlatformId));
+  }
+
+  /**
+   * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param matchId (required) The match ID.
+   * @param forAccountId (optional) If provided, used to identify the participant to be unobfuscated.
+   * @param forPlatformId (optional) If provided, used to identify the participant to be unobfuscated.
+   */
+  public CompletableFuture<Match> getMatchAsync(final Region region, final long matchId,
+      final Long forAccountId, final String forPlatformId) {
+    // This method is automatically generated and should not be modified directly.
+    String url = String.format("/lol/match/v3/matches/%1$s", matchId);
+    Type type = Match.class;
+    return riotApi.getBasicAsync(url, region, type, riotApi.makeParams("forAccountId", forAccountId, "forPlatformId", forPlatformId));
+  }
+
+  /**
+   * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param matchId (required) The match ID.
+   * @param forAccountId (optional) If provided, used to identify the participant to be unobfuscated.
+   */
+  public Match getMatch(final Region region, final long matchId, final Long forAccountId) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getMatch(region, matchId, forAccountId, null);
   }
 
   /**
@@ -45,9 +73,7 @@ public final class MatchEndpoints extends Endpoints {
   public CompletableFuture<Match> getMatchAsync(final Region region, final long matchId,
       final Long forAccountId) {
     // This method is automatically generated and should not be modified directly.
-    String url = String.format("/lol/match/v3/matches/%1$s", matchId);
-    Type type = Match.class;
-    return riotApi.getBasicAsync(url, region, type, riotApi.makeParams("forAccountId", forAccountId));
+    return this.getMatchAsync(region, matchId, forAccountId, null);
   }
 
   /**
@@ -57,7 +83,7 @@ public final class MatchEndpoints extends Endpoints {
    */
   public Match getMatch(final Region region, final long matchId) {
     // This method is automatically generated and should not be modified directly.
-    return this.getMatch(region, matchId, null);
+    return this.getMatch(region, matchId, null, null);
   }
 
   /**
@@ -67,7 +93,7 @@ public final class MatchEndpoints extends Endpoints {
    */
   public CompletableFuture<Match> getMatchAsync(final Region region, final long matchId) {
     // This method is automatically generated and should not be modified directly.
-    return this.getMatchAsync(region, matchId, null);
+    return this.getMatchAsync(region, matchId, null, null);
   }
 
   /**
