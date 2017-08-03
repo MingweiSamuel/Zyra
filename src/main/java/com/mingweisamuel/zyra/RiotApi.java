@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.util.Lazy;
 import com.mingweisamuel.zyra.util.RateLimitedRequester;
+import com.mingweisamuel.zyra.util.RateLimitedRequester2;
 import com.mingweisamuel.zyra.util.RateLimiter;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClient;
@@ -31,7 +32,7 @@ public class RiotApi implements Closeable {
     /** Json parser. */
     private final Gson gson = new Gson();
     /** Web requester. */
-    private final Lazy<RateLimitedRequester> requester;
+    private final Lazy<RateLimitedRequester2> requester;
 
     public final ChampionEndpoints champions = new ChampionEndpoints(this);
     public final ChampionMasteryEndpoints championMasteries = new ChampionMasteryEndpoints(this);
@@ -280,7 +281,7 @@ public class RiotApi implements Closeable {
     private RiotApi(String apiKey, Map<Long, Integer> rateLimits, AsyncHttpClient client, int retries,
             int maxConcurrentRequests, ResponseListener responseListener) {
         requester = new Lazy<>(() ->
-            new RateLimitedRequester(apiKey, rateLimits, client, retries, maxConcurrentRequests, responseListener));
+            new RateLimitedRequester2(apiKey, client, retries, maxConcurrentRequests, responseListener));
     }
 
     /**
