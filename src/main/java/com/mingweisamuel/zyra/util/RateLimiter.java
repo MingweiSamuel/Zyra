@@ -2,7 +2,7 @@ package com.mingweisamuel.zyra.util;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -15,6 +15,11 @@ import java.util.concurrent.TimeUnit;
  * Rate limiter.
  */
 public class RateLimiter {
+
+    public int count = 0;
+    public int delays = 0;
+    public List<Integer> buckets = new ArrayList<>(Collections.singletonList(0));
+
     /** A scheduler used to wait for async delays. */
     private static final Lazy<ScheduledExecutorService> executor = new Lazy<>(
             () -> new ScheduledThreadPoolExecutor(2, new ThreadFactoryBuilder().setDaemon(true).build()));
@@ -71,6 +76,8 @@ public class RateLimiter {
      */
     public RateLimiter(ConcurrentMap<Long, Integer> rateLimits, int concurrentRequestsMax, DateTimeProvider dateTimeProvider) {
         this.rateLimits = rateLimits;
+        for (long val : rateLimits.keySet())
+            this.requestCounts.put(val, 0);
         this.concurrentRequestSemaphore = new Semaphore(concurrentRequestsMax);
         this.dateTimeProvider = dateTimeProvider;
     }
@@ -123,10 +130,12 @@ public class RateLimiter {
     public void acquire() throws InterruptedException {
         long delay;
         concurrentRequestSemaphore.acquire();
-        while ((delay = getDelay()) > 0) {
-            Thread.sleep(delay);
+        synchronized (lock) {
+            while ((delay = getDelay()) > 0) {
+                Thread.sleep(delay);
+            }
+            updateDelay();
         }
-        updateDelay();
     }
 
 
@@ -168,6 +177,8 @@ public class RateLimiter {
 
                 // if requestCount is at the limit, update the delay to match.
                 if (requestCount >= limit) {
+                    //System.out.println(requestCount - limit);
+                    delays++;
                     // initialRequest should exist if requestCount exists.
                     long initialRequest = initialRequests.get(timespan);
                     long newDelay = initialRequest + timespan - now;
@@ -188,24 +199,37 @@ public class RateLimiter {
      * Updates the rate limit counters after getDelay() has been waited.
      */
     private void updateDelay() {
+        int index = buckets.size() - 1;
+        buckets.set(index, buckets.get(index) + 1);
+        //count++;
         synchronized (lock) {
             long now = dateTimeProvider.now();
 
+            boolean reset = false;
+
             // Operations on the ConcurrentHashMaps don't need to be atomic because only one thread can access the maps at
             // a time because of the Semaphore lock.
-            for (Map.Entry<Long, Integer> rateLimit : rateLimits.entrySet()) {
-                long timespan = rateLimit.getKey();
+            for (long timespan : rateLimits.keySet()) {
+                long rateLimit = rateLimits.get(timespan);
 
                 Long initialRequest = initialRequests.get(timespan);
                 Integer requestCount = requestCounts.get(timespan);
 
                 if (requestCount == null || initialRequest == null || initialRequest < now - timespan) {
+                    reset = true;
                     initialRequests.put(timespan, now);
+                    count++;
                     requestCount = 0;
+
+                    buckets.add(0);
                 }
 
+                //System.out.println(requestCount);
                 requestCounts.put(timespan, requestCount + 1);
             }
+
+//            if (reset)
+//                System.out.println("reset");
         }
     }
 

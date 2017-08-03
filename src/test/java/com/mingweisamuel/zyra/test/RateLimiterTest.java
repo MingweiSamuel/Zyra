@@ -51,7 +51,7 @@ public class RateLimiterTest {
 
     @Test(timeout=5_000)
     public void test10() throws InterruptedException {
-        final RateLimiter rateLimiter = new RateLimiter(limits);
+        final RateLimiter rateLimiter = new RateLimiter(limits, 1);
         final long startTime = System.currentTimeMillis();
 
         int i = 0;
