@@ -5,11 +5,14 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.IntStream;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Basic RateLimiter tests
@@ -30,6 +33,20 @@ public class RateLimiterTest {
         rateLimiter.acquire();
         assertDelayed(startTime, 0, 0);
         rateLimiter.release();
+    }
+
+    @Test(timeout=20_000)
+    public void testSaturated() throws InterruptedException {
+        final RateLimiter rateLimiter = new RateLimiter(new ConcurrentHashMap<>(Collections.singletonMap(250L, 250)));
+        long startTime = System.currentTimeMillis();
+        int seconds = 10;
+        for (int i = 0; i < seconds * 1000; i++) {
+            rateLimiter.acquire();
+            rateLimiter.release();
+        }
+        double ratio = (System.currentTimeMillis() - startTime) / (seconds * 1000.0);
+        assertTrue(0.95 < ratio);
+        assertTrue(ratio < 1.05);
     }
 
     @Test(timeout=5_000)

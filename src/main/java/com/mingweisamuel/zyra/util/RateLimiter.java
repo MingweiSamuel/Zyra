@@ -171,7 +171,11 @@ public class RateLimiter {
                     // initialRequest should exist if requestCount exists.
                     long initialRequest = initialRequests.get(timespan);
                     long newDelay = initialRequest + timespan - now;
-                    if (newDelay > delay)
+                    if (newDelay <= 0) {
+                        initialRequests.put(timespan, now);
+                        requestCounts.put(timespan, 0);
+                    }
+                    else if (newDelay > delay)
                         delay = newDelay;
                 }
             }
