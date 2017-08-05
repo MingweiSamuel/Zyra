@@ -20,7 +20,8 @@ echo 'theme: jekyll-theme-modernist' > _config.yml
 cat >index.md <<EOL
 ## NIGHTLY BUILD ${project.build.finalName}
 
-[CircleCI build $TRAVIS_BUILD_NUMBER](https://travis-ci.org/MingweiSamuel/Zyra/builds/$TRAVIS_BUILD_ID)
+[Build $TRAVIS_BUILD_NUMBER](https://travis-ci.org/MingweiSamuel/Zyra/builds/$TRAVIS_BUILD_ID)
+({{ site.time | date: "%Y/%d/%m" }})
 
     $TRAVIS_COMMIT
 
@@ -42,12 +43,7 @@ $(echo "$TRAVIS_COMMIT_MESSAGE" | sed 's/^/    /')
 
 EOL
 
-# move docs and coverage
+# move docs, coverage, and jars
 mv ../apidocs ./
 mv ../coverage ./
 mv ../zyra-*.jar ./
-
-#mv ../_config.yml
-#git add index.md
-#git -c "user.name=CircleCI" -c "user.email=mingwei.samuel@gmail.com" commit -m "autogen javadoc [ci skip]"
-#git push -f https://github.com/MingweiSamuel/Zyra.git HEAD:gh-pages
