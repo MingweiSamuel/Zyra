@@ -37,7 +37,6 @@ public class ResponsiveRateLimit {
                 return response;
             // Limits: "20000:10,1200000:600"
             // Counts: "7:10,58:600"
-            response.getHeaders().forEach(System.out::println);
             String limitHeader = response.getHeader(rateLimitType.limitHeader);
             String countHeader = response.getHeader(rateLimitType.countHeader);
             if (limitHeader == null || countHeader == null)
@@ -61,13 +60,13 @@ public class ResponsiveRateLimit {
                     throw new IllegalStateException("Headers did not match: " + limitHeader + " and " + countHeader);
 
                 buckets[i] = new TemporalTokenBucket(limitSpan, limitValue, Math.max(limitValue, 20), 0.5f);
-                for (int j = 0; j < countSpan; j++)
+                for (int j = 0; j < countValue; j++)
                     buckets[i].getToken(); // Account for existing tokens.
             }
             this.buckets = buckets;
             bucketsUpdated = true;
 
-            System.out.println("Rate limit detected: " + limitHeader);
+            //System.out.println("Rate limit detected: " + limitHeader + " : " + countHeader);
         }
         return response;
     }
