@@ -32,8 +32,8 @@ public class ApiChampionTest extends ApiTest {
             if (champ.freeToPlay)
                 free++;
         }
-        // Sometimes returns 12 for some reason. Strange.
-        assertTrue("" + free, 10 <= free && free <= 12);
+        // We're up to 14 free champions (2017/08).
+        assertTrue("" + free, 10 <= free && free <= 20);
     }
 
     @Test

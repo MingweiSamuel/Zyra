@@ -16,6 +16,7 @@ import com.mingweisamuel.zyra.lolStaticData.Rune;
 import com.mingweisamuel.zyra.lolStaticData.RuneList;
 import com.mingweisamuel.zyra.lolStaticData.SummonerSpell;
 import com.mingweisamuel.zyra.lolStaticData.SummonerSpellList;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -33,6 +34,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Integration tests for {@link com.mingweisamuel.zyra.LolStaticDataEndpoints}.
  */
+@Ignore("Disabled Static Data Tests.")
 public class ApiStaticDataTest extends ApiTest {
 
     //region champion

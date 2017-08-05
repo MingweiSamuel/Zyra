@@ -7,6 +7,7 @@ import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.lolStaticData.Champion;
 import com.mingweisamuel.zyra.lolStaticData.ChampionList;
 import com.mingweisamuel.zyra.summoner.Summoner;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -16,6 +17,7 @@ import java.util.Map;
 /**
  * Testing the README.md examples.
  */
+@Ignore("Disabled Static Data Tests.")
 public class ReadmeExampleTest extends EntityTest {
 
     @Test

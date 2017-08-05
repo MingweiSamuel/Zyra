@@ -3,6 +3,7 @@ package com.mingweisamuel.zyra.test;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.lolStaticData.ProfileIconData;
 import com.mingweisamuel.zyra.lolStaticData.ProfileIconDetails;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Map;
@@ -15,6 +16,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Integration tests for {@link com.mingweisamuel.zyra.LolStaticDataEndpoints#getProfileIcons}.
  */
+@Ignore("Disabled Static Data Tests.")
 public class ApiStaticDataProfileIconTest extends ApiTest {
 
     @Test

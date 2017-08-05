@@ -1,5 +1,6 @@
 package com.mingweisamuel.zyra.test;
 
+import com.google.common.collect.ImmutableMap;
 import com.mingweisamuel.zyra.RiotApi;
 import org.junit.Rule;
 import org.junit.rules.DisableOnDebug;
@@ -16,7 +17,10 @@ public abstract class ApiTest {
     public TestRule globalTimeout = new DisableOnDebug(Timeout.seconds(60));
 
     protected static final RiotApi api = RiotApi.builder(System.getenv("API_KEY"))
-            .setDefaultRateLimits(true)
+            .setRateLimits(ImmutableMap.<Long, Integer>builder()
+                .put(10_000L, 300)
+                .put(600_000L, 18_000)
+                .build())
             .setConcurrentRequestsMax(Integer.parseInt(System.getProperty("testThreadCount")))
             .setRetries(10).build();
 
