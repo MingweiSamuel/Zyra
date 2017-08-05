@@ -1,6 +1,7 @@
 package com.mingweisamuel.zyra.util;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Supplier;
 
 /**
@@ -99,7 +100,7 @@ public class TemporalTokenBucket {
 
     /**
      * Get the approximate delay til the next available token, or -1 if a token is available.
-     * @return Delay in milliseconds or -1.
+     * @return Approximate delay in milliseconds or -1.
      */
     public synchronized long getDelay() {
         int index = update();
@@ -187,5 +188,61 @@ public class TemporalTokenBucket {
      */
     private int getLength(long startTimestamp, long endTimestamp) {
         return (int) ((endTimestamp / indexTimespan - startTimestamp / indexTimespan));
+    }
+
+    /**
+     * Attempts to get a token from every bucket.
+     * @param buckets Buckets to get tokens from.
+     * @return -1 if tokens were obtained, otherwise the approximate delay until tokens will be available.
+     */
+    public static long getAllTokensOrDelay(TemporalTokenBucket... buckets) {
+        // Always obtain locks in well-defined order to prevent deadlock. Sort by hash code.
+        Arrays.sort(buckets, Comparator.comparingLong(TemporalTokenBucket::hashCode));
+        int i = getAllInternal(buckets, 0);
+        if (i < 0) // Success
+            return -1;
+        // If there was delay, find the maximum or zero. This may be inaccurate due to buckets changing state
+        // but that is inevitable unless we block the locks, but its better to let other threads through.
+        long delay = 0;
+        for (; i < buckets.length; i++) {
+            long newDelay = buckets[i].getDelay();
+            if (newDelay > delay)
+                delay = newDelay;
+        }
+        return delay;
+    }
+    /**
+     * Attempts to get a token from every bucket.
+     * @param buckets Buckets to check.
+     * @param i Index of current bucket (for recursion).
+     * @return -1 if all tokens were obtained or the index of the first limiting bucket.
+     */
+    private static int getAllInternal(TemporalTokenBucket[] buckets, int i) {
+        // Base case: No more buckets.
+        if (i >= buckets.length)
+            return -1;
+        // Synchronize on the current bucket.
+        synchronized (buckets[i]) {
+            long delay = buckets[i].getDelay();
+            if (delay >= 0) // This bucket has delay, exit synchronization immediately.
+                return i;
+            // A token is available for the current bucket.
+            int index = getAllInternal(buckets, i + 1);
+            if (index >= 0) // A later bucket has delay, exit synchronization immediately.
+                return index;
+            // Success.
+            buckets[i].getToken();
+            return -1;
+        }
+    }
+
+    @Override
+    public final int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+        return this == obj;
     }
 }

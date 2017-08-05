@@ -32,13 +32,6 @@ public class Requester implements Closeable {
     private final AsyncHttpClient client;
 
     /**
-     * Creates a requester with APIKEY and new DefaultAsyncHttpClient.
-     */
-    public Requester(String apiKey) {
-        this(apiKey, new DefaultAsyncHttpClient());
-    }
-
-    /**
      * Creates a requester with APIKEY and specified CLIENT.
      */
     public Requester(String apiKey, AsyncHttpClient client) {
