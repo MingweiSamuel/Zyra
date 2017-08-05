@@ -10,7 +10,8 @@ set -e
 
 # move to dir of this script (./target)
 cd "$(dirname "$0")"
-git init
+mkdir gh-pages
+cd gh-pages
 
 # theme config
 echo 'theme: jekyll-theme-modernist' > _config.yml
@@ -26,23 +27,25 @@ $(git -C .. log -1 --no-color | sed 's/^/    /')
 ### Docs
 
 * [Javadoc online](apidocs/)
-* [${project.build.finalName}-javadoc.jar](https://circleci.com/api/v1/project/MingweiSamuel/Zyra/$CIRCLE_BUILD_NUM/artifacts/0/\$CIRCLE_ARTIFACTS/${project.build.finalName}-javadoc.jar)
-* [${project.build.finalName}-sources.jar](https://circleci.com/api/v1/project/MingweiSamuel/Zyra/$CIRCLE_BUILD_NUM/artifacts/0/\$CIRCLE_ARTIFACTS/${project.build.finalName}-sources.jar)
+* [${project.build.finalName}-javadoc.jar](${project.build.finalName}-javadoc.jar)
+* [${project.build.finalName}-sources.jar](${project.build.finalName}-sources.jar)
 * [Code Coverage](coverage/)
 
 
 ### Jars
 
-* [${project.build.finalName}-standalone.jar](https://circleci.com/api/v1/project/MingweiSamuel/Zyra/$CIRCLE_BUILD_NUM/artifacts/0/\$CIRCLE_ARTIFACTS/${project.build.finalName}-standalone.jar)
-* [${project.build.finalName}-standalone-full.jar](https://circleci.com/api/v1/project/MingweiSamuel/Zyra/$CIRCLE_BUILD_NUM/artifacts/0/\$CIRCLE_ARTIFACTS/${project.build.finalName}-standalone-full.jar)
-* [${project.build.finalName}.jar](https://circleci.com/api/v1/project/MingweiSamuel/Zyra/$CIRCLE_BUILD_NUM/artifacts/0/\$CIRCLE_ARTIFACTS/${project.build.finalName}.jar)
+* [${project.build.finalName}-standalone.jar](${project.build.finalName}-standalone.jar)
+* [${project.build.finalName}-standalone-full.jar](${project.build.finalName}-standalone-full.jar)
+* [${project.build.finalName}.jar](${project.build.finalName}.jar)
 
 EOL
 
-# push
-git add apidocs
-git add coverage
-git add _config.yml
-git add index.md
-git -c "user.name=CircleCI" -c "user.email=mingwei.samuel@gmail.com" commit -m "autogen javadoc [ci skip]"
-git push -f https://github.com/MingweiSamuel/Zyra.git HEAD:gh-pages
+# move docs and coverage
+mv ../apidocs ./
+mv ../coverage ./
+mv ../zyra-*.jar ./
+
+#mv ../_config.yml
+#git add index.md
+#git -c "user.name=CircleCI" -c "user.email=mingwei.samuel@gmail.com" commit -m "autogen javadoc [ci skip]"
+#git push -f https://github.com/MingweiSamuel/Zyra.git HEAD:gh-pages

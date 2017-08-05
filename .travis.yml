@@ -1,0 +1,24 @@
+sudo: false
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+
+language: java
+jdk:
+  - oraclejdk8
+
+install:
+  # TODO: properly make maven profiles to skip gpg by default.
+  - mvn install -DskipTests=true -Dgpg.skip=true -B -V
+script:
+  - mvn test -B
+
+after_script:
+  - ./pages.bash
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: gh-pages
