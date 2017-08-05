@@ -1,6 +1,9 @@
 # Zyra
 
-[![CircleCI](https://circleci.com/gh/MingweiSamuel/Zyra/tree/develop.svg?style=shield)](https://circleci.com/gh/MingweiSamuel/Zyra/tree/develop)
+[![Travis](https://img.shields.io/travis/MingweiSamuel/Zyra.svg?style=flat-square)](https://travis-ci.org/MingweiSamuel/Zyra)
+[![Maven](https://img.shields.io/maven-central/v/com.mingweisamuel.zyra/zyra.svg?style=flat-square&label=maven)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mingweisamuel.zyra%22%20AND%20a%3A%22zyra%22)
+[![Javadoc Stable](https://www.javadoc.io/badge/com.mingweisamuel.zyra/zyra.svg?style=flat-square)](https://www.javadoc.io/doc/com.mingweisamuel.zyra/zyra)
+
 
 Java Library for the [Riot Games API](https://developer.riotgames.com/)
 
@@ -25,8 +28,8 @@ If you are using Maven or Gradle, see the [Build Tools](#build-tools) section.
 Otherwise, see the instructions below.
 
 ### Jars 
-[![Nightly Build](https://img.shields.io/github/tag/MingweiSamuel/Zyra.svg?label=nightly+build)](https://mingweisamuel.github.io/Zyra/)
-[![GitHub Release](https://img.shields.io/github/release/MingweiSamuel/Zyra.svg?label=github+release)](https://github.com/MingweiSamuel/Zyra/releases)
+[![Nightly Build](https://img.shields.io/github/tag/MingweiSamuel/Zyra.svg?style=flat-square&label=nightly+build)](https://mingweisamuel.github.io/Zyra/)
+[![GitHub Release](https://img.shields.io/github/release/MingweiSamuel/Zyra.svg?style=flat-square&label=github+release)](https://github.com/MingweiSamuel/Zyra/releases)
 
 If you are not using a build system, release packaged jars are available through
 [GitHub's releases](https://github.com/MingweiSamuel/Zyra/releases). Additionally, the most recent (nightly) build is available [here](https://mingweisamuel.github.io/Zyra/).
@@ -41,7 +44,7 @@ than the minimal standalone jar.
 `zyra-VERSION-javadoc.jar` contains the Javadocs and `zyra-VERSION-sources.jar` contains the sources.
 
 ### Build Tools
-[![Maven Central](https://img.shields.io/maven-central/v/com.mingweisamuel.zyra/zyra.svg?label=maven+central)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mingweisamuel.zyra%22%20AND%20a%3A%22zyra%22)
+[![Maven](https://img.shields.io/maven-central/v/com.mingweisamuel.zyra/zyra.svg?style=flat-square&label=maven)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mingweisamuel.zyra%22%20AND%20a%3A%22zyra%22)
 
 #### Maven
 
@@ -71,8 +74,8 @@ dependencies {
 
 ## Usage
 
-[![Javadoc Stable](https://www.javadoc.io/badge/com.mingweisamuel.zyra/zyra.svg)](https://www.javadoc.io/doc/com.mingweisamuel.zyra/zyra)
-[![Javadoc Nightly](https://img.shields.io/github/tag/MingweiSamuel/Zyra.svg?label=javadoc)](https://mingweisamuel.github.io/Zyra/apidocs/)
+[![Javadoc Stable](https://img.shields.io/badge/javadoc-1.1.2-brightgreen.svg?style=flat-square&label=javadoc+stable)](https://www.javadoc.io/doc/com.mingweisamuel.zyra/zyra)
+[![Javadoc Nightly](https://img.shields.io/github/tag/MingweiSamuel/Zyra.svg?style=flat-square&label=javadoc+nightly)](https://mingweisamuel.github.io/Zyra/apidocs/)
 
 ### Full example
 
