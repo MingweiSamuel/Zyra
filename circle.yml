@@ -1,5 +1,0 @@
-test:
-  override:
-    - mvn package
-    - mv target/*.jar $CIRCLE_ARTIFACTS
-    - bash target/pages.bash

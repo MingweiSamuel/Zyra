@@ -20,9 +20,11 @@ echo 'theme: jekyll-theme-modernist' > _config.yml
 cat >index.md <<EOL
 ## NIGHTLY BUILD ${project.build.finalName}
 
-[CircleCI build $CIRCLE_BUILD_NUM]($CIRCLE_BUILD_URL) ${CIRCLE_TAG-}
+[CircleCI build $TRAVIS_BUILD_NUMBER](https://travis-ci.org/MingweiSamuel/Zyra/builds/$TRAVIS_BUILD_ID)
 
-$(git -C .. log -1 --no-color | sed 's/^/    /')
+    $TRAVIS_COMMIT
+
+$(echo "$TRAVIS_COMMIT_MESSAGE" | sed 's/^/    /')
 
 ### Docs
 

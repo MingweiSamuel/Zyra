@@ -1,3 +1,8 @@
+general:
+  branches:
+    only:
+      - develop
+      - feature/
 sudo: false
 addons:
   apt:
@@ -14,11 +19,13 @@ install:
 script:
   - mvn test -B
 
-after_script:
-  - ./pages.bash
+before_deploy:
+  - bash ./target/pages.bash
 deploy:
   provider: pages
+  local_dir: ./target/gh-pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
+  target_branch: gh-pages
   on:
-    branch: gh-pages
+    branch: develop
