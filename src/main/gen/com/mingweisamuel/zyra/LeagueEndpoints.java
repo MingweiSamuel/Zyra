@@ -22,6 +22,8 @@ public final class LeagueEndpoints extends Endpoints {
   }
 
   /**
+   * Get the challenger league for a given queue.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getChallengerLeague">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param queue (required) 
@@ -30,10 +32,12 @@ public final class LeagueEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/league/v3/challengerleagues/by-queue/%1$s", queue);
     Type type = LeagueList.class;
-    return riotApi.getBasic(url, region, type, Collections.emptyList());
+    return riotApi.getBasic("league-v3_GET_getChallengerLeague_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get the challenger league for a given queue.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getChallengerLeague">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param queue (required) 
@@ -43,10 +47,12 @@ public final class LeagueEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/league/v3/challengerleagues/by-queue/%1$s", queue);
     Type type = LeagueList.class;
-    return riotApi.getBasicAsync(url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("league-v3_GET_getChallengerLeague_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get leagues in all queues for a given summoner ID.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getAllLeaguesForSummoner">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param summonerId (required) 
@@ -56,10 +62,12 @@ public final class LeagueEndpoints extends Endpoints {
     String url = String.format("/lol/league/v3/leagues/by-summoner/%1$s", summonerId);
     Type type = new TypeToken<List<LeagueList>>() {
     }.getType();
-    return riotApi.getBasic(url, region, type, Collections.emptyList());
+    return riotApi.getBasic("league-v3_GET_getAllLeaguesForSummoner_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get leagues in all queues for a given summoner ID.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getAllLeaguesForSummoner">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param summonerId (required) 
@@ -70,10 +78,12 @@ public final class LeagueEndpoints extends Endpoints {
     String url = String.format("/lol/league/v3/leagues/by-summoner/%1$s", summonerId);
     Type type = new TypeToken<List<LeagueList>>() {
     }.getType();
-    return riotApi.getBasicAsync(url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("league-v3_GET_getAllLeaguesForSummoner_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get the master league for a given queue.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getMasterLeague">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param queue (required) 
@@ -82,10 +92,12 @@ public final class LeagueEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/league/v3/masterleagues/by-queue/%1$s", queue);
     Type type = LeagueList.class;
-    return riotApi.getBasic(url, region, type, Collections.emptyList());
+    return riotApi.getBasic("league-v3_GET_getMasterLeague_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get the master league for a given queue.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getMasterLeague">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param queue (required) 
@@ -95,10 +107,12 @@ public final class LeagueEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/league/v3/masterleagues/by-queue/%1$s", queue);
     Type type = LeagueList.class;
-    return riotApi.getBasicAsync(url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("league-v3_GET_getMasterLeague_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get league positions in all queues for a given summoner ID.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getAllLeaguePositionsForSummoner">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param summonerId (required) 
@@ -109,10 +123,12 @@ public final class LeagueEndpoints extends Endpoints {
     String url = String.format("/lol/league/v3/positions/by-summoner/%1$s", summonerId);
     Type type = new TypeToken<List<LeaguePosition>>() {
     }.getType();
-    return riotApi.getBasic(url, region, type, Collections.emptyList());
+    return riotApi.getBasic("league-v3_GET_getAllLeaguePositionsForSummoner_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get league positions in all queues for a given summoner ID.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getAllLeaguePositionsForSummoner">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param summonerId (required) 
@@ -123,6 +139,6 @@ public final class LeagueEndpoints extends Endpoints {
     String url = String.format("/lol/league/v3/positions/by-summoner/%1$s", summonerId);
     Type type = new TypeToken<List<LeaguePosition>>() {
     }.getType();
-    return riotApi.getBasicAsync(url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("league-v3_GET_getAllLeaguePositionsForSummoner_content", url, region, type, Collections.emptyList());
   }
 }

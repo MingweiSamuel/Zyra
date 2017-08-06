@@ -22,6 +22,8 @@ public final class ChampionMasteryEndpoints extends Endpoints {
   }
 
   /**
+   * Get all champion mastery entries sorted by number of champion points descending,
+   *
    * <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getAllChampionMasteries">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param summonerId (required) Summoner ID associated with the player
@@ -31,10 +33,12 @@ public final class ChampionMasteryEndpoints extends Endpoints {
     String url = String.format("/lol/champion-mastery/v3/champion-masteries/by-summoner/%1$s", summonerId);
     Type type = new TypeToken<List<ChampionMastery>>() {
     }.getType();
-    return riotApi.getBasic(url, region, type, Collections.emptyList());
+    return riotApi.getBasic("champion-mastery-v3_GET_getAllChampionMasteries_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get all champion mastery entries sorted by number of champion points descending,
+   *
    * <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getAllChampionMasteries">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param summonerId (required) Summoner ID associated with the player
@@ -45,10 +49,12 @@ public final class ChampionMasteryEndpoints extends Endpoints {
     String url = String.format("/lol/champion-mastery/v3/champion-masteries/by-summoner/%1$s", summonerId);
     Type type = new TypeToken<List<ChampionMastery>>() {
     }.getType();
-    return riotApi.getBasicAsync(url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("champion-mastery-v3_GET_getAllChampionMasteries_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get a champion mastery by player ID and champion ID.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getChampionMastery">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param championId (required) Champion ID to retrieve Champion Mastery for
@@ -59,10 +65,12 @@ public final class ChampionMasteryEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/champion-mastery/v3/champion-masteries/by-summoner/%1$s/by-champion/%2$s", championId, summonerId);
     Type type = ChampionMastery.class;
-    return riotApi.getBasic(url, region, type, Collections.emptyList());
+    return riotApi.getBasic("champion-mastery-v3_GET_getChampionMastery_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get a champion mastery by player ID and champion ID.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getChampionMastery">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param championId (required) Champion ID to retrieve Champion Mastery for
@@ -73,10 +81,12 @@ public final class ChampionMasteryEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/champion-mastery/v3/champion-masteries/by-summoner/%1$s/by-champion/%2$s", championId, summonerId);
     Type type = ChampionMastery.class;
-    return riotApi.getBasicAsync(url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("champion-mastery-v3_GET_getChampionMastery_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get a player's total champion mastery score, which is the sum of individual champion mastery levels.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getChampionMasteryScore">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param summonerId (required) Summoner ID associated with the player
@@ -85,10 +95,12 @@ public final class ChampionMasteryEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/champion-mastery/v3/scores/by-summoner/%1$s", summonerId);
     Type type = Integer.class;
-    return riotApi.getBasic(url, region, type, Collections.emptyList());
+    return riotApi.getBasic("champion-mastery-v3_GET_getChampionMasteryScore_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get a player's total champion mastery score, which is the sum of individual champion mastery levels.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getChampionMasteryScore">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param summonerId (required) Summoner ID associated with the player
@@ -98,6 +110,6 @@ public final class ChampionMasteryEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/champion-mastery/v3/scores/by-summoner/%1$s", summonerId);
     Type type = Integer.class;
-    return riotApi.getBasicAsync(url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("champion-mastery-v3_GET_getChampionMasteryScore_content", url, region, type, Collections.emptyList());
   }
 }

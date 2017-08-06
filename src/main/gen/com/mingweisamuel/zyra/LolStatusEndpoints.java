@@ -19,6 +19,8 @@ public final class LolStatusEndpoints extends Endpoints {
   }
 
   /**
+   * Get League of Legends status for the given shard.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-status-v3/GET_getShardData">Link to Portal</a><br>
    * @param region Region to execute against.
    */
@@ -26,10 +28,12 @@ public final class LolStatusEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/status/v3/shard-data";
     Type type = ShardStatus.class;
-    return riotApi.getBasicNonRateLimited(url, region, type, Collections.emptyList());
+    return riotApi.getBasicNonRateLimited("lol-status-v3_GET_getShardData_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get League of Legends status for the given shard.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-status-v3/GET_getShardData">Link to Portal</a><br>
    * @param region Region to execute against.
    */
@@ -37,6 +41,6 @@ public final class LolStatusEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/status/v3/shard-data";
     Type type = ShardStatus.class;
-    return riotApi.getBasicNonRateLimitedAsync(url, region, type, Collections.emptyList());
+    return riotApi.getBasicNonRateLimitedAsync("lol-status-v3_GET_getShardData_content", url, region, type, Collections.emptyList());
   }
 }

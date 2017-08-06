@@ -68,11 +68,11 @@ public class RateLimitedRequester extends Requester {
         this.rateLimits = rateLimits;
     }
 
-    public CompletableFuture<Response> getRequestNonRateLimitedAsync(
+    public CompletableFuture<Response> getRequestNonRateLimitedAsync(final String methodId,
             final String relativeUrl, final Region region, final List<Param> params) {
 
         return concurrentRequestSemaphore.acquire().thenCompose(p -> {
-            CompletableFuture<Response> result = getRateLimiter(region).getMethodRateLimited(relativeUrl,
+            CompletableFuture<Response> result = getRateLimiter(region).getMethodRateLimited(methodId,
                 () -> getRequestAsync(String.format(RIOT_ROOT_URL, region.getSubdomain()), relativeUrl, params));
             result.handle((r, e) -> {
                 p.release();
@@ -82,11 +82,11 @@ public class RateLimitedRequester extends Requester {
         });
     }
 
-    public CompletableFuture<Response> getRequestRateLimitedAsync(
+    public CompletableFuture<Response> getRequestRateLimitedAsync(final String methodId,
             final String relativeUrl, final Region region, final List<Param> params) {
 
         return concurrentRequestSemaphore.acquire().thenCompose(p -> {
-            CompletableFuture<Response> result = getRateLimiter(region).getRateLimited(relativeUrl,
+            CompletableFuture<Response> result = getRateLimiter(region).getRateLimited(methodId,
                 () -> getRequestAsync(String.format(RIOT_ROOT_URL, region.getSubdomain()), relativeUrl, params));
             result.handle((r, e) -> {
                p.release();

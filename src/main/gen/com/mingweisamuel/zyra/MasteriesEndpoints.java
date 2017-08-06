@@ -19,6 +19,8 @@ public final class MasteriesEndpoints extends Endpoints {
   }
 
   /**
+   * Get mastery pages for a given summoner ID.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#masteries-v3/GET_getMasteryPagesBySummonerId">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param summonerId (required) Summoner ID
@@ -27,10 +29,12 @@ public final class MasteriesEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/platform/v3/masteries/by-summoner/%1$s", summonerId);
     Type type = MasteryPages.class;
-    return riotApi.getBasic(url, region, type, Collections.emptyList());
+    return riotApi.getBasic("masteries-v3_GET_getMasteryPagesBySummonerId_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get mastery pages for a given summoner ID.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#masteries-v3/GET_getMasteryPagesBySummonerId">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param summonerId (required) Summoner ID
@@ -40,6 +44,6 @@ public final class MasteriesEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/platform/v3/masteries/by-summoner/%1$s", summonerId);
     Type type = MasteryPages.class;
-    return riotApi.getBasicAsync(url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("masteries-v3_GET_getMasteryPagesBySummonerId_content", url, region, type, Collections.emptyList());
   }
 }

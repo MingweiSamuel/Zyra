@@ -19,6 +19,8 @@ public final class SummonerEndpoints extends Endpoints {
   }
 
   /**
+   * Get a summoner by account ID.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#summoner-v3/GET_getByAccountId">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param accountId (required) 
@@ -27,10 +29,12 @@ public final class SummonerEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/summoner/v3/summoners/by-account/%1$s", accountId);
     Type type = Summoner.class;
-    return riotApi.getBasic(url, region, type, Collections.emptyList());
+    return riotApi.getBasic("summoner-v3_GET_getByAccountId_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get a summoner by account ID.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#summoner-v3/GET_getByAccountId">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param accountId (required) 
@@ -40,10 +44,12 @@ public final class SummonerEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/summoner/v3/summoners/by-account/%1$s", accountId);
     Type type = Summoner.class;
-    return riotApi.getBasicAsync(url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("summoner-v3_GET_getByAccountId_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get a summoner by summoner name.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#summoner-v3/GET_getBySummonerName">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param summonerName (required) Summoner Name
@@ -52,10 +58,12 @@ public final class SummonerEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/summoner/v3/summoners/by-name/%1$s", summonerName);
     Type type = Summoner.class;
-    return riotApi.getBasic(url, region, type, Collections.emptyList());
+    return riotApi.getBasic("summoner-v3_GET_getBySummonerName_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get a summoner by summoner name.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#summoner-v3/GET_getBySummonerName">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param summonerName (required) Summoner Name
@@ -65,10 +73,12 @@ public final class SummonerEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/summoner/v3/summoners/by-name/%1$s", summonerName);
     Type type = Summoner.class;
-    return riotApi.getBasicAsync(url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("summoner-v3_GET_getBySummonerName_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get a summoner by summoner ID.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#summoner-v3/GET_getBySummonerId">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param summonerId (required) Summoner ID
@@ -77,10 +87,12 @@ public final class SummonerEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/summoner/v3/summoners/%1$s", summonerId);
     Type type = Summoner.class;
-    return riotApi.getBasic(url, region, type, Collections.emptyList());
+    return riotApi.getBasic("summoner-v3_GET_getBySummonerId_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get a summoner by summoner ID.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#summoner-v3/GET_getBySummonerId">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param summonerId (required) Summoner ID
@@ -90,6 +102,6 @@ public final class SummonerEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/summoner/v3/summoners/%1$s", summonerId);
     Type type = Summoner.class;
-    return riotApi.getBasicAsync(url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("summoner-v3_GET_getBySummonerId_content", url, region, type, Collections.emptyList());
   }
 }

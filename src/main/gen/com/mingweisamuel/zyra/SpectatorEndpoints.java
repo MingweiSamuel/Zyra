@@ -20,6 +20,8 @@ public final class SpectatorEndpoints extends Endpoints {
   }
 
   /**
+   * Get current game information for the given summoner ID.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getCurrentGameInfoBySummoner">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param summonerId (required) The ID of the summoner.
@@ -28,10 +30,12 @@ public final class SpectatorEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/spectator/v3/active-games/by-summoner/%1$s", summonerId);
     Type type = CurrentGameInfo.class;
-    return riotApi.getBasic(url, region, type, Collections.emptyList());
+    return riotApi.getBasic("spectator-v3_GET_getCurrentGameInfoBySummoner_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get current game information for the given summoner ID.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getCurrentGameInfoBySummoner">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param summonerId (required) The ID of the summoner.
@@ -41,10 +45,12 @@ public final class SpectatorEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/spectator/v3/active-games/by-summoner/%1$s", summonerId);
     Type type = CurrentGameInfo.class;
-    return riotApi.getBasicAsync(url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("spectator-v3_GET_getCurrentGameInfoBySummoner_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get list of featured games.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getFeaturedGames">Link to Portal</a><br>
    * @param region Region to execute against.
    */
@@ -52,10 +58,12 @@ public final class SpectatorEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/spectator/v3/featured-games";
     Type type = FeaturedGames.class;
-    return riotApi.getBasic(url, region, type, Collections.emptyList());
+    return riotApi.getBasic("spectator-v3_GET_getFeaturedGames_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Get list of featured games.
+   *
    * <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getFeaturedGames">Link to Portal</a><br>
    * @param region Region to execute against.
    */
@@ -63,6 +71,6 @@ public final class SpectatorEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/spectator/v3/featured-games";
     Type type = FeaturedGames.class;
-    return riotApi.getBasicAsync(url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("spectator-v3_GET_getFeaturedGames_content", url, region, type, Collections.emptyList());
   }
 }
