@@ -4,6 +4,7 @@ import com.mingweisamuel.zyra.ResponseListener;
 import org.asynchttpclient.Response;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -16,19 +17,39 @@ import java.util.function.Supplier;
 public class RegionalRateLimiter {
 
     /** Represents the app rate limit. */
-    private final TokenRateLimit applicationRateLimit = new TokenRateLimit(
-        TokenRateLimit.RateLimitType.APPLICATION);
+    private final TokenRateLimit applicationRateLimit;
     /** Represents method rate limits. */
     private final ConcurrentMap<String, TokenRateLimit> methodRateLimits = new ConcurrentHashMap<>();
 
     /** Max number of times to retry. */
     private final int maxRetries;
+    /** Number of concurrent instances. */
+    private final int concurrentInstances;
     /** Listens to HTTP responses. Can be null. */
     private final ResponseListener responseListener;
 
-    public RegionalRateLimiter(int maxRetries, ResponseListener responseListener) {
+    public RegionalRateLimiter(int maxRetries, int concurrentInstances, ResponseListener responseListener,
+            Map<Long, Integer> rateLimits) {
+
+        int i = 0;
+        TemporalBucket[] buckets = new TemporalBucket[rateLimits.size()];
+        for (Map.Entry<Long, Integer> rateLimit : rateLimits.entrySet())
+            buckets[i++] = new TokenTemporalBucket( // divide by concurrent instances.
+                rateLimit.getKey(), rateLimit.getValue() / concurrentInstances, 20, 0.5f);
+
         this.maxRetries = maxRetries;
+        this.concurrentInstances = concurrentInstances;
         this.responseListener = responseListener;
+        this.applicationRateLimit = new TokenRateLimit(TokenRateLimit.RateLimitType.APPLICATION,
+            concurrentInstances, buckets);
+    }
+
+    public RegionalRateLimiter(int maxRetries, int concurrentInstances, ResponseListener responseListener) {
+        this.maxRetries = maxRetries;
+        this.concurrentInstances = concurrentInstances;
+        this.responseListener = responseListener;
+        this.applicationRateLimit = new TokenRateLimit(TokenRateLimit.RateLimitType.APPLICATION,
+            concurrentInstances);
     }
 
     public CompletableFuture<Response> getMethodRateLimited(final String methodId,
@@ -53,7 +74,7 @@ public class RegionalRateLimiter {
 
     private TokenRateLimit getMethodRateLimit(String methodId) {
         return methodRateLimits.computeIfAbsent(methodId, id -> new TokenRateLimit(
-            TokenRateLimit.RateLimitType.METHOD));
+            TokenRateLimit.RateLimitType.METHOD, concurrentInstances));
     }
 
     /**
