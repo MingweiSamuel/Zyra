@@ -6,6 +6,7 @@ import com.mingweisamuel.zyra.enums.Region;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.Param;
 import org.asynchttpclient.Response;
+import org.eclipse.milo.opcua.stack.core.util.AsyncSemaphore;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +43,7 @@ public class RateLimitedRequester2 extends Requester {
     private final int retries;
 
     /** Lock on number of concurrent requests (global across regions). */
-    private final Semaphore concurrentRequestSemaphore;
+    private final AsyncSemaphore concurrentRequestSemaphore;
 
     /** Listens to HTTP responses. Can be null. */
     private final ResponseListener responseListener;
@@ -51,25 +52,40 @@ public class RateLimitedRequester2 extends Requester {
     private final ConcurrentMap<Region, RegionalRateLimiter> rateLimiters = new ConcurrentHashMap<>();
 
     public RateLimitedRequester2(String apiKey, AsyncHttpClient client, int retries,
-                                 int concurrentRequestsMax, ResponseListener responseListener) {
+            int concurrentRequestsMax, ResponseListener responseListener) {
+
         super(apiKey, client);
         this.retries = retries;
-        this.concurrentRequestSemaphore = new Semaphore(concurrentRequestsMax);
+        this.concurrentRequestSemaphore = new AsyncSemaphore(concurrentRequestsMax);
         this.responseListener = responseListener;
     }
 
     public CompletableFuture<Response> getRequestNonRateLimitedAsync(
-        final String relativeUrl, final Region region, final List<Param> params) {
+            final String relativeUrl, final Region region, final List<Param> params) {
 
-        return getRateLimiter(region).getMethodRateLimited(relativeUrl,
-            () -> getRequestAsync(String.format(RIOT_ROOT_URL, region.getSubdomain()), relativeUrl, params));
+        return concurrentRequestSemaphore.acquire().thenCompose(p -> {
+            CompletableFuture<Response> result = getRateLimiter(region).getMethodRateLimited(relativeUrl,
+                () -> getRequestAsync(String.format(RIOT_ROOT_URL, region.getSubdomain()), relativeUrl, params));
+            result.handle((r, e) -> {
+                p.release();
+                return (Void) null;
+            });
+            return result;
+        });
     }
 
     public CompletableFuture<Response> getRequestRateLimitedAsync(
-        final String relativeUrl, final Region region, final List<Param> params) {
+            final String relativeUrl, final Region region, final List<Param> params) {
 
-        return getRateLimiter(region).getRateLimited(relativeUrl,
-            () -> getRequestAsync(String.format(RIOT_ROOT_URL, region.getSubdomain()), relativeUrl, params));
+        return concurrentRequestSemaphore.acquire().thenCompose(p -> {
+            CompletableFuture<Response> result = getRateLimiter(region).getRateLimited(relativeUrl,
+                () -> getRequestAsync(String.format(RIOT_ROOT_URL, region.getSubdomain()), relativeUrl, params));
+            result.handle((r, e) -> {
+               p.release();
+               return (Void) null;
+            });
+            return result;
+        });
     }
 
     /**
