@@ -34,6 +34,8 @@ public class RateLimitedRequester extends Requester {
 
     /** Number of times to retry when the request fails, but can still be retried (429, 50*, etc.). */
     private final int retries;
+    /** Number of concurrent instance being run. */
+    private final int concurrentInstances;
 
     /** Lock on number of concurrent requests (global across regions). */
     private final AsyncSemaphore concurrentRequestSemaphore;
@@ -55,11 +57,13 @@ public class RateLimitedRequester extends Requester {
      * @param rateLimits Can (should) be null.
      */
     public RateLimitedRequester(String apiKey, AsyncHttpClient client, int retries,
-                                int concurrentRequestsMax, ResponseListener responseListener, Map<Long, Integer> rateLimits) {
+            int concurrentRequestsMax, int concurrentInstances, ResponseListener responseListener,
+            Map<Long, Integer> rateLimits) {
 
         super(apiKey, client);
         this.retries = retries;
         this.concurrentRequestSemaphore = new AsyncSemaphore(concurrentRequestsMax);
+        this.concurrentInstances = concurrentInstances;
         this.responseListener = responseListener;
         this.rateLimits = rateLimits;
     }
@@ -99,7 +103,7 @@ public class RateLimitedRequester extends Requester {
      */
     private RegionalRateLimiter getRateLimiter(Region region) {
         return rateLimiters.computeIfAbsent(region, r -> rateLimits == null ?
-            new RegionalRateLimiter(retries, responseListener) :
-            new RegionalRateLimiter(retries, responseListener)); // TODO
+            new RegionalRateLimiter(retries, concurrentInstances, responseListener) :
+            new RegionalRateLimiter(retries, concurrentInstances, responseListener, rateLimits));
     }
 }

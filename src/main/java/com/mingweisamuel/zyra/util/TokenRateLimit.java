@@ -28,9 +28,18 @@ public class TokenRateLimit implements RateLimit {
 
     /** Type of rate limit, to know what headers to check. */
     private final RateLimitType rateLimitType;
+    /** Number of concurrent instances, to divide the rate limits by. */
+    private final int concurrentInstances;
 
-    public TokenRateLimit(RateLimitType type) {
+    public TokenRateLimit(RateLimitType type, int concurrentInstances, TemporalBucket[] buckets) {
+        this(type, concurrentInstances);
+        this.buckets = buckets;
+        this.bucketsUpdated = true;
+    }
+
+    public TokenRateLimit(RateLimitType type, int concurrentInstances) {
         this.rateLimitType = type;
+        this.concurrentInstances = concurrentInstances;
     }
 
     @Override
@@ -96,8 +105,8 @@ public class TokenRateLimit implements RateLimit {
                     throw new RiotResponseException(
                         "Headers did not match: " + limitHeader + " and " + countHeader, response);
 
-                buckets[i] = new TokenTemporalBucket(limitSpan, limitValue, Math.max(limitValue, 20), 0.5f);
-                buckets[i].getTokens(countValue); // Account for previous requests.
+                buckets[i] = new TokenTemporalBucket(limitSpan, limitValue / concurrentInstances, 20, 0.5f);
+                buckets[i].getTokens(countValue / (concurrentInstances + 1)); // Account for previous requests.
             }
             this.buckets = buckets;
             bucketsUpdated = true;
