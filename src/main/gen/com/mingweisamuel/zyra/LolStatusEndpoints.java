@@ -26,7 +26,7 @@ public final class LolStatusEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/status/v3/shard-data";
     Type type = ShardStatus.class;
-    return riotApi.getBasic(url, region, type, Collections.emptyList());
+    return riotApi.getBasicNonRateLimited(url, region, type, Collections.emptyList());
   }
 
   /**
@@ -37,6 +37,6 @@ public final class LolStatusEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/status/v3/shard-data";
     Type type = ShardStatus.class;
-    return riotApi.getBasicAsync(url, region, type, Collections.emptyList());
+    return riotApi.getBasicNonRateLimitedAsync(url, region, type, Collections.emptyList());
   }
 }

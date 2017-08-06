@@ -582,8 +582,7 @@ public class ApiGen {
         new HashSet<>(Arrays.asList("Match.getMatchIdsByTournamentCode", "Match.getMatchByTournamentCode"));
 
     private static final HashSet<String> NON_RATE_LIMITED_ENDPOINTSS =
-        new HashSet<>();
-//        new HashSet<>(Arrays.asList("LolStatus", "StaticData")); //TODO
+        new HashSet<>(Arrays.asList("LolStatus", "StaticData")); //TODO
 
     /** Ignored parameters (temp for v3 transition). */
     private static final Set<String> PARAM_IGNORED = new HashSet<>(Arrays.asList(
