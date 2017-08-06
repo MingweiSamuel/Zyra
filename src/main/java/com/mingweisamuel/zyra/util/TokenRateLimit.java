@@ -101,9 +101,6 @@ public class TokenRateLimit implements RateLimit {
             }
             this.buckets = buckets;
             bucketsUpdated = true;
-
-            //TODO remove
-            System.out.println(rateLimitType.typeName + " rate limit detected: " + limitHeader + " : " + countHeader);
         }
     }
 
