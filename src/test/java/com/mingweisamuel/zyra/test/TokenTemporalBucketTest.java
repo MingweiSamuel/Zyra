@@ -1,6 +1,7 @@
 package com.mingweisamuel.zyra.test;
 
 import com.mingweisamuel.zyra.util.TokenTemporalBucket;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class TokenTemporalBucketTest {
         }
     }
 
+    @Ignore("Performance-dependant")
     @Test(timeout = 60_000)
     public void maxFast() throws InterruptedException {
         testMaxFast(1000, 1500, 20, 0.5f);
@@ -118,8 +120,8 @@ public class TokenTemporalBucketTest {
 
     /**
      * Test that multiple TemporalTokenBuckets can work together without locking.
-     * @throws InterruptedException
      */
+    @Ignore("Performance-dependant")
     @Test(timeout = 20_000)
     public void testMultipleMaxFast() throws InterruptedException {
 
