@@ -1,12 +1,10 @@
 package com.mingweisamuel.zyra.util;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.function.Supplier;
 
 /**
- * <p>This class represents a token bucket system. One instance represents one recurring bucket with a certain
- * limit of tokens per timespan.</p>
+ * {@inheritDoc}
  *
  * <p>A circular buffer keeps track of tokens. The value of each buffer index represents the number of requests
  * sent during that time period and as time passes, old indices are zeroed and the current index advances. The
@@ -30,7 +28,7 @@ import java.util.function.Supplier;
  * the state of the bucket may change if there are multiple threads, it is best to call these methods in a
  * synchronized block, as shown below.</p>
  * {@code
- *      TemporalTokenBucket bucket = ...;
+ *      TokenTemporalBucket bucket = ...;
  *      while (true) {
  *          long delay;
  *          synchronized (bucket) {
@@ -47,7 +45,7 @@ import java.util.function.Supplier;
  *      ...
  * }
  */
-public class TemporalTokenBucket {
+public class TokenTemporalBucket extends TemporalBucket {
 
     /** A time supplier. A simulated supplier can be used for debugging purposes. */
     private final Supplier<Long> timeSupplier;
@@ -74,7 +72,7 @@ public class TemporalTokenBucket {
      * @param temporalFactor Temporal multiplier corresponding to token time tracking.
      * @param spreadFactor Factor corresponding to token supply spread (from multiple indices).
      */
-    public TemporalTokenBucket(long timespan, int totalLimit, int temporalFactor, float spreadFactor) {
+    public TokenTemporalBucket(long timespan, int totalLimit, int temporalFactor, float spreadFactor) {
         this(timespan, totalLimit, temporalFactor, spreadFactor, System::currentTimeMillis);
     }
 
@@ -86,8 +84,8 @@ public class TemporalTokenBucket {
      * @param spreadFactor Factor corresponding to token supply spread (from multiple indices).
      * @param timeSupplier Supplies non-descending millisecond time, useful for debugging.
      */
-    public TemporalTokenBucket(long timespan, int totalLimit, int temporalFactor, float spreadFactor,
-        Supplier<Long> timeSupplier) {
+    public TokenTemporalBucket(long timespan, int totalLimit, int temporalFactor, float spreadFactor,
+                               Supplier<Long> timeSupplier) {
 
         this.timeSupplier = timeSupplier;
 
@@ -98,10 +96,7 @@ public class TemporalTokenBucket {
         this.buffer = new int[temporalFactor + 1];
     }
 
-    /**
-     * Get the approximate delay til the next available token, or -1 if a token is available.
-     * @return Approximate delay in milliseconds or -1.
-     */
+    @Override
     public synchronized long getDelay() {
         int index = update();
         if (total < totalLimit) {
@@ -119,14 +114,11 @@ public class TemporalTokenBucket {
         return getTimeToBucket(i);
     }
 
-    /**
-     * Gets a token, regardless of whether one is available.
-     * @return True if the token was obtained without violating limits, false otherwise.
-     */
-    public synchronized boolean getToken() {
+    @Override
+    public synchronized boolean getTokens(int n) {
         int index = update();
-        buffer[index]++;
-        total++;
+        buffer[index] += n;
+        total += n;
         return total <= totalLimit && buffer[index] <= indexLimit;
     }
 
@@ -190,52 +182,7 @@ public class TemporalTokenBucket {
         return (int) ((endTimestamp / indexTimespan - startTimestamp / indexTimespan));
     }
 
-    /**
-     * Attempts to get a token from every bucket.
-     * @param buckets Buckets to get tokens from.
-     * @return -1 if tokens were obtained, otherwise the approximate delay until tokens will be available.
-     */
-    public static long getAllTokensOrDelay(TemporalTokenBucket... buckets) {
-        // Always obtain locks in well-defined order to prevent deadlock. Sort by hash code.
-        Arrays.sort(buckets, Comparator.comparingLong(TemporalTokenBucket::hashCode));
-        int i = getAllInternal(buckets, 0);
-        if (i < 0) // Success
-            return -1;
-        // If there was delay, find the maximum or zero. This may be inaccurate due to buckets changing state
-        // but that is inevitable unless we block the locks, but its better to let other threads through.
-        long delay = 0;
-        for (; i < buckets.length; i++) {
-            long newDelay = buckets[i].getDelay();
-            if (newDelay > delay)
-                delay = newDelay;
-        }
-        return delay;
-    }
-    /**
-     * Attempts to get a token from every bucket.
-     * @param buckets Buckets to check.
-     * @param i Index of current bucket (for recursion).
-     * @return -1 if all tokens were obtained or the index of the first limiting bucket.
-     */
-    private static int getAllInternal(TemporalTokenBucket[] buckets, int i) {
-        // Base case: No more buckets.
-        if (i >= buckets.length)
-            return -1;
-        // Synchronize on the current bucket.
-        synchronized (buckets[i]) {
-            long delay = buckets[i].getDelay();
-            if (delay >= 0) // This bucket has delay, exit synchronization immediately.
-                return i;
-            // A token is available for the current bucket.
-            int index = getAllInternal(buckets, i + 1);
-            if (index >= 0) // A later bucket has delay, exit synchronization immediately.
-                return index;
-            // Success.
-            buckets[i].getToken();
-            return -1;
-        }
-    }
-
+    /** Returns the default hashCode() which is the memory address. Enforce address-based sorting. */
     @Override
     public final int hashCode() {
         return super.hashCode();

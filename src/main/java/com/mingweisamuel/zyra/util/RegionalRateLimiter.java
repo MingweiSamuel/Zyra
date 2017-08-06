@@ -1,13 +1,13 @@
 package com.mingweisamuel.zyra.util;
 
-import com.google.common.collect.ObjectArrays;
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import org.asynchttpclient.AsyncHttpClient;
-import org.asynchttpclient.Param;
+import com.mingweisamuel.zyra.ResponseListener;
 import org.asynchttpclient.Response;
 
-import java.util.List;
-import java.util.concurrent.*;
+import java.util.Arrays;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 /**
@@ -16,73 +16,116 @@ import java.util.function.Supplier;
 public class RegionalRateLimiter {
 
     /** Represents the app rate limit. */
-    private final ResponsiveRateLimit applicationRateLimit = new ResponsiveRateLimit(
-        ResponsiveRateLimit.RateLimitType.APPLICATION);
+    private final TokenRateLimit applicationRateLimit = new TokenRateLimit(
+        TokenRateLimit.RateLimitType.APPLICATION);
     /** Represents method rate limits. */
-    private final ConcurrentMap<String, ResponsiveRateLimit> methodRateLimits = new ConcurrentHashMap<>();
+    private final ConcurrentMap<String, TokenRateLimit> methodRateLimits = new ConcurrentHashMap<>();
 
-    /** A scheduler used to wait for async delays. */
-    private static final Lazy<ScheduledExecutorService> executor = new Lazy<>(
-        () -> new ScheduledThreadPoolExecutor(2, new ThreadFactoryBuilder().setDaemon(true).build()));
+    /** Max number of times to retry. */
+    private final int maxRetries;
+    /** Listens to HTTP responses. Can be null. */
+    private final ResponseListener responseListener;
+
+    public RegionalRateLimiter(int maxRetries, ResponseListener responseListener) {
+        this.maxRetries = maxRetries;
+        this.responseListener = responseListener;
+    }
 
     //TODO RETRIES
-    public CompletableFuture<Response> getNonAppRateLimited(final String methodId,
+    public CompletableFuture<Response> getMethodRateLimited(final String methodId,
         final Supplier<CompletableFuture<Response>> supplier) {
 
-        final CompletableFuture<Response> result = new CompletableFuture<>();
+        final TokenRateLimit methodRateLimit = getMethodRateLimit(methodId);
 
-        Runnable waiter = new Runnable() {
-            @Override
-            public void run() {
-                final ResponsiveRateLimit methodRateLimit = getMethodRateLimit(methodId);
-                TemporalTokenBucket[] allBuckets = methodRateLimit.getBuckets();
-
-                long delay;
-                if ((delay = TemporalTokenBucket.getAllTokensOrDelay(allBuckets)) < 0) { // Success.
-                    supplier.get().thenApply(methodRateLimit::onResponse)
-                        .thenApply(result::complete).exceptionally(result::completeExceptionally);
-                    return;
-                }
-                executor.get().schedule(this, delay, TimeUnit.MILLISECONDS);
-            }
-        };
-        waiter.run();
-
-        return result;
+        RateLimitRetrierRunnable runnable = new RateLimitRetrierRunnable(supplier, methodRateLimit);
+        runnable.run();
+        return runnable.completion;
     }
 
-    public CompletableFuture<Response> getAppRateLimited(final String methodId,
+    public CompletableFuture<Response> getRateLimited(final String methodId,
         final Supplier<CompletableFuture<Response>> supplier) {
 
-        final CompletableFuture<Response> result = new CompletableFuture<>();
+        final TokenRateLimit methodRateLimit = getMethodRateLimit(methodId);
 
-        Runnable waiter = new Runnable() {
-            @Override
-            public void run() {
-                TemporalTokenBucket[] appBuckets = applicationRateLimit.getBuckets();
-                final ResponsiveRateLimit methodRateLimit = getMethodRateLimit(methodId);
-                TemporalTokenBucket[] methodBuckets = methodRateLimit.getBuckets();
-
-                TemporalTokenBucket[] allBuckets = ObjectArrays.concat(
-                    appBuckets, methodBuckets, TemporalTokenBucket.class);
-
-                long delay;
-                if ((delay = TemporalTokenBucket.getAllTokensOrDelay(allBuckets)) < 0) { // Success.
-                    supplier.get().thenApply(applicationRateLimit::onResponse)
-                        .thenApply(methodRateLimit::onResponse)
-                        .thenApply(result::complete).exceptionally(result::completeExceptionally);
-                    return;
-                }
-                executor.get().schedule(this, delay, TimeUnit.MILLISECONDS);
-            }
-        };
-        waiter.run();
-
-        return result;
+        RateLimitRetrierRunnable runnable = new RateLimitRetrierRunnable(supplier, applicationRateLimit, methodRateLimit);
+        runnable.run();
+        return runnable.completion;
     }
 
-    private ResponsiveRateLimit getMethodRateLimit(String methodId) {
-        return methodRateLimits.computeIfAbsent(methodId, id -> new ResponsiveRateLimit(
-            ResponsiveRateLimit.RateLimitType.METHOD));
+    private TokenRateLimit getMethodRateLimit(String methodId) {
+        return methodRateLimits.computeIfAbsent(methodId, id -> new TokenRateLimit(
+            TokenRateLimit.RateLimitType.METHOD));
+    }
+
+    /**
+     * HTTP status codes that are considered a "success" in the sense that we did not violate limits
+     * and the Riot API did its job without failing. The 20x will be deserialized, wile the 404 and 422
+     * will return null.
+     *
+     * HTTP status codes that are retry-able: 400 (sometimes returned, ?), 429 (with valid retry headers), and
+     * all 5xx responses.
+     *
+     * Other responses will throw a {@link RiotResponseException}.
+     */
+    private static final int[] RESPONSE_STATUS_SUCCESS = { 200, 204, 404, 422 };
+
+    /**
+     * A runnable to wait for rate limits before sending requests and getting responses.
+     */
+    private class RateLimitRetrierRunnable implements Runnable {
+
+        /** Supplies response asynchronously. */
+        private final Supplier<CompletableFuture<Response>> supplier;
+        /** Rate limits to obey. */
+        private final RateLimit[] rateLimits;
+
+        /** The number of retries. (The first try is 0 retries). */
+        private volatile int retries = 0;
+
+        /** Future the response is passed to. */
+        final CompletableFuture<Response> completion = new CompletableFuture<>();
+
+        RateLimitRetrierRunnable(Supplier<CompletableFuture<Response>> supplier, RateLimit... rateLimits) {
+            this.supplier = supplier;
+            this.rateLimits = rateLimits;
+        }
+
+        @Override
+        public void run() {
+            long delay;
+            if ((delay = RateLimit.getOrDelay(rateLimits)) < 0) { // Success.
+                supplier.get()
+                    .thenAccept(r -> {
+                        int status = r.getStatusCode();
+                        boolean success = 0 <= Arrays.binarySearch(RESPONSE_STATUS_SUCCESS, status);
+                        if (responseListener != null)
+                            responseListener.onResponse(success, r);
+
+                        for (RateLimit rateLimit : rateLimits)
+                            // If there is a 429 with invalid headers, the rate limiter will throw a RiotResponseException.
+                            rateLimit.onResponse(r);
+
+                        if (success) { // Success.
+                            completion.complete(r);
+                            return;
+                        }
+                        if (retries >= maxRetries ||
+                                // Ignore if status can be retried. 400 is iffy.
+                                (/*status != 400 &&*/ status != 429 && status < 500)) {
+
+                            throw new RiotResponseException(String.format("Request failed after %d retries (%d).",
+                                retries, r.getStatusCode()), r);
+                        }
+                        // Retry.
+                        retries++; // Should be fine to not be synchronized, only one thread in this section.
+                        RateLimitedRequester2.executor.get().schedule(this, delay, TimeUnit.MILLISECONDS);
+                    }).exceptionally(e -> {
+                        completion.completeExceptionally(e);
+                        return null;
+                    });
+                return;
+            }
+            RateLimitedRequester2.executor.get().schedule(this, delay, TimeUnit.MILLISECONDS);
+        }
     }
 }
