@@ -15,7 +15,7 @@ requests seamlessly. Zyra does not support the tournament APIs.
 ## Features
 
 * Fast, multi-threaded
-* Automatically retries failed requests
+* Automatically retry failed requests
 * Asynchronous chaining with CompletableFuture
 * Highly-configurable
 

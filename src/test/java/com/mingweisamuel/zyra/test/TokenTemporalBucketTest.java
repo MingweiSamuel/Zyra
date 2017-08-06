@@ -1,6 +1,6 @@
 package com.mingweisamuel.zyra.test;
 
-import com.mingweisamuel.zyra.util.TemporalTokenBucket;
+import com.mingweisamuel.zyra.util.TokenTemporalBucket;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-public class TemporalTokenBucketTest {
+public class TokenTemporalBucketTest {
 
     private class FastTimeSupplier implements Supplier<Long> {
         private final double speed;
@@ -77,8 +77,8 @@ public class TemporalTokenBucketTest {
 
     private void testMaxFast(long timespan, int limit, int factor, float spread) throws InterruptedException {
 
-        final FastTimeSupplier timeSupplier = new FastTimeSupplier(5);
-        final TemporalTokenBucket bucket = new TemporalTokenBucket(timespan, limit, factor, spread, timeSupplier);
+        final FastTimeSupplier timeSupplier = new FastTimeSupplier(3);
+        final TokenTemporalBucket bucket = new TokenTemporalBucket(timespan, limit, factor, spread, timeSupplier);
 
         int count = (int) (15_000 * limit / timespan);
         List<Long> times = new ArrayList<>(count);
@@ -98,7 +98,7 @@ public class TemporalTokenBucketTest {
     private void testMaxSimulated(long timespan, int limit, int factor, float spread) throws InterruptedException {
 
         final DebuggingTimeSupplier timeSupplier = new DebuggingTimeSupplier();
-        final TemporalTokenBucket bucket = new TemporalTokenBucket(timespan, limit, factor, spread, timeSupplier);
+        final TokenTemporalBucket bucket = new TokenTemporalBucket(timespan, limit, factor, spread, timeSupplier);
 
         int count = (int) (30_000 * limit / timespan);
         List<Long> times = new ArrayList<>(count);
@@ -123,12 +123,12 @@ public class TemporalTokenBucketTest {
     @Test(timeout = 20_000)
     public void testMultipleMaxFast() throws InterruptedException {
 
-        final FastTimeSupplier timeSupplier = new FastTimeSupplier(5);
+        final FastTimeSupplier timeSupplier = new FastTimeSupplier(3);
 
-        final TemporalTokenBucket bucket0 = new TemporalTokenBucket(1000, 100, 20, 0.5f, timeSupplier);
-        final TemporalTokenBucket bucket1 = new TemporalTokenBucket( 800, 300, 20, 0.5f, timeSupplier);
-        final TemporalTokenBucket bucket2 = new TemporalTokenBucket( 600, 100, 20, 0.5f, timeSupplier);
-        final TemporalTokenBucket[] buckets = { bucket0, bucket1, bucket2 };
+        final TokenTemporalBucket bucket0 = new TokenTemporalBucket(1000, 100, 20, 0.5f, timeSupplier);
+        final TokenTemporalBucket bucket1 = new TokenTemporalBucket( 800, 300, 20, 0.5f, timeSupplier);
+        final TokenTemporalBucket bucket2 = new TokenTemporalBucket( 600, 100, 20, 0.5f, timeSupplier);
+        final TokenTemporalBucket[] buckets = { bucket0, bucket1, bucket2 };
 
         final ConcurrentLinkedQueue<Long> times0 = new ConcurrentLinkedQueue<>();
         final ConcurrentLinkedQueue<Long> times1 = new ConcurrentLinkedQueue<>();
@@ -152,7 +152,7 @@ public class TemporalTokenBucketTest {
             public synchronized Void call() throws Exception {
                 long delay = 0;
                 while (counts[i] < maxes[i] &&
-                    (delay = TemporalTokenBucket.getAllTokensOrDelay(buckets[i1], buckets[i2])) < 0) {
+                    (delay = TokenTemporalBucket.getAllTokensOrDelay(buckets[i1], buckets[i2])) < 0) {
 
                     long time = timeSupplier.get();
                     times[i1].add(time);
