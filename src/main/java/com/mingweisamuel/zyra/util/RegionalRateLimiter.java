@@ -31,7 +31,6 @@ public class RegionalRateLimiter {
         this.responseListener = responseListener;
     }
 
-    //TODO RETRIES
     public CompletableFuture<Response> getMethodRateLimited(final String methodId,
         final Supplier<CompletableFuture<Response>> supplier) {
 
@@ -118,14 +117,14 @@ public class RegionalRateLimiter {
                         }
                         // Retry.
                         retries++; // Should be fine to not be synchronized, only one thread in this section.
-                        RateLimitedRequester2.executor.get().schedule(this, delay, TimeUnit.MILLISECONDS);
+                        RateLimitedRequester.executor.get().schedule(this, delay, TimeUnit.MILLISECONDS);
                     }).exceptionally(e -> {
                         completion.completeExceptionally(e);
                         return null;
                     });
                 return;
             }
-            RateLimitedRequester2.executor.get().schedule(this, delay, TimeUnit.MILLISECONDS);
+            RateLimitedRequester.executor.get().schedule(this, delay, TimeUnit.MILLISECONDS);
         }
     }
 }
