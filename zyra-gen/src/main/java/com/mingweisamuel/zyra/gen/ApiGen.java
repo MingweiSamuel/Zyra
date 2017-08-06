@@ -173,8 +173,10 @@ public class ApiGen {
 
         private final Element endpoint;
         private final String methodName;
+        private final String methodId;
         private final String requestUrl;
         private final String url;
+        private final String description;
         private final boolean nonRateLimited;
 
         private TypeName returnType = null;
@@ -187,16 +189,21 @@ public class ApiGen {
         public EndpointGen(Element endpoint) {
             this.endpoint = endpoint;
             this.methodName = endpoint.id().substring(1);
+            this.methodId = endpoint.child(1).id();
             this.requestUrl = endpoint.child(0).child(1).child(0).ownText();
             this.nonRateLimited = NON_RATE_LIMITED_ENDPOINTSS.contains(endpointsNormalizedName);
 
-            url = "https://developer.riotgames.com/api-methods/" +
-                endpoint.child(0).child(0).child(0).attr("href");
+            Element header = endpoint.child(0).child(2).child(0).child(0);
+            this.url = "https://developer.riotgames.com/api-methods/" +
+                header.attr("href");
+            this.description = header.ownText();
+            if (!description.isEmpty())
+                docstringBuilder.append(description).append("\n\n");
             docstringBuilder.append(String.format("<a href=\"%s\">%s</a><br>\n", url, "Link to Portal"));
         }
 
         public List<MethodSpec> compile() {
-            System.out.printf("    %s (%s)%n", methodName, url);
+            System.out.printf("    %s: %s (%s)%n", methodName, description, url);
 
             Elements apiBlocks = endpoint.getElementsByClass("api_block");
             apiBlocks.forEach(this::processApiBlock);
@@ -277,19 +284,19 @@ public class ApiGen {
                     methodBuilderAsync.addCode("$T type = $L;\n", Type.class, this.getGsonTypeCode());
                     String optParamsStr = buildOptionalParams();
                     if (optParamsStr.isEmpty()) {
-                        methodBuilderSync.addCode("return riotApi.getBasic$L(url, region, type, $T.emptyList());\n",
-                            nonRateLimited ? "NonRateLimited" : "", Collections.class);
+                        methodBuilderSync.addCode("return riotApi.getBasic$L($S, url, region, type, $T.emptyList());\n",
+                            nonRateLimited ? "NonRateLimited" : "", methodId, Collections.class);
                         methodBuilderAsync.addCode(
-                            "return riotApi.getBasic$LAsync(url, region, type, $T.emptyList());\n",
-                            nonRateLimited ? "NonRateLimited" : "", Collections.class);
+                            "return riotApi.getBasic$LAsync($S, url, region, type, $T.emptyList());\n",
+                            nonRateLimited ? "NonRateLimited" : "", methodId, Collections.class);
                     }
                     else {
                         methodBuilderSync.addCode(
-                            "return riotApi.getBasic$L(url, region, type, riotApi.makeParams($L));\n",
-                            nonRateLimited ? "NonRateLimited" : "", optParamsStr);
+                            "return riotApi.getBasic$L($S, url, region, type, riotApi.makeParams($L));\n",
+                            nonRateLimited ? "NonRateLimited" : "", methodId, optParamsStr);
                         methodBuilderAsync.addCode(
-                            "return riotApi.getBasic$LAsync(url, region, type, riotApi.makeParams($L));\n",
-                            nonRateLimited ? "NonRateLimited" : "", optParamsStr);
+                            "return riotApi.getBasic$LAsync($S, url, region, type, riotApi.makeParams($L));\n",
+                            nonRateLimited ? "NonRateLimited" : "", methodId, optParamsStr);
                     }
                 }
                 else {

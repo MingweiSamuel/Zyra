@@ -35,6 +35,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves champion list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -49,10 +51,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/champions";
     Type type = ChampionList.class;
-    return riotApi.getBasic(url, region, type, riotApi.makeParams("tags", tags, "dataById", dataById, "locale", locale, "version", version));
+    return riotApi.getBasic("lol-static-data-v3_GET_getChampionList_content", url, region, type, riotApi.makeParams("tags", tags, "dataById", dataById, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves champion list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -67,10 +71,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/champions";
     Type type = ChampionList.class;
-    return riotApi.getBasicAsync(url, region, type, riotApi.makeParams("tags", tags, "dataById", dataById, "locale", locale, "version", version));
+    return riotApi.getBasicAsync("lol-static-data-v3_GET_getChampionList_content", url, region, type, riotApi.makeParams("tags", tags, "dataById", dataById, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves champion list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -86,6 +92,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves champion list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -101,6 +109,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves champion list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -115,6 +125,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves champion list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -129,6 +141,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves champion list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -141,6 +155,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves champion list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -154,6 +170,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves champion list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -165,6 +183,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves champion list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -176,6 +196,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves champion by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -190,10 +212,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/champions/%1$s", id);
     Type type = Champion.class;
-    return riotApi.getBasic(url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+    return riotApi.getBasic("lol-static-data-v3_GET_getChampionById_content", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves champion by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -208,10 +232,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/champions/%1$s", id);
     Type type = Champion.class;
-    return riotApi.getBasicAsync(url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+    return riotApi.getBasicAsync("lol-static-data-v3_GET_getChampionById_content", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves champion by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -227,6 +253,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves champion by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -242,6 +270,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves champion by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -255,6 +285,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves champion by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -269,6 +301,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves champion by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -281,6 +315,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves champion by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -293,6 +329,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves item list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -306,10 +344,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/items";
     Type type = ItemList.class;
-    return riotApi.getBasic(url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+    return riotApi.getBasic("lol-static-data-v3_GET_getItemList_content", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves item list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -323,10 +363,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/items";
     Type type = ItemList.class;
-    return riotApi.getBasicAsync(url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+    return riotApi.getBasicAsync("lol-static-data-v3_GET_getItemList_content", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves item list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -340,6 +382,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves item list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -354,6 +398,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves item list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -366,6 +412,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves item list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -379,6 +427,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves item list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -390,6 +440,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves item list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -401,6 +453,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves item by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -415,10 +469,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/items/%1$s", id);
     Type type = Item.class;
-    return riotApi.getBasic(url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+    return riotApi.getBasic("lol-static-data-v3_GET_getItemById_content", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves item by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -433,10 +489,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/items/%1$s", id);
     Type type = Item.class;
-    return riotApi.getBasicAsync(url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+    return riotApi.getBasicAsync("lol-static-data-v3_GET_getItemById_content", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves item by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -452,6 +510,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves item by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -467,6 +527,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves item by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -480,6 +542,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves item by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -494,6 +558,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves item by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -506,6 +572,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves item by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -518,6 +586,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieve language strings data
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Language strings data was not generated for patch version 7.4.2.
@@ -530,10 +600,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/language-strings";
     Type type = LanguageStrings.class;
-    return riotApi.getBasic(url, region, type, riotApi.makeParams("locale", locale, "version", version));
+    return riotApi.getBasic("lol-static-data-v3_GET_getLanguageStrings_content", url, region, type, riotApi.makeParams("locale", locale, "version", version));
   }
 
   /**
+   * Retrieve language strings data
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Language strings data was not generated for patch version 7.4.2.
@@ -546,10 +618,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/language-strings";
     Type type = LanguageStrings.class;
-    return riotApi.getBasicAsync(url, region, type, riotApi.makeParams("locale", locale, "version", version));
+    return riotApi.getBasicAsync("lol-static-data-v3_GET_getLanguageStrings_content", url, region, type, riotApi.makeParams("locale", locale, "version", version));
   }
 
   /**
+   * Retrieve language strings data
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Language strings data was not generated for patch version 7.4.2.
@@ -562,6 +636,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieve language strings data
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Language strings data was not generated for patch version 7.4.2.
@@ -575,6 +651,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieve language strings data
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Language strings data was not generated for patch version 7.4.2.
@@ -586,6 +664,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieve language strings data
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Language strings data was not generated for patch version 7.4.2.
@@ -597,6 +677,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieve supported languages data
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguages">Link to Portal</a><br>
    * @param region Region to execute against.
    */
@@ -605,10 +687,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     String url = "/lol/static-data/v3/languages";
     Type type = new TypeToken<List<String>>() {
     }.getType();
-    return riotApi.getBasic(url, region, type, Collections.emptyList());
+    return riotApi.getBasic("lol-static-data-v3_GET_getLanguages_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Retrieve supported languages data
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguages">Link to Portal</a><br>
    * @param region Region to execute against.
    */
@@ -617,10 +701,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     String url = "/lol/static-data/v3/languages";
     Type type = new TypeToken<List<String>>() {
     }.getType();
-    return riotApi.getBasicAsync(url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("lol-static-data-v3_GET_getLanguages_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Retrieve map data
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Link to Portal</a><br>
    * Implementation Notes:<br>
    * This endpoint is only supported for patch version 5.5.3 and later. Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
@@ -632,10 +718,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/maps";
     Type type = MapData.class;
-    return riotApi.getBasic(url, region, type, riotApi.makeParams("locale", locale, "version", version));
+    return riotApi.getBasic("lol-static-data-v3_GET_getMapData_content", url, region, type, riotApi.makeParams("locale", locale, "version", version));
   }
 
   /**
+   * Retrieve map data
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Link to Portal</a><br>
    * Implementation Notes:<br>
    * This endpoint is only supported for patch version 5.5.3 and later. Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
@@ -648,10 +736,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/maps";
     Type type = MapData.class;
-    return riotApi.getBasicAsync(url, region, type, riotApi.makeParams("locale", locale, "version", version));
+    return riotApi.getBasicAsync("lol-static-data-v3_GET_getMapData_content", url, region, type, riotApi.makeParams("locale", locale, "version", version));
   }
 
   /**
+   * Retrieve map data
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Link to Portal</a><br>
    * Implementation Notes:<br>
    * This endpoint is only supported for patch version 5.5.3 and later. Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
@@ -664,6 +754,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieve map data
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Link to Portal</a><br>
    * Implementation Notes:<br>
    * This endpoint is only supported for patch version 5.5.3 and later. Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
@@ -676,6 +768,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieve map data
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Link to Portal</a><br>
    * Implementation Notes:<br>
    * This endpoint is only supported for patch version 5.5.3 and later. Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
@@ -687,6 +781,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieve map data
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Link to Portal</a><br>
    * Implementation Notes:<br>
    * This endpoint is only supported for patch version 5.5.3 and later. Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
@@ -698,6 +794,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves mastery list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -711,10 +809,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/masteries";
     Type type = MasteryList.class;
-    return riotApi.getBasic(url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+    return riotApi.getBasic("lol-static-data-v3_GET_getMasteryList_content", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves mastery list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -728,10 +828,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/masteries";
     Type type = MasteryList.class;
-    return riotApi.getBasicAsync(url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+    return riotApi.getBasicAsync("lol-static-data-v3_GET_getMasteryList_content", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves mastery list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -746,6 +848,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves mastery list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -760,6 +864,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves mastery list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -772,6 +878,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves mastery list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -785,6 +893,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves mastery list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -796,6 +906,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves mastery list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -807,6 +919,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves mastery item by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -821,10 +935,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/masteries/%1$s", id);
     Type type = Mastery.class;
-    return riotApi.getBasic(url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+    return riotApi.getBasic("lol-static-data-v3_GET_getMasteryById_content", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves mastery item by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -839,10 +955,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/masteries/%1$s", id);
     Type type = Mastery.class;
-    return riotApi.getBasicAsync(url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+    return riotApi.getBasicAsync("lol-static-data-v3_GET_getMasteryById_content", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves mastery item by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -858,6 +976,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves mastery item by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -873,6 +993,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves mastery item by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -886,6 +1008,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves mastery item by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -900,6 +1024,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves mastery item by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -912,6 +1038,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves mastery item by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -924,6 +1052,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieve profile icons
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
@@ -934,10 +1064,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/profile-icons";
     Type type = ProfileIconData.class;
-    return riotApi.getBasic(url, region, type, riotApi.makeParams("locale", locale, "version", version));
+    return riotApi.getBasic("lol-static-data-v3_GET_getProfileIcons_content", url, region, type, riotApi.makeParams("locale", locale, "version", version));
   }
 
   /**
+   * Retrieve profile icons
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
@@ -948,10 +1080,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/profile-icons";
     Type type = ProfileIconData.class;
-    return riotApi.getBasicAsync(url, region, type, riotApi.makeParams("locale", locale, "version", version));
+    return riotApi.getBasicAsync("lol-static-data-v3_GET_getProfileIcons_content", url, region, type, riotApi.makeParams("locale", locale, "version", version));
   }
 
   /**
+   * Retrieve profile icons
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
@@ -962,6 +1096,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieve profile icons
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
@@ -973,6 +1109,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieve profile icons
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
    * @param region Region to execute against.
    */
@@ -982,6 +1120,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieve profile icons
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
    * @param region Region to execute against.
    */
@@ -991,6 +1131,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieve realm data
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRealm">Link to Portal</a><br>
    * @param region Region to execute against.
    */
@@ -998,10 +1140,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/realms";
     Type type = Realm.class;
-    return riotApi.getBasic(url, region, type, Collections.emptyList());
+    return riotApi.getBasic("lol-static-data-v3_GET_getRealm_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Retrieve realm data
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRealm">Link to Portal</a><br>
    * @param region Region to execute against.
    */
@@ -1009,10 +1153,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/realms";
     Type type = Realm.class;
-    return riotApi.getBasicAsync(url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("lol-static-data-v3_GET_getRealm_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Retrieves rune list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1026,10 +1172,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/runes";
     Type type = RuneList.class;
-    return riotApi.getBasic(url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+    return riotApi.getBasic("lol-static-data-v3_GET_getRuneList_content", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves rune list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1043,10 +1191,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/runes";
     Type type = RuneList.class;
-    return riotApi.getBasicAsync(url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+    return riotApi.getBasicAsync("lol-static-data-v3_GET_getRuneList_content", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves rune list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1060,6 +1210,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves rune list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1074,6 +1226,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves rune list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1086,6 +1240,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves rune list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1099,6 +1255,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves rune list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1110,6 +1268,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves rune list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1121,6 +1281,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves rune by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1135,10 +1297,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/runes/%1$s", id);
     Type type = Rune.class;
-    return riotApi.getBasic(url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+    return riotApi.getBasic("lol-static-data-v3_GET_getRuneById_content", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves rune by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1153,10 +1317,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/runes/%1$s", id);
     Type type = Rune.class;
-    return riotApi.getBasicAsync(url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+    return riotApi.getBasicAsync("lol-static-data-v3_GET_getRuneById_content", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves rune by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1172,6 +1338,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves rune by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1187,6 +1355,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves rune by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1200,6 +1370,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves rune by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1214,6 +1386,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves rune by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1226,6 +1400,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves rune by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1238,6 +1414,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves summoner spell list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1252,10 +1430,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/summoner-spells";
     Type type = SummonerSpellList.class;
-    return riotApi.getBasic(url, region, type, riotApi.makeParams("tags", tags, "dataById", dataById, "locale", locale, "version", version));
+    return riotApi.getBasic("lol-static-data-v3_GET_getSummonerSpellList_content", url, region, type, riotApi.makeParams("tags", tags, "dataById", dataById, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves summoner spell list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1270,10 +1450,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = "/lol/static-data/v3/summoner-spells";
     Type type = SummonerSpellList.class;
-    return riotApi.getBasicAsync(url, region, type, riotApi.makeParams("tags", tags, "dataById", dataById, "locale", locale, "version", version));
+    return riotApi.getBasicAsync("lol-static-data-v3_GET_getSummonerSpellList_content", url, region, type, riotApi.makeParams("tags", tags, "dataById", dataById, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves summoner spell list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1289,6 +1471,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves summoner spell list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1304,6 +1488,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves summoner spell list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1318,6 +1504,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves summoner spell list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1332,6 +1520,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves summoner spell list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1344,6 +1534,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves summoner spell list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1357,6 +1549,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves summoner spell list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1368,6 +1562,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves summoner spell list
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellList">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1379,6 +1575,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves summoner spell by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1393,10 +1591,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/summoner-spells/%1$s", id);
     Type type = SummonerSpell.class;
-    return riotApi.getBasic(url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+    return riotApi.getBasic("lol-static-data-v3_GET_getSummonerSpellById_content", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves summoner spell by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1411,10 +1611,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/static-data/v3/summoner-spells/%1$s", id);
     Type type = SummonerSpell.class;
-    return riotApi.getBasicAsync(url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+    return riotApi.getBasicAsync("lol-static-data-v3_GET_getSummonerSpellById_content", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 
   /**
+   * Retrieves summoner spell by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1430,6 +1632,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves summoner spell by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1445,6 +1649,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves summoner spell by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1459,6 +1665,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves summoner spell by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1473,6 +1681,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves summoner spell by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1485,6 +1695,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieves summoner spell by ID
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getSummonerSpellById">Link to Portal</a><br>
    * Implementation Notes:<br>
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -1498,6 +1710,8 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieve version data
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getVersions">Link to Portal</a><br>
    * @param region Region to execute against.
    */
@@ -1506,10 +1720,12 @@ public final class LolStaticDataEndpoints extends Endpoints {
     String url = "/lol/static-data/v3/versions";
     Type type = new TypeToken<List<String>>() {
     }.getType();
-    return riotApi.getBasic(url, region, type, Collections.emptyList());
+    return riotApi.getBasic("lol-static-data-v3_GET_getVersions_content", url, region, type, Collections.emptyList());
   }
 
   /**
+   * Retrieve version data
+   *
    * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getVersions">Link to Portal</a><br>
    * @param region Region to execute against.
    */
@@ -1518,6 +1734,6 @@ public final class LolStaticDataEndpoints extends Endpoints {
     String url = "/lol/static-data/v3/versions";
     Type type = new TypeToken<List<String>>() {
     }.getType();
-    return riotApi.getBasicAsync(url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("lol-static-data-v3_GET_getVersions_content", url, region, type, Collections.emptyList());
   }
 }

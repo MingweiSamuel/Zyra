@@ -309,22 +309,22 @@ public class RiotApi implements Closeable {
     }
 
     //region util
-    <T> T getBasic(String url, Region region, Type type, List<Param> params) {
-        return this.<T>getBasicAsync(url, region, type, params).join();
+    <T> T getBasic(String methodId, String url, Region region, Type type, List<Param> params) {
+        return this.<T>getBasicAsync(methodId, url, region, type, params).join();
     }
 
-    <T> CompletableFuture<T> getBasicAsync(String url, Region region, Type type, List<Param> params) {
-        return requester.get().getRequestRateLimitedAsync(url, region, params)
+    <T> CompletableFuture<T> getBasicAsync(String methodId, String url, Region region, Type type, List<Param> params) {
+        return requester.get().getRequestRateLimitedAsync(methodId, url, region, params)
                 .thenApply(r -> r.getStatusCode() != 200 ? null :
                         gson.fromJson(r.getResponseBody(), type));
     }
 
-    <T> T getBasicNonRateLimited(String url, Region region, Type type, List<Param> params) {
-        return this.<T>getBasicNonRateLimitedAsync(url, region, type, params).join();
+    <T> T getBasicNonRateLimited(String methodId, String url, Region region, Type type, List<Param> params) {
+        return this.<T>getBasicNonRateLimitedAsync(methodId, url, region, type, params).join();
     }
 
-    <T> CompletableFuture<T> getBasicNonRateLimitedAsync(String url, Region region, Type type, List<Param> params) {
-        return requester.get().getRequestNonRateLimitedAsync(url, region, params)
+    <T> CompletableFuture<T> getBasicNonRateLimitedAsync(String methodId, String url, Region region, Type type, List<Param> params) {
+        return requester.get().getRequestNonRateLimitedAsync(methodId, url, region, params)
                 .thenApply(r -> r.getStatusCode() != 200 ? null :
                         gson.fromJson(r.getResponseBody(), type));
     }
