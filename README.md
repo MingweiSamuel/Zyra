@@ -1,6 +1,6 @@
 # Zyra
 
-[![Travis](https://img.shields.io/travis/MingweiSamuel/Zyra.svg?style=flat-square)](https://travis-ci.org/MingweiSamuel/Zyra)
+[![Travis](https://img.shields.io/travis/MingweiSamuel/Zyra/develop.svg?style=flat-square)](https://travis-ci.org/MingweiSamuel/Zyra)
 [![Maven](https://img.shields.io/maven-central/v/com.mingweisamuel.zyra/zyra.svg?style=flat-square&label=maven)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.mingweisamuel.zyra%22%20AND%20a%3A%22zyra%22)
 [![Javadoc Stable](https://www.javadoc.io/badge/com.mingweisamuel.zyra/zyra.svg?style=flat-square)](https://www.javadoc.io/doc/com.mingweisamuel.zyra/zyra)
 
