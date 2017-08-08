@@ -36,7 +36,7 @@ public abstract class TemporalBucket {
      */
     public static long getAllTokensOrDelay(TemporalBucket... buckets) {
         // Always obtain locks in well-defined order to prevent deadlock. Sort by hash code.
-        Arrays.sort(buckets, Comparator.comparingLong(TemporalBucket::hashCode));
+        Arrays.sort(buckets, Comparator.comparingInt(TemporalBucket::hashCode));
         int i = getAllInternal(buckets, 0);
         if (i < 0) // Success
             return -1;
