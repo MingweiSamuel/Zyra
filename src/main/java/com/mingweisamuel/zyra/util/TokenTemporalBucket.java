@@ -27,6 +27,8 @@ import java.util.function.Supplier;
  * using the {@link #getToken()} method. Both these methods are synchronized on the bucket instance. Because
  * the state of the bucket may change if there are multiple threads, it is best to call these methods in a
  * synchronized block, as shown below.</p>
+ *
+ * <pre>
  * {@code
  *      TokenTemporalBucket bucket = ...;
  *      while (true) {
@@ -44,6 +46,7 @@ import java.util.function.Supplier;
  *      // Token is obtained.
  *      ...
  * }
+ * </pre>
  */
 public class TokenTemporalBucket extends TemporalBucket {
 
