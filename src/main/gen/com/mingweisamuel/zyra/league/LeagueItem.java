@@ -23,19 +23,19 @@ public class LeagueItem implements Serializable {
 
   public final int losses;
 
-  public final String playerOrTeamId;
+  public final boolean freshBlood;
 
   public final String playerOrTeamName;
 
   public final boolean inactive;
 
-  public final boolean freshBlood;
+  public final String playerOrTeamId;
 
   public final int leaguePoints;
 
   public LeagueItem(final String rank, final boolean hotStreak, final MiniSeries miniSeries,
-      final int wins, final boolean veteran, final int losses, final String playerOrTeamId,
-      final String playerOrTeamName, final boolean inactive, final boolean freshBlood,
+      final int wins, final boolean veteran, final int losses, final boolean freshBlood,
+      final String playerOrTeamName, final boolean inactive, final String playerOrTeamId,
       final int leaguePoints) {
     this.rank = rank;
     this.hotStreak = hotStreak;
@@ -43,10 +43,10 @@ public class LeagueItem implements Serializable {
     this.wins = wins;
     this.veteran = veteran;
     this.losses = losses;
-    this.playerOrTeamId = playerOrTeamId;
+    this.freshBlood = freshBlood;
     this.playerOrTeamName = playerOrTeamName;
     this.inactive = inactive;
-    this.freshBlood = freshBlood;
+    this.playerOrTeamId = playerOrTeamId;
     this.leaguePoints = leaguePoints;
   }
 
@@ -62,10 +62,10 @@ public class LeagueItem implements Serializable {
         && Objects.equal(wins, other.wins)
         && Objects.equal(veteran, other.veteran)
         && Objects.equal(losses, other.losses)
-        && Objects.equal(playerOrTeamId, other.playerOrTeamId)
+        && Objects.equal(freshBlood, other.freshBlood)
         && Objects.equal(playerOrTeamName, other.playerOrTeamName)
         && Objects.equal(inactive, other.inactive)
-        && Objects.equal(freshBlood, other.freshBlood)
+        && Objects.equal(playerOrTeamId, other.playerOrTeamId)
         && Objects.equal(leaguePoints, other.leaguePoints);}
 
   @Override
@@ -77,9 +77,9 @@ public class LeagueItem implements Serializable {
         wins,
         veteran,
         losses,
-        playerOrTeamId,
+        freshBlood,
         playerOrTeamName,
         inactive,
-        freshBlood,
+        playerOrTeamId,
         leaguePoints);}
 }
