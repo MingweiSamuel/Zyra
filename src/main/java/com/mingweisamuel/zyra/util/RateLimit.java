@@ -2,6 +2,8 @@ package com.mingweisamuel.zyra.util;
 
 import org.asynchttpclient.Response;
 
+import java.util.List;
+
 public interface RateLimit {
 
     /**
@@ -15,7 +17,7 @@ public interface RateLimit {
      * Get the rate limit's buckets.
      * @return Current buckets.
      */
-    TemporalBucket[] getBuckets();
+    List<TemporalBucket> getBuckets();
 
     /**
      * Callback for when a response returns.
@@ -43,15 +45,14 @@ public interface RateLimit {
 
         // Join all buckets into an array and use TemporalBucket.getAllTokensOrDelay().
         int i = 0;
-        for (RateLimit rateLimit : rateLimits) {
-            i += rateLimit.getBuckets().length;
-        }
+        for (RateLimit rateLimit : rateLimits)
+            i += rateLimit.getBuckets().size();
+
         TemporalBucket[] allBuckets = new TemporalBucket[i];
         i = 0;
         for (RateLimit rateLimit : rateLimits) {
-            TemporalBucket[] buckets = rateLimit.getBuckets();
-            System.arraycopy(buckets, 0, allBuckets, i, buckets.length);
-            i += buckets.length;
+            for (TemporalBucket bucket : rateLimit.getBuckets())
+                allBuckets[i++] = bucket;
         }
         return TemporalBucket.getAllTokensOrDelay(allBuckets);
     }

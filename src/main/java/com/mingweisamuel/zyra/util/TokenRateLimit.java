@@ -1,6 +1,11 @@
 package com.mingweisamuel.zyra.util;
 
+import com.google.common.collect.ImmutableList;
 import org.asynchttpclient.Response;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a App or Method rate limit (collection of buckets).
@@ -15,13 +20,13 @@ public class TokenRateLimit implements RateLimit {
 
     /** Thread must synchronize on this lock to change bucketsUpdated and buckets. */
     private final Object bucketsLock = new Object();
-    /** True after a response has been parsed for the real buckets and buckets has been updated. */
-    private volatile boolean bucketsUpdated = false;
+    /** True if buckets should not be automatically updated based on response headers. */
+    private volatile boolean disableAutoBuckets = false;
     /**
      * By default we allow 1 request per second which is actually 1 requests per two seconds due to the
      * temporal factor of 1. Once a response is successful, we update the buckets to match.
      */
-    private volatile TemporalBucket[] buckets = { new TokenTemporalBucket(1000, 1, 1, 0) };
+    private volatile ImmutableList<TemporalBucket> buckets = ImmutableList.of(new TokenTemporalBucket(1000, 1, 1, 0));
 
     /** Timestamp to retry after receiving a 429/Retry-After header. */
     private volatile long retryAfterTimestamp = 0;
@@ -33,8 +38,8 @@ public class TokenRateLimit implements RateLimit {
 
     public TokenRateLimit(RateLimitType type, int concurrentInstances, TemporalBucket[] buckets) {
         this(type, concurrentInstances);
-        this.buckets = buckets;
-        this.bucketsUpdated = true;
+        this.buckets = ImmutableList.copyOf(buckets);
+        this.disableAutoBuckets = true;
     }
 
     public TokenRateLimit(RateLimitType type, int concurrentInstances) {
@@ -51,7 +56,7 @@ public class TokenRateLimit implements RateLimit {
     }
 
     @Override
-    public TemporalBucket[] getBuckets() {
+    public List<TemporalBucket> getBuckets() {
         return buckets;
     }
 
@@ -74,43 +79,79 @@ public class TokenRateLimit implements RateLimit {
                 retryAfterTimestamp = System.currentTimeMillis() + Long.parseLong(retryAfterHeader) * 1000 + 500;
             }
         }
-        if (bucketsUpdated)
+        if (disableAutoBuckets)
+            return;
+
+        String limitHeader = response.getHeader(rateLimitType.limitHeader);
+        String countHeader = response.getHeader(rateLimitType.countHeader);
+        if (!bucketsRequireUpdating(limitHeader, countHeader))
             return;
         synchronized (bucketsLock) {
-            if (bucketsUpdated)
+            if (!bucketsRequireUpdating(limitHeader, countHeader))
                 return;
-            // Limits: "20000:10,1200000:600"
-            // Counts: "7:10,58:600"
-            String limitHeader = response.getHeader(rateLimitType.limitHeader);
-            String countHeader = response.getHeader(rateLimitType.countHeader);
-            if (limitHeader == null || countHeader == null)
-                return;
-            String[] limits = limitHeader.split(",");
-            String[] counts = countHeader.split(",");
-            if (limits.length != counts.length)
-                throw new RiotResponseException(
-                    "Headers did not match: " + limitHeader + " and " + countHeader, response);
 
-            TemporalBucket[] buckets = new TemporalBucket[counts.length];
-            for (int i = 0; i < buckets.length; i++) {
-                String limit = limits[i];
-                String count = counts[i];
-                int limitColon = limit.indexOf(':');
-                int countColon = count.indexOf(':');
-                int limitValue = Integer.parseInt(limit.substring(0, limitColon));
-                long limitSpan = Integer.parseInt(limit.substring(limitColon + 1)) * 1000;
-                int countValue = Integer.parseInt(count.substring(0, countColon));
-                long countSpan = Integer.parseInt(count.substring(countColon + 1)) * 1000;
-                if (limitSpan != countSpan)
-                    throw new RiotResponseException(
-                        "Headers did not match: " + limitHeader + " and " + countHeader, response);
-
-                buckets[i] = new TokenTemporalBucket(limitSpan, limitValue / concurrentInstances, 20, 0.5f);
-                buckets[i].getTokens(countValue / (concurrentInstances + 1)); // Account for previous requests.
+            try {
+                this.buckets = ImmutableList.copyOf(getBucketsFromHeaders(limitHeader, countHeader));
             }
-            this.buckets = buckets;
-            bucketsUpdated = true;
+            catch(IllegalStateException e) {
+                throw new RiotResponseException(e, response);
+            }
         }
+    }
+
+    /**
+     * Check if the buckets need updating based on a response and the current buckets.
+     * @param limitHeader
+     * @param countHeader
+     * @return True if needs update, false otherwise.
+     */
+    private boolean bucketsRequireUpdating(String limitHeader, String countHeader) {
+        if (limitHeader == null || countHeader == null)
+            return false;
+
+        String[] limitStrings = new String[buckets.size()];
+        for (int i = 0; i < buckets.size(); i++)
+            limitStrings[i] = buckets.get(i).toLimitString();
+        String currentLimit = String.join(",", limitStrings);
+
+        // Needs update if headers do not match.
+        return !limitHeader.equals(currentLimit);
+    }
+
+    /**
+     * Returns
+     * @param limitHeader
+     * @param countHeader
+     * @return
+     * @throws IllegalArgumentException If headers do not match.
+     */
+    private TemporalBucket[] getBucketsFromHeaders(String limitHeader, String countHeader) {
+        // Limits: "20000:10,1200000:600"
+        // Counts: "7:10,58:600"
+        String[] limits = limitHeader.split(",");
+        String[] counts = countHeader.split(",");
+        if (limits.length != counts.length)
+            throw new IllegalStateException(
+                "Headers did not match: " + limitHeader + " and " + countHeader);
+
+        TemporalBucket[] buckets = new TemporalBucket[counts.length];
+        for (int i = 0; i < buckets.length; i++) {
+            String limit = limits[i];
+            String count = counts[i];
+            int limitColon = limit.indexOf(':');
+            int countColon = count.indexOf(':');
+            int limitValue = Integer.parseInt(limit.substring(0, limitColon));
+            long limitSpan = Integer.parseInt(limit.substring(limitColon + 1)) * 1000;
+            int countValue = Integer.parseInt(count.substring(0, countColon));
+            long countSpan = Integer.parseInt(count.substring(countColon + 1)) * 1000;
+            if (limitSpan != countSpan)
+                throw new IllegalStateException(
+                    "Headers did not match: " + limitHeader + " and " + countHeader);
+
+            buckets[i] = new TokenTemporalBucket(limitSpan, limitValue / concurrentInstances, 20, 0.5f);
+            buckets[i].getTokens(countValue / concurrentInstances); // Account for previous requests.
+        }
+        return buckets;
     }
 
     /** Type of rate limit to know what headers to check. */

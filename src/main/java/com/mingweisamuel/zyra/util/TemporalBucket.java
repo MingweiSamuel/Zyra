@@ -8,6 +8,7 @@ import java.util.Comparator;
  * limit of tokens per timespan.</p>
  */
 public abstract class TemporalBucket {
+
     /**
      * Get the approximate delay til the next available token, or -1 if a token is available.
      * @return Approximate delay in milliseconds or -1.
@@ -27,6 +28,36 @@ public abstract class TemporalBucket {
      * @return True if the tokens were obtained without violating limits, false otherwise.
      */
     public abstract boolean getTokens(int n);
+
+    /**
+     * Get the timespan of this bucket in milliseconds.
+     * @return Timespan of the bucket.
+     */
+    public abstract long getTimespan();
+
+    /**
+     * Get the total limit of this bucket per timespan.
+     * @return Total limit per timespan.
+     */
+    public abstract int getTotalLimit();
+
+    /**
+     * Checks if this TemporalBucket is equivalent to another TemporalBucket. Buckets are equivalent if they have
+     * the same timespan and totalLimit.
+     * @param other
+     * @return
+     */
+    public boolean isEquivalent(TemporalBucket other) {
+        return getTimespan() == other.getTimespan() && getTotalLimit() == other.getTotalLimit();
+    }
+
+    /**
+     * Get a string segment formatted as it would appear in a limit header.
+     * @return Limit string.
+     */
+    public String toLimitString() {
+        return getTotalLimit() + ":" + (getTimespan() / 1000);
+    }
 
     /**
      * Attempts to get a token from every bucket, or no tokens at all. Will synchronize on each instance

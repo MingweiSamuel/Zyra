@@ -53,6 +53,8 @@ public class TokenTemporalBucket extends TemporalBucket {
     /** A time supplier. A simulated supplier can be used for debugging purposes. */
     private final Supplier<Long> timeSupplier;
 
+    /** The timespan of this bucket. */
+    private final long timespan;
     /** The maximum number of tokens that can be supplied per timespan. */
     private final int totalLimit;
     /** The maximum number of tokens a single index can supply per timespan. */
@@ -92,6 +94,7 @@ public class TokenTemporalBucket extends TemporalBucket {
 
         this.timeSupplier = timeSupplier;
 
+        this.timespan = timespan;
         this.totalLimit = totalLimit;
         this.indexLimit = (int) (totalLimit / spreadFactor / temporalFactor);
         this.indexTimespan = (long) Math.ceil(timespan / (double) temporalFactor);
@@ -123,6 +126,16 @@ public class TokenTemporalBucket extends TemporalBucket {
         buffer[index] += n;
         total += n;
         return total <= totalLimit && buffer[index] <= indexLimit;
+    }
+
+    @Override
+    public long getTimespan() {
+        return timespan;
+    }
+
+    @Override
+    public int getTotalLimit() {
+        return totalLimit;
     }
 
     /**
