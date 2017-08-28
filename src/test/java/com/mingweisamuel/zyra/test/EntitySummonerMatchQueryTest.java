@@ -25,9 +25,10 @@ public class EntitySummonerMatchQueryTest extends EntityTest {
         assertTrue(sneaky.isMatchQueryDirty());
         assertTrue(sneaky.setMatchQueryChampions(Collections.singletonList(ChampionId.KALISTA)));
         assertTrue(sneaky.setMatchQueryTimeRange(123L, 456L));
-        assertTrue(sneaky.setMatchQueryTimeRange(null, 1484292409447L));
+        assertTrue(sneaky.setMatchQueryTimeRange(
+            ApiMatchListTest.queryTime - ApiMatchListTest.MILLIS_PER_WEEK, ApiMatchListTest.queryTime));
         assertTrue(sneaky.setMatchQueryQueues(Collections.singletonList(420)));
-        assertTrue(sneaky.setMatchQuerySeasons(Collections.singletonList(8)));
+        assertTrue(sneaky.setMatchQuerySeasons(Collections.singletonList(9)));
         assertTrue(sneaky.isMatchQueryDirty());
 
         // future -> not dirty, but not yet completed
@@ -43,11 +44,12 @@ public class EntitySummonerMatchQueryTest extends EntityTest {
         assertTrue(sneaky.loadedMatchQuery());
 
         // same params no dirty
-        assertFalse(sneaky.setMatchQueryTimeRange(null, 1484292409447L));
+        assertFalse(sneaky.setMatchQueryTimeRange(
+            ApiMatchListTest.queryTime - ApiMatchListTest.MILLIS_PER_WEEK, ApiMatchListTest.queryTime));
         assertFalse(sneaky.isMatchQueryDirty());
 
         // test match
-        EntityMatchTest.testBasicValidate(sneaky.getMatchQueryEntities().get(0));
+        EntityMatchTest.testBasicValidate2(sneaky.getMatchQueryEntities().get(0));
 
         // change params -> dirt
         assertTrue(sneaky.setMatchQueryChampions(Collections.singletonList(ChampionId.ZYRA)));

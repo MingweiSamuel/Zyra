@@ -17,25 +17,28 @@ import static org.junit.Assert.assertTrue;
  */
 public class ApiMatchListTest extends ApiTest {
 
+    public static final long MILLIS_PER_WEEK = 1000 * 3600 * 24 * 7;
+
+    public static final long queryTime = 1484292409447L;
     @Test
     public void getQuery() {
-        checkGetQuery(api.matches.getMatchlist(Region.NA, 78247, Collections.singletonList(420), null, 1484292409447L,
-            Collections.singletonList(ChampionId.KALISTA), Collections.singletonList(8)));
+        checkGetQuery(api.matches.getMatchlist(Region.NA, 78247, Collections.singletonList(420),
+            queryTime - MILLIS_PER_WEEK, queryTime, Collections.singletonList(ChampionId.KALISTA)));
     }
     @Test
     public void getQueryAsync() {
-        api.matches.getMatchlistAsync(Region.NA, 78247, Collections.singletonList(420), null, 1484292409447L,
-            Collections.singletonList(ChampionId.KALISTA), Collections.singletonList(8))
+        api.matches.getMatchlistAsync(Region.NA, 78247, Collections.singletonList(420),
+            queryTime - MILLIS_PER_WEEK, queryTime, Collections.singletonList(ChampionId.KALISTA))
             .thenAccept(ApiMatchListTest::checkGetQuery).join();
     }
     public static void checkGetQuery(Matchlist matchlist) {
         assertNotNull(matchlist);
-        assertEquals(3, matchlist.totalGames);
+        assertEquals(1, matchlist.totalGames);
         assertEquals(0, matchlist.startIndex);
-        assertEquals(3, matchlist.endIndex);
+        assertEquals(1, matchlist.endIndex);
         assertNotNull(matchlist.matches);
 
-        long[] expected = {2357244372L, 2354486602L};
+        long[] expected = { 2398184332L };
         assertEquals(expected.length, matchlist.matches.size());
         for (int i = 0; i < expected.length; i++) {
             assertNotNull(matchlist.matches.get(i));

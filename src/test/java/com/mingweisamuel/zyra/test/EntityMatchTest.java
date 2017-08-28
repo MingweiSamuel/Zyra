@@ -22,6 +22,12 @@ public class EntityMatchTest extends EntityTest {
         ApiMatchTest.checkGetTimeline(match.getTimeline());
     }
 
+    public static void testBasicValidate2(MatchEntity match) {
+        assertEquals(2398184332L, match.getMatchId());
+//        ApiMatchTest.checkGet2(match.getInfo());
+//        ApiMatchTest.checkGetTimeline2(match.getTimeline());
+    }
+
     @Test
     public void simpleMatchInstanceCaching() {
         MatchEntity m1 = eApi.getMatch(Region.NA, 2357244372L);
