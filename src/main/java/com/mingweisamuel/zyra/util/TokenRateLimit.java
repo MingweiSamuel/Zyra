@@ -1,6 +1,7 @@
 package com.mingweisamuel.zyra.util;
 
 import com.google.common.collect.ImmutableList;
+import com.mingweisamuel.zyra.RiotApiConfig;
 import org.asynchttpclient.Response;
 
 import java.util.Arrays;
@@ -18,6 +19,9 @@ public class TokenRateLimit implements RateLimit {
     /** Header specifying retry after time in seconds after a 429. */
     public static final String HEADER_RETRY_AFTER = "Retry-After";
 
+    /** Configuration Information. */
+    private final RiotApiConfig config;
+
     /** Thread must synchronize on this lock to change bucketsUpdated and buckets. */
     private final Object bucketsLock = new Object();
     /** True if buckets should not be automatically updated based on response headers. */
@@ -33,18 +37,10 @@ public class TokenRateLimit implements RateLimit {
 
     /** Type of rate limit, to know what headers to check. */
     private final RateLimitType rateLimitType;
-    /** Number of concurrent instances, to divide the rate limits by. */
-    private final int concurrentInstances;
 
-    public TokenRateLimit(RateLimitType type, int concurrentInstances, TemporalBucket[] buckets) {
-        this(type, concurrentInstances);
-        this.buckets = ImmutableList.copyOf(buckets);
-        this.disableAutoBuckets = true;
-    }
-
-    public TokenRateLimit(RateLimitType type, int concurrentInstances) {
+    public TokenRateLimit(RateLimitType type, RiotApiConfig config) {
         this.rateLimitType = type;
-        this.concurrentInstances = concurrentInstances;
+        this.config = config;
     }
 
     @Override
@@ -148,8 +144,9 @@ public class TokenRateLimit implements RateLimit {
                 throw new IllegalStateException(
                     "Headers did not match: " + limitHeader + " and " + countHeader);
 
-            buckets[i] = new TokenTemporalBucket(limitSpan, limitValue / concurrentInstances, 20, 0.5f);
-            buckets[i].getTokens(countValue / concurrentInstances); // Account for previous requests.
+            buckets[i] = new TokenTemporalBucket(limitSpan,
+                (int) Math.floor(limitValue * config.concurrentInstanceFactor), 20, 0.5f);
+            buckets[i].getTokens((int) Math.floor(countValue * config.concurrentInstanceFactor)); // Account for previous requests.
         }
         return buckets;
     }

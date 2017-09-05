@@ -1,10 +1,9 @@
 package com.mingweisamuel.zyra.util;
 
-import com.mingweisamuel.zyra.ResponseListener;
+import com.mingweisamuel.zyra.RiotApiConfig;
 import org.asynchttpclient.Response;
 
 import java.util.Arrays;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -16,40 +15,17 @@ import java.util.function.Supplier;
  */
 public class RegionalRateLimiter {
 
+    /** Configuration information. */
+    private final RiotApiConfig config;
+
     /** Represents the app rate limit. */
     private final TokenRateLimit applicationRateLimit;
     /** Represents method rate limits. */
     private final ConcurrentMap<String, TokenRateLimit> methodRateLimits = new ConcurrentHashMap<>();
 
-    /** Max number of times to retry. */
-    private final int maxRetries;
-    /** Number of concurrent instances. */
-    private final int concurrentInstances;
-    /** Listens to HTTP responses. Can be null. */
-    private final ResponseListener responseListener;
-
-    public RegionalRateLimiter(int maxRetries, int concurrentInstances, ResponseListener responseListener,
-            Map<Long, Integer> rateLimits) {
-
-        int i = 0;
-        TemporalBucket[] buckets = new TemporalBucket[rateLimits.size()];
-        for (Map.Entry<Long, Integer> rateLimit : rateLimits.entrySet())
-            buckets[i++] = new TokenTemporalBucket( // divide by concurrent instances.
-                rateLimit.getKey(), rateLimit.getValue() / concurrentInstances, 20, 0.5f);
-
-        this.maxRetries = maxRetries;
-        this.concurrentInstances = concurrentInstances;
-        this.responseListener = responseListener;
-        this.applicationRateLimit = new TokenRateLimit(TokenRateLimit.RateLimitType.APPLICATION,
-            concurrentInstances, buckets);
-    }
-
-    public RegionalRateLimiter(int maxRetries, int concurrentInstances, ResponseListener responseListener) {
-        this.maxRetries = maxRetries;
-        this.concurrentInstances = concurrentInstances;
-        this.responseListener = responseListener;
-        this.applicationRateLimit = new TokenRateLimit(TokenRateLimit.RateLimitType.APPLICATION,
-            concurrentInstances);
+    public RegionalRateLimiter(RiotApiConfig config) {
+        this.config = config;
+        this.applicationRateLimit = new TokenRateLimit(TokenRateLimit.RateLimitType.APPLICATION, config);
     }
 
     public CompletableFuture<Response> getMethodRateLimited(final String methodId,
@@ -74,7 +50,7 @@ public class RegionalRateLimiter {
 
     private TokenRateLimit getMethodRateLimit(String methodId) {
         return methodRateLimits.computeIfAbsent(methodId, id -> new TokenRateLimit(
-            TokenRateLimit.RateLimitType.METHOD, concurrentInstances));
+            TokenRateLimit.RateLimitType.METHOD, config));
     }
 
     /**
@@ -118,8 +94,8 @@ public class RegionalRateLimiter {
                     .thenAccept(r -> {
                         int status = r.getStatusCode();
                         boolean success = 0 <= Arrays.binarySearch(RESPONSE_STATUS_SUCCESS, status);
-                        if (responseListener != null)
-                            responseListener.onResponse(success, r);
+                        if (config.responseListener != null)
+                            config.responseListener.onResponse(success, r);
 
                         for (RateLimit rateLimit : rateLimits)
                             // If there is a 429 with invalid headers, the rate limiter will throw a RiotResponseException.
@@ -129,7 +105,7 @@ public class RegionalRateLimiter {
                             completion.complete(r);
                             return;
                         }
-                        if (retries >= maxRetries ||
+                        if (retries >= config.retries ||
                                 // Ignore if status can be retried. 400 is iffy.
                                 (/*status != 400 &&*/ status != 429 && status < 500)) {
 
