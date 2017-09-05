@@ -68,7 +68,7 @@ public class TokenRateLimit implements RateLimit {
             if (typeNameHeader == null)
                 throw new IllegalStateException("429 response did not include " + HEADER_X_RATE_LIMIT_TYPE +
                     ", indicating a failure of the Riot API edge.");
-            if (rateLimitType.typeName.equals(typeNameHeader)) {
+            if (rateLimitType.typeName.equalsIgnoreCase(typeNameHeader)) {
                 String retryAfterHeader = response.getHeader(HEADER_RETRY_AFTER);
                 if (retryAfterHeader == null)
                     throw new IllegalStateException("429 response triggered by " + rateLimitType.typeName +

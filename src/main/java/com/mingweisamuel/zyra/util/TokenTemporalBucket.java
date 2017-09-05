@@ -195,7 +195,7 @@ public class TokenTemporalBucket extends TemporalBucket {
      * @return The index distance. May be greater than the length of the buffer.
      */
     private int getLength(long startTimestamp, long endTimestamp) {
-        return (int) ((endTimestamp / indexTimespan - startTimestamp / indexTimespan));
+        return (int) (endTimestamp / indexTimespan - startTimestamp / indexTimespan);
     }
 
     /** Returns the default hashCode() which is the memory address. Enforce address-based sorting. */
