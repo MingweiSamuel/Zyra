@@ -145,8 +145,9 @@ public class TokenRateLimit implements RateLimit {
                     "Headers did not match: " + limitHeader + " and " + countHeader);
 
             buckets[i] = new TokenTemporalBucket(limitSpan,
-                (int) Math.floor(limitValue * config.concurrentInstanceFactor), 20, 0.5f);
-            buckets[i].getTokens((int) Math.floor(countValue * config.concurrentInstanceFactor)); // Account for previous requests.
+                (int) Math.floor(limitValue * config.concurrentInstanceFactor * config.overheadFactor), 20, 0.5f);
+            // Account for existing requests.
+            buckets[i].getTokens((int) Math.ceil(countValue * config.concurrentInstanceFactor));
         }
         return buckets;
     }
