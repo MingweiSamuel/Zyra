@@ -4,9 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mingweisamuel.zyra.RiotApiConfig;
 import org.asynchttpclient.Response;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Represents a App or Method rate limit (collection of buckets).
@@ -144,8 +142,8 @@ public class TokenRateLimit implements RateLimit {
                 throw new IllegalStateException(
                     "Headers did not match: " + limitHeader + " and " + countHeader);
 
-            buckets[i] = new TokenTemporalBucket(limitSpan,
-                (int) Math.floor(limitValue * config.concurrentInstanceFactor * config.overheadFactor), 20, 0.5f);
+            buckets[i] = config.temporalBucketFactory.get(limitSpan,
+                (int) Math.floor(limitValue * config.concurrentInstanceFactor * config.overheadFactor));
             // Account for existing requests.
             buckets[i].getTokens((int) Math.ceil(countValue * config.concurrentInstanceFactor));
         }
