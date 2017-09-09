@@ -80,7 +80,7 @@ public class TokenTemporalBucketTest {
     private void testMaxFast(long timespan, int limit, int factor, float spread) throws InterruptedException {
 
         final FastTimeSupplier timeSupplier = new FastTimeSupplier(3);
-        final TokenTemporalBucket bucket = new TokenTemporalBucket(timespan, limit, factor, spread, timeSupplier);
+        final TokenTemporalBucket bucket = new TokenTemporalBucket(timespan, limit, factor, spread, 1f, timeSupplier);
 
         int count = (int) (15_000 * limit / timespan);
         List<Long> times = new ArrayList<>(count);
@@ -100,7 +100,7 @@ public class TokenTemporalBucketTest {
     private void testMaxSimulated(long timespan, int limit, int factor, float spread) throws InterruptedException {
 
         final DebuggingTimeSupplier timeSupplier = new DebuggingTimeSupplier();
-        final TokenTemporalBucket bucket = new TokenTemporalBucket(timespan, limit, factor, spread, timeSupplier);
+        final TokenTemporalBucket bucket = new TokenTemporalBucket(timespan, limit, factor, spread, 1f, timeSupplier);
 
         int count = (int) (30_000 * limit / timespan);
         List<Long> times = new ArrayList<>(count);
@@ -127,9 +127,9 @@ public class TokenTemporalBucketTest {
 
         final FastTimeSupplier timeSupplier = new FastTimeSupplier(3);
 
-        final TokenTemporalBucket bucket0 = new TokenTemporalBucket(1000, 100, 20, 0.5f, timeSupplier);
-        final TokenTemporalBucket bucket1 = new TokenTemporalBucket( 800, 300, 20, 0.5f, timeSupplier);
-        final TokenTemporalBucket bucket2 = new TokenTemporalBucket( 600, 100, 20, 0.5f, timeSupplier);
+        final TokenTemporalBucket bucket0 = new TokenTemporalBucket(1000, 100, 20, 0.5f, 1f, timeSupplier);
+        final TokenTemporalBucket bucket1 = new TokenTemporalBucket( 800, 300, 20, 0.5f, 1f, timeSupplier);
+        final TokenTemporalBucket bucket2 = new TokenTemporalBucket( 600, 100, 20, 0.5f, 1f, timeSupplier);
         final TokenTemporalBucket[] buckets = { bucket0, bucket1, bucket2 };
 
         final ConcurrentLinkedQueue<Long> times0 = new ConcurrentLinkedQueue<>();

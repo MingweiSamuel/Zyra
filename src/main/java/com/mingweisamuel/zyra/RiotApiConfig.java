@@ -20,7 +20,8 @@ public class RiotApiConfig {
             new ThreadFactoryBuilder().setDaemon(true).build()).build();
     }
     public static TemporalBucketFactory getDefaultTemporalBucketFactory() {
-        return (timespan, totalLimit) -> new TokenTemporalBucket(timespan, totalLimit, 20, 0.5f);
+        return (timespan, totalLimit, concurrentInstanceFactor, overheadFactor) ->
+            new TokenTemporalBucket(timespan, totalLimit, 20, 0.5f, concurrentInstanceFactor * overheadFactor);
     }
 
     /** Riot Games API key. */

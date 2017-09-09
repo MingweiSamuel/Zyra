@@ -47,7 +47,7 @@ public abstract class TemporalBucket {
      * @param other
      * @return
      */
-    public boolean isEquivalent(TemporalBucket other) {
+    public final boolean isEquivalent(TemporalBucket other) {
         return getTimespan() == other.getTimespan() && getTotalLimit() == other.getTotalLimit();
     }
 
@@ -55,7 +55,7 @@ public abstract class TemporalBucket {
      * Get a string segment formatted as it would appear in a limit header.
      * @return Limit string.
      */
-    public String toLimitString() {
+    public final String toLimitString() {
         return getTotalLimit() + ":" + (getTimespan() / 1000);
     }
 

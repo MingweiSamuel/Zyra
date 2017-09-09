@@ -55,8 +55,11 @@ public class TokenTemporalBucket extends TemporalBucket {
 
     /** The timespan of this bucket. */
     private final long timespan;
-    /** The maximum number of tokens that can be supplied per timespan. */
+    /** The raw number of tokens per timespan, used for the {@link #getTotalLimit()}. */
     private final int totalLimit;
+
+    /** The maximum number of tokens that can be supplied per timespan. */
+    private final int adjustedTotalLimit;
     /** The maximum number of tokens a single index can supply per timespan. */
     private final int indexLimit;
     /** The timespan represented by a single index. */
@@ -76,9 +79,13 @@ public class TokenTemporalBucket extends TemporalBucket {
      * @param totalLimit The maximum number of tokens provided per timespan.
      * @param temporalFactor Temporal multiplier corresponding to token time tracking.
      * @param spreadFactor Factor corresponding to token supply spread (from multiple indices).
+     * @param totalLimitFactor Factor to multiply adjustedTotalLimit by to decrease the chance of hitting the
+     *     rate limit.
      */
-    public TokenTemporalBucket(long timespan, int totalLimit, int temporalFactor, float spreadFactor) {
-        this(timespan, totalLimit, temporalFactor, spreadFactor, System::currentTimeMillis);
+    public TokenTemporalBucket(long timespan, int totalLimit, int temporalFactor, float spreadFactor,
+        float totalLimitFactor) {
+
+        this(timespan, totalLimit, temporalFactor, spreadFactor, totalLimitFactor, System::currentTimeMillis);
     }
 
     /**
@@ -87,16 +94,20 @@ public class TokenTemporalBucket extends TemporalBucket {
      * @param totalLimit The maximum number of tokens provided per timespan.
      * @param temporalFactor Temporal multiplier corresponding to token time tracking.
      * @param spreadFactor Factor corresponding to token supply spread (from multiple indices).
+     * @param totalLimitFactor Factor to multiply adjustedTotalLimit by to decrease the chance of hitting the
+     *     rate limit.
      * @param timeSupplier Supplies non-descending millisecond time, useful for debugging.
      */
     public TokenTemporalBucket(long timespan, int totalLimit, int temporalFactor, float spreadFactor,
-                               Supplier<Long> timeSupplier) {
+        float totalLimitFactor, Supplier<Long> timeSupplier) {
 
         this.timeSupplier = timeSupplier;
 
         this.timespan = timespan;
         this.totalLimit = totalLimit;
-        this.indexLimit = (int) (totalLimit / spreadFactor / temporalFactor);
+
+        this.adjustedTotalLimit = (int) (totalLimit * totalLimitFactor);
+        this.indexLimit = (int) (totalLimit * totalLimitFactor / spreadFactor / temporalFactor);
         this.indexTimespan = (long) Math.ceil(timespan / (double) temporalFactor);
 
         this.buffer = new int[temporalFactor + 1];
@@ -105,7 +116,7 @@ public class TokenTemporalBucket extends TemporalBucket {
     @Override
     public synchronized long getDelay() {
         int index = update();
-        if (total < totalLimit) {
+        if (total < adjustedTotalLimit) {
             if (buffer[index] >= indexLimit)
                 return getTimeToBucket(1);
             return -1;
@@ -125,7 +136,7 @@ public class TokenTemporalBucket extends TemporalBucket {
         int index = update();
         buffer[index] += n;
         total += n;
-        return total <= totalLimit && buffer[index] <= indexLimit;
+        return total <= adjustedTotalLimit && buffer[index] <= indexLimit;
     }
 
     @Override

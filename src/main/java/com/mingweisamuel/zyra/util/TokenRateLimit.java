@@ -28,7 +28,7 @@ public class TokenRateLimit implements RateLimit {
      * By default we allow 1 request per second which is actually 1 requests per two seconds due to the
      * temporal factor of 1. Once a response is successful, we update the buckets to match.
      */
-    private volatile ImmutableList<TemporalBucket> buckets = ImmutableList.of(new TokenTemporalBucket(1000, 1, 1, 0));
+    private volatile ImmutableList<TemporalBucket> buckets = ImmutableList.of(new TokenTemporalBucket(1000, 1, 1, 0, 1));
 
     /** Timestamp to retry after receiving a 429/Retry-After header. */
     private volatile long retryAfterTimestamp = 0;
@@ -78,10 +78,10 @@ public class TokenRateLimit implements RateLimit {
 
         String limitHeader = response.getHeader(rateLimitType.limitHeader);
         String countHeader = response.getHeader(rateLimitType.countHeader);
-        if (!bucketsRequireUpdating(limitHeader, countHeader))
+        if (!checkBucketsRequireUpdating(limitHeader, countHeader))
             return;
         synchronized (bucketsLock) {
-            if (!bucketsRequireUpdating(limitHeader, countHeader))
+            if (!checkBucketsRequireUpdating(limitHeader, countHeader))
                 return;
 
             try {
@@ -99,7 +99,7 @@ public class TokenRateLimit implements RateLimit {
      * @param countHeader
      * @return True if needs update, false otherwise.
      */
-    private boolean bucketsRequireUpdating(String limitHeader, String countHeader) {
+    private boolean checkBucketsRequireUpdating(String limitHeader, String countHeader) {
         if (limitHeader == null || countHeader == null)
             return false;
 
@@ -142,8 +142,11 @@ public class TokenRateLimit implements RateLimit {
                 throw new IllegalStateException(
                     "Headers did not match: " + limitHeader + " and " + countHeader);
 
-            buckets[i] = config.temporalBucketFactory.get(limitSpan,
-                (int) Math.floor(limitValue * config.concurrentInstanceFactor * config.overheadFactor));
+            buckets[i] = config.temporalBucketFactory.get(limitSpan, limitValue,
+                config.concurrentInstanceFactor, config.overheadFactor);
+            if (!limit.equals(buckets[i].toLimitString()))
+                throw new IllegalStateException(String.format("Temporal bucket factory returned temporal bucket not" +
+                    " matching rate limits, expected \"%s\", got \"%s\".", limit, buckets[i].toLimitString()));
             // Account for existing requests.
             buckets[i].getTokens((int) Math.ceil(countValue * config.concurrentInstanceFactor));
         }
