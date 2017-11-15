@@ -29,71 +29,12 @@ public final class MatchEndpoints extends Endpoints {
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Link to Portal</a><br>
    * @param region Region to execute against.
    * @param matchId (required) The match ID.
-   * @param forAccountId (optional) If provided, used to identify the participant to be unobfuscated.
-   * @param forPlatformId (optional) If provided, used to identify the participant to be unobfuscated.
-   */
-  public Match getMatch(final Region region, final long matchId, final Long forAccountId,
-      final String forPlatformId) {
-    // This method is automatically generated and should not be modified directly.
-    String url = String.format("/lol/match/v3/matches/%1$s", matchId);
-    Type type = Match.class;
-    return riotApi.getBasic("match-v3_GET_getMatch_content", url, region, type, riotApi.makeParams("forAccountId", forAccountId, "forPlatformId", forPlatformId));
-  }
-
-  /**
-   * Get match by match ID.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param matchId (required) The match ID.
-   * @param forAccountId (optional) If provided, used to identify the participant to be unobfuscated.
-   * @param forPlatformId (optional) If provided, used to identify the participant to be unobfuscated.
-   */
-  public CompletableFuture<Match> getMatchAsync(final Region region, final long matchId,
-      final Long forAccountId, final String forPlatformId) {
-    // This method is automatically generated and should not be modified directly.
-    String url = String.format("/lol/match/v3/matches/%1$s", matchId);
-    Type type = Match.class;
-    return riotApi.getBasicAsync("match-v3_GET_getMatch_content", url, region, type, riotApi.makeParams("forAccountId", forAccountId, "forPlatformId", forPlatformId));
-  }
-
-  /**
-   * Get match by match ID.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param matchId (required) The match ID.
-   * @param forAccountId (optional) If provided, used to identify the participant to be unobfuscated.
-   */
-  public Match getMatch(final Region region, final long matchId, final Long forAccountId) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getMatch(region, matchId, forAccountId, null);
-  }
-
-  /**
-   * Get match by match ID.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param matchId (required) The match ID.
-   * @param forAccountId (optional) If provided, used to identify the participant to be unobfuscated.
-   */
-  public CompletableFuture<Match> getMatchAsync(final Region region, final long matchId,
-      final Long forAccountId) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getMatchAsync(region, matchId, forAccountId, null);
-  }
-
-  /**
-   * Get match by match ID.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param matchId (required) The match ID.
    */
   public Match getMatch(final Region region, final long matchId) {
     // This method is automatically generated and should not be modified directly.
-    return this.getMatch(region, matchId, null, null);
+    String url = String.format("/lol/match/v3/matches/%1$s", matchId);
+    Type type = Match.class;
+    return riotApi.getBasic("match-v3_GET_getMatch_content", url, region, type, Collections.emptyList());
   }
 
   /**
@@ -105,15 +46,17 @@ public final class MatchEndpoints extends Endpoints {
    */
   public CompletableFuture<Match> getMatchAsync(final Region region, final long matchId) {
     // This method is automatically generated and should not be modified directly.
-    return this.getMatchAsync(region, matchId, null, null);
+    String url = String.format("/lol/match/v3/matches/%1$s", matchId);
+    Type type = Match.class;
+    return riotApi.getBasicAsync("match-v3_GET_getMatch_content", url, region, type, Collections.emptyList());
   }
 
   /**
-   * Get matchlist for ranked games played on given account ID and platform ID and filtered using given filter parameters, if any.
+   * Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
    *
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
-   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param region Region to execute against.
    * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
@@ -121,8 +64,8 @@ public final class MatchEndpoints extends Endpoints {
    * @param endTime (optional) The end time to use for filtering matchlist specified as epoch milliseconds. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param champion (optional) Set of champion IDs for which to filtering matchlist.
    * @param season (optional) Set of season IDs for which to filtering matchlist.
-   * @param beginIndex (optional) The begin index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned.
-   * @param endIndex (optional) The end index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned.
+   * @param beginIndex (optional) The begin index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.
+   * @param endIndex (optional) The end index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.
    */
   public Matchlist getMatchlist(final Region region, final long accountId,
       final List<Integer> queue, final Long beginTime, final Long endTime,
@@ -135,11 +78,11 @@ public final class MatchEndpoints extends Endpoints {
   }
 
   /**
-   * Get matchlist for ranked games played on given account ID and platform ID and filtered using given filter parameters, if any.
+   * Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
    *
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
-   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param region Region to execute against.
    * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
@@ -147,8 +90,8 @@ public final class MatchEndpoints extends Endpoints {
    * @param endTime (optional) The end time to use for filtering matchlist specified as epoch milliseconds. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param champion (optional) Set of champion IDs for which to filtering matchlist.
    * @param season (optional) Set of season IDs for which to filtering matchlist.
-   * @param beginIndex (optional) The begin index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned.
-   * @param endIndex (optional) The end index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned.
+   * @param beginIndex (optional) The begin index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.
+   * @param endIndex (optional) The end index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.
    */
   public CompletableFuture<Matchlist> getMatchlistAsync(final Region region, final long accountId,
       final List<Integer> queue, final Long beginTime, final Long endTime,
@@ -161,11 +104,11 @@ public final class MatchEndpoints extends Endpoints {
   }
 
   /**
-   * Get matchlist for ranked games played on given account ID and platform ID and filtered using given filter parameters, if any.
+   * Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
    *
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
-   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param region Region to execute against.
    * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
@@ -173,7 +116,7 @@ public final class MatchEndpoints extends Endpoints {
    * @param endTime (optional) The end time to use for filtering matchlist specified as epoch milliseconds. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param champion (optional) Set of champion IDs for which to filtering matchlist.
    * @param season (optional) Set of season IDs for which to filtering matchlist.
-   * @param beginIndex (optional) The begin index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned.
+   * @param beginIndex (optional) The begin index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.
    */
   public Matchlist getMatchlist(final Region region, final long accountId,
       final List<Integer> queue, final Long beginTime, final Long endTime,
@@ -183,11 +126,11 @@ public final class MatchEndpoints extends Endpoints {
   }
 
   /**
-   * Get matchlist for ranked games played on given account ID and platform ID and filtered using given filter parameters, if any.
+   * Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
    *
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
-   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param region Region to execute against.
    * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
@@ -195,7 +138,7 @@ public final class MatchEndpoints extends Endpoints {
    * @param endTime (optional) The end time to use for filtering matchlist specified as epoch milliseconds. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param champion (optional) Set of champion IDs for which to filtering matchlist.
    * @param season (optional) Set of season IDs for which to filtering matchlist.
-   * @param beginIndex (optional) The begin index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned.
+   * @param beginIndex (optional) The begin index to use for filtering matchlist. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned.
    */
   public CompletableFuture<Matchlist> getMatchlistAsync(final Region region, final long accountId,
       final List<Integer> queue, final Long beginTime, final Long endTime,
@@ -205,11 +148,11 @@ public final class MatchEndpoints extends Endpoints {
   }
 
   /**
-   * Get matchlist for ranked games played on given account ID and platform ID and filtered using given filter parameters, if any.
+   * Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
    *
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
-   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param region Region to execute against.
    * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
@@ -226,11 +169,11 @@ public final class MatchEndpoints extends Endpoints {
   }
 
   /**
-   * Get matchlist for ranked games played on given account ID and platform ID and filtered using given filter parameters, if any.
+   * Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
    *
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
-   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param region Region to execute against.
    * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
@@ -247,11 +190,11 @@ public final class MatchEndpoints extends Endpoints {
   }
 
   /**
-   * Get matchlist for ranked games played on given account ID and platform ID and filtered using given filter parameters, if any.
+   * Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
    *
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
-   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param region Region to execute against.
    * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
@@ -267,11 +210,11 @@ public final class MatchEndpoints extends Endpoints {
   }
 
   /**
-   * Get matchlist for ranked games played on given account ID and platform ID and filtered using given filter parameters, if any.
+   * Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
    *
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
-   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param region Region to execute against.
    * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
@@ -287,11 +230,11 @@ public final class MatchEndpoints extends Endpoints {
   }
 
   /**
-   * Get matchlist for ranked games played on given account ID and platform ID and filtered using given filter parameters, if any.
+   * Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
    *
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
-   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param region Region to execute against.
    * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
@@ -305,11 +248,11 @@ public final class MatchEndpoints extends Endpoints {
   }
 
   /**
-   * Get matchlist for ranked games played on given account ID and platform ID and filtered using given filter parameters, if any.
+   * Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
    *
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
-   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param region Region to execute against.
    * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
@@ -323,11 +266,11 @@ public final class MatchEndpoints extends Endpoints {
   }
 
   /**
-   * Get matchlist for ranked games played on given account ID and platform ID and filtered using given filter parameters, if any.
+   * Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
    *
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
-   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param region Region to execute against.
    * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
@@ -340,11 +283,11 @@ public final class MatchEndpoints extends Endpoints {
   }
 
   /**
-   * Get matchlist for ranked games played on given account ID and platform ID and filtered using given filter parameters, if any.
+   * Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
    *
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
-   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param region Region to execute against.
    * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
@@ -357,11 +300,11 @@ public final class MatchEndpoints extends Endpoints {
   }
 
   /**
-   * Get matchlist for ranked games played on given account ID and platform ID and filtered using given filter parameters, if any.
+   * Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
    *
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
-   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param region Region to execute against.
    * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
@@ -373,11 +316,11 @@ public final class MatchEndpoints extends Endpoints {
   }
 
   /**
-   * Get matchlist for ranked games played on given account ID and platform ID and filtered using given filter parameters, if any.
+   * Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
    *
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
-   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param region Region to execute against.
    * @param accountId (required) The account ID.
    * @param queue (optional) Set of queue IDs for which to filtering matchlist.
@@ -389,11 +332,11 @@ public final class MatchEndpoints extends Endpoints {
   }
 
   /**
-   * Get matchlist for ranked games played on given account ID and platform ID and filtered using given filter parameters, if any.
+   * Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
    *
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
-   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param region Region to execute against.
    * @param accountId (required) The account ID.
    */
@@ -403,11 +346,11 @@ public final class MatchEndpoints extends Endpoints {
   }
 
   /**
-   * Get matchlist for ranked games played on given account ID and platform ID and filtered using given filter parameters, if any.
+   * Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
    *
    * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchlist">Link to Portal</a><br>
    * Implementation Notes:<br>
-   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+50. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 50, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
+   * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned. If beginIndex is specified, but not endIndex, then endIndex defaults to beginIndex+100. If endIndex is specified, but not beginIndex, then beginIndex defaults to 0. If both are specified, then endIndex must be greater than beginIndex. The maximum range allowed is 100, otherwise a 400 error code is returned. If beginTime is specified, but not endTime, then these parameters are ignored. If endTime is specified, but not beginTime, then beginTime defaults to the start of the account's match history. If both are specified, then endTime should be greater than beginTime. The maximum time range allowed is one week, otherwise a 400 error code is returned.
    * @param region Region to execute against.
    * @param accountId (required) The account ID.
    */

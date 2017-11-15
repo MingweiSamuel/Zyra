@@ -12,20 +12,23 @@ import java.util.List;
  *
  * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getChallengerLeague">Riot API reference</a>. */
 public class LeagueList implements Serializable {
+  public final String leagueId;
+
   public final String tier;
+
+  public final List<LeagueItem> entries;
 
   public final String queue;
 
   public final String name;
 
-  public final List<LeagueItem> entries;
-
-  public LeagueList(final String tier, final String queue, final String name,
-      final List<LeagueItem> entries) {
+  public LeagueList(final String leagueId, final String tier, final List<LeagueItem> entries,
+      final String queue, final String name) {
+    this.leagueId = leagueId;
     this.tier = tier;
+    this.entries = entries;
     this.queue = queue;
     this.name = name;
-    this.entries = entries;
   }
 
   @Override
@@ -34,16 +37,18 @@ public class LeagueList implements Serializable {
     if (!(obj instanceof LeagueList)) return false;
     final LeagueList other = (LeagueList) obj;
     return true
+        && Objects.equal(leagueId, other.leagueId)
         && Objects.equal(tier, other.tier)
+        && Objects.equal(entries, other.entries)
         && Objects.equal(queue, other.queue)
-        && Objects.equal(name, other.name)
-        && Objects.equal(entries, other.entries);}
+        && Objects.equal(name, other.name);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
+        leagueId,
         tier,
+        entries,
         queue,
-        name,
-        entries);}
+        name);}
 }
