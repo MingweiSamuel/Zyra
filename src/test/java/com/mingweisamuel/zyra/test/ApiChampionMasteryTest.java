@@ -38,7 +38,7 @@ public class ApiChampionMasteryTest extends ApiTest {
     @Test
     public void getChampions() {
         Set<Integer> topChamps = new HashSet<>(Arrays.asList(ZYRA, SORAKA, MORGANA, SONA, JANNA, EKKO, NAMI, TARIC,
-                POPPY, ASHE));
+                POPPY, BRAND));
         List<ChampionMastery> champData = api.championMasteries.getAllChampionMasteries(Region.NA, 69009277);
         int topChampCount = topChamps.size();
         for (int i = 0; i < topChampCount; i++)
@@ -50,7 +50,7 @@ public class ApiChampionMasteryTest extends ApiTest {
     @Test
     public void getChampionsAsync() throws ExecutionException, InterruptedException {
         Set<Integer> topChamps = new HashSet<>(Arrays.asList(ZYRA, SORAKA, MORGANA, SONA, JANNA, EKKO, NAMI, TARIC,
-                POPPY, ASHE));
+                POPPY, BRAND));
         api.championMasteries.getAllChampionMasteriesAsync(Region.NA, 69009277).thenAccept(champData -> {
             int topChampCount = topChamps.size();
             for (int i = 0; i < topChampCount; i++)
