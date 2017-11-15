@@ -96,7 +96,7 @@ public class SummonerEntity extends Entity {
     /** Summoner champion mastery information. */
     private final LazyResetableFuture<List<ChampionMastery>> championMasteries;
     /** League position (rank). */
-    private final LazyResetableFuture<List<LeaguePosition>> leaguePositions;
+    private final LazyResetableFuture<LeaguePosition> leaguePositions;
     /** Mastery pages. */
     private final LazyResetableFuture<MasteryPages> masteryPages;
     /** Rune pages. */
@@ -222,10 +222,10 @@ public class SummonerEntity extends Entity {
     public boolean loadedLeaguePositions() {
         return leaguePositions.isDone();
     }
-    public CompletableFuture<List<LeaguePosition>> getLeaguePositionsAsync() {
+    public CompletableFuture<LeaguePosition> getLeaguePositionsAsync() {
         return leaguePositions.get();
     }
-    public List<LeaguePosition> getLeaguePositions() {
+    public LeaguePosition getLeaguePositions() {
         return leaguePositions.join();
     }
     public void resetLeaguePositions() {

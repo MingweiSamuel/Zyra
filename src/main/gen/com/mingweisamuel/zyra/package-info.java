@@ -11,6 +11,6 @@
  * {@link com.mingweisamuel.zyra.match}.<br><br>
  *
  * The API was last automatically generated from the <a href="https://developer.riotgames.com/api-methods/">Riot API reference</a>
- * on Thu Aug 24 21:59:14 PDT 2017.
+ * on Wed Nov 15 20:04:23 CET 2017.
  */
 package com.mingweisamuel.zyra;

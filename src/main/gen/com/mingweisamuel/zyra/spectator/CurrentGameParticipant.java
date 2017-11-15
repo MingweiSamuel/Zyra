@@ -25,24 +25,24 @@ public class CurrentGameParticipant implements Serializable {
   public final String summonerName;
 
   /**
-   * The runes used by this participant */
-  public final List<Rune> runes;
+   * List of Game Customizations */
+  public final List<GameCustomizationObject> gameCustomizationObjects;
 
   /**
    * Flag indicating whether or not this participant is a bot */
   public final boolean bot;
 
   /**
-   * The team ID of this participant, indicating the participant's team */
-  public final long teamId;
+   * Perks/Runes Reforged Information */
+  public final Perks perks;
 
   /**
    * The ID of the second summoner spell used by this participant */
   public final long spell2Id;
 
   /**
-   * The masteries used by this participant */
-  public final List<Mastery> masteries;
+   * The team ID of this participant, indicating the participant's team */
+  public final long teamId;
 
   /**
    * The ID of the first summoner spell used by this participant */
@@ -53,17 +53,17 @@ public class CurrentGameParticipant implements Serializable {
   public final long summonerId;
 
   public CurrentGameParticipant(final long profileIconId, final int championId,
-      final String summonerName, final List<Rune> runes, final boolean bot, final long teamId,
-      final long spell2Id, final List<Mastery> masteries, final long spell1Id,
-      final long summonerId) {
+      final String summonerName, final List<GameCustomizationObject> gameCustomizationObjects,
+      final boolean bot, final Perks perks, final long spell2Id, final long teamId,
+      final long spell1Id, final long summonerId) {
     this.profileIconId = profileIconId;
     this.championId = championId;
     this.summonerName = summonerName;
-    this.runes = runes;
+    this.gameCustomizationObjects = gameCustomizationObjects;
     this.bot = bot;
-    this.teamId = teamId;
+    this.perks = perks;
     this.spell2Id = spell2Id;
-    this.masteries = masteries;
+    this.teamId = teamId;
     this.spell1Id = spell1Id;
     this.summonerId = summonerId;
   }
@@ -77,11 +77,11 @@ public class CurrentGameParticipant implements Serializable {
         && Objects.equal(profileIconId, other.profileIconId)
         && Objects.equal(championId, other.championId)
         && Objects.equal(summonerName, other.summonerName)
-        && Objects.equal(runes, other.runes)
+        && Objects.equal(gameCustomizationObjects, other.gameCustomizationObjects)
         && Objects.equal(bot, other.bot)
-        && Objects.equal(teamId, other.teamId)
+        && Objects.equal(perks, other.perks)
         && Objects.equal(spell2Id, other.spell2Id)
-        && Objects.equal(masteries, other.masteries)
+        && Objects.equal(teamId, other.teamId)
         && Objects.equal(spell1Id, other.spell1Id)
         && Objects.equal(summonerId, other.summonerId);}
 
@@ -91,11 +91,11 @@ public class CurrentGameParticipant implements Serializable {
         profileIconId,
         championId,
         summonerName,
-        runes,
+        gameCustomizationObjects,
         bot,
-        teamId,
+        perks,
         spell2Id,
-        masteries,
+        teamId,
         spell1Id,
         summonerId);}
 }

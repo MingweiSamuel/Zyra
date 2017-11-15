@@ -25,7 +25,7 @@ public class FeaturedGameInfo implements Serializable {
   public final String platformId;
 
   /**
-   * The game mode */
+   * The game mode (Legal values: CLASSIC, ODIN, ARAM, TUTORIAL, ONEFORALL, ASCENSION, FIRSTBLOOD, KINGPORO) */
   public final String gameMode;
 
   /**
@@ -33,7 +33,7 @@ public class FeaturedGameInfo implements Serializable {
   public final long mapId;
 
   /**
-   * The game type */
+   * The game type (Legal values: CUSTOM_GAME, MATCHED_GAME, TUTORIAL_GAME) */
   public final String gameType;
 
   /**
