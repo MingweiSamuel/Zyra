@@ -1,8 +1,8 @@
 package com.mingweisamuel.zyra;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.mingweisamuel.zyra.util.TemporalBucketFactory;
-import com.mingweisamuel.zyra.util.TokenTemporalBucket;
+import com.mingweisamuel.zyra.util.TokenBucketFactory;
+import com.mingweisamuel.zyra.util.CircularBufferTokenBucket;
 import org.asynchttpclient.AsyncHttpClientConfig;
 import org.asynchttpclient.DefaultAsyncHttpClientConfig;
 
@@ -19,9 +19,9 @@ public class RiotApiConfig {
         return new DefaultAsyncHttpClientConfig.Builder().setThreadFactory(
             new ThreadFactoryBuilder().setDaemon(true).build()).build();
     }
-    public static TemporalBucketFactory getDefaultTemporalBucketFactory() {
+    public static TokenBucketFactory getDefaultTemporalBucketFactory() {
         return (timespan, totalLimit, concurrentInstanceFactor, overheadFactor) ->
-            new TokenTemporalBucket(timespan, totalLimit, 20, 0.5f, concurrentInstanceFactor * overheadFactor);
+            new CircularBufferTokenBucket(timespan, totalLimit, 20, 0.5f, concurrentInstanceFactor * overheadFactor);
     }
 
     /** Riot Games API key. */
@@ -41,11 +41,11 @@ public class RiotApiConfig {
     /** AsyncHttpClientConfig to use to send requests. */
     public final AsyncHttpClientConfig asyncHttpClientConfig;
     /** Factory for creating temporal buckets. */
-    public final TemporalBucketFactory temporalBucketFactory;
+    public final TokenBucketFactory tokenBucketFactory;
 
     private RiotApiConfig(String apiKey, int retries, int maxConcurrentRequests, float concurrentInstanceFactor,
             float overheadFactor, ResponseListener responseListener, AsyncHttpClientConfig asyncHttpClientConfig,
-            TemporalBucketFactory temporalBucketFactory) {
+            TokenBucketFactory tokenBucketFactory) {
         this.apiKey = apiKey;
         this.retries = retries;
         this.maxConcurrentRequests = maxConcurrentRequests;
@@ -53,7 +53,7 @@ public class RiotApiConfig {
         this.overheadFactor = overheadFactor;
         this.responseListener = responseListener;
         this.asyncHttpClientConfig = asyncHttpClientConfig;
-        this.temporalBucketFactory = temporalBucketFactory;
+        this.tokenBucketFactory = tokenBucketFactory;
     }
 
     public static Builder builder(String apiKey) {
@@ -70,7 +70,7 @@ public class RiotApiConfig {
         private float overheadFactor = DEFAULT_OVERHEAD_FACTOR;
         private ResponseListener responseListener = null;
         private AsyncHttpClientConfig asyncHttpClientConfig = null;
-        private TemporalBucketFactory temporalBucketFactory = null;
+        private TokenBucketFactory tokenBucketFactory = null;
 
         private Builder(String apiKey) {
             this.apiKey = apiKey;
@@ -80,7 +80,7 @@ public class RiotApiConfig {
             return new RiotApiConfig(
                 apiKey, retries, maxConcurrentRequests, concurrentInstanceFactor, overheadFactor, responseListener,
                 asyncHttpClientConfig != null ? asyncHttpClientConfig : getDefaultAsyncHttpClientConfig(),
-                temporalBucketFactory != null ? temporalBucketFactory : getDefaultTemporalBucketFactory());
+                tokenBucketFactory != null ? tokenBucketFactory : getDefaultTemporalBucketFactory());
         }
 
         //region generated
@@ -142,12 +142,12 @@ public class RiotApiConfig {
             return this;
         }
 
-        public TemporalBucketFactory getTemporalBucketFactory() {
-            return temporalBucketFactory;
+        public TokenBucketFactory getTokenBucketFactory() {
+            return tokenBucketFactory;
         }
 
-        public Builder setTemporalBucketFactory(TemporalBucketFactory temporalBucketFactory) {
-            this.temporalBucketFactory = temporalBucketFactory;
+        public Builder setTokenBucketFactory(TokenBucketFactory tokenBucketFactory) {
+            this.tokenBucketFactory = tokenBucketFactory;
             return this;
         }
         //endregion
@@ -168,7 +168,7 @@ public class RiotApiConfig {
         if (responseListener != null ? !responseListener.equals(that.responseListener) : that.responseListener != null)
             return false;
         if (!asyncHttpClientConfig.equals(that.asyncHttpClientConfig)) return false;
-        return temporalBucketFactory.equals(that.temporalBucketFactory);
+        return tokenBucketFactory.equals(that.tokenBucketFactory);
     }
 
     @Override
@@ -180,7 +180,7 @@ public class RiotApiConfig {
         result = 31 * result + (overheadFactor != +0.0f ? Float.floatToIntBits(overheadFactor) : 0);
         result = 31 * result + (responseListener != null ? responseListener.hashCode() : 0);
         result = 31 * result + asyncHttpClientConfig.hashCode();
-        result = 31 * result + temporalBucketFactory.hashCode();
+        result = 31 * result + tokenBucketFactory.hashCode();
         return result;
     }
 }

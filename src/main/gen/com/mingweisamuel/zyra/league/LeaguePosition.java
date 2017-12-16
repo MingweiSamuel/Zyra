@@ -13,8 +13,6 @@ import java.lang.String;
 public class LeaguePosition implements Serializable {
   public final String rank;
 
-  public final String queueType;
-
   public final boolean hotStreak;
 
   public final MiniSeries miniSeries;
@@ -25,37 +23,33 @@ public class LeaguePosition implements Serializable {
 
   public final int losses;
 
-  public final String playerOrTeamId;
-
-  public final String leagueName;
+  public final boolean freshBlood;
 
   public final String playerOrTeamName;
 
   public final boolean inactive;
 
-  public final boolean freshBlood;
+  public final String playerOrTeamId;
 
-  public final String tier;
+  public final String leagueId;
 
   public final int leaguePoints;
 
-  public LeaguePosition(final String rank, final String queueType, final boolean hotStreak,
-      final MiniSeries miniSeries, final int wins, final boolean veteran, final int losses,
-      final String playerOrTeamId, final String leagueName, final String playerOrTeamName,
-      final boolean inactive, final boolean freshBlood, final String tier, final int leaguePoints) {
+  public LeaguePosition(final String rank, final boolean hotStreak, final MiniSeries miniSeries,
+      final int wins, final boolean veteran, final int losses, final boolean freshBlood,
+      final String playerOrTeamName, final boolean inactive, final String playerOrTeamId,
+      final String leagueId, final int leaguePoints) {
     this.rank = rank;
-    this.queueType = queueType;
     this.hotStreak = hotStreak;
     this.miniSeries = miniSeries;
     this.wins = wins;
     this.veteran = veteran;
     this.losses = losses;
-    this.playerOrTeamId = playerOrTeamId;
-    this.leagueName = leagueName;
+    this.freshBlood = freshBlood;
     this.playerOrTeamName = playerOrTeamName;
     this.inactive = inactive;
-    this.freshBlood = freshBlood;
-    this.tier = tier;
+    this.playerOrTeamId = playerOrTeamId;
+    this.leagueId = leagueId;
     this.leaguePoints = leaguePoints;
   }
 
@@ -66,35 +60,31 @@ public class LeaguePosition implements Serializable {
     final LeaguePosition other = (LeaguePosition) obj;
     return true
         && Objects.equal(rank, other.rank)
-        && Objects.equal(queueType, other.queueType)
         && Objects.equal(hotStreak, other.hotStreak)
         && Objects.equal(miniSeries, other.miniSeries)
         && Objects.equal(wins, other.wins)
         && Objects.equal(veteran, other.veteran)
         && Objects.equal(losses, other.losses)
-        && Objects.equal(playerOrTeamId, other.playerOrTeamId)
-        && Objects.equal(leagueName, other.leagueName)
+        && Objects.equal(freshBlood, other.freshBlood)
         && Objects.equal(playerOrTeamName, other.playerOrTeamName)
         && Objects.equal(inactive, other.inactive)
-        && Objects.equal(freshBlood, other.freshBlood)
-        && Objects.equal(tier, other.tier)
+        && Objects.equal(playerOrTeamId, other.playerOrTeamId)
+        && Objects.equal(leagueId, other.leagueId)
         && Objects.equal(leaguePoints, other.leaguePoints);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
         rank,
-        queueType,
         hotStreak,
         miniSeries,
         wins,
         veteran,
         losses,
-        playerOrTeamId,
-        leagueName,
+        freshBlood,
         playerOrTeamName,
         inactive,
-        freshBlood,
-        tier,
+        playerOrTeamId,
+        leagueId,
         leaguePoints);}
 }

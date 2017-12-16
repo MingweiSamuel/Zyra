@@ -7,7 +7,7 @@ import java.util.Comparator;
  * <p>This class represents a token bucket system. One instance represents one recurring bucket with a certain
  * limit of tokens per timespan.</p>
  */
-public abstract class TemporalBucket {
+public abstract class TokenBucket {
 
     /**
      * Get the approximate delay til the next available token, or -1 if a token is available.
@@ -42,12 +42,12 @@ public abstract class TemporalBucket {
     public abstract int getTotalLimit();
 
     /**
-     * Checks if this TemporalBucket is equivalent to another TemporalBucket. Buckets are equivalent if they have
+     * Checks if this TokenBucket is equivalent to another TokenBucket. Buckets are equivalent if they have
      * the same timespan and totalLimit.
      * @param other
      * @return
      */
-    public final boolean isEquivalent(TemporalBucket other) {
+    public final boolean isEquivalent(TokenBucket other) {
         return getTimespan() == other.getTimespan() && getTotalLimit() == other.getTotalLimit();
     }
 
@@ -65,9 +65,9 @@ public abstract class TemporalBucket {
      * @param buckets Buckets to get tokens from.
      * @return -1 if tokens were obtained, otherwise the approximate delay until tokens will be available.
      */
-    public static long getAllTokensOrDelay(TemporalBucket... buckets) {
+    public static long getAllTokensOrDelay(TokenBucket... buckets) {
         // Always obtain locks in well-defined order to prevent deadlock. Sort by hash code.
-        Arrays.sort(buckets, Comparator.comparingInt(TemporalBucket::hashCode));
+        Arrays.sort(buckets, Comparator.comparingInt(TokenBucket::hashCode));
         int i = getAllInternal(buckets, 0);
         if (i < 0) // Success
             return -1;
@@ -86,7 +86,7 @@ public abstract class TemporalBucket {
      * @param i Index of current bucket (for recursion).
      * @return -1 if all tokens were obtained or the index of the first limiting bucket.
      */
-    private static int getAllInternal(TemporalBucket[] buckets, int i) {
+    private static int getAllInternal(TokenBucket[] buckets, int i) {
         // Base case: No more buckets.
         if (i >= buckets.length)
             return -1;

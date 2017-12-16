@@ -30,7 +30,7 @@ import java.util.function.Supplier;
  *
  * <pre>
  * {@code
- *      TokenTemporalBucket bucket = ...;
+ *      CircularBufferTokenBucket bucket = ...;
  *      while (true) {
  *          long delay;
  *          synchronized (bucket) {
@@ -48,7 +48,7 @@ import java.util.function.Supplier;
  * }
  * </pre>
  */
-public class TokenTemporalBucket extends TemporalBucket {
+public class CircularBufferTokenBucket extends TokenBucket {
 
     /** A time supplier. A simulated supplier can be used for debugging purposes. */
     private final Supplier<Long> timeSupplier;
@@ -82,8 +82,8 @@ public class TokenTemporalBucket extends TemporalBucket {
      * @param totalLimitFactor Factor to multiply adjustedTotalLimit by to decrease the chance of hitting the
      *     rate limit.
      */
-    public TokenTemporalBucket(long timespan, int totalLimit, int temporalFactor, float spreadFactor,
-        float totalLimitFactor) {
+    public CircularBufferTokenBucket(long timespan, int totalLimit, int temporalFactor, float spreadFactor,
+                                     float totalLimitFactor) {
 
         this(timespan, totalLimit, temporalFactor, spreadFactor, totalLimitFactor, System::currentTimeMillis);
     }
@@ -98,8 +98,8 @@ public class TokenTemporalBucket extends TemporalBucket {
      *     rate limit.
      * @param timeSupplier Supplies non-descending millisecond time, useful for debugging.
      */
-    public TokenTemporalBucket(long timespan, int totalLimit, int temporalFactor, float spreadFactor,
-        float totalLimitFactor, Supplier<Long> timeSupplier) {
+    public CircularBufferTokenBucket(long timespan, int totalLimit, int temporalFactor, float spreadFactor,
+                                     float totalLimitFactor, Supplier<Long> timeSupplier) {
 
         this.timeSupplier = timeSupplier;
 

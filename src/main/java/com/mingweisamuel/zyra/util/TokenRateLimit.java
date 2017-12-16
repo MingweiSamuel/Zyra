@@ -7,8 +7,13 @@ import org.asynchttpclient.Response;
 import java.util.List;
 
 /**
- * Represents a App or Method rate limit (collection of buckets).
- * Automatically initializes buckets based off of first request response.
+ * Implementation of {@see RateLimit}.
+ *
+ * TokenBuckets are automatically initialized based on the first request response. TokenBuckets are also changed
+ * when a response returns rate limits differing from the current ones. This means that the rate limit has changed
+ * (on Riot's end) during the process's runtime, so we update to match.
+ *
+ * {@inheritDoc}
  */
 public class TokenRateLimit implements RateLimit {
 
@@ -28,7 +33,7 @@ public class TokenRateLimit implements RateLimit {
      * By default we allow 1 request per second which is actually 1 requests per two seconds due to the
      * temporal factor of 1. Once a response is successful, we update the buckets to match.
      */
-    private volatile ImmutableList<TemporalBucket> buckets = ImmutableList.of(new TokenTemporalBucket(1000, 1, 1, 0, 1));
+    private volatile ImmutableList<TokenBucket> buckets = ImmutableList.of(new CircularBufferTokenBucket(1000, 1, 1, 0, 1));
 
     /** Timestamp to retry after receiving a 429/Retry-After header. */
     private volatile long retryAfterTimestamp = 0;
@@ -50,7 +55,7 @@ public class TokenRateLimit implements RateLimit {
     }
 
     @Override
-    public List<TemporalBucket> getBuckets() {
+    public List<TokenBucket> getBuckets() {
         return buckets;
     }
 
@@ -119,7 +124,7 @@ public class TokenRateLimit implements RateLimit {
      * @return
      * @throws IllegalArgumentException If headers do not match.
      */
-    private TemporalBucket[] getBucketsFromHeaders(String limitHeader, String countHeader) {
+    private TokenBucket[] getBucketsFromHeaders(String limitHeader, String countHeader) {
         // Limits: "20000:10,1200000:600"
         // Counts: "7:10,58:600"
         String[] limits = limitHeader.split(",");
@@ -128,7 +133,7 @@ public class TokenRateLimit implements RateLimit {
             throw new IllegalStateException(
                 "Headers did not match: " + limitHeader + " and " + countHeader);
 
-        TemporalBucket[] buckets = new TemporalBucket[counts.length];
+        TokenBucket[] buckets = new TokenBucket[counts.length];
         for (int i = 0; i < buckets.length; i++) {
             String limit = limits[i];
             String count = counts[i];
@@ -142,7 +147,7 @@ public class TokenRateLimit implements RateLimit {
                 throw new IllegalStateException(
                     "Headers did not match: " + limitHeader + " and " + countHeader);
 
-            buckets[i] = config.temporalBucketFactory.get(limitSpan, limitValue,
+            buckets[i] = config.tokenBucketFactory.get(limitSpan, limitValue,
                 config.concurrentInstanceFactor, config.overheadFactor);
             if (!limit.equals(buckets[i].toLimitString()))
                 throw new IllegalStateException(String.format("Temporal bucket factory returned temporal bucket not" +

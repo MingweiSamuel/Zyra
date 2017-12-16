@@ -70,7 +70,7 @@ public class EntitySummonerTest extends EntityTest {
         boolean found = false;
         List<LeaguePosition> leagues = summoner.getLeaguePositions();
         for (LeaguePosition league : leagues) {
-            if (Queue.RANKED_SOLO_5x5.equals(league.queueType)) {
+            if (Queue.RANKED_SOLO_5x5.equals(league)) {
                 // Sneaky better be at least Diamond
                 assertTrue(league.tier,
                     Tier.DIAMOND.equals(league.tier) ||

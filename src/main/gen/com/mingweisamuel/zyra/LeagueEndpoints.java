@@ -22,7 +22,7 @@ public final class LeagueEndpoints extends Endpoints {
   }
 
   /**
-   * Get the challenger league for a given queue.
+   * Get the challenger league for given queue.
    *
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getChallengerLeague">Link to Portal</a><br>
    * @param region Region to execute against.
@@ -36,7 +36,7 @@ public final class LeagueEndpoints extends Endpoints {
   }
 
   /**
-   * Get the challenger league for a given queue.
+   * Get the challenger league for given queue.
    *
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getChallengerLeague">Link to Portal</a><br>
    * @param region Region to execute against.
@@ -82,7 +82,36 @@ public final class LeagueEndpoints extends Endpoints {
   }
 
   /**
-   * Get the master league for a given queue.
+   * Get league with given ID, including inactive entries.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getLeagueById">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param leagueId (required) The UUID of the league.
+   */
+  public LeagueList getLeagueById(final Region region, final String leagueId) {
+    // This method is automatically generated and should not be modified directly.
+    String url = String.format("/lol/league/v3/leagues/%1$s", leagueId);
+    Type type = LeagueList.class;
+    return riotApi.getBasic("league-v3_GET_getLeagueById_content", url, region, type, Collections.emptyList());
+  }
+
+  /**
+   * Get league with given ID, including inactive entries.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getLeagueById">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param leagueId (required) The UUID of the league.
+   */
+  public CompletableFuture<LeagueList> getLeagueByIdAsync(final Region region,
+      final String leagueId) {
+    // This method is automatically generated and should not be modified directly.
+    String url = String.format("/lol/league/v3/leagues/%1$s", leagueId);
+    Type type = LeagueList.class;
+    return riotApi.getBasicAsync("league-v3_GET_getLeagueById_content", url, region, type, Collections.emptyList());
+  }
+
+  /**
+   * Get the master league for given queue.
    *
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getMasterLeague">Link to Portal</a><br>
    * @param region Region to execute against.
@@ -96,7 +125,7 @@ public final class LeagueEndpoints extends Endpoints {
   }
 
   /**
-   * Get the master league for a given queue.
+   * Get the master league for given queue.
    *
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getMasterLeague">Link to Portal</a><br>
    * @param region Region to execute against.
@@ -111,7 +140,7 @@ public final class LeagueEndpoints extends Endpoints {
   }
 
   /**
-   * Get league positions in all queues for a given summoner ID.
+   * Get league positions in all queues for given summoner ID.
    *
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getAllLeaguePositionsForSummoner">Link to Portal</a><br>
    * @param region Region to execute against.
@@ -127,7 +156,7 @@ public final class LeagueEndpoints extends Endpoints {
   }
 
   /**
-   * Get league positions in all queues for a given summoner ID.
+   * Get league positions in all queues for given summoner ID.
    *
    * <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getAllLeaguePositionsForSummoner">Link to Portal</a><br>
    * @param region Region to execute against.

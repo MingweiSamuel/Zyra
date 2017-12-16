@@ -5,6 +5,7 @@ import com.google.common.collect.Iterables;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.javapoet.*;
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -344,7 +345,12 @@ public class ApiGen {
             // second is return value
             String returnTypeStr = dtos.get(1).text().trim();
             returnTypeStr = returnTypeStr.replaceFirst("^Return value: ", "");
-            this.returnType = getTypeFromString(returnTypeStr, dtoPackage).box();
+
+            String returnTypeKey = ApiGen.this.endpointsNormalizedName + '.' + this.methodName;
+            if (RETURN_TYPES.containsKey(returnTypeKey))
+                this.returnType = RETURN_TYPES.get(returnTypeKey);
+            else
+                this.returnType = getTypeFromString(returnTypeStr, dtoPackage).box();
             // rest are DTOs
             for (int i = 2; i < dtos.size(); i++) {
                 if ("div".equals(dtos.get(i).tagName())) {
@@ -421,6 +427,9 @@ public class ApiGen {
             String dtoName = normalizeDtoName(dto.child(0).ownText());
             String dtoDesc = dto.ownText().replaceFirst("^\\s*-\\s+", "");
 
+            String ignoredDtoKey = ApiGen.this.endpointsNormalizedName + '.' + this.methodName + '.' + dtoName;
+            if (IGNORED_DTOS.contains(ignoredDtoKey))
+                return false;
             if (processedDtos.contains(dtoName))
                 return false;
             processedDtos.add(dtoName);
@@ -605,6 +614,18 @@ public class ApiGen {
         "LolStaticData.getSummonerSpellById:spellData"
     ));
 
+    /** DTOs to be ignored (likely overridden by other, better/newer DTO definitions). */
+    private static final Set<String> IGNORED_DTOS = new HashSet<>(Arrays.asList(
+        "League.getAllLeaguesForSummoner.LeagueList",
+        "League.getAllLeaguesForSummoner.LeaguePosition"));
+
+    /** Endpoint return type overrides. */
+    private static final Map<String, TypeName> RETURN_TYPES = new HashMap<>();
+    static {
+        RETURN_TYPES.put("League.getAllLeaguePositionsForSummoner", ParameterizedTypeName.get(ClassName.get(List.class),
+            ClassName.bestGuess("com.mingweisamuel.zyra.league.LeaguePosition")));
+    }
+
     /** Method param type overrides. */
     private static final Map<String, TypeName> PARAM_TYPES = new HashMap<>();
     static {
@@ -676,7 +697,7 @@ public class ApiGen {
      */
     @SuppressWarnings("Duplicates") //TODO
     private static TypeName getTypeFromString(String in, String defaultPackage) {
-        switch(in) {
+        switch(in.toLowerCase()) {
         case "boolean":
             return TypeName.BOOLEAN;
         case "int":
@@ -708,7 +729,10 @@ public class ApiGen {
         if (!dir.isDirectory())
             return dir.delete();
         boolean result = true;
-        for (File file : dir.listFiles())
+        File[] files = dir.listFiles();
+        if (files == null)
+            return false;
+        for (File file : files)
             result &= delete(file);
         return result & dir.delete();
     }

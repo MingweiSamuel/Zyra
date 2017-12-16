@@ -4,6 +4,10 @@ import org.asynchttpclient.Response;
 
 import java.util.List;
 
+/**
+ * Represents a "rate limit". A rate limit has a type, either Application or Method, (Service is not included,
+ * but could be). A rate limit  keeps track of a collection of {@link TokenBucket}s.
+ */
 public interface RateLimit {
 
     /**
@@ -17,7 +21,7 @@ public interface RateLimit {
      * Get the rate limit's buckets.
      * @return Current buckets.
      */
-    List<TemporalBucket> getBuckets();
+    List<TokenBucket> getBuckets();
 
     /**
      * Callback for when a response returns.
@@ -43,17 +47,17 @@ public interface RateLimit {
         if (retryAfterDelay >= 0)
             return retryAfterDelay;
 
-        // Join all buckets into an array and use TemporalBucket.getAllTokensOrDelay().
+        // Join all buckets into an array and use TokenBucket.getAllTokensOrDelay().
         int i = 0;
         for (RateLimit rateLimit : rateLimits)
             i += rateLimit.getBuckets().size();
 
-        TemporalBucket[] allBuckets = new TemporalBucket[i];
+        TokenBucket[] allBuckets = new TokenBucket[i];
         i = 0;
         for (RateLimit rateLimit : rateLimits) {
-            for (TemporalBucket bucket : rateLimit.getBuckets())
+            for (TokenBucket bucket : rateLimit.getBuckets())
                 allBuckets[i++] = bucket;
         }
-        return TemporalBucket.getAllTokensOrDelay(allBuckets);
+        return TokenBucket.getAllTokensOrDelay(allBuckets);
     }
 }
