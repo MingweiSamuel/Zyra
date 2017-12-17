@@ -11,7 +11,7 @@ import java.util.List;
  *
  * This object contains mastery tree list data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryList">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class MasteryTreeList implements Serializable {
   public final List<MasteryTreeItem> masteryTreeItems;
 

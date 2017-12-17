@@ -9,17 +9,17 @@ import java.lang.String;
 /**
  * Translation.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-status-v3/GET_getShardData">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class Translation implements Serializable {
-  public final String locale;
-
   public final String content;
+
+  public final String locale;
 
   public final String updated_at;
 
-  public Translation(final String locale, final String content, final String updated_at) {
-    this.locale = locale;
+  public Translation(final String content, final String locale, final String updated_at) {
     this.content = content;
+    this.locale = locale;
     this.updated_at = updated_at;
   }
 
@@ -29,14 +29,14 @@ public class Translation implements Serializable {
     if (!(obj instanceof Translation)) return false;
     final Translation other = (Translation) obj;
     return true
-        && Objects.equal(locale, other.locale)
         && Objects.equal(content, other.content)
+        && Objects.equal(locale, other.locale)
         && Objects.equal(updated_at, other.updated_at);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        locale,
         content,
+        locale,
         updated_at);}
 }

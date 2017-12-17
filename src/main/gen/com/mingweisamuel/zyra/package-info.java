@@ -10,7 +10,8 @@
  * methods in {@link com.mingweisamuel.zyra.MatchEndpoints} will return classes from the package
  * {@link com.mingweisamuel.zyra.match}.<br><br>
  *
- * The API was last automatically generated from the <a href="https://developer.riotgames.com/api-methods/">Riot API reference</a>
- * on Thu Aug 24 21:59:14 PDT 2017.
+ * The API was last automatically generated from the
+ * <a href="http://www.mingweisamuel.com/riotapi-schema/tool/">Unofficial Riot API OpenAPI Spec</a>
+ * on Sun Dec 17 15:26:34 PST 2017.
  */
 package com.mingweisamuel.zyra;

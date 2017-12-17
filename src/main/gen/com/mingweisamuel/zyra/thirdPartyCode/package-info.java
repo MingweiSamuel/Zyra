@@ -1,5 +1,5 @@
 /**
- * DTOs for runes-v3.<br>
+ * DTOs for third-party-code-v3.<br>
  * These DTOs are automatically generated and should not be modified directly.
  */
-package com.mingweisamuel.zyra.runes;
+package com.mingweisamuel.zyra.thirdPartyCode;

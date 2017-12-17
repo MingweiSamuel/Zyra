@@ -12,25 +12,25 @@ import java.util.Map;
  *
  * This object contains champion list data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class ChampionList implements Serializable {
-  public final Map<String, String> keys;
-
   public final Map<String, Champion> data;
-
-  public final String version;
-
-  public final String type;
 
   public final String format;
 
-  public ChampionList(final Map<String, String> keys, final Map<String, Champion> data,
-      final String version, final String type, final String format) {
-    this.keys = keys;
+  public final Map<String, String> keys;
+
+  public final String type;
+
+  public final String version;
+
+  public ChampionList(final Map<String, Champion> data, final String format,
+      final Map<String, String> keys, final String type, final String version) {
     this.data = data;
-    this.version = version;
-    this.type = type;
     this.format = format;
+    this.keys = keys;
+    this.type = type;
+    this.version = version;
   }
 
   @Override
@@ -39,18 +39,18 @@ public class ChampionList implements Serializable {
     if (!(obj instanceof ChampionList)) return false;
     final ChampionList other = (ChampionList) obj;
     return true
-        && Objects.equal(keys, other.keys)
         && Objects.equal(data, other.data)
-        && Objects.equal(version, other.version)
+        && Objects.equal(format, other.format)
+        && Objects.equal(keys, other.keys)
         && Objects.equal(type, other.type)
-        && Objects.equal(format, other.format);}
+        && Objects.equal(version, other.version);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        keys,
         data,
-        version,
+        format,
+        keys,
         type,
-        format);}
+        version);}
 }

@@ -8,15 +8,15 @@ import java.lang.Override;
 /**
  * Rune.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class Rune implements Serializable {
-  public final int runeId;
-
   public final int rank;
 
-  public Rune(final int runeId, final int rank) {
-    this.runeId = runeId;
+  public final int runeId;
+
+  public Rune(final int rank, final int runeId) {
     this.rank = rank;
+    this.runeId = runeId;
   }
 
   @Override
@@ -25,12 +25,12 @@ public class Rune implements Serializable {
     if (!(obj instanceof Rune)) return false;
     final Rune other = (Rune) obj;
     return true
-        && Objects.equal(runeId, other.runeId)
-        && Objects.equal(rank, other.rank);}
+        && Objects.equal(rank, other.rank)
+        && Objects.equal(runeId, other.runeId);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        runeId,
-        rank);}
+        rank,
+        runeId);}
 }

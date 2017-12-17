@@ -10,52 +10,51 @@ import java.util.List;
 /**
  * Match.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class Match implements Serializable {
-  public final int seasonId;
-
-  public final int queueId;
-
-  public final long gameId;
-
-  public final List<ParticipantIdentity> participantIdentities;
-
-  public final String gameVersion;
-
-  public final String platformId;
-
-  public final String gameMode;
-
-  public final int mapId;
-
-  public final String gameType;
-
-  public final List<TeamStats> teams;
-
-  public final List<Participant> participants;
+  public final long gameCreation;
 
   public final long gameDuration;
 
-  public final long gameCreation;
+  public final long gameId;
 
-  public Match(final int seasonId, final int queueId, final long gameId,
-      final List<ParticipantIdentity> participantIdentities, final String gameVersion,
-      final String platformId, final String gameMode, final int mapId, final String gameType,
-      final List<TeamStats> teams, final List<Participant> participants, final long gameDuration,
-      final long gameCreation) {
-    this.seasonId = seasonId;
-    this.queueId = queueId;
-    this.gameId = gameId;
-    this.participantIdentities = participantIdentities;
-    this.gameVersion = gameVersion;
-    this.platformId = platformId;
-    this.gameMode = gameMode;
-    this.mapId = mapId;
-    this.gameType = gameType;
-    this.teams = teams;
-    this.participants = participants;
-    this.gameDuration = gameDuration;
+  public final String gameMode;
+
+  public final String gameType;
+
+  public final String gameVersion;
+
+  public final int mapId;
+
+  public final List<ParticipantIdentity> participantIdentities;
+
+  public final List<Participant> participants;
+
+  public final String platformId;
+
+  public final int queueId;
+
+  public final int seasonId;
+
+  public final List<TeamStats> teams;
+
+  public Match(final long gameCreation, final long gameDuration, final long gameId,
+      final String gameMode, final String gameType, final String gameVersion, final int mapId,
+      final List<ParticipantIdentity> participantIdentities, final List<Participant> participants,
+      final String platformId, final int queueId, final int seasonId, final List<TeamStats> teams) {
     this.gameCreation = gameCreation;
+    this.gameDuration = gameDuration;
+    this.gameId = gameId;
+    this.gameMode = gameMode;
+    this.gameType = gameType;
+    this.gameVersion = gameVersion;
+    this.mapId = mapId;
+    this.participantIdentities = participantIdentities;
+    this.participants = participants;
+    this.platformId = platformId;
+    this.queueId = queueId;
+    this.seasonId = seasonId;
+    this.teams = teams;
   }
 
   @Override
@@ -64,34 +63,34 @@ public class Match implements Serializable {
     if (!(obj instanceof Match)) return false;
     final Match other = (Match) obj;
     return true
-        && Objects.equal(seasonId, other.seasonId)
-        && Objects.equal(queueId, other.queueId)
-        && Objects.equal(gameId, other.gameId)
-        && Objects.equal(participantIdentities, other.participantIdentities)
-        && Objects.equal(gameVersion, other.gameVersion)
-        && Objects.equal(platformId, other.platformId)
-        && Objects.equal(gameMode, other.gameMode)
-        && Objects.equal(mapId, other.mapId)
-        && Objects.equal(gameType, other.gameType)
-        && Objects.equal(teams, other.teams)
-        && Objects.equal(participants, other.participants)
+        && Objects.equal(gameCreation, other.gameCreation)
         && Objects.equal(gameDuration, other.gameDuration)
-        && Objects.equal(gameCreation, other.gameCreation);}
+        && Objects.equal(gameId, other.gameId)
+        && Objects.equal(gameMode, other.gameMode)
+        && Objects.equal(gameType, other.gameType)
+        && Objects.equal(gameVersion, other.gameVersion)
+        && Objects.equal(mapId, other.mapId)
+        && Objects.equal(participantIdentities, other.participantIdentities)
+        && Objects.equal(participants, other.participants)
+        && Objects.equal(platformId, other.platformId)
+        && Objects.equal(queueId, other.queueId)
+        && Objects.equal(seasonId, other.seasonId)
+        && Objects.equal(teams, other.teams);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        seasonId,
-        queueId,
-        gameId,
-        participantIdentities,
-        gameVersion,
-        platformId,
-        gameMode,
-        mapId,
-        gameType,
-        teams,
-        participants,
+        gameCreation,
         gameDuration,
-        gameCreation);}
+        gameId,
+        gameMode,
+        gameType,
+        gameVersion,
+        mapId,
+        participantIdentities,
+        participants,
+        platformId,
+        queueId,
+        seasonId,
+        teams);}
 }

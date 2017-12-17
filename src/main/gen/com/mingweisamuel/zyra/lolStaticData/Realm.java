@@ -12,11 +12,15 @@ import java.util.Map;
  *
  * This object contains realm data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRealm">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class Realm implements Serializable {
   /**
-   * Legacy script mode for IE6 or older. */
-  public final String lg;
+   * The base CDN URL. */
+  public final String cdn;
+
+  /**
+   * Latest changed version of Dragon Magic's CSS file. */
+  public final String css;
 
   /**
    * Latest changed version of Dragon Magic. */
@@ -25,6 +29,10 @@ public class Realm implements Serializable {
   /**
    * Default language for this realm. */
   public final String l;
+
+  /**
+   * Legacy script mode for IE6 or older. */
+  public final String lg;
 
   /**
    * Latest changed version for each data type listed. */
@@ -42,26 +50,17 @@ public class Realm implements Serializable {
    * Current version of this file for this realm. */
   public final String v;
 
-  /**
-   * The base CDN URL. */
-  public final String cdn;
-
-  /**
-   * Latest changed version of Dragon Magic's CSS file. */
-  public final String css;
-
-  public Realm(final String lg, final String dd, final String l, final Map<String, String> n,
-      final int profileiconmax, final String store, final String v, final String cdn,
-      final String css) {
-    this.lg = lg;
+  public Realm(final String cdn, final String css, final String dd, final String l, final String lg,
+      final Map<String, String> n, final int profileiconmax, final String store, final String v) {
+    this.cdn = cdn;
+    this.css = css;
     this.dd = dd;
     this.l = l;
+    this.lg = lg;
     this.n = n;
     this.profileiconmax = profileiconmax;
     this.store = store;
     this.v = v;
-    this.cdn = cdn;
-    this.css = css;
   }
 
   @Override
@@ -70,26 +69,26 @@ public class Realm implements Serializable {
     if (!(obj instanceof Realm)) return false;
     final Realm other = (Realm) obj;
     return true
-        && Objects.equal(lg, other.lg)
+        && Objects.equal(cdn, other.cdn)
+        && Objects.equal(css, other.css)
         && Objects.equal(dd, other.dd)
         && Objects.equal(l, other.l)
+        && Objects.equal(lg, other.lg)
         && Objects.equal(n, other.n)
         && Objects.equal(profileiconmax, other.profileiconmax)
         && Objects.equal(store, other.store)
-        && Objects.equal(v, other.v)
-        && Objects.equal(cdn, other.cdn)
-        && Objects.equal(css, other.css);}
+        && Objects.equal(v, other.v);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        lg,
+        cdn,
+        css,
         dd,
         l,
+        lg,
         n,
         profileiconmax,
         store,
-        v,
-        cdn,
-        css);}
+        v);}
 }

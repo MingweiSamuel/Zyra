@@ -9,21 +9,21 @@ import java.lang.String;
 /**
  * MiniSeries.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getChallengerLeague">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class MiniSeries implements Serializable {
-  public final int wins;
-
   public final int losses;
-
-  public final int target;
 
   public final String progress;
 
-  public MiniSeries(final int wins, final int losses, final int target, final String progress) {
-    this.wins = wins;
+  public final int target;
+
+  public final int wins;
+
+  public MiniSeries(final int losses, final String progress, final int target, final int wins) {
     this.losses = losses;
-    this.target = target;
     this.progress = progress;
+    this.target = target;
+    this.wins = wins;
   }
 
   @Override
@@ -32,16 +32,16 @@ public class MiniSeries implements Serializable {
     if (!(obj instanceof MiniSeries)) return false;
     final MiniSeries other = (MiniSeries) obj;
     return true
-        && Objects.equal(wins, other.wins)
         && Objects.equal(losses, other.losses)
+        && Objects.equal(progress, other.progress)
         && Objects.equal(target, other.target)
-        && Objects.equal(progress, other.progress);}
+        && Objects.equal(wins, other.wins);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        wins,
         losses,
+        progress,
         target,
-        progress);}
+        wins);}
 }

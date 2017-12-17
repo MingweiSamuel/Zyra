@@ -13,18 +13,18 @@ import java.util.Map;
  *
  * This object contains rune list data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class RuneList implements Serializable {
   public final Map<Integer, Rune> data;
 
-  public final String version;
-
   public final String type;
 
-  public RuneList(final Map<Integer, Rune> data, final String version, final String type) {
+  public final String version;
+
+  public RuneList(final Map<Integer, Rune> data, final String type, final String version) {
     this.data = data;
-    this.version = version;
     this.type = type;
+    this.version = version;
   }
 
   @Override
@@ -34,13 +34,13 @@ public class RuneList implements Serializable {
     final RuneList other = (RuneList) obj;
     return true
         && Objects.equal(data, other.data)
-        && Objects.equal(version, other.version)
-        && Objects.equal(type, other.type);}
+        && Objects.equal(type, other.type)
+        && Objects.equal(version, other.version);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
         data,
-        version,
-        type);}
+        type,
+        version);}
 }

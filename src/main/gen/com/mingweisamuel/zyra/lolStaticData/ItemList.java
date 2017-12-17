@@ -14,25 +14,25 @@ import java.util.Map;
  *
  * This object contains item list data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemList">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class ItemList implements Serializable {
   public final Map<Integer, Item> data;
 
-  public final String version;
+  public final List<Group> groups;
 
   public final List<ItemTree> tree;
 
-  public final List<Group> groups;
-
   public final String type;
 
-  public ItemList(final Map<Integer, Item> data, final String version, final List<ItemTree> tree,
-      final List<Group> groups, final String type) {
+  public final String version;
+
+  public ItemList(final Map<Integer, Item> data, final List<Group> groups,
+      final List<ItemTree> tree, final String type, final String version) {
     this.data = data;
-    this.version = version;
-    this.tree = tree;
     this.groups = groups;
+    this.tree = tree;
     this.type = type;
+    this.version = version;
   }
 
   @Override
@@ -42,17 +42,17 @@ public class ItemList implements Serializable {
     final ItemList other = (ItemList) obj;
     return true
         && Objects.equal(data, other.data)
-        && Objects.equal(version, other.version)
-        && Objects.equal(tree, other.tree)
         && Objects.equal(groups, other.groups)
-        && Objects.equal(type, other.type);}
+        && Objects.equal(tree, other.tree)
+        && Objects.equal(type, other.type)
+        && Objects.equal(version, other.version);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
         data,
-        version,
-        tree,
         groups,
-        type);}
+        tree,
+        type,
+        version);}
 }

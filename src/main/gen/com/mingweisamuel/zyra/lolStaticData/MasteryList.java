@@ -13,22 +13,22 @@ import java.util.Map;
  *
  * This object contains mastery list data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryList">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class MasteryList implements Serializable {
   public final Map<Integer, Mastery> data;
-
-  public final String version;
 
   public final MasteryTree tree;
 
   public final String type;
 
-  public MasteryList(final Map<Integer, Mastery> data, final String version, final MasteryTree tree,
-      final String type) {
+  public final String version;
+
+  public MasteryList(final Map<Integer, Mastery> data, final MasteryTree tree, final String type,
+      final String version) {
     this.data = data;
-    this.version = version;
     this.tree = tree;
     this.type = type;
+    this.version = version;
   }
 
   @Override
@@ -38,15 +38,15 @@ public class MasteryList implements Serializable {
     final MasteryList other = (MasteryList) obj;
     return true
         && Objects.equal(data, other.data)
-        && Objects.equal(version, other.version)
         && Objects.equal(tree, other.tree)
-        && Objects.equal(type, other.type);}
+        && Objects.equal(type, other.type)
+        && Objects.equal(version, other.version);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
         data,
-        version,
         tree,
-        type);}
+        type,
+        version);}
 }

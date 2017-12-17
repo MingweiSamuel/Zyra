@@ -9,35 +9,35 @@ import java.lang.String;
 /**
  * Player.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class Player implements Serializable {
-  public final String currentPlatformId;
+  public final long accountId;
 
-  public final String summonerName;
+  public final long currentAccountId;
+
+  public final String currentPlatformId;
 
   public final String matchHistoryUri;
 
   public final String platformId;
 
-  public final long currentAccountId;
-
   public final int profileIcon;
 
   public final long summonerId;
 
-  public final long accountId;
+  public final String summonerName;
 
-  public Player(final String currentPlatformId, final String summonerName,
-      final String matchHistoryUri, final String platformId, final long currentAccountId,
-      final int profileIcon, final long summonerId, final long accountId) {
+  public Player(final long accountId, final long currentAccountId, final String currentPlatformId,
+      final String matchHistoryUri, final String platformId, final int profileIcon,
+      final long summonerId, final String summonerName) {
+    this.accountId = accountId;
+    this.currentAccountId = currentAccountId;
     this.currentPlatformId = currentPlatformId;
-    this.summonerName = summonerName;
     this.matchHistoryUri = matchHistoryUri;
     this.platformId = platformId;
-    this.currentAccountId = currentAccountId;
     this.profileIcon = profileIcon;
     this.summonerId = summonerId;
-    this.accountId = accountId;
+    this.summonerName = summonerName;
   }
 
   @Override
@@ -46,24 +46,24 @@ public class Player implements Serializable {
     if (!(obj instanceof Player)) return false;
     final Player other = (Player) obj;
     return true
+        && Objects.equal(accountId, other.accountId)
+        && Objects.equal(currentAccountId, other.currentAccountId)
         && Objects.equal(currentPlatformId, other.currentPlatformId)
-        && Objects.equal(summonerName, other.summonerName)
         && Objects.equal(matchHistoryUri, other.matchHistoryUri)
         && Objects.equal(platformId, other.platformId)
-        && Objects.equal(currentAccountId, other.currentAccountId)
         && Objects.equal(profileIcon, other.profileIcon)
         && Objects.equal(summonerId, other.summonerId)
-        && Objects.equal(accountId, other.accountId);}
+        && Objects.equal(summonerName, other.summonerName);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
+        accountId,
+        currentAccountId,
         currentPlatformId,
-        summonerName,
         matchHistoryUri,
         platformId,
-        currentAccountId,
         profileIcon,
         summonerId,
-        accountId);}
+        summonerName);}
 }

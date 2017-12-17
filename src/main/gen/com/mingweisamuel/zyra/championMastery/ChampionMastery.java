@@ -10,11 +10,11 @@ import java.lang.Override;
  *
  * This object contains single Champion Mastery information for player and champion combination..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#champion-mastery-v3/GET_getAllChampionMasteries">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class ChampionMastery implements Serializable {
   /**
-   * Is chest granted for this champion or not in current season. */
-  public final boolean chestGranted;
+   * Champion ID for this entry. */
+  public final long championId;
 
   /**
    * Champion level for specified player and champion combination. */
@@ -25,37 +25,36 @@ public class ChampionMastery implements Serializable {
   public final int championPoints;
 
   /**
-   * Champion ID for this entry. */
-  public final int championId;
-
-  /**
-   * Player ID for this entry. */
-  public final long playerId;
+   * Number of points earned since current level has been achieved. Zero if player reached maximum champion level for this champion. */
+  public final long championPointsSinceLastLevel;
 
   /**
    * Number of points needed to achieve next level. Zero if player reached maximum champion level for this champion. */
   public final long championPointsUntilNextLevel;
 
   /**
-   * Number of points earned since current level has been achieved. Zero if player reached maximum champion level for this champion. */
-  public final long championPointsSinceLastLevel;
+   * Is chest granted for this champion or not in current season. */
+  public final boolean chestGranted;
 
   /**
    * Last time this champion was played by this player - in Unix milliseconds time format. */
   public final long lastPlayTime;
 
-  public ChampionMastery(final boolean chestGranted, final int championLevel,
-      final int championPoints, final int championId, final long playerId,
-      final long championPointsUntilNextLevel, final long championPointsSinceLastLevel,
-      final long lastPlayTime) {
-    this.chestGranted = chestGranted;
+  /**
+   * Player ID for this entry. */
+  public final long playerId;
+
+  public ChampionMastery(final long championId, final int championLevel, final int championPoints,
+      final long championPointsSinceLastLevel, final long championPointsUntilNextLevel,
+      final boolean chestGranted, final long lastPlayTime, final long playerId) {
+    this.championId = championId;
     this.championLevel = championLevel;
     this.championPoints = championPoints;
-    this.championId = championId;
-    this.playerId = playerId;
-    this.championPointsUntilNextLevel = championPointsUntilNextLevel;
     this.championPointsSinceLastLevel = championPointsSinceLastLevel;
+    this.championPointsUntilNextLevel = championPointsUntilNextLevel;
+    this.chestGranted = chestGranted;
     this.lastPlayTime = lastPlayTime;
+    this.playerId = playerId;
   }
 
   @Override
@@ -64,24 +63,24 @@ public class ChampionMastery implements Serializable {
     if (!(obj instanceof ChampionMastery)) return false;
     final ChampionMastery other = (ChampionMastery) obj;
     return true
-        && Objects.equal(chestGranted, other.chestGranted)
+        && Objects.equal(championId, other.championId)
         && Objects.equal(championLevel, other.championLevel)
         && Objects.equal(championPoints, other.championPoints)
-        && Objects.equal(championId, other.championId)
-        && Objects.equal(playerId, other.playerId)
-        && Objects.equal(championPointsUntilNextLevel, other.championPointsUntilNextLevel)
         && Objects.equal(championPointsSinceLastLevel, other.championPointsSinceLastLevel)
-        && Objects.equal(lastPlayTime, other.lastPlayTime);}
+        && Objects.equal(championPointsUntilNextLevel, other.championPointsUntilNextLevel)
+        && Objects.equal(chestGranted, other.chestGranted)
+        && Objects.equal(lastPlayTime, other.lastPlayTime)
+        && Objects.equal(playerId, other.playerId);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        chestGranted,
+        championId,
         championLevel,
         championPoints,
-        championId,
-        playerId,
-        championPointsUntilNextLevel,
         championPointsSinceLastLevel,
-        lastPlayTime);}
+        championPointsUntilNextLevel,
+        chestGranted,
+        lastPlayTime,
+        playerId);}
 }

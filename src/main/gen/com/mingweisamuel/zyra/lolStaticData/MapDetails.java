@@ -13,21 +13,21 @@ import java.util.List;
  *
  * This object contains map details data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class MapDetails implements Serializable {
-  public final String mapName;
-
   public final Image image;
 
   public final long mapId;
 
+  public final String mapName;
+
   public final List<Long> unpurchasableItemList;
 
-  public MapDetails(final String mapName, final Image image, final long mapId,
+  public MapDetails(final Image image, final long mapId, final String mapName,
       final List<Long> unpurchasableItemList) {
-    this.mapName = mapName;
     this.image = image;
     this.mapId = mapId;
+    this.mapName = mapName;
     this.unpurchasableItemList = unpurchasableItemList;
   }
 
@@ -37,16 +37,16 @@ public class MapDetails implements Serializable {
     if (!(obj instanceof MapDetails)) return false;
     final MapDetails other = (MapDetails) obj;
     return true
-        && Objects.equal(mapName, other.mapName)
         && Objects.equal(image, other.image)
         && Objects.equal(mapId, other.mapId)
+        && Objects.equal(mapName, other.mapName)
         && Objects.equal(unpurchasableItemList, other.unpurchasableItemList);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        mapName,
         image,
         mapId,
+        mapName,
         unpurchasableItemList);}
 }

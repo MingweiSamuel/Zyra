@@ -8,15 +8,15 @@ import java.lang.Override;
 /**
  * TeamBans.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class TeamBans implements Serializable {
-  public final int pickTurn;
-
   public final int championId;
 
-  public TeamBans(final int pickTurn, final int championId) {
-    this.pickTurn = pickTurn;
+  public final int pickTurn;
+
+  public TeamBans(final int championId, final int pickTurn) {
     this.championId = championId;
+    this.pickTurn = pickTurn;
   }
 
   @Override
@@ -25,12 +25,12 @@ public class TeamBans implements Serializable {
     if (!(obj instanceof TeamBans)) return false;
     final TeamBans other = (TeamBans) obj;
     return true
-        && Objects.equal(pickTurn, other.pickTurn)
-        && Objects.equal(championId, other.championId);}
+        && Objects.equal(championId, other.championId)
+        && Objects.equal(pickTurn, other.pickTurn);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        pickTurn,
-        championId);}
+        championId,
+        pickTurn);}
 }

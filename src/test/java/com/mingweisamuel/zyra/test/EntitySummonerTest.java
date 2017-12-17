@@ -6,8 +6,6 @@ import com.mingweisamuel.zyra.enums.Queue;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.enums.Tier;
 import com.mingweisamuel.zyra.league.LeaguePosition;
-import com.mingweisamuel.zyra.masteries.MasteryPages;
-import com.mingweisamuel.zyra.runes.RunePages;
 import com.mingweisamuel.zyra.spectator.CurrentGameInfo;
 import org.junit.Test;
 
@@ -81,13 +79,5 @@ public class EntitySummonerTest extends EntityTest {
             }
         }
         assertTrue("Failed to find queue.", found);
-
-        // runes
-        RunePages runePages = summoner.getRunePages();
-        ApiRunesTest.checkGetRunes(runePages);
-
-        // masteries
-        MasteryPages masteryPages = summoner.getMasteryPages();
-        ApiMasteriesTest.checkGetMasteries(masteryPages);
     }
 }

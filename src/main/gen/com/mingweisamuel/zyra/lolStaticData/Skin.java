@@ -11,18 +11,18 @@ import java.lang.String;
  *
  * This object contains champion skin data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class Skin implements Serializable {
-  public final int num;
+  public final int id;
 
   public final String name;
 
-  public final int id;
+  public final int num;
 
-  public Skin(final int num, final String name, final int id) {
-    this.num = num;
-    this.name = name;
+  public Skin(final int id, final String name, final int num) {
     this.id = id;
+    this.name = name;
+    this.num = num;
   }
 
   @Override
@@ -31,14 +31,14 @@ public class Skin implements Serializable {
     if (!(obj instanceof Skin)) return false;
     final Skin other = (Skin) obj;
     return true
-        && Objects.equal(num, other.num)
+        && Objects.equal(id, other.id)
         && Objects.equal(name, other.name)
-        && Objects.equal(id, other.id);}
+        && Objects.equal(num, other.num);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        num,
+        id,
         name,
-        id);}
+        num);}
 }

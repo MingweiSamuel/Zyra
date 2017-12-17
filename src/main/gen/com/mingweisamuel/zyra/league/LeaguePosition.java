@@ -9,54 +9,58 @@ import java.lang.String;
 /**
  * LeaguePosition.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getAllLeaguePositionsForSummoner">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class LeaguePosition implements Serializable {
-  public final String rank;
-
-  public final String queueType;
+  public final boolean freshBlood;
 
   public final boolean hotStreak;
 
-  public final MiniSeries miniSeries;
+  public final boolean inactive;
 
-  public final int wins;
-
-  public final boolean veteran;
-
-  public final int losses;
-
-  public final String playerOrTeamId;
+  public final String leagueId;
 
   public final String leagueName;
 
+  public final int leaguePoints;
+
+  public final int losses;
+
+  public final MiniSeries miniSeries;
+
+  public final String playerOrTeamId;
+
   public final String playerOrTeamName;
 
-  public final boolean inactive;
+  public final String queueType;
 
-  public final boolean freshBlood;
+  public final String rank;
 
   public final String tier;
 
-  public final int leaguePoints;
+  public final boolean veteran;
 
-  public LeaguePosition(final String rank, final String queueType, final boolean hotStreak,
-      final MiniSeries miniSeries, final int wins, final boolean veteran, final int losses,
-      final String playerOrTeamId, final String leagueName, final String playerOrTeamName,
-      final boolean inactive, final boolean freshBlood, final String tier, final int leaguePoints) {
-    this.rank = rank;
-    this.queueType = queueType;
-    this.hotStreak = hotStreak;
-    this.miniSeries = miniSeries;
-    this.wins = wins;
-    this.veteran = veteran;
-    this.losses = losses;
-    this.playerOrTeamId = playerOrTeamId;
-    this.leagueName = leagueName;
-    this.playerOrTeamName = playerOrTeamName;
-    this.inactive = inactive;
+  public final int wins;
+
+  public LeaguePosition(final boolean freshBlood, final boolean hotStreak, final boolean inactive,
+      final String leagueId, final String leagueName, final int leaguePoints, final int losses,
+      final MiniSeries miniSeries, final String playerOrTeamId, final String playerOrTeamName,
+      final String queueType, final String rank, final String tier, final boolean veteran,
+      final int wins) {
     this.freshBlood = freshBlood;
-    this.tier = tier;
+    this.hotStreak = hotStreak;
+    this.inactive = inactive;
+    this.leagueId = leagueId;
+    this.leagueName = leagueName;
     this.leaguePoints = leaguePoints;
+    this.losses = losses;
+    this.miniSeries = miniSeries;
+    this.playerOrTeamId = playerOrTeamId;
+    this.playerOrTeamName = playerOrTeamName;
+    this.queueType = queueType;
+    this.rank = rank;
+    this.tier = tier;
+    this.veteran = veteran;
+    this.wins = wins;
   }
 
   @Override
@@ -65,36 +69,38 @@ public class LeaguePosition implements Serializable {
     if (!(obj instanceof LeaguePosition)) return false;
     final LeaguePosition other = (LeaguePosition) obj;
     return true
-        && Objects.equal(rank, other.rank)
-        && Objects.equal(queueType, other.queueType)
-        && Objects.equal(hotStreak, other.hotStreak)
-        && Objects.equal(miniSeries, other.miniSeries)
-        && Objects.equal(wins, other.wins)
-        && Objects.equal(veteran, other.veteran)
-        && Objects.equal(losses, other.losses)
-        && Objects.equal(playerOrTeamId, other.playerOrTeamId)
-        && Objects.equal(leagueName, other.leagueName)
-        && Objects.equal(playerOrTeamName, other.playerOrTeamName)
-        && Objects.equal(inactive, other.inactive)
         && Objects.equal(freshBlood, other.freshBlood)
+        && Objects.equal(hotStreak, other.hotStreak)
+        && Objects.equal(inactive, other.inactive)
+        && Objects.equal(leagueId, other.leagueId)
+        && Objects.equal(leagueName, other.leagueName)
+        && Objects.equal(leaguePoints, other.leaguePoints)
+        && Objects.equal(losses, other.losses)
+        && Objects.equal(miniSeries, other.miniSeries)
+        && Objects.equal(playerOrTeamId, other.playerOrTeamId)
+        && Objects.equal(playerOrTeamName, other.playerOrTeamName)
+        && Objects.equal(queueType, other.queueType)
+        && Objects.equal(rank, other.rank)
         && Objects.equal(tier, other.tier)
-        && Objects.equal(leaguePoints, other.leaguePoints);}
+        && Objects.equal(veteran, other.veteran)
+        && Objects.equal(wins, other.wins);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        rank,
-        queueType,
-        hotStreak,
-        miniSeries,
-        wins,
-        veteran,
-        losses,
-        playerOrTeamId,
-        leagueName,
-        playerOrTeamName,
-        inactive,
         freshBlood,
+        hotStreak,
+        inactive,
+        leagueId,
+        leagueName,
+        leaguePoints,
+        losses,
+        miniSeries,
+        playerOrTeamId,
+        playerOrTeamName,
+        queueType,
+        rank,
         tier,
-        leaguePoints);}
+        veteran,
+        wins);}
 }

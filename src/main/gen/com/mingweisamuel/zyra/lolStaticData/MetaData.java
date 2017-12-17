@@ -11,18 +11,18 @@ import java.lang.String;
  *
  * This object contains meta data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class MetaData implements Serializable {
+  public final boolean isRune;
+
   public final String tier;
 
   public final String type;
 
-  public final boolean isRune;
-
-  public MetaData(final String tier, final String type, final boolean isRune) {
+  public MetaData(final boolean isRune, final String tier, final String type) {
+    this.isRune = isRune;
     this.tier = tier;
     this.type = type;
-    this.isRune = isRune;
   }
 
   @Override
@@ -31,14 +31,14 @@ public class MetaData implements Serializable {
     if (!(obj instanceof MetaData)) return false;
     final MetaData other = (MetaData) obj;
     return true
+        && Objects.equal(isRune, other.isRune)
         && Objects.equal(tier, other.tier)
-        && Objects.equal(type, other.type)
-        && Objects.equal(isRune, other.isRune);}
+        && Objects.equal(type, other.type);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
+        isRune,
         tier,
-        type,
-        isRune);}
+        type);}
 }

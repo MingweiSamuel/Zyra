@@ -10,20 +10,20 @@ import java.lang.Override;
  *
  * This object contains champion information..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class Info implements Serializable {
-  public final int difficulty;
-
   public final int attack;
 
   public final int defense;
 
+  public final int difficulty;
+
   public final int magic;
 
-  public Info(final int difficulty, final int attack, final int defense, final int magic) {
-    this.difficulty = difficulty;
+  public Info(final int attack, final int defense, final int difficulty, final int magic) {
     this.attack = attack;
     this.defense = defense;
+    this.difficulty = difficulty;
     this.magic = magic;
   }
 
@@ -33,16 +33,16 @@ public class Info implements Serializable {
     if (!(obj instanceof Info)) return false;
     final Info other = (Info) obj;
     return true
-        && Objects.equal(difficulty, other.difficulty)
         && Objects.equal(attack, other.attack)
         && Objects.equal(defense, other.defense)
+        && Objects.equal(difficulty, other.difficulty)
         && Objects.equal(magic, other.magic);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        difficulty,
         attack,
         defense,
+        difficulty,
         magic);}
 }

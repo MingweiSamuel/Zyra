@@ -10,22 +10,25 @@ import java.util.List;
 /**
  * LeagueList.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#league-v3/GET_getChallengerLeague">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class LeagueList implements Serializable {
-  public final String tier;
+  public final List<LeaguePosition> entries;
 
-  public final String queue;
+  public final String leagueId;
 
   public final String name;
 
-  public final List<LeagueItem> entries;
+  public final String queue;
 
-  public LeagueList(final String tier, final String queue, final String name,
-      final List<LeagueItem> entries) {
-    this.tier = tier;
-    this.queue = queue;
-    this.name = name;
+  public final String tier;
+
+  public LeagueList(final List<LeaguePosition> entries, final String leagueId, final String name,
+      final String queue, final String tier) {
     this.entries = entries;
+    this.leagueId = leagueId;
+    this.name = name;
+    this.queue = queue;
+    this.tier = tier;
   }
 
   @Override
@@ -34,16 +37,18 @@ public class LeagueList implements Serializable {
     if (!(obj instanceof LeagueList)) return false;
     final LeagueList other = (LeagueList) obj;
     return true
-        && Objects.equal(tier, other.tier)
-        && Objects.equal(queue, other.queue)
+        && Objects.equal(entries, other.entries)
+        && Objects.equal(leagueId, other.leagueId)
         && Objects.equal(name, other.name)
-        && Objects.equal(entries, other.entries);}
+        && Objects.equal(queue, other.queue)
+        && Objects.equal(tier, other.tier);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        tier,
-        queue,
+        entries,
+        leagueId,
         name,
-        entries);}
+        queue,
+        tier);}
 }

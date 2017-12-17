@@ -11,19 +11,19 @@ import java.util.List;
  *
  * This object contains mastery tree data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMasteryList">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class MasteryTree implements Serializable {
-  public final List<MasteryTreeList> Resolve;
+  public final List<MasteryTreeList> Cunning;
 
   public final List<MasteryTreeList> Ferocity;
 
-  public final List<MasteryTreeList> Cunning;
+  public final List<MasteryTreeList> Resolve;
 
-  public MasteryTree(final List<MasteryTreeList> Resolve, final List<MasteryTreeList> Ferocity,
-      final List<MasteryTreeList> Cunning) {
-    this.Resolve = Resolve;
-    this.Ferocity = Ferocity;
+  public MasteryTree(final List<MasteryTreeList> Cunning, final List<MasteryTreeList> Ferocity,
+      final List<MasteryTreeList> Resolve) {
     this.Cunning = Cunning;
+    this.Ferocity = Ferocity;
+    this.Resolve = Resolve;
   }
 
   @Override
@@ -32,14 +32,14 @@ public class MasteryTree implements Serializable {
     if (!(obj instanceof MasteryTree)) return false;
     final MasteryTree other = (MasteryTree) obj;
     return true
-        && Objects.equal(Resolve, other.Resolve)
+        && Objects.equal(Cunning, other.Cunning)
         && Objects.equal(Ferocity, other.Ferocity)
-        && Objects.equal(Cunning, other.Cunning);}
+        && Objects.equal(Resolve, other.Resolve);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        Resolve,
+        Cunning,
         Ferocity,
-        Cunning);}
+        Resolve);}
 }

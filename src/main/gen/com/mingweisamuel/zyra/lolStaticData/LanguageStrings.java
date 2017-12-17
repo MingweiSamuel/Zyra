@@ -12,18 +12,18 @@ import java.util.Map;
  *
  * This object contains language strings data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class LanguageStrings implements Serializable {
   public final Map<String, String> data;
 
-  public final String version;
-
   public final String type;
 
-  public LanguageStrings(final Map<String, String> data, final String version, final String type) {
+  public final String version;
+
+  public LanguageStrings(final Map<String, String> data, final String type, final String version) {
     this.data = data;
-    this.version = version;
     this.type = type;
+    this.version = version;
   }
 
   @Override
@@ -33,13 +33,13 @@ public class LanguageStrings implements Serializable {
     final LanguageStrings other = (LanguageStrings) obj;
     return true
         && Objects.equal(data, other.data)
-        && Objects.equal(version, other.version)
-        && Objects.equal(type, other.type);}
+        && Objects.equal(type, other.type)
+        && Objects.equal(version, other.version);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
         data,
-        version,
-        type);}
+        type,
+        version);}
 }

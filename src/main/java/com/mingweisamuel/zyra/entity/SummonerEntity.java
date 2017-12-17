@@ -5,9 +5,7 @@ import com.mingweisamuel.zyra.RiotApi;
 import com.mingweisamuel.zyra.championMastery.ChampionMastery;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.league.LeaguePosition;
-import com.mingweisamuel.zyra.masteries.MasteryPages;
 import com.mingweisamuel.zyra.match.Matchlist;
-import com.mingweisamuel.zyra.runes.RunePages;
 import com.mingweisamuel.zyra.spectator.CurrentGameInfo;
 import com.mingweisamuel.zyra.summoner.Summoner;
 import com.mingweisamuel.zyra.util.LazyResetableFuture;
@@ -97,10 +95,6 @@ public class SummonerEntity extends Entity {
     private final LazyResetableFuture<List<ChampionMastery>> championMasteries;
     /** League position (rank). */
     private final LazyResetableFuture<List<LeaguePosition>> leaguePositions;
-    /** Mastery pages. */
-    private final LazyResetableFuture<MasteryPages> masteryPages;
-    /** Rune pages. */
-    private final LazyResetableFuture<RunePages> runePages;
     /** Current game information. */
     private final LazyResetableFuture<CurrentGameInfo> currentGameInfo;
     /** Recent match list information. */
@@ -146,10 +140,6 @@ public class SummonerEntity extends Entity {
             entityApi.riotApi.championMasteries.getAllChampionMasteriesAsync(region, summonerId.join()));
         this.leaguePositions = new LazyResetableFuture<>(() ->
             entityApi.riotApi.leagues.getAllLeaguePositionsForSummonerAsync(region, summonerId.join()));
-        this.masteryPages = new LazyResetableFuture<>(() ->
-            entityApi.riotApi.masteries.getMasteryPagesBySummonerIdAsync(region, summonerId.join()));
-        this.runePages = new LazyResetableFuture<>(() ->
-            entityApi.riotApi.runes.getRunePagesBySummonerIdAsync(region, summonerId.join()));
         this.currentGameInfo = new LazyResetableFuture<>(() ->
             entityApi.riotApi.spectator.getCurrentGameInfoBySummonerAsync(region, summonerId.join()));
         this.recentMatchlist = new LazyResetableFuture<>(() ->
@@ -230,36 +220,6 @@ public class SummonerEntity extends Entity {
     }
     public void resetLeaguePositions() {
         leaguePositions.reset();
-    }
-    //endregion
-
-    //region masteryPages
-    public boolean loadedMasteryPages() {
-        return masteryPages.isDone();
-    }
-    public CompletableFuture<MasteryPages> getMasteryPagesAsync() {
-        return masteryPages.get();
-    }
-    public MasteryPages getMasteryPages() {
-        return masteryPages.join();
-    }
-    public void resetMasteryPages() {
-        masteryPages.reset();
-    }
-    //endregion
-
-    //region runePages
-    public boolean loadedRunePages() {
-        return runePages.isDone();
-    }
-    public CompletableFuture<RunePages> getRunePagesAsync() {
-        return runePages.get();
-    }
-    public RunePages getRunePages() {
-        return runePages.join();
-    }
-    public void resetRunePages() {
-        runePages.reset();
     }
     //endregion
 

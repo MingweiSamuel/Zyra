@@ -10,15 +10,15 @@ import java.lang.Override;
  *
  * This object contains profile icon details data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class ProfileIconDetails implements Serializable {
-  public final Image image;
-
   public final long id;
 
-  public ProfileIconDetails(final Image image, final long id) {
-    this.image = image;
+  public final Image image;
+
+  public ProfileIconDetails(final long id, final Image image) {
     this.id = id;
+    this.image = image;
   }
 
   @Override
@@ -27,12 +27,12 @@ public class ProfileIconDetails implements Serializable {
     if (!(obj instanceof ProfileIconDetails)) return false;
     final ProfileIconDetails other = (ProfileIconDetails) obj;
     return true
-        && Objects.equal(image, other.image)
-        && Objects.equal(id, other.id);}
+        && Objects.equal(id, other.id)
+        && Objects.equal(image, other.image);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        image,
-        id);}
+        id,
+        image);}
 }

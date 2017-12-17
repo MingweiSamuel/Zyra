@@ -10,62 +10,61 @@ import java.util.List;
 /**
  * TeamStats.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class TeamStats implements Serializable {
-  public final boolean firstDragon;
-
-  public final boolean firstInhibitor;
-
   public final List<TeamBans> bans;
 
   public final int baronKills;
 
-  public final boolean firstRiftHerald;
-
-  public final boolean firstBaron;
-
-  public final int riftHeraldKills;
-
-  public final boolean firstBlood;
-
-  public final int teamId;
-
-  public final boolean firstTower;
-
-  public final int vilemawKills;
-
-  public final int inhibitorKills;
-
-  public final int towerKills;
-
   public final int dominionVictoryScore;
-
-  public final String win;
 
   public final int dragonKills;
 
-  public TeamStats(final boolean firstDragon, final boolean firstInhibitor,
-      final List<TeamBans> bans, final int baronKills, final boolean firstRiftHerald,
-      final boolean firstBaron, final int riftHeraldKills, final boolean firstBlood,
-      final int teamId, final boolean firstTower, final int vilemawKills, final int inhibitorKills,
-      final int towerKills, final int dominionVictoryScore, final String win,
-      final int dragonKills) {
-    this.firstDragon = firstDragon;
-    this.firstInhibitor = firstInhibitor;
+  public final boolean firstBaron;
+
+  public final boolean firstBlood;
+
+  public final boolean firstDragon;
+
+  public final boolean firstInhibitor;
+
+  public final boolean firstRiftHerald;
+
+  public final boolean firstTower;
+
+  public final int inhibitorKills;
+
+  public final int riftHeraldKills;
+
+  public final int teamId;
+
+  public final int towerKills;
+
+  public final int vilemawKills;
+
+  public final String win;
+
+  public TeamStats(final List<TeamBans> bans, final int baronKills, final int dominionVictoryScore,
+      final int dragonKills, final boolean firstBaron, final boolean firstBlood,
+      final boolean firstDragon, final boolean firstInhibitor, final boolean firstRiftHerald,
+      final boolean firstTower, final int inhibitorKills, final int riftHeraldKills,
+      final int teamId, final int towerKills, final int vilemawKills, final String win) {
     this.bans = bans;
     this.baronKills = baronKills;
-    this.firstRiftHerald = firstRiftHerald;
-    this.firstBaron = firstBaron;
-    this.riftHeraldKills = riftHeraldKills;
-    this.firstBlood = firstBlood;
-    this.teamId = teamId;
-    this.firstTower = firstTower;
-    this.vilemawKills = vilemawKills;
-    this.inhibitorKills = inhibitorKills;
-    this.towerKills = towerKills;
     this.dominionVictoryScore = dominionVictoryScore;
-    this.win = win;
     this.dragonKills = dragonKills;
+    this.firstBaron = firstBaron;
+    this.firstBlood = firstBlood;
+    this.firstDragon = firstDragon;
+    this.firstInhibitor = firstInhibitor;
+    this.firstRiftHerald = firstRiftHerald;
+    this.firstTower = firstTower;
+    this.inhibitorKills = inhibitorKills;
+    this.riftHeraldKills = riftHeraldKills;
+    this.teamId = teamId;
+    this.towerKills = towerKills;
+    this.vilemawKills = vilemawKills;
+    this.win = win;
   }
 
   @Override
@@ -74,40 +73,40 @@ public class TeamStats implements Serializable {
     if (!(obj instanceof TeamStats)) return false;
     final TeamStats other = (TeamStats) obj;
     return true
-        && Objects.equal(firstDragon, other.firstDragon)
-        && Objects.equal(firstInhibitor, other.firstInhibitor)
         && Objects.equal(bans, other.bans)
         && Objects.equal(baronKills, other.baronKills)
-        && Objects.equal(firstRiftHerald, other.firstRiftHerald)
-        && Objects.equal(firstBaron, other.firstBaron)
-        && Objects.equal(riftHeraldKills, other.riftHeraldKills)
-        && Objects.equal(firstBlood, other.firstBlood)
-        && Objects.equal(teamId, other.teamId)
-        && Objects.equal(firstTower, other.firstTower)
-        && Objects.equal(vilemawKills, other.vilemawKills)
-        && Objects.equal(inhibitorKills, other.inhibitorKills)
-        && Objects.equal(towerKills, other.towerKills)
         && Objects.equal(dominionVictoryScore, other.dominionVictoryScore)
-        && Objects.equal(win, other.win)
-        && Objects.equal(dragonKills, other.dragonKills);}
+        && Objects.equal(dragonKills, other.dragonKills)
+        && Objects.equal(firstBaron, other.firstBaron)
+        && Objects.equal(firstBlood, other.firstBlood)
+        && Objects.equal(firstDragon, other.firstDragon)
+        && Objects.equal(firstInhibitor, other.firstInhibitor)
+        && Objects.equal(firstRiftHerald, other.firstRiftHerald)
+        && Objects.equal(firstTower, other.firstTower)
+        && Objects.equal(inhibitorKills, other.inhibitorKills)
+        && Objects.equal(riftHeraldKills, other.riftHeraldKills)
+        && Objects.equal(teamId, other.teamId)
+        && Objects.equal(towerKills, other.towerKills)
+        && Objects.equal(vilemawKills, other.vilemawKills)
+        && Objects.equal(win, other.win);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        firstDragon,
-        firstInhibitor,
         bans,
         baronKills,
-        firstRiftHerald,
-        firstBaron,
-        riftHeraldKills,
-        firstBlood,
-        teamId,
-        firstTower,
-        vilemawKills,
-        inhibitorKills,
-        towerKills,
         dominionVictoryScore,
-        win,
-        dragonKills);}
+        dragonKills,
+        firstBaron,
+        firstBlood,
+        firstDragon,
+        firstInhibitor,
+        firstRiftHerald,
+        firstTower,
+        inhibitorKills,
+        riftHeraldKills,
+        teamId,
+        towerKills,
+        vilemawKills,
+        win);}
 }

@@ -8,7 +8,7 @@ import java.lang.Override;
 /**
  * Mastery.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class Mastery implements Serializable {
   public final int masteryId;
 

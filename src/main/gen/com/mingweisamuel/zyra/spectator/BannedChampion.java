@@ -8,23 +8,23 @@ import java.lang.Override;
 /**
  * BannedChampion.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getCurrentGameInfoBySummoner">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class BannedChampion implements Serializable {
+  /**
+   * The ID of the banned champion */
+  public final long championId;
+
   /**
    * The turn during which the champion was banned */
   public final int pickTurn;
 
   /**
-   * The ID of the banned champion */
-  public final int championId;
-
-  /**
    * The ID of the team that banned the champion */
   public final long teamId;
 
-  public BannedChampion(final int pickTurn, final int championId, final long teamId) {
-    this.pickTurn = pickTurn;
+  public BannedChampion(final long championId, final int pickTurn, final long teamId) {
     this.championId = championId;
+    this.pickTurn = pickTurn;
     this.teamId = teamId;
   }
 
@@ -34,14 +34,14 @@ public class BannedChampion implements Serializable {
     if (!(obj instanceof BannedChampion)) return false;
     final BannedChampion other = (BannedChampion) obj;
     return true
-        && Objects.equal(pickTurn, other.pickTurn)
         && Objects.equal(championId, other.championId)
+        && Objects.equal(pickTurn, other.pickTurn)
         && Objects.equal(teamId, other.teamId);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        pickTurn,
         championId,
+        pickTurn,
         teamId);}
 }

@@ -11,31 +11,31 @@ import java.lang.String;
  *
  * This object contains image data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class Image implements Serializable {
   public final String full;
 
   public final String group;
 
-  public final String sprite;
-
   public final int h;
+
+  public final String sprite;
 
   public final int w;
 
-  public final int y;
-
   public final int x;
 
-  public Image(final String full, final String group, final String sprite, final int h, final int w,
-      final int y, final int x) {
+  public final int y;
+
+  public Image(final String full, final String group, final int h, final String sprite, final int w,
+      final int x, final int y) {
     this.full = full;
     this.group = group;
-    this.sprite = sprite;
     this.h = h;
+    this.sprite = sprite;
     this.w = w;
-    this.y = y;
     this.x = x;
+    this.y = y;
   }
 
   @Override
@@ -46,20 +46,20 @@ public class Image implements Serializable {
     return true
         && Objects.equal(full, other.full)
         && Objects.equal(group, other.group)
-        && Objects.equal(sprite, other.sprite)
         && Objects.equal(h, other.h)
+        && Objects.equal(sprite, other.sprite)
         && Objects.equal(w, other.w)
-        && Objects.equal(y, other.y)
-        && Objects.equal(x, other.x);}
+        && Objects.equal(x, other.x)
+        && Objects.equal(y, other.y);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
         full,
         group,
-        sprite,
         h,
+        sprite,
         w,
-        y,
-        x);}
+        x,
+        y);}
 }

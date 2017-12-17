@@ -10,7 +10,7 @@ import java.lang.Override;
  *
  * This object contains champion recommended block item data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class BlockItem implements Serializable {
   public final int count;
 

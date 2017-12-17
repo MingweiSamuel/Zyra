@@ -10,35 +10,39 @@ import java.util.List;
 /**
  * CurrentGameInfo.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getCurrentGameInfoBySummoner">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class CurrentGameInfo implements Serializable {
+  /**
+   * Banned champion information */
+  public final List<BannedChampion> bannedChampions;
+
   /**
    * The ID of the game */
   public final long gameId;
 
   /**
-   * The game start time represented in epoch milliseconds */
-  public final long gameStartTime;
-
-  /**
-   * The ID of the platform on which the game is being played */
-  public final String platformId;
+   * The amount of time in seconds that has passed since the game started */
+  public final long gameLength;
 
   /**
    * The game mode */
   public final String gameMode;
 
   /**
-   * The ID of the map */
-  public final long mapId;
+   * The queue type (queue types are documented on the Game Constants page) */
+  public final long gameQueueConfigId;
+
+  /**
+   * The game start time represented in epoch milliseconds */
+  public final long gameStartTime;
 
   /**
    * The game type */
   public final String gameType;
 
   /**
-   * Banned champion information */
-  public final List<BannedChampion> bannedChampions;
+   * The ID of the map */
+  public final long mapId;
 
   /**
    * The observer information */
@@ -49,29 +53,24 @@ public class CurrentGameInfo implements Serializable {
   public final List<CurrentGameParticipant> participants;
 
   /**
-   * The amount of time in seconds that has passed since the game started */
-  public final long gameLength;
+   * The ID of the platform on which the game is being played */
+  public final String platformId;
 
-  /**
-   * The queue type (queue types are documented on the Game Constants page) */
-  public final long gameQueueConfigId;
-
-  public CurrentGameInfo(final long gameId, final long gameStartTime, final String platformId,
-      final String gameMode, final long mapId, final String gameType,
-      final List<BannedChampion> bannedChampions, final Observer observers,
-      final List<CurrentGameParticipant> participants, final long gameLength,
-      final long gameQueueConfigId) {
-    this.gameId = gameId;
-    this.gameStartTime = gameStartTime;
-    this.platformId = platformId;
-    this.gameMode = gameMode;
-    this.mapId = mapId;
-    this.gameType = gameType;
+  public CurrentGameInfo(final List<BannedChampion> bannedChampions, final long gameId,
+      final long gameLength, final String gameMode, final long gameQueueConfigId,
+      final long gameStartTime, final String gameType, final long mapId, final Observer observers,
+      final List<CurrentGameParticipant> participants, final String platformId) {
     this.bannedChampions = bannedChampions;
+    this.gameId = gameId;
+    this.gameLength = gameLength;
+    this.gameMode = gameMode;
+    this.gameQueueConfigId = gameQueueConfigId;
+    this.gameStartTime = gameStartTime;
+    this.gameType = gameType;
+    this.mapId = mapId;
     this.observers = observers;
     this.participants = participants;
-    this.gameLength = gameLength;
-    this.gameQueueConfigId = gameQueueConfigId;
+    this.platformId = platformId;
   }
 
   @Override
@@ -80,30 +79,30 @@ public class CurrentGameInfo implements Serializable {
     if (!(obj instanceof CurrentGameInfo)) return false;
     final CurrentGameInfo other = (CurrentGameInfo) obj;
     return true
-        && Objects.equal(gameId, other.gameId)
-        && Objects.equal(gameStartTime, other.gameStartTime)
-        && Objects.equal(platformId, other.platformId)
-        && Objects.equal(gameMode, other.gameMode)
-        && Objects.equal(mapId, other.mapId)
-        && Objects.equal(gameType, other.gameType)
         && Objects.equal(bannedChampions, other.bannedChampions)
+        && Objects.equal(gameId, other.gameId)
+        && Objects.equal(gameLength, other.gameLength)
+        && Objects.equal(gameMode, other.gameMode)
+        && Objects.equal(gameQueueConfigId, other.gameQueueConfigId)
+        && Objects.equal(gameStartTime, other.gameStartTime)
+        && Objects.equal(gameType, other.gameType)
+        && Objects.equal(mapId, other.mapId)
         && Objects.equal(observers, other.observers)
         && Objects.equal(participants, other.participants)
-        && Objects.equal(gameLength, other.gameLength)
-        && Objects.equal(gameQueueConfigId, other.gameQueueConfigId);}
+        && Objects.equal(platformId, other.platformId);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        gameId,
-        gameStartTime,
-        platformId,
-        gameMode,
-        mapId,
-        gameType,
         bannedChampions,
+        gameId,
+        gameLength,
+        gameMode,
+        gameQueueConfigId,
+        gameStartTime,
+        gameType,
+        mapId,
         observers,
         participants,
-        gameLength,
-        gameQueueConfigId);}
+        platformId);}
 }

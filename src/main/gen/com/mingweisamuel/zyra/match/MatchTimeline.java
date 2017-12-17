@@ -9,15 +9,15 @@ import java.util.List;
 /**
  * MatchTimeline.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchTimeline">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class MatchTimeline implements Serializable {
-  public final List<MatchFrame> frames;
-
   public final long frameInterval;
 
-  public MatchTimeline(final List<MatchFrame> frames, final long frameInterval) {
-    this.frames = frames;
+  public final List<MatchFrame> frames;
+
+  public MatchTimeline(final long frameInterval, final List<MatchFrame> frames) {
     this.frameInterval = frameInterval;
+    this.frames = frames;
   }
 
   @Override
@@ -26,12 +26,12 @@ public class MatchTimeline implements Serializable {
     if (!(obj instanceof MatchTimeline)) return false;
     final MatchTimeline other = (MatchTimeline) obj;
     return true
-        && Objects.equal(frames, other.frames)
-        && Objects.equal(frameInterval, other.frameInterval);}
+        && Objects.equal(frameInterval, other.frameInterval)
+        && Objects.equal(frames, other.frames);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        frames,
-        frameInterval);}
+        frameInterval,
+        frames);}
 }

@@ -29,13 +29,14 @@ public class RiotApi implements Closeable {
     public final ChampionEndpoints champions = new ChampionEndpoints(this);
     public final ChampionMasteryEndpoints championMasteries = new ChampionMasteryEndpoints(this);
     public final LeagueEndpoints leagues = new LeagueEndpoints(this);
-    public final SpectatorEndpoints spectator = new SpectatorEndpoints(this);
     public final LolStaticDataEndpoints staticData = new LolStaticDataEndpoints(this);
     public final LolStatusEndpoints status = new LolStatusEndpoints(this);
-    public final MasteriesEndpoints masteries = new MasteriesEndpoints(this);
     public final MatchEndpoints matches = new MatchEndpoints(this);
-    public final RunesEndpoints runes = new RunesEndpoints(this);
+    public final SpectatorEndpoints spectator = new SpectatorEndpoints(this);
     public final SummonerEndpoints summoners = new SummonerEndpoints(this);
+    public final ThirdPartyCodeEndpoints thirdPartyCode = new ThirdPartyCodeEndpoints(this);
+    public final TournamentEndpoints tournament = new TournamentEndpoints(this);
+    public final TournamentStubEndpoints tournamentStub = new TournamentStubEndpoints(this);
 
     /**
      * Creates a new RiotApi instance with default configuration.

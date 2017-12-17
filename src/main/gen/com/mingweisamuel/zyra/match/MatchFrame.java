@@ -11,19 +11,19 @@ import java.util.Map;
 /**
  * MatchFrame.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchTimeline">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class MatchFrame implements Serializable {
-  public final long timestamp;
+  public final List<MatchEvent> events;
 
   public final Map<Integer, MatchParticipantFrame> participantFrames;
 
-  public final List<MatchEvent> events;
+  public final long timestamp;
 
-  public MatchFrame(final long timestamp,
-      final Map<Integer, MatchParticipantFrame> participantFrames, final List<MatchEvent> events) {
-    this.timestamp = timestamp;
-    this.participantFrames = participantFrames;
+  public MatchFrame(final List<MatchEvent> events,
+      final Map<Integer, MatchParticipantFrame> participantFrames, final long timestamp) {
     this.events = events;
+    this.participantFrames = participantFrames;
+    this.timestamp = timestamp;
   }
 
   @Override
@@ -32,14 +32,14 @@ public class MatchFrame implements Serializable {
     if (!(obj instanceof MatchFrame)) return false;
     final MatchFrame other = (MatchFrame) obj;
     return true
-        && Objects.equal(timestamp, other.timestamp)
+        && Objects.equal(events, other.events)
         && Objects.equal(participantFrames, other.participantFrames)
-        && Objects.equal(events, other.events);}
+        && Objects.equal(timestamp, other.timestamp);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        timestamp,
+        events,
         participantFrames,
-        events);}
+        timestamp);}
 }

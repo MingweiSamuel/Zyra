@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * FeaturedGames.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getFeaturedGames">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class FeaturedGames implements Serializable {
   /**
    * The suggested interval to wait before requesting FeaturedGames again */

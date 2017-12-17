@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.mingweisamuel.zyra.enums.Queue;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.enums.Tier;
-import com.mingweisamuel.zyra.league.LeagueItem;
+import com.mingweisamuel.zyra.league.LeaguePosition;
 import com.mingweisamuel.zyra.league.LeagueList;
 import org.junit.Test;
 
@@ -40,7 +40,7 @@ public class ApiLeagueTest extends ApiTest {
                     Tier.MASTER.equals(league.tier) ||
                     Tier.CHALLENGER.equals(league.tier));
                 assertTrue(league.entries.size() > 1);
-                for (LeagueItem entry : league.entries) {
+                for (LeaguePosition entry : league.entries) {
                     if ("51405".equals(entry.playerOrTeamId)) {
                         assertTrue(entry.playerOrTeamName, entry.playerOrTeamName.contains("Sneaky"));
                         return;
@@ -70,7 +70,7 @@ public class ApiLeagueTest extends ApiTest {
 
                 System.out.println(new Gson().toJson(league));
 
-                for (LeagueItem entry : league.entries) {
+                for (LeaguePosition entry : league.entries) {
                     if (entry.playerOrTeamId.equals("51405")) {
                         assertTrue("51405".equals(entry.playerOrTeamId));
                         assertTrue(entry.playerOrTeamName, entry.playerOrTeamName.contains("Sneaky"));
@@ -101,14 +101,14 @@ public class ApiLeagueTest extends ApiTest {
         assertEquals("Dr. Mundo's Scouts", challenger.name); // lol
         assertEquals(200, challenger.entries.size());
         double challengerLp = 0;
-        for (LeagueItem entry : challenger.entries) {
+        for (LeaguePosition entry : challenger.entries) {
             assertTrue(entry.leaguePoints > 0);
             challengerLp += entry.leaguePoints / 200.0;
         }
         assertEquals(Tier.MASTER, master.tier);
         assertEquals("Renekton's Shadows", master.name);
         double masterLp = 0;
-        for (LeagueItem entry : master.entries) {
+        for (LeaguePosition entry : master.entries) {
             assertNotNull(entry);
             masterLp += entry.leaguePoints / (double) master.entries.size();
         }

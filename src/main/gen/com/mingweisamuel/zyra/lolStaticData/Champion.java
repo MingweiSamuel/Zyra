@@ -12,64 +12,64 @@ import java.util.List;
  *
  * This object contains champion data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class Champion implements Serializable {
-  public final Info info;
+  public final List<String> allytips;
+
+  public final String blurb;
 
   public final List<String> enemytips;
 
-  public final Stats stats;
-
-  public final String name;
-
-  public final String title;
+  public final int id;
 
   public final Image image;
 
-  public final List<String> tags;
-
-  public final String partype;
-
-  public final List<Skin> skins;
-
-  public final Passive passive;
-
-  public final List<Recommended> recommended;
-
-  public final List<String> allytips;
+  public final Info info;
 
   public final String key;
 
   public final String lore;
 
-  public final int id;
+  public final String name;
 
-  public final String blurb;
+  public final String partype;
+
+  public final Passive passive;
+
+  public final List<Recommended> recommended;
+
+  public final List<Skin> skins;
 
   public final List<ChampionSpell> spells;
 
-  public Champion(final Info info, final List<String> enemytips, final Stats stats,
-      final String name, final String title, final Image image, final List<String> tags,
-      final String partype, final List<Skin> skins, final Passive passive,
-      final List<Recommended> recommended, final List<String> allytips, final String key,
-      final String lore, final int id, final String blurb, final List<ChampionSpell> spells) {
-    this.info = info;
-    this.enemytips = enemytips;
-    this.stats = stats;
-    this.name = name;
-    this.title = title;
-    this.image = image;
-    this.tags = tags;
-    this.partype = partype;
-    this.skins = skins;
-    this.passive = passive;
-    this.recommended = recommended;
+  public final Stats stats;
+
+  public final List<String> tags;
+
+  public final String title;
+
+  public Champion(final List<String> allytips, final String blurb, final List<String> enemytips,
+      final int id, final Image image, final Info info, final String key, final String lore,
+      final String name, final String partype, final Passive passive,
+      final List<Recommended> recommended, final List<Skin> skins, final List<ChampionSpell> spells,
+      final Stats stats, final List<String> tags, final String title) {
     this.allytips = allytips;
+    this.blurb = blurb;
+    this.enemytips = enemytips;
+    this.id = id;
+    this.image = image;
+    this.info = info;
     this.key = key;
     this.lore = lore;
-    this.id = id;
-    this.blurb = blurb;
+    this.name = name;
+    this.partype = partype;
+    this.passive = passive;
+    this.recommended = recommended;
+    this.skins = skins;
     this.spells = spells;
+    this.stats = stats;
+    this.tags = tags;
+    this.title = title;
   }
 
   @Override
@@ -78,42 +78,42 @@ public class Champion implements Serializable {
     if (!(obj instanceof Champion)) return false;
     final Champion other = (Champion) obj;
     return true
-        && Objects.equal(info, other.info)
-        && Objects.equal(enemytips, other.enemytips)
-        && Objects.equal(stats, other.stats)
-        && Objects.equal(name, other.name)
-        && Objects.equal(title, other.title)
-        && Objects.equal(image, other.image)
-        && Objects.equal(tags, other.tags)
-        && Objects.equal(partype, other.partype)
-        && Objects.equal(skins, other.skins)
-        && Objects.equal(passive, other.passive)
-        && Objects.equal(recommended, other.recommended)
         && Objects.equal(allytips, other.allytips)
+        && Objects.equal(blurb, other.blurb)
+        && Objects.equal(enemytips, other.enemytips)
+        && Objects.equal(id, other.id)
+        && Objects.equal(image, other.image)
+        && Objects.equal(info, other.info)
         && Objects.equal(key, other.key)
         && Objects.equal(lore, other.lore)
-        && Objects.equal(id, other.id)
-        && Objects.equal(blurb, other.blurb)
-        && Objects.equal(spells, other.spells);}
+        && Objects.equal(name, other.name)
+        && Objects.equal(partype, other.partype)
+        && Objects.equal(passive, other.passive)
+        && Objects.equal(recommended, other.recommended)
+        && Objects.equal(skins, other.skins)
+        && Objects.equal(spells, other.spells)
+        && Objects.equal(stats, other.stats)
+        && Objects.equal(tags, other.tags)
+        && Objects.equal(title, other.title);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        info,
-        enemytips,
-        stats,
-        name,
-        title,
-        image,
-        tags,
-        partype,
-        skins,
-        passive,
-        recommended,
         allytips,
+        blurb,
+        enemytips,
+        id,
+        image,
+        info,
         key,
         lore,
-        id,
-        blurb,
-        spells);}
+        name,
+        partype,
+        passive,
+        recommended,
+        skins,
+        spells,
+        stats,
+        tags,
+        title);}
 }

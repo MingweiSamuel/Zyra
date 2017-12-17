@@ -12,30 +12,30 @@ import java.util.List;
  *
  * This object contains champion recommended data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class Recommended implements Serializable {
-  public final String map;
-
   public final List<Block> blocks;
 
   public final String champion;
 
-  public final String title;
-
-  public final boolean priority;
+  public final String map;
 
   public final String mode;
 
+  public final boolean priority;
+
+  public final String title;
+
   public final String type;
 
-  public Recommended(final String map, final List<Block> blocks, final String champion,
-      final String title, final boolean priority, final String mode, final String type) {
-    this.map = map;
+  public Recommended(final List<Block> blocks, final String champion, final String map,
+      final String mode, final boolean priority, final String title, final String type) {
     this.blocks = blocks;
     this.champion = champion;
-    this.title = title;
-    this.priority = priority;
+    this.map = map;
     this.mode = mode;
+    this.priority = priority;
+    this.title = title;
     this.type = type;
   }
 
@@ -45,22 +45,22 @@ public class Recommended implements Serializable {
     if (!(obj instanceof Recommended)) return false;
     final Recommended other = (Recommended) obj;
     return true
-        && Objects.equal(map, other.map)
         && Objects.equal(blocks, other.blocks)
         && Objects.equal(champion, other.champion)
-        && Objects.equal(title, other.title)
-        && Objects.equal(priority, other.priority)
+        && Objects.equal(map, other.map)
         && Objects.equal(mode, other.mode)
+        && Objects.equal(priority, other.priority)
+        && Objects.equal(title, other.title)
         && Objects.equal(type, other.type);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        map,
         blocks,
         champion,
-        title,
-        priority,
+        map,
         mode,
+        priority,
+        title,
         type);}
 }

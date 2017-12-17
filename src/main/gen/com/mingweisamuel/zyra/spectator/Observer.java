@@ -9,7 +9,7 @@ import java.lang.String;
 /**
  * Observer.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getCurrentGameInfoBySummoner">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class Observer implements Serializable {
   /**
    * Key used to decrypt the spectator grid game data for playback */

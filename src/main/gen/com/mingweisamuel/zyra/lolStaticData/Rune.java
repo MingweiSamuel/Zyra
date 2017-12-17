@@ -12,35 +12,35 @@ import java.util.List;
  *
  * This object contains rune data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class Rune implements Serializable {
-  public final RuneStats stats;
-
-  public final String name;
-
-  public final List<String> tags;
-
-  public final Image image;
-
-  public final String sanitizedDescription;
-
-  public final MetaData rune;
+  public final String description;
 
   public final int id;
 
-  public final String description;
+  public final Image image;
 
-  public Rune(final RuneStats stats, final String name, final List<String> tags, final Image image,
-      final String sanitizedDescription, final MetaData rune, final int id,
-      final String description) {
-    this.stats = stats;
-    this.name = name;
-    this.tags = tags;
-    this.image = image;
-    this.sanitizedDescription = sanitizedDescription;
-    this.rune = rune;
-    this.id = id;
+  public final String name;
+
+  public final MetaData rune;
+
+  public final String sanitizedDescription;
+
+  public final RuneStats stats;
+
+  public final List<String> tags;
+
+  public Rune(final String description, final int id, final Image image, final String name,
+      final MetaData rune, final String sanitizedDescription, final RuneStats stats,
+      final List<String> tags) {
     this.description = description;
+    this.id = id;
+    this.image = image;
+    this.name = name;
+    this.rune = rune;
+    this.sanitizedDescription = sanitizedDescription;
+    this.stats = stats;
+    this.tags = tags;
   }
 
   @Override
@@ -49,24 +49,24 @@ public class Rune implements Serializable {
     if (!(obj instanceof Rune)) return false;
     final Rune other = (Rune) obj;
     return true
-        && Objects.equal(stats, other.stats)
-        && Objects.equal(name, other.name)
-        && Objects.equal(tags, other.tags)
-        && Objects.equal(image, other.image)
-        && Objects.equal(sanitizedDescription, other.sanitizedDescription)
-        && Objects.equal(rune, other.rune)
+        && Objects.equal(description, other.description)
         && Objects.equal(id, other.id)
-        && Objects.equal(description, other.description);}
+        && Objects.equal(image, other.image)
+        && Objects.equal(name, other.name)
+        && Objects.equal(rune, other.rune)
+        && Objects.equal(sanitizedDescription, other.sanitizedDescription)
+        && Objects.equal(stats, other.stats)
+        && Objects.equal(tags, other.tags);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        stats,
-        name,
-        tags,
-        image,
-        sanitizedDescription,
-        rune,
+        description,
         id,
-        description);}
+        image,
+        name,
+        rune,
+        sanitizedDescription,
+        stats,
+        tags);}
 }

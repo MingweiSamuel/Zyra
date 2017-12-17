@@ -23,13 +23,13 @@ public final class SummonerEndpoints extends Endpoints {
    *
    * <a href="https://developer.riotgames.com/api-methods/#summoner-v3/GET_getByAccountId">Link to Portal</a><br>
    * @param region Region to execute against.
-   * @param accountId (required) 
+   * @param accountId (required) null
    */
   public Summoner getByAccountId(final Region region, final long accountId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/summoner/v3/summoners/by-account/%1$s", accountId);
     Type type = Summoner.class;
-    return riotApi.getBasic("summoner-v3_GET_getByAccountId_content", url, region, type, Collections.emptyList());
+    return riotApi.getBasic("summoner-v3.getByAccountId", url, region, type, Collections.emptyList());
   }
 
   /**
@@ -37,14 +37,14 @@ public final class SummonerEndpoints extends Endpoints {
    *
    * <a href="https://developer.riotgames.com/api-methods/#summoner-v3/GET_getByAccountId">Link to Portal</a><br>
    * @param region Region to execute against.
-   * @param accountId (required) 
+   * @param accountId (required) null
    */
   public CompletableFuture<Summoner> getByAccountIdAsync(final Region region,
       final long accountId) {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/summoner/v3/summoners/by-account/%1$s", accountId);
     Type type = Summoner.class;
-    return riotApi.getBasicAsync("summoner-v3_GET_getByAccountId_content", url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("summoner-v3.getByAccountId", url, region, type, Collections.emptyList());
   }
 
   /**
@@ -58,7 +58,7 @@ public final class SummonerEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/summoner/v3/summoners/by-name/%1$s", summonerName);
     Type type = Summoner.class;
-    return riotApi.getBasic("summoner-v3_GET_getBySummonerName_content", url, region, type, Collections.emptyList());
+    return riotApi.getBasic("summoner-v3.getBySummonerName", url, region, type, Collections.emptyList());
   }
 
   /**
@@ -73,7 +73,7 @@ public final class SummonerEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/summoner/v3/summoners/by-name/%1$s", summonerName);
     Type type = Summoner.class;
-    return riotApi.getBasicAsync("summoner-v3_GET_getBySummonerName_content", url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("summoner-v3.getBySummonerName", url, region, type, Collections.emptyList());
   }
 
   /**
@@ -87,7 +87,7 @@ public final class SummonerEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/summoner/v3/summoners/%1$s", summonerId);
     Type type = Summoner.class;
-    return riotApi.getBasic("summoner-v3_GET_getBySummonerId_content", url, region, type, Collections.emptyList());
+    return riotApi.getBasic("summoner-v3.getBySummonerId", url, region, type, Collections.emptyList());
   }
 
   /**
@@ -102,6 +102,6 @@ public final class SummonerEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/summoner/v3/summoners/%1$s", summonerId);
     Type type = Summoner.class;
-    return riotApi.getBasicAsync("summoner-v3_GET_getBySummonerId_content", url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("summoner-v3.getBySummonerId", url, region, type, Collections.emptyList());
   }
 }

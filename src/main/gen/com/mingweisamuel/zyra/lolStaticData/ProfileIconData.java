@@ -13,19 +13,19 @@ import java.util.Map;
  *
  * This object contains profile icon data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class ProfileIconData implements Serializable {
   public final Map<Long, ProfileIconDetails> data;
 
-  public final String version;
-
   public final String type;
 
-  public ProfileIconData(final Map<Long, ProfileIconDetails> data, final String version,
-      final String type) {
+  public final String version;
+
+  public ProfileIconData(final Map<Long, ProfileIconDetails> data, final String type,
+      final String version) {
     this.data = data;
-    this.version = version;
     this.type = type;
+    this.version = version;
   }
 
   @Override
@@ -35,13 +35,13 @@ public class ProfileIconData implements Serializable {
     final ProfileIconData other = (ProfileIconData) obj;
     return true
         && Objects.equal(data, other.data)
-        && Objects.equal(version, other.version)
-        && Objects.equal(type, other.type);}
+        && Objects.equal(type, other.type)
+        && Objects.equal(version, other.version);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
         data,
-        version,
-        type);}
+        type,
+        version);}
 }

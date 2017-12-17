@@ -10,11 +10,11 @@ import java.lang.Override;
  *
  * This object contains champion information..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampions">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class Champion implements Serializable {
   /**
-   * Ranked play enabled flag. */
-  public final boolean rankedPlayEnabled;
+   * Indicates if the champion is active. */
+  public final boolean active;
 
   /**
    * Bot enabled flag (for custom games). */
@@ -25,10 +25,6 @@ public class Champion implements Serializable {
   public final boolean botMmEnabled;
 
   /**
-   * Indicates if the champion is active. */
-  public final boolean active;
-
-  /**
    * Indicates if the champion is free to play. Free to play champions are rotated periodically. */
   public final boolean freeToPlay;
 
@@ -36,14 +32,18 @@ public class Champion implements Serializable {
    * Champion ID. For static information correlating to champion IDs, please refer to the LoL Static Data API. */
   public final long id;
 
-  public Champion(final boolean rankedPlayEnabled, final boolean botEnabled,
-      final boolean botMmEnabled, final boolean active, final boolean freeToPlay, final long id) {
-    this.rankedPlayEnabled = rankedPlayEnabled;
+  /**
+   * Ranked play enabled flag. */
+  public final boolean rankedPlayEnabled;
+
+  public Champion(final boolean active, final boolean botEnabled, final boolean botMmEnabled,
+      final boolean freeToPlay, final long id, final boolean rankedPlayEnabled) {
+    this.active = active;
     this.botEnabled = botEnabled;
     this.botMmEnabled = botMmEnabled;
-    this.active = active;
     this.freeToPlay = freeToPlay;
     this.id = id;
+    this.rankedPlayEnabled = rankedPlayEnabled;
   }
 
   @Override
@@ -52,20 +52,20 @@ public class Champion implements Serializable {
     if (!(obj instanceof Champion)) return false;
     final Champion other = (Champion) obj;
     return true
-        && Objects.equal(rankedPlayEnabled, other.rankedPlayEnabled)
+        && Objects.equal(active, other.active)
         && Objects.equal(botEnabled, other.botEnabled)
         && Objects.equal(botMmEnabled, other.botMmEnabled)
-        && Objects.equal(active, other.active)
         && Objects.equal(freeToPlay, other.freeToPlay)
-        && Objects.equal(id, other.id);}
+        && Objects.equal(id, other.id)
+        && Objects.equal(rankedPlayEnabled, other.rankedPlayEnabled);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        rankedPlayEnabled,
+        active,
         botEnabled,
         botMmEnabled,
-        active,
         freeToPlay,
-        id);}
+        id,
+        rankedPlayEnabled);}
 }

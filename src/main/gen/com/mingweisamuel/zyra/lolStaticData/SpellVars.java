@@ -13,25 +13,25 @@ import java.util.List;
  *
  * This object contains spell vars data..<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionList">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class SpellVars implements Serializable {
-  public final String ranksWith;
+  public final List<Double> coeff;
 
   public final String dyn;
 
-  public final String link;
-
-  public final List<Double> coeff;
-
   public final String key;
 
-  public SpellVars(final String ranksWith, final String dyn, final String link,
-      final List<Double> coeff, final String key) {
-    this.ranksWith = ranksWith;
-    this.dyn = dyn;
-    this.link = link;
+  public final String link;
+
+  public final String ranksWith;
+
+  public SpellVars(final List<Double> coeff, final String dyn, final String key, final String link,
+      final String ranksWith) {
     this.coeff = coeff;
+    this.dyn = dyn;
     this.key = key;
+    this.link = link;
+    this.ranksWith = ranksWith;
   }
 
   @Override
@@ -40,18 +40,18 @@ public class SpellVars implements Serializable {
     if (!(obj instanceof SpellVars)) return false;
     final SpellVars other = (SpellVars) obj;
     return true
-        && Objects.equal(ranksWith, other.ranksWith)
-        && Objects.equal(dyn, other.dyn)
-        && Objects.equal(link, other.link)
         && Objects.equal(coeff, other.coeff)
-        && Objects.equal(key, other.key);}
+        && Objects.equal(dyn, other.dyn)
+        && Objects.equal(key, other.key)
+        && Objects.equal(link, other.link)
+        && Objects.equal(ranksWith, other.ranksWith);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        ranksWith,
-        dyn,
-        link,
         coeff,
-        key);}
+        dyn,
+        key,
+        link,
+        ranksWith);}
 }

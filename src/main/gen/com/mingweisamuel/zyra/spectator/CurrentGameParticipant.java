@@ -10,62 +10,62 @@ import java.util.List;
 /**
  * CurrentGameParticipant.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#spectator-v3/GET_getCurrentGameInfoBySummoner">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class CurrentGameParticipant implements Serializable {
-  /**
-   * The ID of the profile icon used by this participant */
-  public final long profileIconId;
-
-  /**
-   * The ID of the champion played by this participant */
-  public final int championId;
-
-  /**
-   * The summoner name of this participant */
-  public final String summonerName;
-
-  /**
-   * The runes used by this participant */
-  public final List<Rune> runes;
-
   /**
    * Flag indicating whether or not this participant is a bot */
   public final boolean bot;
 
   /**
-   * The team ID of this participant, indicating the participant's team */
-  public final long teamId;
+   * The ID of the champion played by this participant */
+  public final long championId;
 
   /**
-   * The ID of the second summoner spell used by this participant */
-  public final long spell2Id;
+   * List of Game Customizations */
+  public final List<GameCustomizationObject> gameCustomizationObjects;
 
   /**
-   * The masteries used by this participant */
-  public final List<Mastery> masteries;
+   * Perks/Runes Reforged Information */
+  public final Perks perks;
+
+  /**
+   * The ID of the profile icon used by this participant */
+  public final long profileIconId;
 
   /**
    * The ID of the first summoner spell used by this participant */
   public final long spell1Id;
 
   /**
+   * The ID of the second summoner spell used by this participant */
+  public final long spell2Id;
+
+  /**
    * The summoner ID of this participant */
   public final long summonerId;
 
-  public CurrentGameParticipant(final long profileIconId, final int championId,
-      final String summonerName, final List<Rune> runes, final boolean bot, final long teamId,
-      final long spell2Id, final List<Mastery> masteries, final long spell1Id,
-      final long summonerId) {
-    this.profileIconId = profileIconId;
-    this.championId = championId;
-    this.summonerName = summonerName;
-    this.runes = runes;
+  /**
+   * The summoner name of this participant */
+  public final String summonerName;
+
+  /**
+   * The team ID of this participant, indicating the participant's team */
+  public final long teamId;
+
+  public CurrentGameParticipant(final boolean bot, final long championId,
+      final List<GameCustomizationObject> gameCustomizationObjects, final Perks perks,
+      final long profileIconId, final long spell1Id, final long spell2Id, final long summonerId,
+      final String summonerName, final long teamId) {
     this.bot = bot;
-    this.teamId = teamId;
-    this.spell2Id = spell2Id;
-    this.masteries = masteries;
+    this.championId = championId;
+    this.gameCustomizationObjects = gameCustomizationObjects;
+    this.perks = perks;
+    this.profileIconId = profileIconId;
     this.spell1Id = spell1Id;
+    this.spell2Id = spell2Id;
     this.summonerId = summonerId;
+    this.summonerName = summonerName;
+    this.teamId = teamId;
   }
 
   @Override
@@ -74,28 +74,28 @@ public class CurrentGameParticipant implements Serializable {
     if (!(obj instanceof CurrentGameParticipant)) return false;
     final CurrentGameParticipant other = (CurrentGameParticipant) obj;
     return true
-        && Objects.equal(profileIconId, other.profileIconId)
-        && Objects.equal(championId, other.championId)
-        && Objects.equal(summonerName, other.summonerName)
-        && Objects.equal(runes, other.runes)
         && Objects.equal(bot, other.bot)
-        && Objects.equal(teamId, other.teamId)
-        && Objects.equal(spell2Id, other.spell2Id)
-        && Objects.equal(masteries, other.masteries)
+        && Objects.equal(championId, other.championId)
+        && Objects.equal(gameCustomizationObjects, other.gameCustomizationObjects)
+        && Objects.equal(perks, other.perks)
+        && Objects.equal(profileIconId, other.profileIconId)
         && Objects.equal(spell1Id, other.spell1Id)
-        && Objects.equal(summonerId, other.summonerId);}
+        && Objects.equal(spell2Id, other.spell2Id)
+        && Objects.equal(summonerId, other.summonerId)
+        && Objects.equal(summonerName, other.summonerName)
+        && Objects.equal(teamId, other.teamId);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        profileIconId,
-        championId,
-        summonerName,
-        runes,
         bot,
-        teamId,
-        spell2Id,
-        masteries,
+        championId,
+        gameCustomizationObjects,
+        perks,
+        profileIconId,
         spell1Id,
-        summonerId);}
+        spell2Id,
+        summonerId,
+        summonerName,
+        teamId);}
 }

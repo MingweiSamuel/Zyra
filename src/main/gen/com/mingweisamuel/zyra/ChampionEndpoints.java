@@ -25,35 +25,6 @@ public final class ChampionEndpoints extends Endpoints {
    *
    * <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampions">Link to Portal</a><br>
    * @param region Region to execute against.
-   * @param freeToPlay (optional) Optional filter param to retrieve only free to play champions.
-   */
-  public ChampionList getChampions(final Region region, final Boolean freeToPlay) {
-    // This method is automatically generated and should not be modified directly.
-    String url = "/lol/platform/v3/champions";
-    Type type = ChampionList.class;
-    return riotApi.getBasic("champion-v3_GET_getChampions_content", url, region, type, riotApi.makeParams("freeToPlay", freeToPlay));
-  }
-
-  /**
-   * Retrieve all champions.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampions">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param freeToPlay (optional) Optional filter param to retrieve only free to play champions.
-   */
-  public CompletableFuture<ChampionList> getChampionsAsync(final Region region,
-      final Boolean freeToPlay) {
-    // This method is automatically generated and should not be modified directly.
-    String url = "/lol/platform/v3/champions";
-    Type type = ChampionList.class;
-    return riotApi.getBasicAsync("champion-v3_GET_getChampions_content", url, region, type, riotApi.makeParams("freeToPlay", freeToPlay));
-  }
-
-  /**
-   * Retrieve all champions.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampions">Link to Portal</a><br>
-   * @param region Region to execute against.
    */
   public ChampionList getChampions(final Region region) {
     // This method is automatically generated and should not be modified directly.
@@ -72,6 +43,35 @@ public final class ChampionEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieve all champions.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampions">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param freeToPlay (optional) Optional filter param to retrieve only free to play champions.
+   */
+  public ChampionList getChampions(final Region region, final Boolean freeToPlay) {
+    // This method is automatically generated and should not be modified directly.
+    String url = "/lol/platform/v3/champions";
+    Type type = ChampionList.class;
+    return riotApi.getBasic("champion-v3.getChampions", url, region, type, riotApi.makeParams("freeToPlay", freeToPlay));
+  }
+
+  /**
+   * Retrieve all champions.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampions">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param freeToPlay (optional) Optional filter param to retrieve only free to play champions.
+   */
+  public CompletableFuture<ChampionList> getChampionsAsync(final Region region,
+      final Boolean freeToPlay) {
+    // This method is automatically generated and should not be modified directly.
+    String url = "/lol/platform/v3/champions";
+    Type type = ChampionList.class;
+    return riotApi.getBasicAsync("champion-v3.getChampions", url, region, type, riotApi.makeParams("freeToPlay", freeToPlay));
+  }
+
+  /**
    * Retrieve champion by ID.
    *
    * <a href="https://developer.riotgames.com/api-methods/#champion-v3/GET_getChampionsById">Link to Portal</a><br>
@@ -82,7 +82,7 @@ public final class ChampionEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/platform/v3/champions/%1$s", id);
     Type type = Champion.class;
-    return riotApi.getBasic("champion-v3_GET_getChampionsById_content", url, region, type, Collections.emptyList());
+    return riotApi.getBasic("champion-v3.getChampionsById", url, region, type, Collections.emptyList());
   }
 
   /**
@@ -96,6 +96,6 @@ public final class ChampionEndpoints extends Endpoints {
     // This method is automatically generated and should not be modified directly.
     String url = String.format("/lol/platform/v3/champions/%1$s", id);
     Type type = Champion.class;
-    return riotApi.getBasicAsync("champion-v3_GET_getChampionsById_content", url, region, type, Collections.emptyList());
+    return riotApi.getBasicAsync("champion-v3.getChampionsById", url, region, type, Collections.emptyList());
   }
 }

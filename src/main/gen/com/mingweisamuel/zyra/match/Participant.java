@@ -10,42 +10,42 @@ import java.util.List;
 /**
  * Participant.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class Participant implements Serializable {
-  public final ParticipantStats stats;
+  public final int championId;
+
+  public final String highestAchievedSeasonTier;
+
+  public final List<Mastery> masteries;
 
   public final int participantId;
 
   public final List<Rune> runes;
 
-  public final ParticipantTimeline timeline;
-
-  public final int teamId;
+  public final int spell1Id;
 
   public final int spell2Id;
 
-  public final List<Mastery> masteries;
+  public final ParticipantStats stats;
 
-  public final String highestAchievedSeasonTier;
+  public final int teamId;
 
-  public final int spell1Id;
+  public final ParticipantTimeline timeline;
 
-  public final int championId;
-
-  public Participant(final ParticipantStats stats, final int participantId, final List<Rune> runes,
-      final ParticipantTimeline timeline, final int teamId, final int spell2Id,
-      final List<Mastery> masteries, final String highestAchievedSeasonTier, final int spell1Id,
-      final int championId) {
-    this.stats = stats;
+  public Participant(final int championId, final String highestAchievedSeasonTier,
+      final List<Mastery> masteries, final int participantId, final List<Rune> runes,
+      final int spell1Id, final int spell2Id, final ParticipantStats stats, final int teamId,
+      final ParticipantTimeline timeline) {
+    this.championId = championId;
+    this.highestAchievedSeasonTier = highestAchievedSeasonTier;
+    this.masteries = masteries;
     this.participantId = participantId;
     this.runes = runes;
-    this.timeline = timeline;
-    this.teamId = teamId;
-    this.spell2Id = spell2Id;
-    this.masteries = masteries;
-    this.highestAchievedSeasonTier = highestAchievedSeasonTier;
     this.spell1Id = spell1Id;
-    this.championId = championId;
+    this.spell2Id = spell2Id;
+    this.stats = stats;
+    this.teamId = teamId;
+    this.timeline = timeline;
   }
 
   @Override
@@ -54,28 +54,28 @@ public class Participant implements Serializable {
     if (!(obj instanceof Participant)) return false;
     final Participant other = (Participant) obj;
     return true
-        && Objects.equal(stats, other.stats)
+        && Objects.equal(championId, other.championId)
+        && Objects.equal(highestAchievedSeasonTier, other.highestAchievedSeasonTier)
+        && Objects.equal(masteries, other.masteries)
         && Objects.equal(participantId, other.participantId)
         && Objects.equal(runes, other.runes)
-        && Objects.equal(timeline, other.timeline)
-        && Objects.equal(teamId, other.teamId)
-        && Objects.equal(spell2Id, other.spell2Id)
-        && Objects.equal(masteries, other.masteries)
-        && Objects.equal(highestAchievedSeasonTier, other.highestAchievedSeasonTier)
         && Objects.equal(spell1Id, other.spell1Id)
-        && Objects.equal(championId, other.championId);}
+        && Objects.equal(spell2Id, other.spell2Id)
+        && Objects.equal(stats, other.stats)
+        && Objects.equal(teamId, other.teamId)
+        && Objects.equal(timeline, other.timeline);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        stats,
+        championId,
+        highestAchievedSeasonTier,
+        masteries,
         participantId,
         runes,
-        timeline,
-        teamId,
-        spell2Id,
-        masteries,
-        highestAchievedSeasonTier,
         spell1Id,
-        championId);}
+        spell2Id,
+        stats,
+        teamId,
+        timeline);}
 }

@@ -8,15 +8,15 @@ import java.lang.Override;
 /**
  * ParticipantIdentity.<br><br>
  *
- * This class was automatically generated from the <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatch">Riot API reference</a>. */
+ * This class was automatically generated from the <a href="http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json">Riot API reference</a>. */
 public class ParticipantIdentity implements Serializable {
-  public final Player player;
-
   public final int participantId;
 
-  public ParticipantIdentity(final Player player, final int participantId) {
-    this.player = player;
+  public final Player player;
+
+  public ParticipantIdentity(final int participantId, final Player player) {
     this.participantId = participantId;
+    this.player = player;
   }
 
   @Override
@@ -25,12 +25,12 @@ public class ParticipantIdentity implements Serializable {
     if (!(obj instanceof ParticipantIdentity)) return false;
     final ParticipantIdentity other = (ParticipantIdentity) obj;
     return true
-        && Objects.equal(player, other.player)
-        && Objects.equal(participantId, other.participantId);}
+        && Objects.equal(participantId, other.participantId)
+        && Objects.equal(player, other.player);}
 
   @Override
   public int hashCode() {
     return Objects.hashCode(0,
-        player,
-        participantId);}
+        participantId,
+        player);}
 }
