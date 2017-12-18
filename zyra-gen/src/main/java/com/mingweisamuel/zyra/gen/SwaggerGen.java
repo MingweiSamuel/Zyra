@@ -429,7 +429,7 @@ public class SwaggerGen {
                     else
                         propType = getTypeName(propObj);
                     // make championIds ints.
-                    if ("championId".equals(propName) && TypeName.LONG.equals(propName))
+                    if ("championId".equals(propName) && TypeName.LONG.equals(propType))
                         propType = TypeName.INT;
 
                     String propDesc = propObj.containsKey("description")

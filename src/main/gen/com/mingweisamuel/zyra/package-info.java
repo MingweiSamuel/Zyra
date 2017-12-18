@@ -12,6 +12,6 @@
  *
  * The API was last automatically generated from the
  * <a href="http://www.mingweisamuel.com/riotapi-schema/tool/">Unofficial Riot API OpenAPI Spec</a>
- * on Sun Dec 17 15:26:34 PST 2017.
+ * on Sun Dec 17 18:41:46 PST 2017.
  */
 package com.mingweisamuel.zyra;

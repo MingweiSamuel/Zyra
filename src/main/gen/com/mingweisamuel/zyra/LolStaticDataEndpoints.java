@@ -35,439 +35,6 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
-   * Retrieves champion by ID
-   * ## Implementation Notes
-   * Not all data specified below is returned by default. See the tags parameter for more information.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param id (required) Champion ID
-   */
-  public Champion getChampionById(final Region region, final int id) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getChampionById(region, id, null, null, null);
-  }
-
-  /**
-   * Retrieves champion by ID
-   * ## Implementation Notes
-   * Not all data specified below is returned by default. See the tags parameter for more information.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param id (required) Champion ID
-   */
-  public CompletableFuture<Champion> getChampionByIdAsync(final Region region, final int id) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getChampionByIdAsync(region, id, null, null, null);
-  }
-
-  /**
-   * Retrieves champion by ID
-   * ## Implementation Notes
-   * Not all data specified below is returned by default. See the tags parameter for more information.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param id (required) Champion ID
-   * @param tags (optional) Tags to return additional data. Only id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
-   */
-  public Champion getChampionById(final Region region, final int id, final List<String> tags) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getChampionById(region, id, tags, null, null);
-  }
-
-  /**
-   * Retrieves champion by ID
-   * ## Implementation Notes
-   * Not all data specified below is returned by default. See the tags parameter for more information.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param id (required) Champion ID
-   * @param tags (optional) Tags to return additional data. Only id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
-   */
-  public CompletableFuture<Champion> getChampionByIdAsync(final Region region, final int id,
-      final List<String> tags) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getChampionByIdAsync(region, id, tags, null, null);
-  }
-
-  /**
-   * Retrieves champion by ID
-   * ## Implementation Notes
-   * Not all data specified below is returned by default. See the tags parameter for more information.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param id (required) Champion ID
-   * @param tags (optional) Tags to return additional data. Only id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   */
-  public Champion getChampionById(final Region region, final int id, final List<String> tags,
-      final String locale) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getChampionById(region, id, tags, locale, null);
-  }
-
-  /**
-   * Retrieves champion by ID
-   * ## Implementation Notes
-   * Not all data specified below is returned by default. See the tags parameter for more information.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param id (required) Champion ID
-   * @param tags (optional) Tags to return additional data. Only id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   */
-  public CompletableFuture<Champion> getChampionByIdAsync(final Region region, final int id,
-      final List<String> tags, final String locale) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getChampionByIdAsync(region, id, tags, locale, null);
-  }
-
-  /**
-   * Retrieves champion by ID
-   * ## Implementation Notes
-   * Not all data specified below is returned by default. See the tags parameter for more information.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param id (required) Champion ID
-   * @param tags (optional) Tags to return additional data. Only id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
-   */
-  public Champion getChampionById(final Region region, final int id, final List<String> tags,
-      final String locale, final String version) {
-    // This method is automatically generated and should not be modified directly.
-    String url = String.format("/lol/static-data/v3/champions/%1$s", id);
-    Type type = Champion.class;
-    return riotApi.getBasicNonRateLimited("lol-static-data-v3.getChampionById", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
-  }
-
-  /**
-   * Retrieves champion by ID
-   * ## Implementation Notes
-   * Not all data specified below is returned by default. See the tags parameter for more information.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param id (required) Champion ID
-   * @param tags (optional) Tags to return additional data. Only id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
-   */
-  public CompletableFuture<Champion> getChampionByIdAsync(final Region region, final int id,
-      final List<String> tags, final String locale, final String version) {
-    // This method is automatically generated and should not be modified directly.
-    String url = String.format("/lol/static-data/v3/champions/%1$s", id);
-    Type type = Champion.class;
-    return riotApi.getBasicNonRateLimitedAsync("lol-static-data-v3.getChampionById", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
-  }
-
-  /**
-   * Retrieves item by ID
-   * ## Implementation Notes
-   * Not all data specified below is returned by default. See the tags parameter for more information.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param id (required) Item ID
-   */
-  public Item getItemById(final Region region, final int id) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getItemById(region, id, null, null, null);
-  }
-
-  /**
-   * Retrieves item by ID
-   * ## Implementation Notes
-   * Not all data specified below is returned by default. See the tags parameter for more information.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param id (required) Item ID
-   */
-  public CompletableFuture<Item> getItemByIdAsync(final Region region, final int id) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getItemByIdAsync(region, id, null, null, null);
-  }
-
-  /**
-   * Retrieves item by ID
-   * ## Implementation Notes
-   * Not all data specified below is returned by default. See the tags parameter for more information.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param id (required) Item ID
-   * @param tags (optional) Tags to return additional data. Only id, name, description, plaintext, and group are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
-   */
-  public Item getItemById(final Region region, final int id, final List<String> tags) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getItemById(region, id, tags, null, null);
-  }
-
-  /**
-   * Retrieves item by ID
-   * ## Implementation Notes
-   * Not all data specified below is returned by default. See the tags parameter for more information.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param id (required) Item ID
-   * @param tags (optional) Tags to return additional data. Only id, name, description, plaintext, and group are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
-   */
-  public CompletableFuture<Item> getItemByIdAsync(final Region region, final int id,
-      final List<String> tags) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getItemByIdAsync(region, id, tags, null, null);
-  }
-
-  /**
-   * Retrieves item by ID
-   * ## Implementation Notes
-   * Not all data specified below is returned by default. See the tags parameter for more information.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param id (required) Item ID
-   * @param tags (optional) Tags to return additional data. Only id, name, description, plaintext, and group are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   */
-  public Item getItemById(final Region region, final int id, final List<String> tags,
-      final String locale) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getItemById(region, id, tags, locale, null);
-  }
-
-  /**
-   * Retrieves item by ID
-   * ## Implementation Notes
-   * Not all data specified below is returned by default. See the tags parameter for more information.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param id (required) Item ID
-   * @param tags (optional) Tags to return additional data. Only id, name, description, plaintext, and group are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   */
-  public CompletableFuture<Item> getItemByIdAsync(final Region region, final int id,
-      final List<String> tags, final String locale) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getItemByIdAsync(region, id, tags, locale, null);
-  }
-
-  /**
-   * Retrieves item by ID
-   * ## Implementation Notes
-   * Not all data specified below is returned by default. See the tags parameter for more information.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param id (required) Item ID
-   * @param tags (optional) Tags to return additional data. Only id, name, description, plaintext, and group are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
-   */
-  public Item getItemById(final Region region, final int id, final List<String> tags,
-      final String locale, final String version) {
-    // This method is automatically generated and should not be modified directly.
-    String url = String.format("/lol/static-data/v3/items/%1$s", id);
-    Type type = Item.class;
-    return riotApi.getBasicNonRateLimited("lol-static-data-v3.getItemById", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
-  }
-
-  /**
-   * Retrieves item by ID
-   * ## Implementation Notes
-   * Not all data specified below is returned by default. See the tags parameter for more information.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param id (required) Item ID
-   * @param tags (optional) Tags to return additional data. Only id, name, description, plaintext, and group are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
-   */
-  public CompletableFuture<Item> getItemByIdAsync(final Region region, final int id,
-      final List<String> tags, final String locale, final String version) {
-    // This method is automatically generated and should not be modified directly.
-    String url = String.format("/lol/static-data/v3/items/%1$s", id);
-    Type type = Item.class;
-    return riotApi.getBasicNonRateLimitedAsync("lol-static-data-v3.getItemById", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
-  }
-
-  /**
-   * Retrieve language strings data
-   * ## Implementation Notes
-   * Language strings data was not generated for patch version 7.4.2.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
-   * @param region Region to execute against.
-   */
-  public LanguageStrings getLanguageStrings(final Region region) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getLanguageStrings(region, null, null);
-  }
-
-  /**
-   * Retrieve language strings data
-   * ## Implementation Notes
-   * Language strings data was not generated for patch version 7.4.2.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
-   * @param region Region to execute against.
-   */
-  public CompletableFuture<LanguageStrings> getLanguageStringsAsync(final Region region) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getLanguageStringsAsync(region, null, null);
-  }
-
-  /**
-   * Retrieve language strings data
-   * ## Implementation Notes
-   * Language strings data was not generated for patch version 7.4.2.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   */
-  public LanguageStrings getLanguageStrings(final Region region, final String locale) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getLanguageStrings(region, locale, null);
-  }
-
-  /**
-   * Retrieve language strings data
-   * ## Implementation Notes
-   * Language strings data was not generated for patch version 7.4.2.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   */
-  public CompletableFuture<LanguageStrings> getLanguageStringsAsync(final Region region,
-      final String locale) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getLanguageStringsAsync(region, locale, null);
-  }
-
-  /**
-   * Retrieve language strings data
-   * ## Implementation Notes
-   * Language strings data was not generated for patch version 7.4.2.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
-   */
-  public LanguageStrings getLanguageStrings(final Region region, final String locale,
-      final String version) {
-    // This method is automatically generated and should not be modified directly.
-    String url = "/lol/static-data/v3/language-strings";
-    Type type = LanguageStrings.class;
-    return riotApi.getBasicNonRateLimited("lol-static-data-v3.getLanguageStrings", url, region, type, riotApi.makeParams("locale", locale, "version", version));
-  }
-
-  /**
-   * Retrieve language strings data
-   * ## Implementation Notes
-   * Language strings data was not generated for patch version 7.4.2.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
-   */
-  public CompletableFuture<LanguageStrings> getLanguageStringsAsync(final Region region,
-      final String locale, final String version) {
-    // This method is automatically generated and should not be modified directly.
-    String url = "/lol/static-data/v3/language-strings";
-    Type type = LanguageStrings.class;
-    return riotApi.getBasicNonRateLimitedAsync("lol-static-data-v3.getLanguageStrings", url, region, type, riotApi.makeParams("locale", locale, "version", version));
-  }
-
-  /**
-   * Retrieve supported languages data
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguages">Link to Portal</a><br>
-   * @param region Region to execute against.
-   */
-  public List<String> getLanguages(final Region region) {
-    // This method is automatically generated and should not be modified directly.
-    String url = "/lol/static-data/v3/languages";
-    Type type = new TypeToken<List<String>>() {
-    }.getType();
-    return riotApi.getBasicNonRateLimited("lol-static-data-v3.getLanguages", url, region, type, Collections.emptyList());
-  }
-
-  /**
-   * Retrieve supported languages data
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguages">Link to Portal</a><br>
-   * @param region Region to execute against.
-   */
-  public CompletableFuture<List<String>> getLanguagesAsync(final Region region) {
-    // This method is automatically generated and should not be modified directly.
-    String url = "/lol/static-data/v3/languages";
-    Type type = new TypeToken<List<String>>() {
-    }.getType();
-    return riotApi.getBasicNonRateLimitedAsync("lol-static-data-v3.getLanguages", url, region, type, Collections.emptyList());
-  }
-
-  /**
    * Retrieves champion list
    * ## Implementation Notes
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -649,107 +216,6 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
-   * Retrieve map data
-   * ## Implementation Notes
-   * This endpoint is only supported for patch version 5.5.3 and later. Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Link to Portal</a><br>
-   * @param region Region to execute against.
-   */
-  public MapData getMapData(final Region region) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getMapData(region, null, null);
-  }
-
-  /**
-   * Retrieve map data
-   * ## Implementation Notes
-   * This endpoint is only supported for patch version 5.5.3 and later. Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Link to Portal</a><br>
-   * @param region Region to execute against.
-   */
-  public CompletableFuture<MapData> getMapDataAsync(final Region region) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getMapDataAsync(region, null, null);
-  }
-
-  /**
-   * Retrieve map data
-   * ## Implementation Notes
-   * This endpoint is only supported for patch version 5.5.3 and later. Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   */
-  public MapData getMapData(final Region region, final String locale) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getMapData(region, locale, null);
-  }
-
-  /**
-   * Retrieve map data
-   * ## Implementation Notes
-   * This endpoint is only supported for patch version 5.5.3 and later. Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   */
-  public CompletableFuture<MapData> getMapDataAsync(final Region region, final String locale) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getMapDataAsync(region, locale, null);
-  }
-
-  /**
-   * Retrieve map data
-   * ## Implementation Notes
-   * This endpoint is only supported for patch version 5.5.3 and later. Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
-   */
-  public MapData getMapData(final Region region, final String locale, final String version) {
-    // This method is automatically generated and should not be modified directly.
-    String url = "/lol/static-data/v3/maps";
-    Type type = MapData.class;
-    return riotApi.getBasicNonRateLimited("lol-static-data-v3.getMapData", url, region, type, riotApi.makeParams("locale", locale, "version", version));
-  }
-
-  /**
-   * Retrieve map data
-   * ## Implementation Notes
-   * This endpoint is only supported for patch version 5.5.3 and later. Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
-   */
-  public CompletableFuture<MapData> getMapDataAsync(final Region region, final String locale,
-      final String version) {
-    // This method is automatically generated and should not be modified directly.
-    String url = "/lol/static-data/v3/maps";
-    Type type = MapData.class;
-    return riotApi.getBasicNonRateLimitedAsync("lol-static-data-v3.getMapData", url, region, type, riotApi.makeParams("locale", locale, "version", version));
-  }
-
-  /**
    * Retrieves item list
    * ## Implementation Notes
    * Not all data specified below is returned by default. See the tags parameter for more information.
@@ -887,6 +353,391 @@ public final class LolStaticDataEndpoints extends Endpoints {
     String url = "/lol/static-data/v3/items";
     Type type = ItemList.class;
     return riotApi.getBasicNonRateLimitedAsync("lol-static-data-v3.getItemList", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+  }
+
+  /**
+   * Retrieves champion by ID
+   * ## Implementation Notes
+   * Not all data specified below is returned by default. See the tags parameter for more information.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param id (required) Champion ID
+   */
+  public Champion getChampionById(final Region region, final int id) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getChampionById(region, id, null, null, null);
+  }
+
+  /**
+   * Retrieves champion by ID
+   * ## Implementation Notes
+   * Not all data specified below is returned by default. See the tags parameter for more information.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param id (required) Champion ID
+   */
+  public CompletableFuture<Champion> getChampionByIdAsync(final Region region, final int id) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getChampionByIdAsync(region, id, null, null, null);
+  }
+
+  /**
+   * Retrieves champion by ID
+   * ## Implementation Notes
+   * Not all data specified below is returned by default. See the tags parameter for more information.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param id (required) Champion ID
+   * @param tags (optional) Tags to return additional data. Only id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
+   */
+  public Champion getChampionById(final Region region, final int id, final List<String> tags) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getChampionById(region, id, tags, null, null);
+  }
+
+  /**
+   * Retrieves champion by ID
+   * ## Implementation Notes
+   * Not all data specified below is returned by default. See the tags parameter for more information.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param id (required) Champion ID
+   * @param tags (optional) Tags to return additional data. Only id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
+   */
+  public CompletableFuture<Champion> getChampionByIdAsync(final Region region, final int id,
+      final List<String> tags) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getChampionByIdAsync(region, id, tags, null, null);
+  }
+
+  /**
+   * Retrieves champion by ID
+   * ## Implementation Notes
+   * Not all data specified below is returned by default. See the tags parameter for more information.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param id (required) Champion ID
+   * @param tags (optional) Tags to return additional data. Only id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   */
+  public Champion getChampionById(final Region region, final int id, final List<String> tags,
+      final String locale) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getChampionById(region, id, tags, locale, null);
+  }
+
+  /**
+   * Retrieves champion by ID
+   * ## Implementation Notes
+   * Not all data specified below is returned by default. See the tags parameter for more information.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param id (required) Champion ID
+   * @param tags (optional) Tags to return additional data. Only id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   */
+  public CompletableFuture<Champion> getChampionByIdAsync(final Region region, final int id,
+      final List<String> tags, final String locale) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getChampionByIdAsync(region, id, tags, locale, null);
+  }
+
+  /**
+   * Retrieves champion by ID
+   * ## Implementation Notes
+   * Not all data specified below is returned by default. See the tags parameter for more information.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param id (required) Champion ID
+   * @param tags (optional) Tags to return additional data. Only id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
+   */
+  public Champion getChampionById(final Region region, final int id, final List<String> tags,
+      final String locale, final String version) {
+    // This method is automatically generated and should not be modified directly.
+    String url = String.format("/lol/static-data/v3/champions/%1$s", id);
+    Type type = Champion.class;
+    return riotApi.getBasicNonRateLimited("lol-static-data-v3.getChampionById", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+  }
+
+  /**
+   * Retrieves champion by ID
+   * ## Implementation Notes
+   * Not all data specified below is returned by default. See the tags parameter for more information.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getChampionById">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param id (required) Champion ID
+   * @param tags (optional) Tags to return additional data. Only id, key, name, and title are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
+   */
+  public CompletableFuture<Champion> getChampionByIdAsync(final Region region, final int id,
+      final List<String> tags, final String locale, final String version) {
+    // This method is automatically generated and should not be modified directly.
+    String url = String.format("/lol/static-data/v3/champions/%1$s", id);
+    Type type = Champion.class;
+    return riotApi.getBasicNonRateLimitedAsync("lol-static-data-v3.getChampionById", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+  }
+
+  /**
+   * Retrieve language strings data
+   * ## Implementation Notes
+   * Language strings data was not generated for patch version 7.4.2.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
+   * @param region Region to execute against.
+   */
+  public LanguageStrings getLanguageStrings(final Region region) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getLanguageStrings(region, null, null);
+  }
+
+  /**
+   * Retrieve language strings data
+   * ## Implementation Notes
+   * Language strings data was not generated for patch version 7.4.2.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
+   * @param region Region to execute against.
+   */
+  public CompletableFuture<LanguageStrings> getLanguageStringsAsync(final Region region) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getLanguageStringsAsync(region, null, null);
+  }
+
+  /**
+   * Retrieve language strings data
+   * ## Implementation Notes
+   * Language strings data was not generated for patch version 7.4.2.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   */
+  public LanguageStrings getLanguageStrings(final Region region, final String locale) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getLanguageStrings(region, locale, null);
+  }
+
+  /**
+   * Retrieve language strings data
+   * ## Implementation Notes
+   * Language strings data was not generated for patch version 7.4.2.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   */
+  public CompletableFuture<LanguageStrings> getLanguageStringsAsync(final Region region,
+      final String locale) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getLanguageStringsAsync(region, locale, null);
+  }
+
+  /**
+   * Retrieve language strings data
+   * ## Implementation Notes
+   * Language strings data was not generated for patch version 7.4.2.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
+   */
+  public LanguageStrings getLanguageStrings(final Region region, final String locale,
+      final String version) {
+    // This method is automatically generated and should not be modified directly.
+    String url = "/lol/static-data/v3/language-strings";
+    Type type = LanguageStrings.class;
+    return riotApi.getBasicNonRateLimited("lol-static-data-v3.getLanguageStrings", url, region, type, riotApi.makeParams("locale", locale, "version", version));
+  }
+
+  /**
+   * Retrieve language strings data
+   * ## Implementation Notes
+   * Language strings data was not generated for patch version 7.4.2.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguageStrings">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
+   */
+  public CompletableFuture<LanguageStrings> getLanguageStringsAsync(final Region region,
+      final String locale, final String version) {
+    // This method is automatically generated and should not be modified directly.
+    String url = "/lol/static-data/v3/language-strings";
+    Type type = LanguageStrings.class;
+    return riotApi.getBasicNonRateLimitedAsync("lol-static-data-v3.getLanguageStrings", url, region, type, riotApi.makeParams("locale", locale, "version", version));
+  }
+
+  /**
+   * Retrieve supported languages data
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguages">Link to Portal</a><br>
+   * @param region Region to execute against.
+   */
+  public List<String> getLanguages(final Region region) {
+    // This method is automatically generated and should not be modified directly.
+    String url = "/lol/static-data/v3/languages";
+    Type type = new TypeToken<List<String>>() {
+    }.getType();
+    return riotApi.getBasicNonRateLimited("lol-static-data-v3.getLanguages", url, region, type, Collections.emptyList());
+  }
+
+  /**
+   * Retrieve supported languages data
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getLanguages">Link to Portal</a><br>
+   * @param region Region to execute against.
+   */
+  public CompletableFuture<List<String>> getLanguagesAsync(final Region region) {
+    // This method is automatically generated and should not be modified directly.
+    String url = "/lol/static-data/v3/languages";
+    Type type = new TypeToken<List<String>>() {
+    }.getType();
+    return riotApi.getBasicNonRateLimitedAsync("lol-static-data-v3.getLanguages", url, region, type, Collections.emptyList());
+  }
+
+  /**
+   * Retrieve map data
+   * ## Implementation Notes
+   * This endpoint is only supported for patch version 5.5.3 and later. Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Link to Portal</a><br>
+   * @param region Region to execute against.
+   */
+  public MapData getMapData(final Region region) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getMapData(region, null, null);
+  }
+
+  /**
+   * Retrieve map data
+   * ## Implementation Notes
+   * This endpoint is only supported for patch version 5.5.3 and later. Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Link to Portal</a><br>
+   * @param region Region to execute against.
+   */
+  public CompletableFuture<MapData> getMapDataAsync(final Region region) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getMapDataAsync(region, null, null);
+  }
+
+  /**
+   * Retrieve map data
+   * ## Implementation Notes
+   * This endpoint is only supported for patch version 5.5.3 and later. Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   */
+  public MapData getMapData(final Region region, final String locale) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getMapData(region, locale, null);
+  }
+
+  /**
+   * Retrieve map data
+   * ## Implementation Notes
+   * This endpoint is only supported for patch version 5.5.3 and later. Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   */
+  public CompletableFuture<MapData> getMapDataAsync(final Region region, final String locale) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getMapDataAsync(region, locale, null);
+  }
+
+  /**
+   * Retrieve map data
+   * ## Implementation Notes
+   * This endpoint is only supported for patch version 5.5.3 and later. Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
+   */
+  public MapData getMapData(final Region region, final String locale, final String version) {
+    // This method is automatically generated and should not be modified directly.
+    String url = "/lol/static-data/v3/maps";
+    Type type = MapData.class;
+    return riotApi.getBasicNonRateLimited("lol-static-data-v3.getMapData", url, region, type, riotApi.makeParams("locale", locale, "version", version));
+  }
+
+  /**
+   * Retrieve map data
+   * ## Implementation Notes
+   * This endpoint is only supported for patch version 5.5.3 and later. Also, map data was not generated for patch versions 5.15.1, 5.16.1, and 5.17.1.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getMapData">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
+   */
+  public CompletableFuture<MapData> getMapDataAsync(final Region region, final String locale,
+      final String version) {
+    // This method is automatically generated and should not be modified directly.
+    String url = "/lol/static-data/v3/maps";
+    Type type = MapData.class;
+    return riotApi.getBasicNonRateLimitedAsync("lol-static-data-v3.getMapData", url, region, type, riotApi.makeParams("locale", locale, "version", version));
   }
 
   /**
@@ -1180,6 +1031,97 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
+   * Retrieve profile icons
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
+   * @param region Region to execute against.
+   */
+  public ProfileIconData getProfileIcons(final Region region) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getProfileIcons(region, null, null);
+  }
+
+  /**
+   * Retrieve profile icons
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
+   * @param region Region to execute against.
+   */
+  public CompletableFuture<ProfileIconData> getProfileIconsAsync(final Region region) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getProfileIconsAsync(region, null, null);
+  }
+
+  /**
+   * Retrieve profile icons
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   */
+  public ProfileIconData getProfileIcons(final Region region, final String locale) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getProfileIcons(region, locale, null);
+  }
+
+  /**
+   * Retrieve profile icons
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   */
+  public CompletableFuture<ProfileIconData> getProfileIconsAsync(final Region region,
+      final String locale) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getProfileIconsAsync(region, locale, null);
+  }
+
+  /**
+   * Retrieve profile icons
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
+   */
+  public ProfileIconData getProfileIcons(final Region region, final String locale,
+      final String version) {
+    // This method is automatically generated and should not be modified directly.
+    String url = "/lol/static-data/v3/profile-icons";
+    Type type = ProfileIconData.class;
+    return riotApi.getBasicNonRateLimited("lol-static-data-v3.getProfileIcons", url, region, type, riotApi.makeParams("locale", locale, "version", version));
+  }
+
+  /**
+   * Retrieve profile icons
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
+   */
+  public CompletableFuture<ProfileIconData> getProfileIconsAsync(final Region region,
+      final String locale, final String version) {
+    // This method is automatically generated and should not be modified directly.
+    String url = "/lol/static-data/v3/profile-icons";
+    Type type = ProfileIconData.class;
+    return riotApi.getBasicNonRateLimitedAsync("lol-static-data-v3.getProfileIcons", url, region, type, riotApi.makeParams("locale", locale, "version", version));
+  }
+
+  /**
    * Retrieve realm data
    * ## Rate Limit Notes
    * Requests to this API are not counted against the application Rate Limits.
@@ -1207,6 +1149,146 @@ public final class LolStaticDataEndpoints extends Endpoints {
     String url = "/lol/static-data/v3/realms";
     Type type = Realm.class;
     return riotApi.getBasicNonRateLimitedAsync("lol-static-data-v3.getRealm", url, region, type, Collections.emptyList());
+  }
+
+  /**
+   * Retrieves rune list
+   * ## Implementation Notes
+   * Not all data specified below is returned by default. See the tags parameter for more information.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
+   * @param region Region to execute against.
+   */
+  public RuneList getRuneList(final Region region) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getRuneList(region, null, null, null);
+  }
+
+  /**
+   * Retrieves rune list
+   * ## Implementation Notes
+   * Not all data specified below is returned by default. See the tags parameter for more information.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
+   * @param region Region to execute against.
+   */
+  public CompletableFuture<RuneList> getRuneListAsync(final Region region) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getRuneListAsync(region, null, null, null);
+  }
+
+  /**
+   * Retrieves rune list
+   * ## Implementation Notes
+   * Not all data specified below is returned by default. See the tags parameter for more information.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param tags (optional) Tags to return additional data. Only type, version, data, id, name, description, and rune are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
+   */
+  public RuneList getRuneList(final Region region, final List<String> tags) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getRuneList(region, tags, null, null);
+  }
+
+  /**
+   * Retrieves rune list
+   * ## Implementation Notes
+   * Not all data specified below is returned by default. See the tags parameter for more information.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param tags (optional) Tags to return additional data. Only type, version, data, id, name, description, and rune are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
+   */
+  public CompletableFuture<RuneList> getRuneListAsync(final Region region,
+      final List<String> tags) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getRuneListAsync(region, tags, null, null);
+  }
+
+  /**
+   * Retrieves rune list
+   * ## Implementation Notes
+   * Not all data specified below is returned by default. See the tags parameter for more information.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param tags (optional) Tags to return additional data. Only type, version, data, id, name, description, and rune are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   */
+  public RuneList getRuneList(final Region region, final List<String> tags, final String locale) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getRuneList(region, tags, locale, null);
+  }
+
+  /**
+   * Retrieves rune list
+   * ## Implementation Notes
+   * Not all data specified below is returned by default. See the tags parameter for more information.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param tags (optional) Tags to return additional data. Only type, version, data, id, name, description, and rune are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   */
+  public CompletableFuture<RuneList> getRuneListAsync(final Region region, final List<String> tags,
+      final String locale) {
+    // This method is automatically generated and should not be modified directly.
+    return this.getRuneListAsync(region, tags, locale, null);
+  }
+
+  /**
+   * Retrieves rune list
+   * ## Implementation Notes
+   * Not all data specified below is returned by default. See the tags parameter for more information.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param tags (optional) Tags to return additional data. Only type, version, data, id, name, description, and rune are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
+   */
+  public RuneList getRuneList(final Region region, final List<String> tags, final String locale,
+      final String version) {
+    // This method is automatically generated and should not be modified directly.
+    String url = "/lol/static-data/v3/runes";
+    Type type = RuneList.class;
+    return riotApi.getBasicNonRateLimited("lol-static-data-v3.getRuneList", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+  }
+
+  /**
+   * Retrieves rune list
+   * ## Implementation Notes
+   * Not all data specified below is returned by default. See the tags parameter for more information.
+   * ## Rate Limit Notes
+   * Requests to this API are not counted against the application Rate Limits.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param tags (optional) Tags to return additional data. Only type, version, data, id, name, description, and rune are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
+   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
+   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
+   */
+  public CompletableFuture<RuneList> getRuneListAsync(final Region region, final List<String> tags,
+      final String locale, final String version) {
+    // This method is automatically generated and should not be modified directly.
+    String url = "/lol/static-data/v3/runes";
+    Type type = RuneList.class;
+    return riotApi.getBasicNonRateLimitedAsync("lol-static-data-v3.getRuneList", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 
   /**
@@ -1723,233 +1805,151 @@ public final class LolStaticDataEndpoints extends Endpoints {
   }
 
   /**
-   * Retrieves rune list
+   * Retrieves item by ID
    * ## Implementation Notes
    * Not all data specified below is returned by default. See the tags parameter for more information.
    * ## Rate Limit Notes
    * Requests to this API are not counted against the application Rate Limits.
    *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
    * @param region Region to execute against.
+   * @param id (required) Item ID
    */
-  public RuneList getRuneList(final Region region) {
+  public Item getItemById(final Region region, final int id) {
     // This method is automatically generated and should not be modified directly.
-    return this.getRuneList(region, null, null, null);
+    return this.getItemById(region, id, null, null, null);
   }
 
   /**
-   * Retrieves rune list
+   * Retrieves item by ID
    * ## Implementation Notes
    * Not all data specified below is returned by default. See the tags parameter for more information.
    * ## Rate Limit Notes
    * Requests to this API are not counted against the application Rate Limits.
    *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
    * @param region Region to execute against.
+   * @param id (required) Item ID
    */
-  public CompletableFuture<RuneList> getRuneListAsync(final Region region) {
+  public CompletableFuture<Item> getItemByIdAsync(final Region region, final int id) {
     // This method is automatically generated and should not be modified directly.
-    return this.getRuneListAsync(region, null, null, null);
+    return this.getItemByIdAsync(region, id, null, null, null);
   }
 
   /**
-   * Retrieves rune list
+   * Retrieves item by ID
    * ## Implementation Notes
    * Not all data specified below is returned by default. See the tags parameter for more information.
    * ## Rate Limit Notes
    * Requests to this API are not counted against the application Rate Limits.
    *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
    * @param region Region to execute against.
-   * @param tags (optional) Tags to return additional data. Only type, version, data, id, name, description, and rune are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
+   * @param id (required) Item ID
+   * @param tags (optional) Tags to return additional data. Only id, name, description, plaintext, and group are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
-  public RuneList getRuneList(final Region region, final List<String> tags) {
+  public Item getItemById(final Region region, final int id, final List<String> tags) {
     // This method is automatically generated and should not be modified directly.
-    return this.getRuneList(region, tags, null, null);
+    return this.getItemById(region, id, tags, null, null);
   }
 
   /**
-   * Retrieves rune list
+   * Retrieves item by ID
    * ## Implementation Notes
    * Not all data specified below is returned by default. See the tags parameter for more information.
    * ## Rate Limit Notes
    * Requests to this API are not counted against the application Rate Limits.
    *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
    * @param region Region to execute against.
-   * @param tags (optional) Tags to return additional data. Only type, version, data, id, name, description, and rune are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
+   * @param id (required) Item ID
+   * @param tags (optional) Tags to return additional data. Only id, name, description, plaintext, and group are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    */
-  public CompletableFuture<RuneList> getRuneListAsync(final Region region,
+  public CompletableFuture<Item> getItemByIdAsync(final Region region, final int id,
       final List<String> tags) {
     // This method is automatically generated and should not be modified directly.
-    return this.getRuneListAsync(region, tags, null, null);
+    return this.getItemByIdAsync(region, id, tags, null, null);
   }
 
   /**
-   * Retrieves rune list
+   * Retrieves item by ID
    * ## Implementation Notes
    * Not all data specified below is returned by default. See the tags parameter for more information.
    * ## Rate Limit Notes
    * Requests to this API are not counted against the application Rate Limits.
    *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
    * @param region Region to execute against.
-   * @param tags (optional) Tags to return additional data. Only type, version, data, id, name, description, and rune are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
+   * @param id (required) Item ID
+   * @param tags (optional) Tags to return additional data. Only id, name, description, plaintext, and group are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    */
-  public RuneList getRuneList(final Region region, final List<String> tags, final String locale) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getRuneList(region, tags, locale, null);
-  }
-
-  /**
-   * Retrieves rune list
-   * ## Implementation Notes
-   * Not all data specified below is returned by default. See the tags parameter for more information.
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param tags (optional) Tags to return additional data. Only type, version, data, id, name, description, and rune are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   */
-  public CompletableFuture<RuneList> getRuneListAsync(final Region region, final List<String> tags,
+  public Item getItemById(final Region region, final int id, final List<String> tags,
       final String locale) {
     // This method is automatically generated and should not be modified directly.
-    return this.getRuneListAsync(region, tags, locale, null);
+    return this.getItemById(region, id, tags, locale, null);
   }
 
   /**
-   * Retrieves rune list
+   * Retrieves item by ID
    * ## Implementation Notes
    * Not all data specified below is returned by default. See the tags parameter for more information.
    * ## Rate Limit Notes
    * Requests to this API are not counted against the application Rate Limits.
    *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
    * @param region Region to execute against.
-   * @param tags (optional) Tags to return additional data. Only type, version, data, id, name, description, and rune are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
+   * @param id (required) Item ID
+   * @param tags (optional) Tags to return additional data. Only id, name, description, plaintext, and group are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
-  public RuneList getRuneList(final Region region, final List<String> tags, final String locale,
-      final String version) {
+  public CompletableFuture<Item> getItemByIdAsync(final Region region, final int id,
+      final List<String> tags, final String locale) {
     // This method is automatically generated and should not be modified directly.
-    String url = "/lol/static-data/v3/runes";
-    Type type = RuneList.class;
-    return riotApi.getBasicNonRateLimited("lol-static-data-v3.getRuneList", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+    return this.getItemByIdAsync(region, id, tags, locale, null);
   }
 
   /**
-   * Retrieves rune list
+   * Retrieves item by ID
    * ## Implementation Notes
    * Not all data specified below is returned by default. See the tags parameter for more information.
    * ## Rate Limit Notes
    * Requests to this API are not counted against the application Rate Limits.
    *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getRuneList">Link to Portal</a><br>
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
    * @param region Region to execute against.
-   * @param tags (optional) Tags to return additional data. Only type, version, data, id, name, description, and rune are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
+   * @param id (required) Item ID
+   * @param tags (optional) Tags to return additional data. Only id, name, description, plaintext, and group are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
-  public CompletableFuture<RuneList> getRuneListAsync(final Region region, final List<String> tags,
+  public Item getItemById(final Region region, final int id, final List<String> tags,
       final String locale, final String version) {
     // This method is automatically generated and should not be modified directly.
-    String url = "/lol/static-data/v3/runes";
-    Type type = RuneList.class;
-    return riotApi.getBasicNonRateLimitedAsync("lol-static-data-v3.getRuneList", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
+    String url = String.format("/lol/static-data/v3/items/%1$s", id);
+    Type type = Item.class;
+    return riotApi.getBasicNonRateLimited("lol-static-data-v3.getItemById", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 
   /**
-   * Retrieve profile icons
+   * Retrieves item by ID
+   * ## Implementation Notes
+   * Not all data specified below is returned by default. See the tags parameter for more information.
    * ## Rate Limit Notes
    * Requests to this API are not counted against the application Rate Limits.
    *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
+   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getItemById">Link to Portal</a><br>
    * @param region Region to execute against.
-   */
-  public ProfileIconData getProfileIcons(final Region region) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getProfileIcons(region, null, null);
-  }
-
-  /**
-   * Retrieve profile icons
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
-   * @param region Region to execute against.
-   */
-  public CompletableFuture<ProfileIconData> getProfileIconsAsync(final Region region) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getProfileIconsAsync(region, null, null);
-  }
-
-  /**
-   * Retrieve profile icons
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   */
-  public ProfileIconData getProfileIcons(final Region region, final String locale) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getProfileIcons(region, locale, null);
-  }
-
-  /**
-   * Retrieve profile icons
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   */
-  public CompletableFuture<ProfileIconData> getProfileIconsAsync(final Region region,
-      final String locale) {
-    // This method is automatically generated and should not be modified directly.
-    return this.getProfileIconsAsync(region, locale, null);
-  }
-
-  /**
-   * Retrieve profile icons
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
-   * @param region Region to execute against.
+   * @param id (required) Item ID
+   * @param tags (optional) Tags to return additional data. Only id, name, description, plaintext, and group are returned by default if this parameter isn't specified. To return all additional data, use the tag 'all'.
    * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
    * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
    */
-  public ProfileIconData getProfileIcons(final Region region, final String locale,
-      final String version) {
+  public CompletableFuture<Item> getItemByIdAsync(final Region region, final int id,
+      final List<String> tags, final String locale, final String version) {
     // This method is automatically generated and should not be modified directly.
-    String url = "/lol/static-data/v3/profile-icons";
-    Type type = ProfileIconData.class;
-    return riotApi.getBasicNonRateLimited("lol-static-data-v3.getProfileIcons", url, region, type, riotApi.makeParams("locale", locale, "version", version));
-  }
-
-  /**
-   * Retrieve profile icons
-   * ## Rate Limit Notes
-   * Requests to this API are not counted against the application Rate Limits.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#lol-static-data-v3/GET_getProfileIcons">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param locale (optional) Locale code for returned data (e.g., en_US, es_ES). If not specified, the default locale for the region is used.
-   * @param version (optional) Patch version for returned data. If not specified, the latest version for the region is used. List of valid versions can be obtained from the /versions endpoint.
-   */
-  public CompletableFuture<ProfileIconData> getProfileIconsAsync(final Region region,
-      final String locale, final String version) {
-    // This method is automatically generated and should not be modified directly.
-    String url = "/lol/static-data/v3/profile-icons";
-    Type type = ProfileIconData.class;
-    return riotApi.getBasicNonRateLimitedAsync("lol-static-data-v3.getProfileIcons", url, region, type, riotApi.makeParams("locale", locale, "version", version));
+    String url = String.format("/lol/static-data/v3/items/%1$s", id);
+    Type type = Item.class;
+    return riotApi.getBasicNonRateLimitedAsync("lol-static-data-v3.getItemById", url, region, type, riotApi.makeParams("tags", tags, "locale", locale, "version", version));
   }
 }

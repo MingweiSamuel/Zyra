@@ -84,38 +84,6 @@ public final class MatchEndpoints extends Endpoints {
   }
 
   /**
-   * Get match by match ID and tournament code.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchByTournamentCode">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param matchId (required) The match ID.
-   * @param tournamentCode (required) The tournament code.
-   */
-  public Match getMatchByTournamentCode(final Region region, final long matchId,
-      final String tournamentCode) {
-    // This method is automatically generated and should not be modified directly.
-    String url = String.format("/lol/match/v3/matches/%1$s/by-tournament-code/%2$s", matchId, tournamentCode);
-    Type type = Match.class;
-    return riotApi.getBasic("match-v3.getMatchByTournamentCode", url, region, type, Collections.emptyList());
-  }
-
-  /**
-   * Get match by match ID and tournament code.
-   *
-   * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchByTournamentCode">Link to Portal</a><br>
-   * @param region Region to execute against.
-   * @param matchId (required) The match ID.
-   * @param tournamentCode (required) The tournament code.
-   */
-  public CompletableFuture<Match> getMatchByTournamentCodeAsync(final Region region,
-      final long matchId, final String tournamentCode) {
-    // This method is automatically generated and should not be modified directly.
-    String url = String.format("/lol/match/v3/matches/%1$s/by-tournament-code/%2$s", matchId, tournamentCode);
-    Type type = Match.class;
-    return riotApi.getBasicAsync("match-v3.getMatchByTournamentCode", url, region, type, Collections.emptyList());
-  }
-
-  /**
    * Get matchlist for games played on given account ID and platform ID and filtered using given filter parameters, if any.
    * ## Implementation Notes
    * A number of optional parameters are provided for filtering. It is up to the caller to ensure that the combination of filter parameters provided is valid for the requested account, otherwise, no matches may be returned.
@@ -547,5 +515,37 @@ public final class MatchEndpoints extends Endpoints {
     String url = String.format("/lol/match/v3/timelines/by-match/%1$s", matchId);
     Type type = MatchTimeline.class;
     return riotApi.getBasicAsync("match-v3.getMatchTimeline", url, region, type, Collections.emptyList());
+  }
+
+  /**
+   * Get match by match ID and tournament code.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchByTournamentCode">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param matchId (required) The match ID.
+   * @param tournamentCode (required) The tournament code.
+   */
+  public Match getMatchByTournamentCode(final Region region, final long matchId,
+      final String tournamentCode) {
+    // This method is automatically generated and should not be modified directly.
+    String url = String.format("/lol/match/v3/matches/%1$s/by-tournament-code/%2$s", matchId, tournamentCode);
+    Type type = Match.class;
+    return riotApi.getBasic("match-v3.getMatchByTournamentCode", url, region, type, Collections.emptyList());
+  }
+
+  /**
+   * Get match by match ID and tournament code.
+   *
+   * <a href="https://developer.riotgames.com/api-methods/#match-v3/GET_getMatchByTournamentCode">Link to Portal</a><br>
+   * @param region Region to execute against.
+   * @param matchId (required) The match ID.
+   * @param tournamentCode (required) The tournament code.
+   */
+  public CompletableFuture<Match> getMatchByTournamentCodeAsync(final Region region,
+      final long matchId, final String tournamentCode) {
+    // This method is automatically generated and should not be modified directly.
+    String url = String.format("/lol/match/v3/matches/%1$s/by-tournament-code/%2$s", matchId, tournamentCode);
+    Type type = Match.class;
+    return riotApi.getBasicAsync("match-v3.getMatchByTournamentCode", url, region, type, Collections.emptyList());
   }
 }

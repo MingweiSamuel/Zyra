@@ -43,7 +43,7 @@ public class ApiSummonerTest extends ApiTest {
         assertEquals("c9sneaky", RiotApi.standardizeName(summoner.name));
         assertEquals(51405, summoner.id);
         assertEquals(78247, summoner.accountId);
-        assertEquals(30, summoner.summonerLevel);
+        assertTrue(summoner.summonerLevel >= 45);
         assertTrue(summoner.profileIconId + " must be positive.", summoner.profileIconId > 0);
         assertTrue(summoner.revisionDate + " invalid.", summoner.revisionDate >= 1495004089000L);
     }

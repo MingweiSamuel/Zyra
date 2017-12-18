@@ -34,6 +34,7 @@ public class ApiComboFeaturedGamesSummonerCurrentGameTest extends ApiTest {
             Participant participant = gameInfo.participants.get(0);
             Summoner summoner = api.summoners.getBySummonerName(Region.NA, participant.summonerName);
             CurrentGameInfo currentGame = api.spectator.getCurrentGameInfoBySummoner(Region.NA, summoner.id);
+            assertNotNull(currentGame);
             assertEquals(gameInfo.gameId, currentGame.gameId);
             for (CurrentGameParticipant cParticipant : currentGame.participants) {
                 // check the summoner is in both queries

@@ -18,7 +18,7 @@ public class CurrentGameParticipant implements Serializable {
 
   /**
    * The ID of the champion played by this participant */
-  public final long championId;
+  public final int championId;
 
   /**
    * List of Game Customizations */
@@ -52,7 +52,7 @@ public class CurrentGameParticipant implements Serializable {
    * The team ID of this participant, indicating the participant's team */
   public final long teamId;
 
-  public CurrentGameParticipant(final boolean bot, final long championId,
+  public CurrentGameParticipant(final boolean bot, final int championId,
       final List<GameCustomizationObject> gameCustomizationObjects, final Perks perks,
       final long profileIconId, final long spell1Id, final long spell2Id, final long summonerId,
       final String summonerName, final long teamId) {

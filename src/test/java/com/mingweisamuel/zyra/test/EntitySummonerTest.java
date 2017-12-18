@@ -46,7 +46,7 @@ public class EntitySummonerTest extends EntityTest {
         assertEquals(78247, summoner.getAccountId());
 
         // summonerInfo
-        assertEquals(30, summoner.getSummonerInfo().summonerLevel);
+        assertTrue(summoner.getSummonerInfo().summonerLevel >= 45);
         assertTrue(summoner.getSummonerInfo().profileIconId + " must be positive.",
             summoner.getSummonerInfo().profileIconId > 0);
         assertTrue(summoner.getSummonerInfo().revisionDate + " invalid.",

@@ -12,7 +12,7 @@ import java.lang.Override;
 public class BannedChampion implements Serializable {
   /**
    * The ID of the banned champion */
-  public final long championId;
+  public final int championId;
 
   /**
    * The turn during which the champion was banned */
@@ -22,7 +22,7 @@ public class BannedChampion implements Serializable {
    * The ID of the team that banned the champion */
   public final long teamId;
 
-  public BannedChampion(final long championId, final int pickTurn, final long teamId) {
+  public BannedChampion(final int championId, final int pickTurn, final long teamId) {
     this.championId = championId;
     this.pickTurn = pickTurn;
     this.teamId = teamId;

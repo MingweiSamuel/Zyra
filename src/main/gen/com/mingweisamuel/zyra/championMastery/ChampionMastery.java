@@ -14,7 +14,7 @@ import java.lang.Override;
 public class ChampionMastery implements Serializable {
   /**
    * Champion ID for this entry. */
-  public final long championId;
+  public final int championId;
 
   /**
    * Champion level for specified player and champion combination. */
@@ -44,7 +44,7 @@ public class ChampionMastery implements Serializable {
    * Player ID for this entry. */
   public final long playerId;
 
-  public ChampionMastery(final long championId, final int championLevel, final int championPoints,
+  public ChampionMastery(final int championId, final int championLevel, final int championPoints,
       final long championPointsSinceLastLevel, final long championPointsUntilNextLevel,
       final boolean chestGranted, final long lastPlayTime, final long playerId) {
     this.championId = championId;

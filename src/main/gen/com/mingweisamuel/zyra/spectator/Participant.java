@@ -17,7 +17,7 @@ public class Participant implements Serializable {
 
   /**
    * The ID of the champion played by this participant */
-  public final long championId;
+  public final int championId;
 
   /**
    * The ID of the profile icon used by this participant */
@@ -39,7 +39,7 @@ public class Participant implements Serializable {
    * The team ID of this participant, indicating the participant's team */
   public final long teamId;
 
-  public Participant(final boolean bot, final long championId, final long profileIconId,
+  public Participant(final boolean bot, final int championId, final long profileIconId,
       final long spell1Id, final long spell2Id, final String summonerName, final long teamId) {
     this.bot = bot;
     this.championId = championId;
