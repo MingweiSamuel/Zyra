@@ -1,3 +1,4 @@
+dist: trusty
 general:
   branches:
     only:
@@ -29,3 +30,6 @@ deploy:
   target_branch: gh-pages
   on:
     branch: develop
+
+after_script:
+  - sleep 10
