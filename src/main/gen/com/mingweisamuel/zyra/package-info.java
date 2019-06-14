@@ -7,8 +7,8 @@
  * Riot API.<br><br>
  *
  * The remaining sub-packages contain generated DTO classes returned by their respective endpoint set. For example,
- * methods in {@link com.mingweisamuel.zyra.MatchEndpoints} will return classes from the package
- * {@link com.mingweisamuel.zyra.match}.<br><br>
+ * methods in {@link com.mingweisamuel.zyra.MatchV4Endpoints} will return classes from the package
+ * {@link com.mingweisamuel.zyra.matchV4}.<br><br>
  *
  * The API was last automatically generated from the
  * <a href="http://www.mingweisamuel.com/riotapi-schema/tool/">Unofficial Riot API OpenAPI Spec</a>

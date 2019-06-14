@@ -11,8 +11,8 @@ public class TeamId {
     /** Team ID for Summoner's Rift red side (200). */
     public static final int RED = 200;
 
-    /** Win string for {@link com.mingweisamuel.zyra.match.TeamStats#win}. "Win". */
+    /** Win string for {@link com.mingweisamuel.zyra.matchV4.TeamStats#win}. "Win". */
     public static final String WIN = "Win";
-    /** Loss string for {@link com.mingweisamuel.zyra.match.TeamStats#win}. "Fail". */
+    /** Loss string for {@link com.mingweisamuel.zyra.matchV4.TeamStats#win}. "Fail". */
     public static final String LOSE = "Fail";
 }
