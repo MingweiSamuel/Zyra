@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ChampionMasteryV4Endpoints.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra</a> &gt; <span class="el_source">ChampionMasteryV4Endpoints.java</span></div><h1>ChampionMasteryV4Endpoints.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra;
+
+import com.google.gson.reflect.TypeToken;
+import com.mingweisamuel.zyra.championMasteryV4.ChampionMastery;
+import com.mingweisamuel.zyra.enums.Region;
+import java.lang.Integer;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * champion-mastery-v4 endpoints.&lt;br&gt;
+ * This class is automatically generated and should not be modified directly.
+ */
+@SuppressWarnings({&quot;unused&quot;, &quot;SameParameterValue&quot;, &quot;SpellCheckingInspection&quot;})
+public final class ChampionMasteryV4Endpoints extends Endpoints {
+  ChampionMasteryV4Endpoints(final RiotApi riotApi) {
+<span class="fc" id="L21">    super(riotApi);</span>
+<span class="fc" id="L22">  }</span>
+
+  /**
+   * Get a player's total champion mastery score, which is the sum of individual champion mastery levels.
+   *
+   * &lt;a href=&quot;https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryScore&quot;&gt;Link to Portal&lt;/a&gt;&lt;br&gt;
+   * @param region Region to execute against.
+   * @param encryptedSummonerId (required) Summoner ID associated with the player
+   */
+  public Integer getChampionMasteryScore(final Region region, final String encryptedSummonerId) {
+    // This method is automatically generated and should not be modified directly.
+<span class="fc" id="L33">    String url = String.format(&quot;/lol/champion-mastery/v4/scores/by-summoner/%1$s&quot;, encryptedSummonerId);</span>
+<span class="fc" id="L34">    Type type = Integer.class;</span>
+<span class="fc" id="L35">    return riotApi.getBasic(&quot;champion-mastery-v4.getChampionMasteryScore&quot;, url, region, type, Collections.emptyList());</span>
+  }
+
+  /**
+   * Get a player's total champion mastery score, which is the sum of individual champion mastery levels.
+   *
+   * &lt;a href=&quot;https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMasteryScore&quot;&gt;Link to Portal&lt;/a&gt;&lt;br&gt;
+   * @param region Region to execute against.
+   * @param encryptedSummonerId (required) Summoner ID associated with the player
+   */
+  public CompletableFuture&lt;Integer&gt; getChampionMasteryScoreAsync(final Region region,
+      final String encryptedSummonerId) {
+    // This method is automatically generated and should not be modified directly.
+<span class="fc" id="L48">    String url = String.format(&quot;/lol/champion-mastery/v4/scores/by-summoner/%1$s&quot;, encryptedSummonerId);</span>
+<span class="fc" id="L49">    Type type = Integer.class;</span>
+<span class="fc" id="L50">    return riotApi.getBasicAsync(&quot;champion-mastery-v4.getChampionMasteryScore&quot;, url, region, type, Collections.emptyList());</span>
+  }
+
+  /**
+   * Get a champion mastery by player ID and champion ID.
+   *
+   * &lt;a href=&quot;https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMastery&quot;&gt;Link to Portal&lt;/a&gt;&lt;br&gt;
+   * @param region Region to execute against.
+   * @param encryptedSummonerId (required) Summoner ID associated with the player
+   * @param championId (required) Champion ID to retrieve Champion Mastery for
+   */
+  public ChampionMastery getChampionMastery(final Region region, final String encryptedSummonerId,
+      final long championId) {
+    // This method is automatically generated and should not be modified directly.
+<span class="fc" id="L64">    String url = String.format(&quot;/lol/champion-mastery/v4/champion-masteries/by-summoner/%1$s/by-champion/%2$s&quot;, encryptedSummonerId, championId);</span>
+<span class="fc" id="L65">    Type type = ChampionMastery.class;</span>
+<span class="fc" id="L66">    return riotApi.getBasic(&quot;champion-mastery-v4.getChampionMastery&quot;, url, region, type, Collections.emptyList());</span>
+  }
+
+  /**
+   * Get a champion mastery by player ID and champion ID.
+   *
+   * &lt;a href=&quot;https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getChampionMastery&quot;&gt;Link to Portal&lt;/a&gt;&lt;br&gt;
+   * @param region Region to execute against.
+   * @param encryptedSummonerId (required) Summoner ID associated with the player
+   * @param championId (required) Champion ID to retrieve Champion Mastery for
+   */
+  public CompletableFuture&lt;ChampionMastery&gt; getChampionMasteryAsync(final Region region,
+      final String encryptedSummonerId, final long championId) {
+    // This method is automatically generated and should not be modified directly.
+<span class="fc" id="L80">    String url = String.format(&quot;/lol/champion-mastery/v4/champion-masteries/by-summoner/%1$s/by-champion/%2$s&quot;, encryptedSummonerId, championId);</span>
+<span class="fc" id="L81">    Type type = ChampionMastery.class;</span>
+<span class="fc" id="L82">    return riotApi.getBasicAsync(&quot;champion-mastery-v4.getChampionMastery&quot;, url, region, type, Collections.emptyList());</span>
+  }
+
+  /**
+   * Get all champion mastery entries sorted by number of champion points descending,
+   *
+   * &lt;a href=&quot;https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getAllChampionMasteries&quot;&gt;Link to Portal&lt;/a&gt;&lt;br&gt;
+   * @param region Region to execute against.
+   * @param encryptedSummonerId (required) Summoner ID associated with the player
+   */
+  public List&lt;ChampionMastery&gt; getAllChampionMasteries(final Region region,
+      final String encryptedSummonerId) {
+    // This method is automatically generated and should not be modified directly.
+<span class="fc" id="L95">    String url = String.format(&quot;/lol/champion-mastery/v4/champion-masteries/by-summoner/%1$s&quot;, encryptedSummonerId);</span>
+<span class="fc" id="L96">    Type type = new TypeToken&lt;List&lt;ChampionMastery&gt;&gt;() {</span>
+<span class="fc" id="L97">    }.getType();</span>
+<span class="fc" id="L98">    return riotApi.getBasic(&quot;champion-mastery-v4.getAllChampionMasteries&quot;, url, region, type, Collections.emptyList());</span>
+  }
+
+  /**
+   * Get all champion mastery entries sorted by number of champion points descending,
+   *
+   * &lt;a href=&quot;https://developer.riotgames.com/api-methods/#champion-mastery-v4/GET_getAllChampionMasteries&quot;&gt;Link to Portal&lt;/a&gt;&lt;br&gt;
+   * @param region Region to execute against.
+   * @param encryptedSummonerId (required) Summoner ID associated with the player
+   */
+  public CompletableFuture&lt;List&lt;ChampionMastery&gt;&gt; getAllChampionMasteriesAsync(final Region region,
+      final String encryptedSummonerId) {
+    // This method is automatically generated and should not be modified directly.
+<span class="fc" id="L111">    String url = String.format(&quot;/lol/champion-mastery/v4/champion-masteries/by-summoner/%1$s&quot;, encryptedSummonerId);</span>
+<span class="fc" id="L112">    Type type = new TypeToken&lt;List&lt;ChampionMastery&gt;&gt;() {</span>
+<span class="fc" id="L113">    }.getType();</span>
+<span class="fc" id="L114">    return riotApi.getBasicAsync(&quot;champion-mastery-v4.getAllChampionMasteries&quot;, url, region, type, Collections.emptyList());</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

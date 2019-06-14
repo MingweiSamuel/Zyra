@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TournamentCode.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra.tournamentV4</a> &gt; <span class="el_source">TournamentCode.java</span></div><h1>TournamentCode.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra.tournamentV4;
+
+import com.google.common.base.Objects;
+import java.io.Serializable;
+import java.lang.Object;
+import java.lang.Override;
+import java.lang.String;
+import java.util.List;
+
+/**
+ * TournamentCode.&lt;br&gt;&lt;br&gt;
+ *
+ * This class was automatically generated from the &lt;a href=&quot;http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json&quot;&gt;Riot API reference&lt;/a&gt;. */
+public class TournamentCode implements Serializable {
+  /**
+   * The tournament code. */
+  public final String code;
+
+  /**
+   * The tournament code's ID. */
+  public final int id;
+
+  /**
+   * The lobby name for the tournament code game. */
+  public final String lobbyName;
+
+  /**
+   * The game map for the tournament code game */
+  public final String map;
+
+  /**
+   * The metadata for tournament code. */
+  public final String metaData;
+
+  /**
+   * The summonerIds of the participants (Encrypted) */
+  public final List&lt;String&gt; participants;
+
+  /**
+   * The password for the tournament code game. */
+  public final String password;
+
+  /**
+   * The pick mode for tournament code game. */
+  public final String pickType;
+
+  /**
+   * The provider's ID. */
+  public final int providerId;
+
+  /**
+   * The tournament code's region.
+   *              (Legal values:  BR,  EUNE,  EUW,  JP,  LAN,  LAS,  NA,  OCE,  PBE,  RU,  TR) */
+  public final String region;
+
+  /**
+   * The spectator mode for the tournament code game. */
+  public final String spectators;
+
+  /**
+   * The team size for the tournament code game. */
+  public final int teamSize;
+
+  /**
+   * The tournament's ID. */
+  public final int tournamentId;
+
+  public TournamentCode(final String code, final int id, final String lobbyName, final String map,
+      final String metaData, final List&lt;String&gt; participants, final String password,
+      final String pickType, final int providerId, final String region, final String spectators,
+<span class="nc" id="L71">      final int teamSize, final int tournamentId) {</span>
+<span class="nc" id="L72">    this.code = code;</span>
+<span class="nc" id="L73">    this.id = id;</span>
+<span class="nc" id="L74">    this.lobbyName = lobbyName;</span>
+<span class="nc" id="L75">    this.map = map;</span>
+<span class="nc" id="L76">    this.metaData = metaData;</span>
+<span class="nc" id="L77">    this.participants = participants;</span>
+<span class="nc" id="L78">    this.password = password;</span>
+<span class="nc" id="L79">    this.pickType = pickType;</span>
+<span class="nc" id="L80">    this.providerId = providerId;</span>
+<span class="nc" id="L81">    this.region = region;</span>
+<span class="nc" id="L82">    this.spectators = spectators;</span>
+<span class="nc" id="L83">    this.teamSize = teamSize;</span>
+<span class="nc" id="L84">    this.tournamentId = tournamentId;</span>
+<span class="nc" id="L85">  }</span>
+
+  @Override
+  public boolean equals(final Object obj) {
+<span class="nc bnc" id="L89" title="All 2 branches missed.">    if (obj == this) return true;</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">    if (!(obj instanceof TournamentCode)) return false;</span>
+<span class="nc" id="L91">    final TournamentCode other = (TournamentCode) obj;</span>
+<span class="nc" id="L92">    return true</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">        &amp;&amp; Objects.equal(code, other.code)</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        &amp;&amp; Objects.equal(id, other.id)</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        &amp;&amp; Objects.equal(lobbyName, other.lobbyName)</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        &amp;&amp; Objects.equal(map, other.map)</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        &amp;&amp; Objects.equal(metaData, other.metaData)</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        &amp;&amp; Objects.equal(participants, other.participants)</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        &amp;&amp; Objects.equal(password, other.password)</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        &amp;&amp; Objects.equal(pickType, other.pickType)</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        &amp;&amp; Objects.equal(providerId, other.providerId)</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        &amp;&amp; Objects.equal(region, other.region)</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        &amp;&amp; Objects.equal(spectators, other.spectators)</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        &amp;&amp; Objects.equal(teamSize, other.teamSize)</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        &amp;&amp; Objects.equal(tournamentId, other.tournamentId);}</span>
+
+  @Override
+  public int hashCode() {
+<span class="nc" id="L109">    return Objects.hashCode(0,</span>
+        code,
+<span class="nc" id="L111">        id,</span>
+        lobbyName,
+        map,
+        metaData,
+        participants,
+        password,
+        pickType,
+<span class="nc" id="L118">        providerId,</span>
+        region,
+        spectators,
+<span class="nc" id="L121">        teamSize,</span>
+<span class="nc" id="L122">        tournamentId);}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

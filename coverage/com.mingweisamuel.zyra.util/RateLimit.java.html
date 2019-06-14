@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RateLimit.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra.util</a> &gt; <span class="el_source">RateLimit.java</span></div><h1>RateLimit.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra.util;
+
+import org.asynchttpclient.Response;
+
+import java.util.List;
+
+public interface RateLimit {
+
+    /**
+     * Get delay needed to respect retry-after headers.
+     * @return Milliseconds to delay or -1 if none needed. Zero may be returned and more delay less than one
+     * millisecond is required.
+     */
+    long retryAfterDelay();
+
+    /**
+     * Get the rate limit's buckets.
+     * @return Current buckets.
+     */
+    List&lt;TemporalBucket&gt; getBuckets();
+
+    /**
+     * Callback for when a response returns.
+     * @param response Response that applies to this RateLimit.
+     */
+    void onResponse(Response response);
+
+    /**
+     * Ensures that all provided rateLimits can be obeyed, or returns an estimated delay in milliseconds to wait.
+     * @param rateLimits Rate limits to obey.
+     * @return -1 if success, or a non-negative time to delay in milliseconds.
+     */
+    static long getOrDelay(RateLimit... rateLimits) {
+<span class="fc" id="L34">        long retryAfterDelay = -1;</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        for (RateLimit rateLimit : rateLimits) {</span>
+<span class="fc" id="L36">            long currentRetryDelay = rateLimit.retryAfterDelay();</span>
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">            if (currentRetryDelay &gt; retryAfterDelay)</span>
+<span class="nc" id="L38">                retryAfterDelay = currentRetryDelay;</span>
+        }
+        // This may not actually be the minimum time needed to delay, if other rateLimits are at their limit
+        // due to reasons besides the retry-after, however we ignore that case for simplicity. If this happens,
+        // the request will try again and be delayed again.
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">        if (retryAfterDelay &gt;= 0)</span>
+<span class="nc" id="L44">            return retryAfterDelay;</span>
+
+        // Join all buckets into an array and use TemporalBucket.getAllTokensOrDelay().
+<span class="fc" id="L47">        int i = 0;</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        for (RateLimit rateLimit : rateLimits)</span>
+<span class="fc" id="L49">            i += rateLimit.getBuckets().size();</span>
+
+<span class="fc" id="L51">        TemporalBucket[] allBuckets = new TemporalBucket[i];</span>
+<span class="fc" id="L52">        i = 0;</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        for (RateLimit rateLimit : rateLimits) {</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">            for (TemporalBucket bucket : rateLimit.getBuckets())</span>
+<span class="fc" id="L55">                allBuckets[i++] = bucket;</span>
+        }
+<span class="fc" id="L57">        return TemporalBucket.getAllTokensOrDelay(allBuckets);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

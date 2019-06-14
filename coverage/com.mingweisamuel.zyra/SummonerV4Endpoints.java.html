@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SummonerV4Endpoints.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra</a> &gt; <span class="el_source">SummonerV4Endpoints.java</span></div><h1>SummonerV4Endpoints.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra;
+
+import com.mingweisamuel.zyra.enums.Region;
+import com.mingweisamuel.zyra.summonerV4.Summoner;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * summoner-v4 endpoints.&lt;br&gt;
+ * This class is automatically generated and should not be modified directly.
+ */
+@SuppressWarnings({&quot;unused&quot;, &quot;SameParameterValue&quot;, &quot;SpellCheckingInspection&quot;})
+public final class SummonerV4Endpoints extends Endpoints {
+  SummonerV4Endpoints(final RiotApi riotApi) {
+<span class="fc" id="L18">    super(riotApi);</span>
+<span class="fc" id="L19">  }</span>
+
+  /**
+   * Get a summoner by account ID.
+   *
+   * &lt;a href=&quot;https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccountId&quot;&gt;Link to Portal&lt;/a&gt;&lt;br&gt;
+   * @param region Region to execute against.
+   * @param encryptedAccountId (required) null
+   */
+  public Summoner getByAccountId(final Region region, final String encryptedAccountId) {
+    // This method is automatically generated and should not be modified directly.
+<span class="fc" id="L30">    String url = String.format(&quot;/lol/summoner/v4/summoners/by-account/%1$s&quot;, encryptedAccountId);</span>
+<span class="fc" id="L31">    Type type = Summoner.class;</span>
+<span class="fc" id="L32">    return riotApi.getBasic(&quot;summoner-v4.getByAccountId&quot;, url, region, type, Collections.emptyList());</span>
+  }
+
+  /**
+   * Get a summoner by account ID.
+   *
+   * &lt;a href=&quot;https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByAccountId&quot;&gt;Link to Portal&lt;/a&gt;&lt;br&gt;
+   * @param region Region to execute against.
+   * @param encryptedAccountId (required) null
+   */
+  public CompletableFuture&lt;Summoner&gt; getByAccountIdAsync(final Region region,
+      final String encryptedAccountId) {
+    // This method is automatically generated and should not be modified directly.
+<span class="fc" id="L45">    String url = String.format(&quot;/lol/summoner/v4/summoners/by-account/%1$s&quot;, encryptedAccountId);</span>
+<span class="fc" id="L46">    Type type = Summoner.class;</span>
+<span class="fc" id="L47">    return riotApi.getBasicAsync(&quot;summoner-v4.getByAccountId&quot;, url, region, type, Collections.emptyList());</span>
+  }
+
+  /**
+   * Get a summoner by summoner name.
+   *
+   * &lt;a href=&quot;https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerName&quot;&gt;Link to Portal&lt;/a&gt;&lt;br&gt;
+   * @param region Region to execute against.
+   * @param summonerName (required) Summoner Name
+   */
+  public Summoner getBySummonerName(final Region region, final String summonerName) {
+    // This method is automatically generated and should not be modified directly.
+<span class="fc" id="L59">    String url = String.format(&quot;/lol/summoner/v4/summoners/by-name/%1$s&quot;, summonerName);</span>
+<span class="fc" id="L60">    Type type = Summoner.class;</span>
+<span class="fc" id="L61">    return riotApi.getBasic(&quot;summoner-v4.getBySummonerName&quot;, url, region, type, Collections.emptyList());</span>
+  }
+
+  /**
+   * Get a summoner by summoner name.
+   *
+   * &lt;a href=&quot;https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerName&quot;&gt;Link to Portal&lt;/a&gt;&lt;br&gt;
+   * @param region Region to execute against.
+   * @param summonerName (required) Summoner Name
+   */
+  public CompletableFuture&lt;Summoner&gt; getBySummonerNameAsync(final Region region,
+      final String summonerName) {
+    // This method is automatically generated and should not be modified directly.
+<span class="fc" id="L74">    String url = String.format(&quot;/lol/summoner/v4/summoners/by-name/%1$s&quot;, summonerName);</span>
+<span class="fc" id="L75">    Type type = Summoner.class;</span>
+<span class="fc" id="L76">    return riotApi.getBasicAsync(&quot;summoner-v4.getBySummonerName&quot;, url, region, type, Collections.emptyList());</span>
+  }
+
+  /**
+   * Get a summoner by PUUID.
+   *
+   * &lt;a href=&quot;https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByPUUID&quot;&gt;Link to Portal&lt;/a&gt;&lt;br&gt;
+   * @param region Region to execute against.
+   * @param encryptedPUUID (required) Summoner ID
+   */
+  public Summoner getByPUUID(final Region region, final String encryptedPUUID) {
+    // This method is automatically generated and should not be modified directly.
+<span class="nc" id="L88">    String url = String.format(&quot;/lol/summoner/v4/summoners/by-puuid/%1$s&quot;, encryptedPUUID);</span>
+<span class="nc" id="L89">    Type type = Summoner.class;</span>
+<span class="nc" id="L90">    return riotApi.getBasic(&quot;summoner-v4.getByPUUID&quot;, url, region, type, Collections.emptyList());</span>
+  }
+
+  /**
+   * Get a summoner by PUUID.
+   *
+   * &lt;a href=&quot;https://developer.riotgames.com/api-methods/#summoner-v4/GET_getByPUUID&quot;&gt;Link to Portal&lt;/a&gt;&lt;br&gt;
+   * @param region Region to execute against.
+   * @param encryptedPUUID (required) Summoner ID
+   */
+  public CompletableFuture&lt;Summoner&gt; getByPUUIDAsync(final Region region,
+      final String encryptedPUUID) {
+    // This method is automatically generated and should not be modified directly.
+<span class="nc" id="L103">    String url = String.format(&quot;/lol/summoner/v4/summoners/by-puuid/%1$s&quot;, encryptedPUUID);</span>
+<span class="nc" id="L104">    Type type = Summoner.class;</span>
+<span class="nc" id="L105">    return riotApi.getBasicAsync(&quot;summoner-v4.getByPUUID&quot;, url, region, type, Collections.emptyList());</span>
+  }
+
+  /**
+   * Get a summoner by summoner ID.
+   *
+   * &lt;a href=&quot;https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerId&quot;&gt;Link to Portal&lt;/a&gt;&lt;br&gt;
+   * @param region Region to execute against.
+   * @param encryptedSummonerId (required) Summoner ID
+   */
+  public Summoner getBySummonerId(final Region region, final String encryptedSummonerId) {
+    // This method is automatically generated and should not be modified directly.
+<span class="fc" id="L117">    String url = String.format(&quot;/lol/summoner/v4/summoners/%1$s&quot;, encryptedSummonerId);</span>
+<span class="fc" id="L118">    Type type = Summoner.class;</span>
+<span class="fc" id="L119">    return riotApi.getBasic(&quot;summoner-v4.getBySummonerId&quot;, url, region, type, Collections.emptyList());</span>
+  }
+
+  /**
+   * Get a summoner by summoner ID.
+   *
+   * &lt;a href=&quot;https://developer.riotgames.com/api-methods/#summoner-v4/GET_getBySummonerId&quot;&gt;Link to Portal&lt;/a&gt;&lt;br&gt;
+   * @param region Region to execute against.
+   * @param encryptedSummonerId (required) Summoner ID
+   */
+  public CompletableFuture&lt;Summoner&gt; getBySummonerIdAsync(final Region region,
+      final String encryptedSummonerId) {
+    // This method is automatically generated and should not be modified directly.
+<span class="fc" id="L132">    String url = String.format(&quot;/lol/summoner/v4/summoners/%1$s&quot;, encryptedSummonerId);</span>
+<span class="fc" id="L133">    Type type = Summoner.class;</span>
+<span class="fc" id="L134">    return riotApi.getBasicAsync(&quot;summoner-v4.getBySummonerId&quot;, url, region, type, Collections.emptyList());</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

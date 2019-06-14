@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MatchEntity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra.entity</a> &gt; <span class="el_source">MatchEntity.java</span></div><h1>MatchEntity.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra.entity;
+
+import com.mingweisamuel.zyra.enums.Region;
+import com.mingweisamuel.zyra.enums.TeamId;
+import com.mingweisamuel.zyra.matchV4.Match;
+import com.mingweisamuel.zyra.matchV4.MatchFrame;
+import com.mingweisamuel.zyra.matchV4.MatchParticipantFrame;
+import com.mingweisamuel.zyra.matchV4.MatchTimeline;
+import com.mingweisamuel.zyra.matchV4.Participant;
+import com.mingweisamuel.zyra.matchV4.ParticipantIdentity;
+import com.mingweisamuel.zyra.matchV4.Player;
+import com.mingweisamuel.zyra.matchV4.TeamStats;
+import com.mingweisamuel.zyra.util.LazyResetableFuture;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+
+/**
+ * A high-level representation of a match. Thread-safe.
+ */
+public class MatchEntity extends Entity {
+
+    static MatchEntity create(EntityApi entityApi, Region region, long matchId, String forAccountId) {
+<span class="fc" id="L28">        return new MatchEntity(entityApi, region, matchId, forAccountId);</span>
+    }
+
+    /** This match's unique encId. Set from initialization. */
+    private final long matchId;
+    /** Account ID for non-public (unranked) match participant identification. */
+    private final String forAccountIdEnc;
+
+    /** The match's general information.  */
+    private final LazyResetableFuture&lt;Match&gt; matchInfo;
+    /** The match's timeline. */
+    private final LazyResetableFuture&lt;MatchTimeline&gt; timeline;
+
+    /** The match's participant entities. */
+    private final LazyResetableFuture&lt;List&lt;ParticipantEntity&gt;&gt; participants;
+
+    /** The match's team entities. */
+    private final LazyResetableFuture&lt;List&lt;TeamEntity&gt;&gt; teams;
+
+    private MatchEntity(EntityApi entityApi, Region region, long matchId, String forAccountIdEnc) {
+<span class="fc" id="L48">        super(entityApi, region);</span>
+<span class="fc" id="L49">        this.matchId = matchId;</span>
+<span class="fc" id="L50">        this.forAccountIdEnc = forAccountIdEnc;</span>
+
+<span class="fc" id="L52">        matchInfo = new LazyResetableFuture&lt;&gt;(() -&gt; entityApi.riotApi.matchesV4.getMatchAsync(region, matchId));</span>
+<span class="fc" id="L53">        timeline = new LazyResetableFuture&lt;&gt;(() -&gt; entityApi.riotApi.matchesV4.getMatchTimelineAsync(region, matchId));</span>
+<span class="pc" id="L54">        participants = matchInfo.thenApply(m -&gt; new ArrayList&lt;&gt;(</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">            m.participantIdentities.stream().map(pid -&gt; new ParticipantEntity(</span>
+<span class="nc" id="L56">            pid.participantId, m, pid.player != null ? entityApi.getSummonerFromPlayer(pid.player) : null)).collect(Collectors.toList())));</span>
+<span class="pc" id="L57">        teams = matchInfo.thenApply(m -&gt; new ArrayList&lt;&gt;(</span>
+<span class="nc" id="L58">            m.teams.stream().map(TeamEntity::new).collect(Collectors.toList())));</span>
+<span class="fc" id="L59">    }</span>
+
+    /** Returns the unique match encId. Does not need to wait for any tasks to complete. */
+    public long getMatchId() {
+<span class="fc" id="L63">        return matchId;</span>
+    }
+
+    /**
+     * Returns the account ID supplied at construction, used for non-public (unranked) match participant
+     * identification.
+     * @return NULL if no account ID was originally supplied.
+     */
+    public String getForAccountIdEnc() {
+<span class="nc" id="L72">        return forAccountIdEnc;</span>
+    }
+
+    //region info methods
+    public CompletableFuture&lt;Match&gt; getInfoAsync() {
+<span class="nc" id="L77">        return matchInfo.get();</span>
+    }
+    public Match getInfo() {
+<span class="fc" id="L80">        return matchInfo.join();</span>
+    }
+    //endregion
+
+    //region timeline methods
+    public CompletableFuture&lt;MatchTimeline&gt; getTimelineAsync() {
+<span class="nc" id="L86">        return timeline.get();</span>
+    }
+    public MatchTimeline getTimeline() {
+<span class="fc" id="L89">        return timeline.join();</span>
+    }
+    //endregion
+
+    //region summoner methods
+    public CompletableFuture&lt;List&lt;ParticipantEntity&gt;&gt; getParticipantsAsync() {
+<span class="nc" id="L95">        return participants.get();</span>
+    }
+    public List&lt;ParticipantEntity&gt; getParticipants() {
+<span class="nc" id="L98">        return participants.join();</span>
+    }
+
+    /**
+     * Gets a CompletableFuture of the Participant corresponding to the given SummonerEntity. Will return {@code null}
+     * if the summoner was not found. This may occur in unranked games where identity information is not available.
+     * @param summonerEntity Summoner to find.
+     * @return CompletableFuture of ParticipantEntity, or of {@code null} if not found.
+     */
+    public CompletableFuture&lt;ParticipantEntity&gt; getParticipantAsync(SummonerEntity summonerEntity) {
+<span class="nc" id="L108">        return getParticipantsAsync().thenApply(l -&gt; l.stream().filter(</span>
+<span class="nc" id="L109">            p -&gt; summonerEntity.equals(p.getSummonerEntity())).findAny().orElse(null));</span>
+    }
+    /**
+     * Gets the Participant corresponding to the given SummonerEntity. Will return {@code null} if the summoner was
+     * not found. This usually occurs in unranked games where identity information is not available and forAccountIdEnc
+     * was not provided..
+     * @param summonerEntity Summoner to find.
+     * @return ParticipantEntity, or {@code null} if not found.
+     */
+    public ParticipantEntity getParticipant(SummonerEntity summonerEntity) {
+<span class="nc" id="L119">        return getParticipantAsync(summonerEntity).join();</span>
+    }
+
+
+    public CompletableFuture&lt;List&lt;TeamEntity&gt;&gt; getTeamsAsync() {
+<span class="nc" id="L124">        return teams.get();</span>
+    }
+    public List&lt;TeamEntity&gt; getTeams() {
+<span class="nc" id="L127">        return teams.join();</span>
+    }
+    //endregion
+
+    //region TeamEntity
+    /**
+     * An entity representation of a team in a single match.
+     */
+    public class TeamEntity extends Entity {
+
+        private final TeamStats teamStats;
+
+<span class="nc" id="L139">        private TeamEntity(TeamStats teamStats) {</span>
+<span class="nc" id="L140">            super(MatchEntity.this.entityApi, MatchEntity.this.region);</span>
+<span class="nc" id="L141">            this.teamStats = teamStats;</span>
+<span class="nc" id="L142">        }</span>
+
+        public int getTeamId() {
+<span class="nc" id="L145">            return teamStats.teamId;</span>
+        }
+
+        public TeamStats getTeamStats() {
+<span class="nc" id="L149">            return teamStats;</span>
+        }
+
+        public boolean isWinner() {
+<span class="nc" id="L153">            return TeamId.WIN.equals(teamStats.win);</span>
+        }
+
+        public List&lt;ParticipantEntity&gt; getParticipants() {
+<span class="nc" id="L157">            return MatchEntity.this.getParticipants().stream()</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">                .filter(p -&gt; this.getTeamId() == p.getTeamId()).collect(Collectors.toList());</span>
+        }
+    }
+    //endregion
+
+    //region ParticipantEntity
+    /**
+     * A entity representation of a participantInfo in a single match. May or may not be associated with a SummonerEntity.
+     */
+    public class ParticipantEntity extends Entity {
+
+        private final int participantId;
+        private final SummonerEntity summonerEntity;
+
+        private final Participant participantInfo;
+
+        private final LazyResetableFuture&lt;SortedMap&lt;Long, MatchParticipantFrame&gt;&gt; timeline;
+
+        /**
+         * Creates a participant entity.
+         * @param participantId The participant encId. Required.
+         * @param matchInfo Match information. Calling {@code MatchEntity.this.matchInfo.join()} will deadlock.
+         * @param summonerEntity Summoner entity, can be null if {@link ParticipantIdentity#player} not provided by api.
+         */
+<span class="nc" id="L182">        private ParticipantEntity(int participantId, Match matchInfo, SummonerEntity summonerEntity) {</span>
+<span class="nc bnc" id="L183" title="All 2 branches missed.">            super(MatchEntity.this.entityApi, summonerEntity == null ? MatchEntity.this.region : summonerEntity.region);</span>
+
+<span class="nc" id="L185">            this.participantId = participantId;</span>
+<span class="nc" id="L186">            this.summonerEntity = summonerEntity;</span>
+
+            // doesn't need async because getInfo() must already have been pulled.
+<span class="nc" id="L189">            this.participantInfo = matchInfo.participants.stream()</span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">                .filter(p -&gt; this.participantId == p.participantId).findAny()</span>
+<span class="nc" id="L191">                .orElseThrow(() -&gt; new IllegalStateException(&quot;Participant with encId not found: &quot; + participantId));</span>
+
+            //noinspection ConstantConditions
+<span class="nc" id="L194">            this.timeline = MatchEntity.this.timeline</span>
+<span class="nc" id="L195">                .thenApply(timeline -&gt; {</span>
+<span class="nc" id="L196">                    SortedMap&lt;Long, MatchParticipantFrame&gt; result = new TreeMap&lt;&gt;();</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">                    for (MatchFrame frame : timeline.frames)</span>
+<span class="nc" id="L198">                        result.put(frame.timestamp, frame.participantFrames.get(participantId));</span>
+<span class="nc" id="L199">                    return result;</span>
+                });
+<span class="nc" id="L201">        }</span>
+
+        /** @return The participant's unique encId for the match. */
+        public int getParticipantId() {
+<span class="nc" id="L205">            return participantId;</span>
+        }
+
+        /**
+         * Gets the summoner entity who played as this participantInfo.&lt;br&gt;&lt;br&gt;
+         *
+         * May return cached SummonerEntity instance as described in {@link EntityApi#getSummonerFromPlayer(Player)}.
+         *
+         * @return The summoner entity. May be {@code null} if summoner entity doesn't exist. This occurs when
+         *      matches do not include identity information which usually means the match was unranked.
+         */
+        public SummonerEntity getSummonerEntity() {
+<span class="nc" id="L217">            return summonerEntity;</span>
+        }
+
+        /** @return The participant information. */
+        public Participant getParticipantInfo() {
+<span class="nc" id="L222">            return participantInfo;</span>
+        }
+        /** @return The participant's teamId. See {@link com.mingweisamuel.zyra.enums.TeamId}. */
+        public int getTeamId() {
+<span class="nc" id="L226">            return participantInfo.teamId;</span>
+        }
+        /** @return The participant's TeamEntity. */
+        public TeamEntity getTeam() {
+<span class="nc" id="L230">            return MatchEntity.this.getTeams().stream()</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">                .filter(t -&gt; this.getTeamId() == t.getTeamId()).findAny().orElse(null);</span>
+        }
+
+        /**
+         * @return A CompletableFuture for this participant's timeline, which is a map from timestamps (long) to
+         * MatchParticipantFrames. The map is sorted in chronological order (ascending timestamps).
+         */
+        public CompletableFuture&lt;SortedMap&lt;Long, MatchParticipantFrame&gt;&gt; getTimelineAsync() {
+<span class="nc" id="L239">            return timeline.get();</span>
+        }
+        /**
+         * @return This participant's timeline, which is a map from timestamps (long) to MatchParticipantFrames.
+         * The map is sorted in chronological order (ascending timestamps).&lt;br&gt;
+         * May block while waiting for data.
+         */
+        public SortedMap&lt;Long, MatchParticipantFrame&gt; getTimeline() {
+<span class="nc" id="L247">            return timeline.join();</span>
+        }
+    }
+    //endregion
+
+    //region equals hashCode
+    /**
+     * Returns true if this MatchEntity has the same match ID and is from the same region as OTHER.
+     * @param other Object to compare to.
+     * @return True if equal.
+     */
+    @Override
+    public boolean equals(Object other) {
+<span class="nc bnc" id="L260" title="All 2 branches missed.">        if (this == other) return true;</span>
+<span class="nc bnc" id="L261" title="All 4 branches missed.">        if (other == null || getClass() != other.getClass()) return false;</span>
+
+<span class="nc" id="L263">        MatchEntity that = (MatchEntity) other;</span>
+
+<span class="nc bnc" id="L265" title="All 2 branches missed.">        if (matchId != that.matchId) return false;</span>
+<span class="nc" id="L266">        return region.equals(that.region);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L271">        int result = (int) (matchId ^ (matchId &gt;&gt;&gt; 32));</span>
+<span class="nc" id="L272">        result = 31 * result + region.hashCode();</span>
+<span class="nc" id="L273">        return result;</span>
+    }
+    //endregion
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

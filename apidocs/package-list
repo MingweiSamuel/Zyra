@@ -1,0 +1,15 @@
+com.mingweisamuel.zyra
+com.mingweisamuel.zyra.championMasteryV4
+com.mingweisamuel.zyra.championV3
+com.mingweisamuel.zyra.entity
+com.mingweisamuel.zyra.enums
+com.mingweisamuel.zyra.leagueV4
+com.mingweisamuel.zyra.lolStatusV3
+com.mingweisamuel.zyra.matchV4
+com.mingweisamuel.zyra.spectatorV4
+com.mingweisamuel.zyra.summonerV4
+com.mingweisamuel.zyra.thirdPartyCodeV4
+com.mingweisamuel.zyra.tournamentStubV4
+com.mingweisamuel.zyra.tournamentV4
+com.mingweisamuel.zyra.util
+org.eclipse.milo.opcua.stack.core.util

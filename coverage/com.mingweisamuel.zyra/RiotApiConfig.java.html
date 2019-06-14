@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RiotApiConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra</a> &gt; <span class="el_source">RiotApiConfig.java</span></div><h1>RiotApiConfig.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra;
+
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.mingweisamuel.zyra.util.TemporalBucketFactory;
+import com.mingweisamuel.zyra.util.TokenTemporalBucket;
+import org.asynchttpclient.AsyncHttpClientConfig;
+import org.asynchttpclient.DefaultAsyncHttpClientConfig;
+
+/**
+ * Immutable configuration object.
+ */
+public class RiotApiConfig {
+
+    public static final int DEFAULT_RETRIES = 3;
+    public static final int DEFAULT_MAX_CONCURRENT_REQUESTS = 1000;
+    public static final float DEFAULT_CONCURRENT_INSTANCE_FACTOR = 1.0f;
+    public static final float DEFAULT_OVERHEAD_FACTOR = 0.95f;
+    public static AsyncHttpClientConfig getDefaultAsyncHttpClientConfig() {
+<span class="fc" id="L19">        return new DefaultAsyncHttpClientConfig.Builder().setThreadFactory(</span>
+<span class="fc" id="L20">            new ThreadFactoryBuilder().setDaemon(true).build()).build();</span>
+    }
+    public static TemporalBucketFactory getDefaultTemporalBucketFactory() {
+<span class="fc" id="L23">        return (timespan, totalLimit, concurrentInstanceFactor, overheadFactor) -&gt;</span>
+<span class="fc" id="L24">            new TokenTemporalBucket(timespan, totalLimit, 20, 0.5f, concurrentInstanceFactor * overheadFactor);</span>
+    }
+
+    /** Riot Games API key. */
+    public final String apiKey;
+
+    /** Number of times to retry each request. */
+    public final int retries;
+    /** Maximum number of concurrent requests allowed. */
+    public final int maxConcurrentRequests;
+    /** Multiplier for using concurrent instances. For example, use 0.25 for 4 concurrent instances
+     * equally spread. */
+    public final float concurrentInstanceFactor;
+    /** Overhead factor to prevent 429s due to noise. */
+    public final float overheadFactor;
+    /** Response listener or null. Default is null. */
+    public final ResponseListener responseListener;
+    /** AsyncHttpClientConfig to use to send requests. */
+    public final AsyncHttpClientConfig asyncHttpClientConfig;
+    /** Factory for creating temporal buckets. */
+    public final TemporalBucketFactory temporalBucketFactory;
+
+    private RiotApiConfig(String apiKey, int retries, int maxConcurrentRequests, float concurrentInstanceFactor,
+            float overheadFactor, ResponseListener responseListener, AsyncHttpClientConfig asyncHttpClientConfig,
+<span class="fc" id="L48">            TemporalBucketFactory temporalBucketFactory) {</span>
+<span class="fc" id="L49">        this.apiKey = apiKey;</span>
+<span class="fc" id="L50">        this.retries = retries;</span>
+<span class="fc" id="L51">        this.maxConcurrentRequests = maxConcurrentRequests;</span>
+<span class="fc" id="L52">        this.concurrentInstanceFactor = concurrentInstanceFactor;</span>
+<span class="fc" id="L53">        this.overheadFactor = overheadFactor;</span>
+<span class="fc" id="L54">        this.responseListener = responseListener;</span>
+<span class="fc" id="L55">        this.asyncHttpClientConfig = asyncHttpClientConfig;</span>
+<span class="fc" id="L56">        this.temporalBucketFactory = temporalBucketFactory;</span>
+<span class="fc" id="L57">    }</span>
+
+    public static Builder builder(String apiKey) {
+<span class="fc" id="L60">        return new Builder(apiKey);</span>
+    }
+
+    public static class Builder {
+
+        private final String apiKey;
+
+<span class="fc" id="L67">        private int retries = DEFAULT_RETRIES;</span>
+<span class="fc" id="L68">        private int maxConcurrentRequests = DEFAULT_MAX_CONCURRENT_REQUESTS;</span>
+<span class="fc" id="L69">        private float concurrentInstanceFactor = DEFAULT_CONCURRENT_INSTANCE_FACTOR;</span>
+<span class="fc" id="L70">        private float overheadFactor = DEFAULT_OVERHEAD_FACTOR;</span>
+<span class="fc" id="L71">        private ResponseListener responseListener = null;</span>
+<span class="fc" id="L72">        private AsyncHttpClientConfig asyncHttpClientConfig = null;</span>
+<span class="fc" id="L73">        private TemporalBucketFactory temporalBucketFactory = null;</span>
+
+<span class="fc" id="L75">        private Builder(String apiKey) {</span>
+<span class="fc" id="L76">            this.apiKey = apiKey;</span>
+<span class="fc" id="L77">        }</span>
+
+        public RiotApiConfig build() {
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">            return new RiotApiConfig(</span>
+                apiKey, retries, maxConcurrentRequests, concurrentInstanceFactor, overheadFactor, responseListener,
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">                asyncHttpClientConfig != null ? asyncHttpClientConfig : getDefaultAsyncHttpClientConfig(),</span>
+<span class="fc" id="L83">                temporalBucketFactory != null ? temporalBucketFactory : getDefaultTemporalBucketFactory());</span>
+        }
+
+        //region generated
+        public String getApiKey() {
+<span class="nc" id="L88">            return apiKey;</span>
+        }
+
+        public int getRetries() {
+<span class="nc" id="L92">            return retries;</span>
+        }
+
+        public Builder setRetries(int retries) {
+<span class="fc" id="L96">            this.retries = retries;</span>
+<span class="fc" id="L97">            return this;</span>
+        }
+
+        public int getMaxConcurrentRequests() {
+<span class="nc" id="L101">            return maxConcurrentRequests;</span>
+        }
+
+        public Builder setMaxConcurrentRequests(int maxConcurrentRequests) {
+<span class="fc" id="L105">            this.maxConcurrentRequests = maxConcurrentRequests;</span>
+<span class="fc" id="L106">            return this;</span>
+        }
+
+        public float getConcurrentInstanceFactor() {
+<span class="nc" id="L110">            return concurrentInstanceFactor;</span>
+        }
+
+        public Builder setConcurrentInstanceFactor(float concurrentInstanceFactor) {
+<span class="nc" id="L114">            this.concurrentInstanceFactor = concurrentInstanceFactor;</span>
+<span class="nc" id="L115">            return this;</span>
+        }
+
+        public float getOverheadFactor() {
+<span class="nc" id="L119">            return overheadFactor;</span>
+        }
+
+        public Builder setOverheadFactor(float overheadFactor) {
+<span class="nc" id="L123">            this.overheadFactor = overheadFactor;</span>
+<span class="nc" id="L124">            return this;</span>
+        }
+
+        public ResponseListener getResponseListener() {
+<span class="nc" id="L128">            return responseListener;</span>
+        }
+
+        public Builder setResponseListener(ResponseListener responseListener) {
+<span class="nc" id="L132">            this.responseListener = responseListener;</span>
+<span class="nc" id="L133">            return this;</span>
+        }
+
+        public AsyncHttpClientConfig getAsyncHttpClientConfig() {
+<span class="nc" id="L137">            return asyncHttpClientConfig;</span>
+        }
+
+        public Builder setAsyncHttpClientConfig(AsyncHttpClientConfig asyncHttpClientConfig) {
+<span class="nc" id="L141">            this.asyncHttpClientConfig = asyncHttpClientConfig;</span>
+<span class="nc" id="L142">            return this;</span>
+        }
+
+        public TemporalBucketFactory getTemporalBucketFactory() {
+<span class="nc" id="L146">            return temporalBucketFactory;</span>
+        }
+
+        public Builder setTemporalBucketFactory(TemporalBucketFactory temporalBucketFactory) {
+<span class="nc" id="L150">            this.temporalBucketFactory = temporalBucketFactory;</span>
+<span class="nc" id="L151">            return this;</span>
+        }
+        //endregion
+    }
+
+    @Override
+    public boolean equals(Object o) {
+<span class="nc bnc" id="L158" title="All 2 branches missed.">        if (this == o) return true;</span>
+<span class="nc bnc" id="L159" title="All 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+
+<span class="nc" id="L161">        RiotApiConfig that = (RiotApiConfig) o;</span>
+
+<span class="nc bnc" id="L163" title="All 2 branches missed.">        if (retries != that.retries) return false;</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">        if (maxConcurrentRequests != that.maxConcurrentRequests) return false;</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">        if (Float.compare(that.concurrentInstanceFactor, concurrentInstanceFactor) != 0) return false;</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">        if (Float.compare(that.overheadFactor, overheadFactor) != 0) return false;</span>
+<span class="nc bnc" id="L167" title="All 6 branches missed.">        if (apiKey != null ? !apiKey.equals(that.apiKey) : that.apiKey != null) return false;</span>
+<span class="nc bnc" id="L168" title="All 6 branches missed.">        if (responseListener != null ? !responseListener.equals(that.responseListener) : that.responseListener != null)</span>
+<span class="nc" id="L169">            return false;</span>
+<span class="nc bnc" id="L170" title="All 2 branches missed.">        if (!asyncHttpClientConfig.equals(that.asyncHttpClientConfig)) return false;</span>
+<span class="nc" id="L171">        return temporalBucketFactory.equals(that.temporalBucketFactory);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc bnc" id="L176" title="All 2 branches missed.">        int result = apiKey != null ? apiKey.hashCode() : 0;</span>
+<span class="nc" id="L177">        result = 31 * result + retries;</span>
+<span class="nc" id="L178">        result = 31 * result + maxConcurrentRequests;</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">        result = 31 * result + (concurrentInstanceFactor != +0.0f ? Float.floatToIntBits(concurrentInstanceFactor) : 0);</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">        result = 31 * result + (overheadFactor != +0.0f ? Float.floatToIntBits(overheadFactor) : 0);</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">        result = 31 * result + (responseListener != null ? responseListener.hashCode() : 0);</span>
+<span class="nc" id="L182">        result = 31 * result + asyncHttpClientConfig.hashCode();</span>
+<span class="nc" id="L183">        result = 31 * result + temporalBucketFactory.hashCode();</span>
+<span class="nc" id="L184">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MatchParticipantFrame.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra.matchV4</a> &gt; <span class="el_source">MatchParticipantFrame.java</span></div><h1>MatchParticipantFrame.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra.matchV4;
+
+import com.google.common.base.Objects;
+import java.io.Serializable;
+import java.lang.Object;
+import java.lang.Override;
+
+/**
+ * MatchParticipantFrame.&lt;br&gt;&lt;br&gt;
+ *
+ * This class was automatically generated from the &lt;a href=&quot;http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json&quot;&gt;Riot API reference&lt;/a&gt;. */
+public class MatchParticipantFrame implements Serializable {
+  public final int currentGold;
+
+  public final int dominionScore;
+
+  public final int jungleMinionsKilled;
+
+  public final int level;
+
+  public final int minionsKilled;
+
+  public final int participantId;
+
+  public final MatchPosition position;
+
+  public final int teamScore;
+
+  public final int totalGold;
+
+  public final int xp;
+
+  public MatchParticipantFrame(final int currentGold, final int dominionScore,
+      final int jungleMinionsKilled, final int level, final int minionsKilled,
+      final int participantId, final MatchPosition position, final int teamScore,
+<span class="nc" id="L36">      final int totalGold, final int xp) {</span>
+<span class="nc" id="L37">    this.currentGold = currentGold;</span>
+<span class="nc" id="L38">    this.dominionScore = dominionScore;</span>
+<span class="nc" id="L39">    this.jungleMinionsKilled = jungleMinionsKilled;</span>
+<span class="nc" id="L40">    this.level = level;</span>
+<span class="nc" id="L41">    this.minionsKilled = minionsKilled;</span>
+<span class="nc" id="L42">    this.participantId = participantId;</span>
+<span class="nc" id="L43">    this.position = position;</span>
+<span class="nc" id="L44">    this.teamScore = teamScore;</span>
+<span class="nc" id="L45">    this.totalGold = totalGold;</span>
+<span class="nc" id="L46">    this.xp = xp;</span>
+<span class="nc" id="L47">  }</span>
+
+  @Override
+  public boolean equals(final Object obj) {
+<span class="nc bnc" id="L51" title="All 2 branches missed.">    if (obj == this) return true;</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">    if (!(obj instanceof MatchParticipantFrame)) return false;</span>
+<span class="nc" id="L53">    final MatchParticipantFrame other = (MatchParticipantFrame) obj;</span>
+<span class="nc" id="L54">    return true</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        &amp;&amp; Objects.equal(currentGold, other.currentGold)</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        &amp;&amp; Objects.equal(dominionScore, other.dominionScore)</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        &amp;&amp; Objects.equal(jungleMinionsKilled, other.jungleMinionsKilled)</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        &amp;&amp; Objects.equal(level, other.level)</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        &amp;&amp; Objects.equal(minionsKilled, other.minionsKilled)</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        &amp;&amp; Objects.equal(participantId, other.participantId)</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        &amp;&amp; Objects.equal(position, other.position)</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        &amp;&amp; Objects.equal(teamScore, other.teamScore)</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        &amp;&amp; Objects.equal(totalGold, other.totalGold)</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        &amp;&amp; Objects.equal(xp, other.xp);}</span>
+
+  @Override
+  public int hashCode() {
+<span class="nc" id="L68">    return Objects.hashCode(0,</span>
+<span class="nc" id="L69">        currentGold,</span>
+<span class="nc" id="L70">        dominionScore,</span>
+<span class="nc" id="L71">        jungleMinionsKilled,</span>
+<span class="nc" id="L72">        level,</span>
+<span class="nc" id="L73">        minionsKilled,</span>
+<span class="nc" id="L74">        participantId,</span>
+        position,
+<span class="nc" id="L76">        teamScore,</span>
+<span class="nc" id="L77">        totalGold,</span>
+<span class="nc" id="L78">        xp);}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

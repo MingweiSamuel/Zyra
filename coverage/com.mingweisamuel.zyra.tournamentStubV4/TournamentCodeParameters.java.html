@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TournamentCodeParameters.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra.tournamentStubV4</a> &gt; <span class="el_source">TournamentCodeParameters.java</span></div><h1>TournamentCodeParameters.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra.tournamentStubV4;
+
+import com.google.common.base.Objects;
+import java.io.Serializable;
+import java.lang.Object;
+import java.lang.Override;
+import java.lang.String;
+import java.util.List;
+
+/**
+ * TournamentCodeParameters.&lt;br&gt;&lt;br&gt;
+ *
+ * This class was automatically generated from the &lt;a href=&quot;http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json&quot;&gt;Riot API reference&lt;/a&gt;. */
+public class TournamentCodeParameters implements Serializable {
+  /**
+   * Optional list of encrypted summonerIds in order to validate the players eligible to join the lobby. NOTE: We currently do not enforce participants at the team level, but rather the aggregate of teamOne and teamTwo. We may add the ability to enforce at the team level in the future. */
+  public final List&lt;String&gt; allowedSummonerIds;
+
+  /**
+   * The map type of the game.
+   *              (Legal values:  SUMMONERS_RIFT,  TWISTED_TREELINE,  HOWLING_ABYSS) */
+  public final String mapType;
+
+  /**
+   * Optional string that may contain any data in any format, if specified at all. Used to denote any custom information about the game. */
+  public final String metadata;
+
+  /**
+   * The pick type of the game.
+   *              (Legal values:  BLIND_PICK,  DRAFT_MODE,  ALL_RANDOM,  TOURNAMENT_DRAFT) */
+  public final String pickType;
+
+  /**
+   * The spectator type of the game.
+   *              (Legal values:  NONE,  LOBBYONLY,  ALL) */
+  public final String spectatorType;
+
+  /**
+   * The team size of the game. Valid values are 1-5. */
+  public final int teamSize;
+
+  public TournamentCodeParameters(final List&lt;String&gt; allowedSummonerIds, final String mapType,
+      final String metadata, final String pickType, final String spectatorType,
+<span class="nc" id="L44">      final int teamSize) {</span>
+<span class="nc" id="L45">    this.allowedSummonerIds = allowedSummonerIds;</span>
+<span class="nc" id="L46">    this.mapType = mapType;</span>
+<span class="nc" id="L47">    this.metadata = metadata;</span>
+<span class="nc" id="L48">    this.pickType = pickType;</span>
+<span class="nc" id="L49">    this.spectatorType = spectatorType;</span>
+<span class="nc" id="L50">    this.teamSize = teamSize;</span>
+<span class="nc" id="L51">  }</span>
+
+  @Override
+  public boolean equals(final Object obj) {
+<span class="nc bnc" id="L55" title="All 2 branches missed.">    if (obj == this) return true;</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">    if (!(obj instanceof TournamentCodeParameters)) return false;</span>
+<span class="nc" id="L57">    final TournamentCodeParameters other = (TournamentCodeParameters) obj;</span>
+<span class="nc" id="L58">    return true</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        &amp;&amp; Objects.equal(allowedSummonerIds, other.allowedSummonerIds)</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        &amp;&amp; Objects.equal(mapType, other.mapType)</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        &amp;&amp; Objects.equal(metadata, other.metadata)</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        &amp;&amp; Objects.equal(pickType, other.pickType)</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        &amp;&amp; Objects.equal(spectatorType, other.spectatorType)</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        &amp;&amp; Objects.equal(teamSize, other.teamSize);}</span>
+
+  @Override
+  public int hashCode() {
+<span class="nc" id="L68">    return Objects.hashCode(0,</span>
+        allowedSummonerIds,
+        mapType,
+        metadata,
+        pickType,
+        spectatorType,
+<span class="nc" id="L74">        teamSize);}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

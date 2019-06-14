@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Requester.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra.util</a> &gt; <span class="el_source">Requester.java</span></div><h1>Requester.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra.util;
+
+import org.asynchttpclient.AsyncHttpClient;
+import org.asynchttpclient.DefaultAsyncHttpClient;
+import org.asynchttpclient.Param;
+import org.asynchttpclient.Response;
+
+import java.io.Closeable;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+/**
+ * Requester for sending requests to the wherever.
+ */
+public class Requester implements Closeable {
+
+    /**
+     * The query parameter name used to specify the api key in requests.
+     */
+    private static final String API_KEY_PARAMETER = &quot;api_key&quot;;
+
+    /**
+     * Riot API key.
+     */
+    private final String apiKey;
+    /**
+     * Client used to send requests.
+     */
+    private final AsyncHttpClient client;
+
+    /**
+     * Creates a requester with APIKEY and specified CLIENT.
+     */
+<span class="fc" id="L37">    public Requester(String apiKey, AsyncHttpClient client) {</span>
+<span class="fc" id="L38">        this.apiKey = apiKey;</span>
+<span class="fc" id="L39">        this.client = client;</span>
+<span class="fc" id="L40">    }</span>
+
+    /**
+     * Sends a get request to rootUrl + relativeUrl asynchronously.
+     *
+     * @param rootUrl
+     * @param relativeUrl
+     * @return a CompletableFuture of the response
+     */
+    public CompletableFuture&lt;Response&gt; getRequestAsync(String rootUrl, String relativeUrl, List&lt;Param&gt; params) {
+<span class="fc" id="L50">        return client.prepareGet(String.format(&quot;https://%s%s&quot;, rootUrl, relativeUrl))</span>
+<span class="fc" id="L51">                .addQueryParam(API_KEY_PARAMETER, apiKey)</span>
+<span class="fc" id="L52">                .addQueryParams(params)</span>
+<span class="fc" id="L53">                .execute().toCompletableFuture();</span>
+    }
+
+    @Override
+    public void close() throws IOException {
+<span class="nc" id="L58">        client.close();</span>
+<span class="nc" id="L59">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

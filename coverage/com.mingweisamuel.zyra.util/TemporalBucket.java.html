@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TemporalBucket.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra.util</a> &gt; <span class="el_source">TemporalBucket.java</span></div><h1>TemporalBucket.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra.util;
+
+import java.util.Arrays;
+import java.util.Comparator;
+
+/**
+ * &lt;p&gt;This class represents a token bucket system. One instance represents one recurring bucket with a certain
+ * limit of tokens per timespan.&lt;/p&gt;
+ */
+<span class="fc" id="L10">public abstract class TemporalBucket {</span>
+
+    /**
+     * Get the approximate delay til the next available token, or -1 if a token is available.
+     * @return Approximate delay in milliseconds or -1.
+     */
+    public abstract long getDelay();
+
+    /**
+     * Gets a token, regardless of whether one is available.
+     * @return True if the token was obtained without violating limits, false otherwise.
+     */
+    public boolean getToken() {
+<span class="fc" id="L23">        return getTokens(1);</span>
+    }
+
+    /**
+     * Gets n tokens, regardless of whether they are available.
+     * @return True if the tokens were obtained without violating limits, false otherwise.
+     */
+    public abstract boolean getTokens(int n);
+
+    /**
+     * Get the timespan of this bucket in milliseconds.
+     * @return Timespan of the bucket.
+     */
+    public abstract long getTimespan();
+
+    /**
+     * Get the total limit of this bucket per timespan.
+     * @return Total limit per timespan.
+     */
+    public abstract int getTotalLimit();
+
+    /**
+     * Checks if this TemporalBucket is equivalent to another TemporalBucket. Buckets are equivalent if they have
+     * the same timespan and totalLimit.
+     * @param other
+     * @return
+     */
+    public final boolean isEquivalent(TemporalBucket other) {
+<span class="nc bnc" id="L51" title="All 4 branches missed.">        return getTimespan() == other.getTimespan() &amp;&amp; getTotalLimit() == other.getTotalLimit();</span>
+    }
+
+    /**
+     * Get a string segment formatted as it would appear in a limit header.
+     * @return Limit string.
+     */
+    public final String toLimitString() {
+<span class="fc" id="L59">        return getTotalLimit() + &quot;:&quot; + (getTimespan() / 1000);</span>
+    }
+
+    /**
+     * Attempts to get a token from every bucket, or no tokens at all. Will synchronize on each instance
+     * recursively.
+     * @param buckets Buckets to get tokens from.
+     * @return -1 if tokens were obtained, otherwise the approximate delay until tokens will be available.
+     */
+    public static long getAllTokensOrDelay(TemporalBucket... buckets) {
+        // Always obtain locks in well-defined order to prevent deadlock. Sort by hash code.
+<span class="fc" id="L70">        Arrays.sort(buckets, Comparator.comparingInt(TemporalBucket::hashCode));</span>
+<span class="fc" id="L71">        int i = getAllInternal(buckets, 0);</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (i &lt; 0) // Success</span>
+<span class="fc" id="L73">            return -1;</span>
+        // If there was delay, find the maximum or zero. This may be inaccurate due to buckets changing state
+        // but that is inevitable unless we block the locks, but its better to let other threads through.
+<span class="fc" id="L76">        long delay = 0;</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        for (; i &lt; buckets.length; i++) {</span>
+<span class="fc" id="L78">            long newDelay = buckets[i].getDelay();</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">            if (newDelay &gt; delay)</span>
+<span class="fc" id="L80">                delay = newDelay;</span>
+        }
+<span class="fc" id="L82">        return delay;</span>
+    }
+    /**
+     * @param buckets Buckets to check.
+     * @param i Index of current bucket (for recursion).
+     * @return -1 if all tokens were obtained or the index of the first limiting bucket.
+     */
+    private static int getAllInternal(TemporalBucket[] buckets, int i) {
+        // Base case: No more buckets.
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        if (i &gt;= buckets.length)</span>
+<span class="fc" id="L92">            return -1;</span>
+        // Synchronize on the current bucket.
+<span class="fc" id="L94">        synchronized (buckets[i]) {</span>
+<span class="fc" id="L95">            long delay = buckets[i].getDelay();</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">            if (delay &gt;= 0) // This bucket has delay, exit synchronization immediately.</span>
+<span class="fc" id="L97">                return i;</span>
+            // A token is available for the current bucket.
+<span class="fc" id="L99">            int index = getAllInternal(buckets, i + 1);</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">            if (index &gt;= 0) // A later bucket has delay, exit synchronization immediately.</span>
+<span class="fc" id="L101">                return index;</span>
+            // Success.
+<span class="fc" id="L103">            buckets[i].getToken();</span>
+<span class="fc" id="L104">            return -1;</span>
+<span class="nc" id="L105">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

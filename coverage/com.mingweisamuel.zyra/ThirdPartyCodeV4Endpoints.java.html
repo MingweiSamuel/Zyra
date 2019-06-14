@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ThirdPartyCodeV4Endpoints.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra</a> &gt; <span class="el_source">ThirdPartyCodeV4Endpoints.java</span></div><h1>ThirdPartyCodeV4Endpoints.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra;
+
+import com.mingweisamuel.zyra.enums.Region;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * third-party-code-v4 endpoints.&lt;br&gt;
+ * This class is automatically generated and should not be modified directly.
+ */
+@SuppressWarnings({&quot;unused&quot;, &quot;SameParameterValue&quot;, &quot;SpellCheckingInspection&quot;})
+public final class ThirdPartyCodeV4Endpoints extends Endpoints {
+  ThirdPartyCodeV4Endpoints(final RiotApi riotApi) {
+<span class="fc" id="L17">    super(riotApi);</span>
+<span class="fc" id="L18">  }</span>
+
+  /**
+   * Get third party code for a given summoner ID.
+   *
+   * &lt;a href=&quot;https://developer.riotgames.com/api-methods/#third-party-code-v4/GET_getThirdPartyCodeBySummonerId&quot;&gt;Link to Portal&lt;/a&gt;&lt;br&gt;
+   * @param region Region to execute against.
+   * @param encryptedSummonerId (required) null
+   */
+  public String getThirdPartyCodeBySummonerId(final Region region,
+      final String encryptedSummonerId) {
+    // This method is automatically generated and should not be modified directly.
+<span class="nc" id="L30">    String url = String.format(&quot;/lol/platform/v4/third-party-code/by-summoner/%1$s&quot;, encryptedSummonerId);</span>
+<span class="nc" id="L31">    Type type = String.class;</span>
+<span class="nc" id="L32">    return riotApi.getBasic(&quot;third-party-code-v4.getThirdPartyCodeBySummonerId&quot;, url, region, type, Collections.emptyList());</span>
+  }
+
+  /**
+   * Get third party code for a given summoner ID.
+   *
+   * &lt;a href=&quot;https://developer.riotgames.com/api-methods/#third-party-code-v4/GET_getThirdPartyCodeBySummonerId&quot;&gt;Link to Portal&lt;/a&gt;&lt;br&gt;
+   * @param region Region to execute against.
+   * @param encryptedSummonerId (required) null
+   */
+  public CompletableFuture&lt;String&gt; getThirdPartyCodeBySummonerIdAsync(final Region region,
+      final String encryptedSummonerId) {
+    // This method is automatically generated and should not be modified directly.
+<span class="nc" id="L45">    String url = String.format(&quot;/lol/platform/v4/third-party-code/by-summoner/%1$s&quot;, encryptedSummonerId);</span>
+<span class="nc" id="L46">    Type type = String.class;</span>
+<span class="nc" id="L47">    return riotApi.getBasicAsync(&quot;third-party-code-v4.getThirdPartyCodeBySummonerId&quot;, url, region, type, Collections.emptyList());</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

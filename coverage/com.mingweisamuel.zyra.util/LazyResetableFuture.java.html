@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LazyResetableFuture.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra.util</a> &gt; <span class="el_source">LazyResetableFuture.java</span></div><h1>LazyResetableFuture.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra.util;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.Executor;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+/**
+ * A Lazy specifically for CompletableFutures with reset functionality. Adds the {@link #join()} method for
+ * convenience.&lt;br&gt;&lt;br&gt;
+ *
+ * Note: Methods implementing {@link CompletionStage} keep a reference to the original LazyResetableFuture so they
+ * should be used with caution to avoid memory leaks.
+ */
+public final class LazyResetableFuture&lt;T&gt; extends LazyResetable&lt;CompletableFuture&lt;T&gt;&gt; implements CompletionStage&lt;T&gt; {
+
+    /**
+     * Creates a completed LazyResetableFuture.
+     * @param value The resulting value.
+     * @param &lt;T&gt; Value's type.
+     * @return A completed LazyResetableFuture.
+     */
+    public static &lt;T&gt; LazyResetableFuture&lt;T&gt; completedFuture(T value) {
+<span class="fc" id="L28">        return new LazyResetableFuture&lt;&gt;(() -&gt; CompletableFuture.completedFuture(value));</span>
+    }
+
+    /**
+     * Creates a LazyResetableFuture with a future that has already been started.
+     * @param future The future.
+     * @param &lt;T&gt; Value's type.
+     * @return A started LazyResetableFuture.
+     */
+    public static &lt;T&gt; LazyResetableFuture&lt;T&gt; startedFuture(CompletableFuture&lt;T&gt; future) {
+<span class="nc" id="L38">        return new LazyResetableFuture&lt;T&gt;(() -&gt; future);</span>
+    }
+
+    /**
+     * Creates a LazyResetableFuture using SUPPLIER.
+     * @param supplier Supplier of the value. May be called multiple times on failure.
+     */
+    public LazyResetableFuture(Supplier&lt;CompletableFuture&lt;T&gt;&gt; supplier) {
+<span class="fc" id="L46">        super(supplier);</span>
+<span class="fc" id="L47">    }</span>
+
+    /**
+     * Synchronously returns the result of the inner CompletableFuture. May throw exceptions.
+     * @return The inner value.
+     */
+    public T join() {
+<span class="fc" id="L54">        return get().join();</span>
+    }
+
+    /**
+     * Returns whether the value has been received. This means the CompletableFuture has been both created and
+     * completed.
+     * @return {@code true} if completed and data is available. {@code false} otherwise.
+     */
+    public boolean isDone() {
+<span class="fc bfc" id="L63" title="All 4 branches covered.">        return created() &amp;&amp; get().isDone();</span>
+    }
+
+    //region CompletionStage methods
+    @Override
+    public &lt;U&gt; LazyResetableFuture&lt;U&gt; thenApply(Function&lt;? super T, ? extends U&gt; fn) {
+<span class="fc" id="L69">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().thenApply(fn));</span>
+    }
+    @Override
+    public &lt;U&gt; LazyResetableFuture&lt;U&gt; thenApplyAsync(Function&lt;? super T, ? extends U&gt; fn) {
+<span class="nc" id="L73">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().thenApplyAsync(fn));</span>
+    }
+    @Override
+    public &lt;U&gt; LazyResetableFuture&lt;U&gt; thenApplyAsync(Function&lt;? super T, ? extends U&gt; fn, Executor executor) {
+<span class="nc" id="L77">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().thenApplyAsync(fn, executor));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;Void&gt; thenAccept(Consumer&lt;? super T&gt; action) {
+<span class="nc" id="L81">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().thenAccept(action));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;Void&gt; thenAcceptAsync(Consumer&lt;? super T&gt; action) {
+<span class="nc" id="L85">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().thenAcceptAsync(action));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;Void&gt; thenAcceptAsync(Consumer&lt;? super T&gt; action, Executor executor) {
+<span class="nc" id="L89">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().thenAcceptAsync(action, executor));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;Void&gt; thenRun(Runnable action) {
+<span class="nc" id="L93">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().thenRun(action));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;Void&gt; thenRunAsync(Runnable action) {
+<span class="nc" id="L97">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().thenRunAsync(action));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;Void&gt; thenRunAsync(Runnable action, Executor executor) {
+<span class="nc" id="L101">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().thenRunAsync(action, executor));</span>
+    }
+    @Override
+    public &lt;U, V&gt; LazyResetableFuture&lt;V&gt; thenCombine(
+            CompletionStage&lt;? extends U&gt; other, BiFunction&lt;? super T, ? super U, ? extends V&gt; fn) {
+<span class="nc" id="L106">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().thenCombine(other, fn));</span>
+    }
+    @Override
+    public &lt;U, V&gt; LazyResetableFuture&lt;V&gt; thenCombineAsync(
+            CompletionStage&lt;? extends U&gt; other, BiFunction&lt;? super T, ? super U, ? extends V&gt; fn) {
+<span class="nc" id="L111">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().thenCombineAsync(other, fn));</span>
+    }
+    @Override
+    public &lt;U, V&gt; LazyResetableFuture&lt;V&gt; thenCombineAsync(
+            CompletionStage&lt;? extends U&gt; other, BiFunction&lt;? super T, ? super U, ? extends V&gt; fn, Executor executor) {
+<span class="nc" id="L116">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().thenCombineAsync(other, fn, executor));</span>
+    }
+    @Override
+    public &lt;U&gt; LazyResetableFuture&lt;Void&gt; thenAcceptBoth(
+            CompletionStage&lt;? extends U&gt; other, BiConsumer&lt;? super T, ? super U&gt; action) {
+<span class="nc" id="L121">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().thenAcceptBoth(other, action));</span>
+    }
+    @Override
+    public &lt;U&gt; LazyResetableFuture&lt;Void&gt; thenAcceptBothAsync(
+            CompletionStage&lt;? extends U&gt; other, BiConsumer&lt;? super T, ? super U&gt; action) {
+<span class="nc" id="L126">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().thenAcceptBothAsync(other, action));</span>
+    }
+    @Override
+    public &lt;U&gt; LazyResetableFuture&lt;Void&gt; thenAcceptBothAsync(
+            CompletionStage&lt;? extends U&gt; other, BiConsumer&lt;? super T, ? super U&gt; action, Executor executor) {
+<span class="nc" id="L131">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().thenAcceptBothAsync(other, action, executor));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;Void&gt; runAfterBoth(CompletionStage&lt;?&gt; other, Runnable action) {
+<span class="nc" id="L135">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().runAfterBoth(other, action));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;Void&gt; runAfterBothAsync(CompletionStage&lt;?&gt; other, Runnable action) {
+<span class="nc" id="L139">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().runAfterBothAsync(other, action));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;Void&gt; runAfterBothAsync(CompletionStage&lt;?&gt; other, Runnable action, Executor executor) {
+<span class="nc" id="L143">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().runAfterBothAsync(other, action, executor));</span>
+    }
+    @Override
+    public &lt;U&gt; LazyResetableFuture&lt;U&gt; applyToEither(CompletionStage&lt;? extends T&gt; other, Function&lt;? super T, U&gt; fn) {
+<span class="nc" id="L147">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().applyToEither(other, fn));</span>
+    }
+    @Override
+    public &lt;U&gt; LazyResetableFuture&lt;U&gt; applyToEitherAsync(
+            CompletionStage&lt;? extends T&gt; other, Function&lt;? super T, U&gt; fn) {
+<span class="nc" id="L152">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().applyToEitherAsync(other, fn));</span>
+    }
+    @Override
+    public &lt;U&gt; LazyResetableFuture&lt;U&gt; applyToEitherAsync(
+            CompletionStage&lt;? extends T&gt; other, Function&lt;? super T, U&gt; fn, Executor executor) {
+<span class="nc" id="L157">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().applyToEitherAsync(other, fn, executor));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;Void&gt; acceptEither(CompletionStage&lt;? extends T&gt; other, Consumer&lt;? super T&gt; action) {
+<span class="nc" id="L161">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().acceptEither(other, action));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;Void&gt; acceptEitherAsync(CompletionStage&lt;? extends T&gt; other, Consumer&lt;? super T&gt; action) {
+<span class="nc" id="L165">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().acceptEitherAsync(other, action));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;Void&gt; acceptEitherAsync(
+            CompletionStage&lt;? extends T&gt; other, Consumer&lt;? super T&gt; action, Executor executor) {
+<span class="nc" id="L170">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().acceptEitherAsync(other, action, executor));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;Void&gt; runAfterEither(CompletionStage&lt;?&gt; other, Runnable action) {
+<span class="nc" id="L174">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().runAfterEither(other, action));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;Void&gt; runAfterEitherAsync(CompletionStage&lt;?&gt; other, Runnable action) {
+<span class="nc" id="L178">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().runAfterEitherAsync(other, action));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;Void&gt; runAfterEitherAsync(CompletionStage&lt;?&gt; other, Runnable action, Executor executor) {
+<span class="nc" id="L182">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().runAfterEitherAsync(other, action, executor));</span>
+    }
+    @Override
+    public &lt;U&gt; LazyResetableFuture&lt;U&gt; thenCompose(Function&lt;? super T, ? extends CompletionStage&lt;U&gt;&gt; fn) {
+<span class="nc" id="L186">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().thenCompose(fn));</span>
+    }
+    @Override
+    public &lt;U&gt; LazyResetableFuture&lt;U&gt; thenComposeAsync(Function&lt;? super T, ? extends CompletionStage&lt;U&gt;&gt; fn) {
+<span class="nc" id="L190">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().thenComposeAsync(fn));</span>
+    }
+    @Override
+    public &lt;U&gt; LazyResetableFuture&lt;U&gt; thenComposeAsync(
+            Function&lt;? super T, ? extends CompletionStage&lt;U&gt;&gt; fn, Executor executor) {
+<span class="nc" id="L195">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().thenComposeAsync(fn, executor));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;T&gt; exceptionally(Function&lt;Throwable, ? extends T&gt; fn) {
+<span class="nc" id="L199">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().exceptionally(fn));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;T&gt; whenComplete(BiConsumer&lt;? super T, ? super Throwable&gt; action) {
+<span class="nc" id="L203">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().whenComplete(action));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;T&gt; whenCompleteAsync(BiConsumer&lt;? super T, ? super Throwable&gt; action) {
+<span class="nc" id="L207">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().whenCompleteAsync(action));</span>
+    }
+    @Override
+    public LazyResetableFuture&lt;T&gt; whenCompleteAsync(
+            BiConsumer&lt;? super T, ? super Throwable&gt; action, Executor executor) {
+<span class="nc" id="L212">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().whenCompleteAsync(action, executor));</span>
+    }
+    @Override
+    public &lt;U&gt; LazyResetableFuture&lt;U&gt; handle(BiFunction&lt;? super T, Throwable, ? extends U&gt; fn) {
+<span class="nc" id="L216">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().handle(fn));</span>
+    }
+    @Override
+    public &lt;U&gt; LazyResetableFuture&lt;U&gt; handleAsync(BiFunction&lt;? super T, Throwable, ? extends U&gt; fn) {
+<span class="nc" id="L220">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().handleAsync(fn));</span>
+    }
+    @Override
+    public &lt;U&gt; LazyResetableFuture&lt;U&gt; handleAsync(BiFunction&lt;? super T, Throwable, ? extends U&gt; fn, Executor executor) {
+<span class="nc" id="L224">        return new LazyResetableFuture&lt;&gt;(() -&gt; get().handleAsync(fn, executor));</span>
+    }
+    @Override
+    public CompletableFuture&lt;T&gt; toCompletableFuture() {
+<span class="nc" id="L228">        return this.get();</span>
+    }
+    //endregion
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TokenTemporalBucket.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra.util</a> &gt; <span class="el_source">TokenTemporalBucket.java</span></div><h1>TokenTemporalBucket.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra.util;
+
+import java.util.Arrays;
+import java.util.function.Supplier;
+
+/**
+ * {@inheritDoc}
+ *
+ * &lt;p&gt;A circular buffer keeps track of tokens. The value of each buffer index represents the number of requests
+ * sent during that time period and as time passes, old indices are zeroed and the current index advances. The
+ * entire length of the buffer minus one represents a entire timespan (each index represents a fraction of the
+ * total timespan). The extra index prevents violations due to bucket misalignment. A rolling total is kept of
+ * the buffer's contents.
+ *
+ * &lt;p&gt;When trying to obtain a token, we first check the rolling total is less than the limit. If so, we obtain
+ * a token by incrementing the rolling total and incrementing the buffer's current index.&lt;/p&gt;
+ *
+ * &lt;p&gt;The length of the buffer is one more than the temporal factor supplied to the constructor. The temporal
+ * factor represents the multiplicative increase in temporal resolution provided with more buffer indices.&lt;/p&gt;
+ *
+ * &lt;p&gt;Additionally, a non-zero spreading factor can be provided to prevent a single index from supplying all of
+ * a timespan's tokens. A spreading factor of 0.0 means no spreading, a factor of 0.5 means each index can
+ * supply up to half of the tokens, and a factor of 1.0 means tokens will be evenly supplied by all indices
+ * (provided there is enough demand).&lt;/p&gt;
+ *
+ * &lt;p&gt;Checking the availability of tokens is done using the {@link #getDelay()} method. Tokens are obtained
+ * using the {@link #getToken()} method. Both these methods are synchronized on the bucket instance. Because
+ * the state of the bucket may change if there are multiple threads, it is best to call these methods in a
+ * synchronized block, as shown below.&lt;/p&gt;
+ *
+ * &lt;pre&gt;
+ * {@code
+ *      TokenTemporalBucket bucket = ...;
+ *      while (true) {
+ *          long delay;
+ *          synchronized (bucket) {
+ *              delay = bucket.getDelay();
+ *              if (delay == -1) {
+ *                  bucket.getToken();
+ *                  break;
+ *              }
+ *          }
+ *          // Waiting is done outside of the synchronized block.
+ *          Thread.sleep(delay);
+ *      }
+ *      // Token is obtained.
+ *      ...
+ * }
+ * &lt;/pre&gt;
+ */
+public class TokenTemporalBucket extends TemporalBucket {
+
+    /** A time supplier. A simulated supplier can be used for debugging purposes. */
+    private final Supplier&lt;Long&gt; timeSupplier;
+
+    /** The timespan of this bucket. */
+    private final long timespan;
+    /** The raw number of tokens per timespan, used for the {@link #getTotalLimit()}. */
+    private final int totalLimit;
+
+    /** The maximum number of tokens that can be supplied per timespan. */
+    private final int adjustedTotalLimit;
+    /** The maximum number of tokens a single index can supply per timespan. */
+    private final int indexLimit;
+    /** The timespan represented by a single index. */
+    private final long indexTimespan;
+
+    /** Circular buffer storing the number of tokens supplied by each index, corresponding to a section of the
+     * total time span. */
+    private final int[] buffer;
+    /** The rolling total of tokens supplied. */
+<span class="fc" id="L72">    private volatile int total = 0;</span>
+    /** The millisecond timestamp corresponding to the most recent update of the buffer. */
+<span class="fc" id="L74">    private volatile long time = -1;</span>
+
+    /**
+     * Creates a instance using System::currentTimeMillis as the time supplier.
+     * @param timespan The time per bucket in milliseconds.
+     * @param totalLimit The maximum number of tokens provided per timespan.
+     * @param temporalFactor Temporal multiplier corresponding to token time tracking.
+     * @param spreadFactor Factor corresponding to token supply spread (from multiple indices).
+     * @param totalLimitFactor Factor to multiply adjustedTotalLimit by to decrease the chance of hitting the
+     *     rate limit.
+     */
+    public TokenTemporalBucket(long timespan, int totalLimit, int temporalFactor, float spreadFactor,
+        float totalLimitFactor) {
+
+<span class="fc" id="L88">        this(timespan, totalLimit, temporalFactor, spreadFactor, totalLimitFactor, System::currentTimeMillis);</span>
+<span class="fc" id="L89">    }</span>
+
+    /**
+     * Creates a instance with a custom time supplier.
+     * @param timespan The time per bucket in milliseconds.
+     * @param totalLimit The maximum number of tokens provided per timespan.
+     * @param temporalFactor Temporal multiplier corresponding to token time tracking.
+     * @param spreadFactor Factor corresponding to token supply spread (from multiple indices).
+     * @param totalLimitFactor Factor to multiply adjustedTotalLimit by to decrease the chance of hitting the
+     *     rate limit.
+     * @param timeSupplier Supplies non-descending millisecond time, useful for debugging.
+     */
+    public TokenTemporalBucket(long timespan, int totalLimit, int temporalFactor, float spreadFactor,
+<span class="fc" id="L102">        float totalLimitFactor, Supplier&lt;Long&gt; timeSupplier) {</span>
+
+<span class="fc" id="L104">        this.timeSupplier = timeSupplier;</span>
+
+<span class="fc" id="L106">        this.timespan = timespan;</span>
+<span class="fc" id="L107">        this.totalLimit = totalLimit;</span>
+
+<span class="fc" id="L109">        this.adjustedTotalLimit = (int) (totalLimit * totalLimitFactor);</span>
+<span class="fc" id="L110">        this.indexLimit = (int) (totalLimit * totalLimitFactor / spreadFactor / temporalFactor);</span>
+<span class="fc" id="L111">        this.indexTimespan = (long) Math.ceil(timespan / (double) temporalFactor);</span>
+
+<span class="fc" id="L113">        this.buffer = new int[temporalFactor + 1];</span>
+<span class="fc" id="L114">    }</span>
+
+    @Override
+    public synchronized long getDelay() {
+<span class="fc" id="L118">        int index = update();</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">        if (total &lt; adjustedTotalLimit) {</span>
+<span class="fc bfc" id="L120" title="All 2 branches covered.">            if (buffer[index] &gt;= indexLimit)</span>
+<span class="fc" id="L121">                return getTimeToBucket(1);</span>
+<span class="fc" id="L122">            return -1;</span>
+        }
+
+        // check how soon into the future old buckets will be zeroed, making requests available.
+<span class="fc" id="L126">        int i = 1;</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">        for (; i &lt; buffer.length; i++) {</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">            if (buffer[(index + i) % buffer.length] &gt; 0)</span>
+<span class="fc" id="L129">                break;</span>
+        }
+<span class="fc" id="L131">        return getTimeToBucket(i);</span>
+    }
+
+    @Override
+    public synchronized boolean getTokens(int n) {
+<span class="fc" id="L136">        int index = update();</span>
+<span class="fc" id="L137">        buffer[index] += n;</span>
+<span class="fc" id="L138">        total += n;</span>
+<span class="pc bpc" id="L139" title="2 of 4 branches missed.">        return total &lt;= adjustedTotalLimit &amp;&amp; buffer[index] &lt;= indexLimit;</span>
+    }
+
+    @Override
+    public long getTimespan() {
+<span class="fc" id="L144">        return timespan;</span>
+    }
+
+    @Override
+    public int getTotalLimit() {
+<span class="fc" id="L149">        return totalLimit;</span>
+    }
+
+    /**
+     * Updates the circular buffer and {@link #time} to match the passage of time.
+     * @return The current index.
+     */
+    private synchronized int update() {
+        // The first time this is called, we initialize the time.
+<span class="fc bfc" id="L158" title="All 2 branches covered.">        if (time &lt; 0) {</span>
+<span class="fc" id="L159">            time = timeSupplier.get();</span>
+<span class="fc" id="L160">            return getIndex(time);</span>
+        }
+<span class="fc" id="L162">        int index = getIndex(time);</span>
+<span class="fc" id="L163">        int length = getLength(time, (time = timeSupplier.get()));</span>
+
+<span class="pc bpc" id="L165" title="1 of 2 branches missed.">        if (length &lt; 0)</span>
+<span class="nc" id="L166">            throw new IllegalStateException(&quot;Length should be non-negative: &quot; + length);</span>
+<span class="fc bfc" id="L167" title="All 2 branches covered.">        if (length == 0)</span>
+<span class="fc" id="L168">            return index;</span>
+<span class="fc bfc" id="L169" title="All 2 branches covered.">        if (length &gt;= buffer.length) {</span>
+<span class="fc" id="L170">            Arrays.fill(buffer, 0);</span>
+<span class="fc" id="L171">            total = 0;</span>
+<span class="fc" id="L172">            return index;</span>
+        }
+<span class="fc bfc" id="L174" title="All 2 branches covered.">        for (int i = 0; i &lt; length; i++) {</span>
+<span class="fc" id="L175">            index++;</span>
+<span class="fc" id="L176">            index %= buffer.length;</span>
+<span class="fc" id="L177">            total -= buffer[index];</span>
+<span class="fc" id="L178">            buffer[index] = 0;</span>
+        }
+<span class="pc bpc" id="L180" title="1 of 2 branches missed.">        if (getIndex(time) != index)</span>
+<span class="nc" id="L181">            throw new IllegalStateException(&quot;Get index time: &quot; + getIndex(time) + &quot;, index: &quot; + index);</span>
+<span class="fc" id="L182">        return index;</span>
+    }
+
+
+    /**
+     * @param n Number of buckets in the future to look (n=1 -&gt; next bucket).
+     * @return Time until the next nth bucket in milliseconds.
+     */
+    private long getTimeToBucket(int n) {
+<span class="fc" id="L191">        return n * indexTimespan - (time % indexTimespan);</span>
+    }
+    /**
+     * Gets the circular buffer index corresponding to a particular timestamp.
+     * @param timestamp Millisecond timestamp.
+     * @return Buffer index.
+     */
+    private int getIndex(long timestamp) {
+<span class="fc" id="L199">        return (int) ((timestamp / indexTimespan) % buffer.length);</span>
+    }
+    /**
+     * Gets the index distance between two timestamps. Because the buffer is circular, the distance between
+     * indices may be greater than the length of the buffer.
+     * @param startTimestamp Start millisecond timestamp.
+     * @param endTimestamp End millisecond timestamp.
+     * @return The index distance. May be greater than the length of the buffer.
+     */
+    private int getLength(long startTimestamp, long endTimestamp) {
+<span class="fc" id="L209">        return (int) (endTimestamp / indexTimespan - startTimestamp / indexTimespan);</span>
+    }
+
+    /** Returns the default hashCode() which is the memory address. Enforce address-based sorting. */
+    @Override
+    public final int hashCode() {
+<span class="fc" id="L215">        return super.hashCode();</span>
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+<span class="nc bnc" id="L220" title="All 2 branches missed.">        return this == obj;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

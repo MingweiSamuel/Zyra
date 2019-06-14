@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Player.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra.matchV4</a> &gt; <span class="el_source">Player.java</span></div><h1>Player.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra.matchV4;
+
+import com.google.common.base.Objects;
+import java.io.Serializable;
+import java.lang.Object;
+import java.lang.Override;
+import java.lang.String;
+
+/**
+ * Player.&lt;br&gt;&lt;br&gt;
+ *
+ * This class was automatically generated from the &lt;a href=&quot;http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json&quot;&gt;Riot API reference&lt;/a&gt;. */
+public class Player implements Serializable {
+  /**
+   * Player's original accountId (Encrypted) */
+  public final String accountId;
+
+  /**
+   * Player's current accountId (Encrypted) */
+  public final String currentAccountId;
+
+  public final String currentPlatformId;
+
+  public final String matchHistoryUri;
+
+  /**
+   * Original platformId. */
+  public final String platformId;
+
+  public final int profileIcon;
+
+  /**
+   * Player's summonerId (Encrypted) */
+  public final String summonerId;
+
+  public final String summonerName;
+
+  public Player(final String accountId, final String currentAccountId,
+      final String currentPlatformId, final String matchHistoryUri, final String platformId,
+<span class="nc" id="L40">      final int profileIcon, final String summonerId, final String summonerName) {</span>
+<span class="nc" id="L41">    this.accountId = accountId;</span>
+<span class="nc" id="L42">    this.currentAccountId = currentAccountId;</span>
+<span class="nc" id="L43">    this.currentPlatformId = currentPlatformId;</span>
+<span class="nc" id="L44">    this.matchHistoryUri = matchHistoryUri;</span>
+<span class="nc" id="L45">    this.platformId = platformId;</span>
+<span class="nc" id="L46">    this.profileIcon = profileIcon;</span>
+<span class="nc" id="L47">    this.summonerId = summonerId;</span>
+<span class="nc" id="L48">    this.summonerName = summonerName;</span>
+<span class="nc" id="L49">  }</span>
+
+  @Override
+  public boolean equals(final Object obj) {
+<span class="nc bnc" id="L53" title="All 2 branches missed.">    if (obj == this) return true;</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">    if (!(obj instanceof Player)) return false;</span>
+<span class="nc" id="L55">    final Player other = (Player) obj;</span>
+<span class="nc" id="L56">    return true</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        &amp;&amp; Objects.equal(accountId, other.accountId)</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        &amp;&amp; Objects.equal(currentAccountId, other.currentAccountId)</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        &amp;&amp; Objects.equal(currentPlatformId, other.currentPlatformId)</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        &amp;&amp; Objects.equal(matchHistoryUri, other.matchHistoryUri)</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        &amp;&amp; Objects.equal(platformId, other.platformId)</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        &amp;&amp; Objects.equal(profileIcon, other.profileIcon)</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        &amp;&amp; Objects.equal(summonerId, other.summonerId)</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        &amp;&amp; Objects.equal(summonerName, other.summonerName);}</span>
+
+  @Override
+  public int hashCode() {
+<span class="nc" id="L68">    return Objects.hashCode(0,</span>
+        accountId,
+        currentAccountId,
+        currentPlatformId,
+        matchHistoryUri,
+        platformId,
+<span class="nc" id="L74">        profileIcon,</span>
+        summonerId,
+        summonerName);}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

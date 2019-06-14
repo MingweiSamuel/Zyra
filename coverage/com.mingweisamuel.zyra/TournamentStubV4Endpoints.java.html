@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TournamentStubV4Endpoints.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra</a> &gt; <span class="el_source">TournamentStubV4Endpoints.java</span></div><h1>TournamentStubV4Endpoints.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra;
+
+import com.mingweisamuel.zyra.enums.Region;
+import com.mingweisamuel.zyra.tournamentStubV4.LobbyEventDTOWrapper;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * tournament-stub-v4 endpoints.&lt;br&gt;
+ * This class is automatically generated and should not be modified directly.
+ */
+@SuppressWarnings({&quot;unused&quot;, &quot;SameParameterValue&quot;, &quot;SpellCheckingInspection&quot;})
+public final class TournamentStubV4Endpoints extends Endpoints {
+  TournamentStubV4Endpoints(final RiotApi riotApi) {
+<span class="fc" id="L18">    super(riotApi);</span>
+<span class="fc" id="L19">  }</span>
+
+  /**
+   * Gets a mock list of lobby events by tournament code.
+   *
+   * &lt;a href=&quot;https://developer.riotgames.com/api-methods/#tournament-stub-v4/GET_getLobbyEventsByCode&quot;&gt;Link to Portal&lt;/a&gt;&lt;br&gt;
+   * @param region Region to execute against.
+   * @param tournamentCode (required) The short code to look up lobby events for
+   */
+  public LobbyEventDTOWrapper getLobbyEventsByCode(final Region region,
+      final String tournamentCode) {
+    // This method is automatically generated and should not be modified directly.
+<span class="nc" id="L31">    String url = String.format(&quot;/lol/tournament-stub/v4/lobby-events/by-code/%1$s&quot;, tournamentCode);</span>
+<span class="nc" id="L32">    Type type = LobbyEventDTOWrapper.class;</span>
+<span class="nc" id="L33">    return riotApi.getBasic(&quot;tournament-stub-v4.getLobbyEventsByCode&quot;, url, region, type, Collections.emptyList());</span>
+  }
+
+  /**
+   * Gets a mock list of lobby events by tournament code.
+   *
+   * &lt;a href=&quot;https://developer.riotgames.com/api-methods/#tournament-stub-v4/GET_getLobbyEventsByCode&quot;&gt;Link to Portal&lt;/a&gt;&lt;br&gt;
+   * @param region Region to execute against.
+   * @param tournamentCode (required) The short code to look up lobby events for
+   */
+  public CompletableFuture&lt;LobbyEventDTOWrapper&gt; getLobbyEventsByCodeAsync(final Region region,
+      final String tournamentCode) {
+    // This method is automatically generated and should not be modified directly.
+<span class="nc" id="L46">    String url = String.format(&quot;/lol/tournament-stub/v4/lobby-events/by-code/%1$s&quot;, tournamentCode);</span>
+<span class="nc" id="L47">    Type type = LobbyEventDTOWrapper.class;</span>
+<span class="nc" id="L48">    return riotApi.getBasicAsync(&quot;tournament-stub-v4.getLobbyEventsByCode&quot;, url, region, type, Collections.emptyList());</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

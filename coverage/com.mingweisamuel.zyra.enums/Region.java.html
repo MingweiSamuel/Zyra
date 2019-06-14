@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Region.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra.enums</a> &gt; <span class="el_source">Region.java</span></div><h1>Region.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra.enums;
+
+/**
+ * Region enumeration. Note that {@link #PBE} can only be used for certain endpoints, and {@link #GARENA},
+ * {@link #TENCENT}, and {@link #GLOBAL} are not functional in endpoints.
+ */
+<span class="pc" id="L7">public enum Region {</span>
+    /** Brazil. */
+<span class="fc" id="L9">    BR(&quot;BR1&quot;, true),</span>
+    /** North-east Europe. */
+<span class="fc" id="L11">    EUNE(&quot;EUN1&quot;, true),</span>
+    /** West Europe. */
+<span class="fc" id="L13">    EUW(&quot;EUW1&quot;, true),</span>
+    /** North America. */
+<span class="fc" id="L15">    NA(&quot;NA1&quot;, true),</span>
+    /** Korea. */
+<span class="fc" id="L17">    KR(&quot;KR&quot;, true),</span>
+    /** North Latin America. */
+<span class="fc" id="L19">    LAN(&quot;LA1&quot;, true),</span>
+    /** South Latin America. */
+<span class="fc" id="L21">    LAS(&quot;LA2&quot;, true),</span>
+    /** Oceania. */
+<span class="fc" id="L23">    OCE(&quot;OC1&quot;, true),</span>
+    /** Russia. */
+<span class="fc" id="L25">    RU(&quot;RU&quot;, true),</span>
+    /** Turkey. */
+<span class="fc" id="L27">    TR(&quot;TR1&quot;, true),</span>
+    /** Japan. */
+<span class="fc" id="L29">    JP(&quot;JP1&quot;, true),</span>
+
+    /** Public beta environment. Only functional in certain endpoints. */
+<span class="fc" id="L32">    PBE(&quot;PBE1&quot;, true),</span>
+    /** Garena publisher - South east asia regions. Not functional in endpoints. */
+<span class="fc" id="L34">    GARENA(null, false),</span>
+    /** Tencent publisher - China. Not functional in endpoints. */
+<span class="fc" id="L36">    TENCENT(null, false),</span>
+    /** Global. */
+<span class="fc" id="L38">    GLOBAL(&quot;global&quot;, false);</span>
+
+    public final boolean isSupported;
+    /**
+     * The Platform ID of the region.
+     * @see &lt;a href=&quot;https://developer.riotgames.com/docs/regional-endpoints&quot;&gt;Riot documentation.&lt;/a&gt;
+     */
+    public final String platform;
+<span class="fc" id="L46">    Region(String platform, boolean isSupported) {</span>
+<span class="fc" id="L47">        this.platform = platform;</span>
+<span class="fc" id="L48">        this.isSupported = isSupported;</span>
+<span class="fc" id="L49">    }</span>
+    public String getSubdomain() {
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">        if (this.platform == null)</span>
+<span class="nc" id="L52">            return null;</span>
+<span class="fc" id="L53">        return this.platform.toLowerCase();</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L58">        return super.toString().toLowerCase();</span>
+    }
+
+    /**
+     * Parses a region or platform string. Returns null if no matching region was found.
+     *
+     * @param value The region or platform to look for. If {@code null}, returns {@code null}.
+     * @return The Region if found, {@code null} otherwise.
+     */
+    public static Region parse(String value) {
+<span class="nc bnc" id="L68" title="All 2 branches missed.">        if (value == null)</span>
+<span class="nc" id="L69">            return null;</span>
+<span class="nc" id="L70">        value = value.toLowerCase();</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">        for (Region region : Region.values()) {</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">            if (value.equals(region.toString()))</span>
+<span class="nc" id="L73">                return region;</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">            if (value.equals(region.getSubdomain())) // subdomain may be null.</span>
+<span class="nc" id="L75">                return region;</span>
+        }
+<span class="nc" id="L77">        return null;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

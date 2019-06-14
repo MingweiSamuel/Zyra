@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ParticipantStats.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra.matchV4</a> &gt; <span class="el_source">ParticipantStats.java</span></div><h1>ParticipantStats.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra.matchV4;
+
+import com.google.common.base.Objects;
+import java.io.Serializable;
+import java.lang.Object;
+import java.lang.Override;
+
+/**
+ * ParticipantStats.&lt;br&gt;&lt;br&gt;
+ *
+ * This class was automatically generated from the &lt;a href=&quot;http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json&quot;&gt;Riot API reference&lt;/a&gt;. */
+public class ParticipantStats implements Serializable {
+  public final int altarsCaptured;
+
+  public final int altarsNeutralized;
+
+  public final int assists;
+
+  public final int champLevel;
+
+  public final int combatPlayerScore;
+
+  public final long damageDealtToObjectives;
+
+  public final long damageDealtToTurrets;
+
+  public final long damageSelfMitigated;
+
+  public final int deaths;
+
+  public final int doubleKills;
+
+  public final boolean firstBloodAssist;
+
+  public final boolean firstBloodKill;
+
+  public final boolean firstInhibitorAssist;
+
+  public final boolean firstInhibitorKill;
+
+  public final boolean firstTowerAssist;
+
+  public final boolean firstTowerKill;
+
+  public final int goldEarned;
+
+  public final int goldSpent;
+
+  public final int inhibitorKills;
+
+  public final int item0;
+
+  public final int item1;
+
+  public final int item2;
+
+  public final int item3;
+
+  public final int item4;
+
+  public final int item5;
+
+  public final int item6;
+
+  public final int killingSprees;
+
+  public final int kills;
+
+  public final int largestCriticalStrike;
+
+  public final int largestKillingSpree;
+
+  public final int largestMultiKill;
+
+  public final int longestTimeSpentLiving;
+
+  public final long magicDamageDealt;
+
+  public final long magicDamageDealtToChampions;
+
+  public final long magicalDamageTaken;
+
+  public final int neutralMinionsKilled;
+
+  public final int neutralMinionsKilledEnemyJungle;
+
+  public final int neutralMinionsKilledTeamJungle;
+
+  public final int nodeCapture;
+
+  public final int nodeCaptureAssist;
+
+  public final int nodeNeutralize;
+
+  public final int nodeNeutralizeAssist;
+
+  public final int objectivePlayerScore;
+
+  public final int participantId;
+
+  public final int pentaKills;
+
+  /**
+   * Primary path keystone rune. */
+  public final int perk0;
+
+  /**
+   * Post game rune stats. */
+  public final int perk0Var1;
+
+  /**
+   * Post game rune stats. */
+  public final int perk0Var2;
+
+  /**
+   * Post game rune stats. */
+  public final int perk0Var3;
+
+  /**
+   * Primary path rune. */
+  public final int perk1;
+
+  /**
+   * Post game rune stats. */
+  public final int perk1Var1;
+
+  /**
+   * Post game rune stats. */
+  public final int perk1Var2;
+
+  /**
+   * Post game rune stats. */
+  public final int perk1Var3;
+
+  /**
+   * Primary path rune. */
+  public final int perk2;
+
+  /**
+   * Post game rune stats. */
+  public final int perk2Var1;
+
+  /**
+   * Post game rune stats. */
+  public final int perk2Var2;
+
+  /**
+   * Post game rune stats. */
+  public final int perk2Var3;
+
+  /**
+   * Primary path rune. */
+  public final int perk3;
+
+  /**
+   * Post game rune stats. */
+  public final int perk3Var1;
+
+  /**
+   * Post game rune stats. */
+  public final int perk3Var2;
+
+  /**
+   * Post game rune stats. */
+  public final int perk3Var3;
+
+  /**
+   * Secondary path rune. */
+  public final int perk4;
+
+  /**
+   * Post game rune stats. */
+  public final int perk4Var1;
+
+  /**
+   * Post game rune stats. */
+  public final int perk4Var2;
+
+  /**
+   * Post game rune stats. */
+  public final int perk4Var3;
+
+  /**
+   * Secondary path rune. */
+  public final int perk5;
+
+  /**
+   * Post game rune stats. */
+  public final int perk5Var1;
+
+  /**
+   * Post game rune stats. */
+  public final int perk5Var2;
+
+  /**
+   * Post game rune stats. */
+  public final int perk5Var3;
+
+  /**
+   * Primary rune path */
+  public final int perkPrimaryStyle;
+
+  /**
+   * Secondary rune path */
+  public final int perkSubStyle;
+
+  public final long physicalDamageDealt;
+
+  public final long physicalDamageDealtToChampions;
+
+  public final long physicalDamageTaken;
+
+  public final int playerScore0;
+
+  public final int playerScore1;
+
+  public final int playerScore2;
+
+  public final int playerScore3;
+
+  public final int playerScore4;
+
+  public final int playerScore5;
+
+  public final int playerScore6;
+
+  public final int playerScore7;
+
+  public final int playerScore8;
+
+  public final int playerScore9;
+
+  public final int quadraKills;
+
+  public final int sightWardsBoughtInGame;
+
+  public final int teamObjective;
+
+  public final long timeCCingOthers;
+
+  public final long totalDamageDealt;
+
+  public final long totalDamageDealtToChampions;
+
+  public final long totalDamageTaken;
+
+  public final long totalHeal;
+
+  public final int totalMinionsKilled;
+
+  public final int totalPlayerScore;
+
+  public final int totalScoreRank;
+
+  public final int totalTimeCrowdControlDealt;
+
+  public final int totalUnitsHealed;
+
+  public final int tripleKills;
+
+  public final long trueDamageDealt;
+
+  public final long trueDamageDealtToChampions;
+
+  public final long trueDamageTaken;
+
+  public final int turretKills;
+
+  public final int unrealKills;
+
+  public final long visionScore;
+
+  public final int visionWardsBoughtInGame;
+
+  public final int wardsKilled;
+
+  public final int wardsPlaced;
+
+  public final boolean win;
+
+  public ParticipantStats(final int altarsCaptured, final int altarsNeutralized, final int assists,
+      final int champLevel, final int combatPlayerScore, final long damageDealtToObjectives,
+      final long damageDealtToTurrets, final long damageSelfMitigated, final int deaths,
+      final int doubleKills, final boolean firstBloodAssist, final boolean firstBloodKill,
+      final boolean firstInhibitorAssist, final boolean firstInhibitorKill,
+      final boolean firstTowerAssist, final boolean firstTowerKill, final int goldEarned,
+      final int goldSpent, final int inhibitorKills, final int item0, final int item1,
+      final int item2, final int item3, final int item4, final int item5, final int item6,
+      final int killingSprees, final int kills, final int largestCriticalStrike,
+      final int largestKillingSpree, final int largestMultiKill, final int longestTimeSpentLiving,
+      final long magicDamageDealt, final long magicDamageDealtToChampions,
+      final long magicalDamageTaken, final int neutralMinionsKilled,
+      final int neutralMinionsKilledEnemyJungle, final int neutralMinionsKilledTeamJungle,
+      final int nodeCapture, final int nodeCaptureAssist, final int nodeNeutralize,
+      final int nodeNeutralizeAssist, final int objectivePlayerScore, final int participantId,
+      final int pentaKills, final int perk0, final int perk0Var1, final int perk0Var2,
+      final int perk0Var3, final int perk1, final int perk1Var1, final int perk1Var2,
+      final int perk1Var3, final int perk2, final int perk2Var1, final int perk2Var2,
+      final int perk2Var3, final int perk3, final int perk3Var1, final int perk3Var2,
+      final int perk3Var3, final int perk4, final int perk4Var1, final int perk4Var2,
+      final int perk4Var3, final int perk5, final int perk5Var1, final int perk5Var2,
+      final int perk5Var3, final int perkPrimaryStyle, final int perkSubStyle,
+      final long physicalDamageDealt, final long physicalDamageDealtToChampions,
+      final long physicalDamageTaken, final int playerScore0, final int playerScore1,
+      final int playerScore2, final int playerScore3, final int playerScore4,
+      final int playerScore5, final int playerScore6, final int playerScore7,
+      final int playerScore8, final int playerScore9, final int quadraKills,
+      final int sightWardsBoughtInGame, final int teamObjective, final long timeCCingOthers,
+      final long totalDamageDealt, final long totalDamageDealtToChampions,
+      final long totalDamageTaken, final long totalHeal, final int totalMinionsKilled,
+      final int totalPlayerScore, final int totalScoreRank, final int totalTimeCrowdControlDealt,
+      final int totalUnitsHealed, final int tripleKills, final long trueDamageDealt,
+      final long trueDamageDealtToChampions, final long trueDamageTaken, final int turretKills,
+      final int unrealKills, final long visionScore, final int visionWardsBoughtInGame,
+<span class="nc" id="L315">      final int wardsKilled, final int wardsPlaced, final boolean win) {</span>
+<span class="nc" id="L316">    this.altarsCaptured = altarsCaptured;</span>
+<span class="nc" id="L317">    this.altarsNeutralized = altarsNeutralized;</span>
+<span class="nc" id="L318">    this.assists = assists;</span>
+<span class="nc" id="L319">    this.champLevel = champLevel;</span>
+<span class="nc" id="L320">    this.combatPlayerScore = combatPlayerScore;</span>
+<span class="nc" id="L321">    this.damageDealtToObjectives = damageDealtToObjectives;</span>
+<span class="nc" id="L322">    this.damageDealtToTurrets = damageDealtToTurrets;</span>
+<span class="nc" id="L323">    this.damageSelfMitigated = damageSelfMitigated;</span>
+<span class="nc" id="L324">    this.deaths = deaths;</span>
+<span class="nc" id="L325">    this.doubleKills = doubleKills;</span>
+<span class="nc" id="L326">    this.firstBloodAssist = firstBloodAssist;</span>
+<span class="nc" id="L327">    this.firstBloodKill = firstBloodKill;</span>
+<span class="nc" id="L328">    this.firstInhibitorAssist = firstInhibitorAssist;</span>
+<span class="nc" id="L329">    this.firstInhibitorKill = firstInhibitorKill;</span>
+<span class="nc" id="L330">    this.firstTowerAssist = firstTowerAssist;</span>
+<span class="nc" id="L331">    this.firstTowerKill = firstTowerKill;</span>
+<span class="nc" id="L332">    this.goldEarned = goldEarned;</span>
+<span class="nc" id="L333">    this.goldSpent = goldSpent;</span>
+<span class="nc" id="L334">    this.inhibitorKills = inhibitorKills;</span>
+<span class="nc" id="L335">    this.item0 = item0;</span>
+<span class="nc" id="L336">    this.item1 = item1;</span>
+<span class="nc" id="L337">    this.item2 = item2;</span>
+<span class="nc" id="L338">    this.item3 = item3;</span>
+<span class="nc" id="L339">    this.item4 = item4;</span>
+<span class="nc" id="L340">    this.item5 = item5;</span>
+<span class="nc" id="L341">    this.item6 = item6;</span>
+<span class="nc" id="L342">    this.killingSprees = killingSprees;</span>
+<span class="nc" id="L343">    this.kills = kills;</span>
+<span class="nc" id="L344">    this.largestCriticalStrike = largestCriticalStrike;</span>
+<span class="nc" id="L345">    this.largestKillingSpree = largestKillingSpree;</span>
+<span class="nc" id="L346">    this.largestMultiKill = largestMultiKill;</span>
+<span class="nc" id="L347">    this.longestTimeSpentLiving = longestTimeSpentLiving;</span>
+<span class="nc" id="L348">    this.magicDamageDealt = magicDamageDealt;</span>
+<span class="nc" id="L349">    this.magicDamageDealtToChampions = magicDamageDealtToChampions;</span>
+<span class="nc" id="L350">    this.magicalDamageTaken = magicalDamageTaken;</span>
+<span class="nc" id="L351">    this.neutralMinionsKilled = neutralMinionsKilled;</span>
+<span class="nc" id="L352">    this.neutralMinionsKilledEnemyJungle = neutralMinionsKilledEnemyJungle;</span>
+<span class="nc" id="L353">    this.neutralMinionsKilledTeamJungle = neutralMinionsKilledTeamJungle;</span>
+<span class="nc" id="L354">    this.nodeCapture = nodeCapture;</span>
+<span class="nc" id="L355">    this.nodeCaptureAssist = nodeCaptureAssist;</span>
+<span class="nc" id="L356">    this.nodeNeutralize = nodeNeutralize;</span>
+<span class="nc" id="L357">    this.nodeNeutralizeAssist = nodeNeutralizeAssist;</span>
+<span class="nc" id="L358">    this.objectivePlayerScore = objectivePlayerScore;</span>
+<span class="nc" id="L359">    this.participantId = participantId;</span>
+<span class="nc" id="L360">    this.pentaKills = pentaKills;</span>
+<span class="nc" id="L361">    this.perk0 = perk0;</span>
+<span class="nc" id="L362">    this.perk0Var1 = perk0Var1;</span>
+<span class="nc" id="L363">    this.perk0Var2 = perk0Var2;</span>
+<span class="nc" id="L364">    this.perk0Var3 = perk0Var3;</span>
+<span class="nc" id="L365">    this.perk1 = perk1;</span>
+<span class="nc" id="L366">    this.perk1Var1 = perk1Var1;</span>
+<span class="nc" id="L367">    this.perk1Var2 = perk1Var2;</span>
+<span class="nc" id="L368">    this.perk1Var3 = perk1Var3;</span>
+<span class="nc" id="L369">    this.perk2 = perk2;</span>
+<span class="nc" id="L370">    this.perk2Var1 = perk2Var1;</span>
+<span class="nc" id="L371">    this.perk2Var2 = perk2Var2;</span>
+<span class="nc" id="L372">    this.perk2Var3 = perk2Var3;</span>
+<span class="nc" id="L373">    this.perk3 = perk3;</span>
+<span class="nc" id="L374">    this.perk3Var1 = perk3Var1;</span>
+<span class="nc" id="L375">    this.perk3Var2 = perk3Var2;</span>
+<span class="nc" id="L376">    this.perk3Var3 = perk3Var3;</span>
+<span class="nc" id="L377">    this.perk4 = perk4;</span>
+<span class="nc" id="L378">    this.perk4Var1 = perk4Var1;</span>
+<span class="nc" id="L379">    this.perk4Var2 = perk4Var2;</span>
+<span class="nc" id="L380">    this.perk4Var3 = perk4Var3;</span>
+<span class="nc" id="L381">    this.perk5 = perk5;</span>
+<span class="nc" id="L382">    this.perk5Var1 = perk5Var1;</span>
+<span class="nc" id="L383">    this.perk5Var2 = perk5Var2;</span>
+<span class="nc" id="L384">    this.perk5Var3 = perk5Var3;</span>
+<span class="nc" id="L385">    this.perkPrimaryStyle = perkPrimaryStyle;</span>
+<span class="nc" id="L386">    this.perkSubStyle = perkSubStyle;</span>
+<span class="nc" id="L387">    this.physicalDamageDealt = physicalDamageDealt;</span>
+<span class="nc" id="L388">    this.physicalDamageDealtToChampions = physicalDamageDealtToChampions;</span>
+<span class="nc" id="L389">    this.physicalDamageTaken = physicalDamageTaken;</span>
+<span class="nc" id="L390">    this.playerScore0 = playerScore0;</span>
+<span class="nc" id="L391">    this.playerScore1 = playerScore1;</span>
+<span class="nc" id="L392">    this.playerScore2 = playerScore2;</span>
+<span class="nc" id="L393">    this.playerScore3 = playerScore3;</span>
+<span class="nc" id="L394">    this.playerScore4 = playerScore4;</span>
+<span class="nc" id="L395">    this.playerScore5 = playerScore5;</span>
+<span class="nc" id="L396">    this.playerScore6 = playerScore6;</span>
+<span class="nc" id="L397">    this.playerScore7 = playerScore7;</span>
+<span class="nc" id="L398">    this.playerScore8 = playerScore8;</span>
+<span class="nc" id="L399">    this.playerScore9 = playerScore9;</span>
+<span class="nc" id="L400">    this.quadraKills = quadraKills;</span>
+<span class="nc" id="L401">    this.sightWardsBoughtInGame = sightWardsBoughtInGame;</span>
+<span class="nc" id="L402">    this.teamObjective = teamObjective;</span>
+<span class="nc" id="L403">    this.timeCCingOthers = timeCCingOthers;</span>
+<span class="nc" id="L404">    this.totalDamageDealt = totalDamageDealt;</span>
+<span class="nc" id="L405">    this.totalDamageDealtToChampions = totalDamageDealtToChampions;</span>
+<span class="nc" id="L406">    this.totalDamageTaken = totalDamageTaken;</span>
+<span class="nc" id="L407">    this.totalHeal = totalHeal;</span>
+<span class="nc" id="L408">    this.totalMinionsKilled = totalMinionsKilled;</span>
+<span class="nc" id="L409">    this.totalPlayerScore = totalPlayerScore;</span>
+<span class="nc" id="L410">    this.totalScoreRank = totalScoreRank;</span>
+<span class="nc" id="L411">    this.totalTimeCrowdControlDealt = totalTimeCrowdControlDealt;</span>
+<span class="nc" id="L412">    this.totalUnitsHealed = totalUnitsHealed;</span>
+<span class="nc" id="L413">    this.tripleKills = tripleKills;</span>
+<span class="nc" id="L414">    this.trueDamageDealt = trueDamageDealt;</span>
+<span class="nc" id="L415">    this.trueDamageDealtToChampions = trueDamageDealtToChampions;</span>
+<span class="nc" id="L416">    this.trueDamageTaken = trueDamageTaken;</span>
+<span class="nc" id="L417">    this.turretKills = turretKills;</span>
+<span class="nc" id="L418">    this.unrealKills = unrealKills;</span>
+<span class="nc" id="L419">    this.visionScore = visionScore;</span>
+<span class="nc" id="L420">    this.visionWardsBoughtInGame = visionWardsBoughtInGame;</span>
+<span class="nc" id="L421">    this.wardsKilled = wardsKilled;</span>
+<span class="nc" id="L422">    this.wardsPlaced = wardsPlaced;</span>
+<span class="nc" id="L423">    this.win = win;</span>
+<span class="nc" id="L424">  }</span>
+
+  @Override
+  public boolean equals(final Object obj) {
+<span class="nc bnc" id="L428" title="All 2 branches missed.">    if (obj == this) return true;</span>
+<span class="nc bnc" id="L429" title="All 2 branches missed.">    if (!(obj instanceof ParticipantStats)) return false;</span>
+<span class="nc" id="L430">    final ParticipantStats other = (ParticipantStats) obj;</span>
+<span class="nc" id="L431">    return true</span>
+<span class="nc bnc" id="L432" title="All 2 branches missed.">        &amp;&amp; Objects.equal(altarsCaptured, other.altarsCaptured)</span>
+<span class="nc bnc" id="L433" title="All 2 branches missed.">        &amp;&amp; Objects.equal(altarsNeutralized, other.altarsNeutralized)</span>
+<span class="nc bnc" id="L434" title="All 2 branches missed.">        &amp;&amp; Objects.equal(assists, other.assists)</span>
+<span class="nc bnc" id="L435" title="All 2 branches missed.">        &amp;&amp; Objects.equal(champLevel, other.champLevel)</span>
+<span class="nc bnc" id="L436" title="All 2 branches missed.">        &amp;&amp; Objects.equal(combatPlayerScore, other.combatPlayerScore)</span>
+<span class="nc bnc" id="L437" title="All 2 branches missed.">        &amp;&amp; Objects.equal(damageDealtToObjectives, other.damageDealtToObjectives)</span>
+<span class="nc bnc" id="L438" title="All 2 branches missed.">        &amp;&amp; Objects.equal(damageDealtToTurrets, other.damageDealtToTurrets)</span>
+<span class="nc bnc" id="L439" title="All 2 branches missed.">        &amp;&amp; Objects.equal(damageSelfMitigated, other.damageSelfMitigated)</span>
+<span class="nc bnc" id="L440" title="All 2 branches missed.">        &amp;&amp; Objects.equal(deaths, other.deaths)</span>
+<span class="nc bnc" id="L441" title="All 2 branches missed.">        &amp;&amp; Objects.equal(doubleKills, other.doubleKills)</span>
+<span class="nc bnc" id="L442" title="All 2 branches missed.">        &amp;&amp; Objects.equal(firstBloodAssist, other.firstBloodAssist)</span>
+<span class="nc bnc" id="L443" title="All 2 branches missed.">        &amp;&amp; Objects.equal(firstBloodKill, other.firstBloodKill)</span>
+<span class="nc bnc" id="L444" title="All 2 branches missed.">        &amp;&amp; Objects.equal(firstInhibitorAssist, other.firstInhibitorAssist)</span>
+<span class="nc bnc" id="L445" title="All 2 branches missed.">        &amp;&amp; Objects.equal(firstInhibitorKill, other.firstInhibitorKill)</span>
+<span class="nc bnc" id="L446" title="All 2 branches missed.">        &amp;&amp; Objects.equal(firstTowerAssist, other.firstTowerAssist)</span>
+<span class="nc bnc" id="L447" title="All 2 branches missed.">        &amp;&amp; Objects.equal(firstTowerKill, other.firstTowerKill)</span>
+<span class="nc bnc" id="L448" title="All 2 branches missed.">        &amp;&amp; Objects.equal(goldEarned, other.goldEarned)</span>
+<span class="nc bnc" id="L449" title="All 2 branches missed.">        &amp;&amp; Objects.equal(goldSpent, other.goldSpent)</span>
+<span class="nc bnc" id="L450" title="All 2 branches missed.">        &amp;&amp; Objects.equal(inhibitorKills, other.inhibitorKills)</span>
+<span class="nc bnc" id="L451" title="All 2 branches missed.">        &amp;&amp; Objects.equal(item0, other.item0)</span>
+<span class="nc bnc" id="L452" title="All 2 branches missed.">        &amp;&amp; Objects.equal(item1, other.item1)</span>
+<span class="nc bnc" id="L453" title="All 2 branches missed.">        &amp;&amp; Objects.equal(item2, other.item2)</span>
+<span class="nc bnc" id="L454" title="All 2 branches missed.">        &amp;&amp; Objects.equal(item3, other.item3)</span>
+<span class="nc bnc" id="L455" title="All 2 branches missed.">        &amp;&amp; Objects.equal(item4, other.item4)</span>
+<span class="nc bnc" id="L456" title="All 2 branches missed.">        &amp;&amp; Objects.equal(item5, other.item5)</span>
+<span class="nc bnc" id="L457" title="All 2 branches missed.">        &amp;&amp; Objects.equal(item6, other.item6)</span>
+<span class="nc bnc" id="L458" title="All 2 branches missed.">        &amp;&amp; Objects.equal(killingSprees, other.killingSprees)</span>
+<span class="nc bnc" id="L459" title="All 2 branches missed.">        &amp;&amp; Objects.equal(kills, other.kills)</span>
+<span class="nc bnc" id="L460" title="All 2 branches missed.">        &amp;&amp; Objects.equal(largestCriticalStrike, other.largestCriticalStrike)</span>
+<span class="nc bnc" id="L461" title="All 2 branches missed.">        &amp;&amp; Objects.equal(largestKillingSpree, other.largestKillingSpree)</span>
+<span class="nc bnc" id="L462" title="All 2 branches missed.">        &amp;&amp; Objects.equal(largestMultiKill, other.largestMultiKill)</span>
+<span class="nc bnc" id="L463" title="All 2 branches missed.">        &amp;&amp; Objects.equal(longestTimeSpentLiving, other.longestTimeSpentLiving)</span>
+<span class="nc bnc" id="L464" title="All 2 branches missed.">        &amp;&amp; Objects.equal(magicDamageDealt, other.magicDamageDealt)</span>
+<span class="nc bnc" id="L465" title="All 2 branches missed.">        &amp;&amp; Objects.equal(magicDamageDealtToChampions, other.magicDamageDealtToChampions)</span>
+<span class="nc bnc" id="L466" title="All 2 branches missed.">        &amp;&amp; Objects.equal(magicalDamageTaken, other.magicalDamageTaken)</span>
+<span class="nc bnc" id="L467" title="All 2 branches missed.">        &amp;&amp; Objects.equal(neutralMinionsKilled, other.neutralMinionsKilled)</span>
+<span class="nc bnc" id="L468" title="All 2 branches missed.">        &amp;&amp; Objects.equal(neutralMinionsKilledEnemyJungle, other.neutralMinionsKilledEnemyJungle)</span>
+<span class="nc bnc" id="L469" title="All 2 branches missed.">        &amp;&amp; Objects.equal(neutralMinionsKilledTeamJungle, other.neutralMinionsKilledTeamJungle)</span>
+<span class="nc bnc" id="L470" title="All 2 branches missed.">        &amp;&amp; Objects.equal(nodeCapture, other.nodeCapture)</span>
+<span class="nc bnc" id="L471" title="All 2 branches missed.">        &amp;&amp; Objects.equal(nodeCaptureAssist, other.nodeCaptureAssist)</span>
+<span class="nc bnc" id="L472" title="All 2 branches missed.">        &amp;&amp; Objects.equal(nodeNeutralize, other.nodeNeutralize)</span>
+<span class="nc bnc" id="L473" title="All 2 branches missed.">        &amp;&amp; Objects.equal(nodeNeutralizeAssist, other.nodeNeutralizeAssist)</span>
+<span class="nc bnc" id="L474" title="All 2 branches missed.">        &amp;&amp; Objects.equal(objectivePlayerScore, other.objectivePlayerScore)</span>
+<span class="nc bnc" id="L475" title="All 2 branches missed.">        &amp;&amp; Objects.equal(participantId, other.participantId)</span>
+<span class="nc bnc" id="L476" title="All 2 branches missed.">        &amp;&amp; Objects.equal(pentaKills, other.pentaKills)</span>
+<span class="nc bnc" id="L477" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk0, other.perk0)</span>
+<span class="nc bnc" id="L478" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk0Var1, other.perk0Var1)</span>
+<span class="nc bnc" id="L479" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk0Var2, other.perk0Var2)</span>
+<span class="nc bnc" id="L480" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk0Var3, other.perk0Var3)</span>
+<span class="nc bnc" id="L481" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk1, other.perk1)</span>
+<span class="nc bnc" id="L482" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk1Var1, other.perk1Var1)</span>
+<span class="nc bnc" id="L483" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk1Var2, other.perk1Var2)</span>
+<span class="nc bnc" id="L484" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk1Var3, other.perk1Var3)</span>
+<span class="nc bnc" id="L485" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk2, other.perk2)</span>
+<span class="nc bnc" id="L486" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk2Var1, other.perk2Var1)</span>
+<span class="nc bnc" id="L487" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk2Var2, other.perk2Var2)</span>
+<span class="nc bnc" id="L488" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk2Var3, other.perk2Var3)</span>
+<span class="nc bnc" id="L489" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk3, other.perk3)</span>
+<span class="nc bnc" id="L490" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk3Var1, other.perk3Var1)</span>
+<span class="nc bnc" id="L491" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk3Var2, other.perk3Var2)</span>
+<span class="nc bnc" id="L492" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk3Var3, other.perk3Var3)</span>
+<span class="nc bnc" id="L493" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk4, other.perk4)</span>
+<span class="nc bnc" id="L494" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk4Var1, other.perk4Var1)</span>
+<span class="nc bnc" id="L495" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk4Var2, other.perk4Var2)</span>
+<span class="nc bnc" id="L496" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk4Var3, other.perk4Var3)</span>
+<span class="nc bnc" id="L497" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk5, other.perk5)</span>
+<span class="nc bnc" id="L498" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk5Var1, other.perk5Var1)</span>
+<span class="nc bnc" id="L499" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk5Var2, other.perk5Var2)</span>
+<span class="nc bnc" id="L500" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perk5Var3, other.perk5Var3)</span>
+<span class="nc bnc" id="L501" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perkPrimaryStyle, other.perkPrimaryStyle)</span>
+<span class="nc bnc" id="L502" title="All 2 branches missed.">        &amp;&amp; Objects.equal(perkSubStyle, other.perkSubStyle)</span>
+<span class="nc bnc" id="L503" title="All 2 branches missed.">        &amp;&amp; Objects.equal(physicalDamageDealt, other.physicalDamageDealt)</span>
+<span class="nc bnc" id="L504" title="All 2 branches missed.">        &amp;&amp; Objects.equal(physicalDamageDealtToChampions, other.physicalDamageDealtToChampions)</span>
+<span class="nc bnc" id="L505" title="All 2 branches missed.">        &amp;&amp; Objects.equal(physicalDamageTaken, other.physicalDamageTaken)</span>
+<span class="nc bnc" id="L506" title="All 2 branches missed.">        &amp;&amp; Objects.equal(playerScore0, other.playerScore0)</span>
+<span class="nc bnc" id="L507" title="All 2 branches missed.">        &amp;&amp; Objects.equal(playerScore1, other.playerScore1)</span>
+<span class="nc bnc" id="L508" title="All 2 branches missed.">        &amp;&amp; Objects.equal(playerScore2, other.playerScore2)</span>
+<span class="nc bnc" id="L509" title="All 2 branches missed.">        &amp;&amp; Objects.equal(playerScore3, other.playerScore3)</span>
+<span class="nc bnc" id="L510" title="All 2 branches missed.">        &amp;&amp; Objects.equal(playerScore4, other.playerScore4)</span>
+<span class="nc bnc" id="L511" title="All 2 branches missed.">        &amp;&amp; Objects.equal(playerScore5, other.playerScore5)</span>
+<span class="nc bnc" id="L512" title="All 2 branches missed.">        &amp;&amp; Objects.equal(playerScore6, other.playerScore6)</span>
+<span class="nc bnc" id="L513" title="All 2 branches missed.">        &amp;&amp; Objects.equal(playerScore7, other.playerScore7)</span>
+<span class="nc bnc" id="L514" title="All 2 branches missed.">        &amp;&amp; Objects.equal(playerScore8, other.playerScore8)</span>
+<span class="nc bnc" id="L515" title="All 2 branches missed.">        &amp;&amp; Objects.equal(playerScore9, other.playerScore9)</span>
+<span class="nc bnc" id="L516" title="All 2 branches missed.">        &amp;&amp; Objects.equal(quadraKills, other.quadraKills)</span>
+<span class="nc bnc" id="L517" title="All 2 branches missed.">        &amp;&amp; Objects.equal(sightWardsBoughtInGame, other.sightWardsBoughtInGame)</span>
+<span class="nc bnc" id="L518" title="All 2 branches missed.">        &amp;&amp; Objects.equal(teamObjective, other.teamObjective)</span>
+<span class="nc bnc" id="L519" title="All 2 branches missed.">        &amp;&amp; Objects.equal(timeCCingOthers, other.timeCCingOthers)</span>
+<span class="nc bnc" id="L520" title="All 2 branches missed.">        &amp;&amp; Objects.equal(totalDamageDealt, other.totalDamageDealt)</span>
+<span class="nc bnc" id="L521" title="All 2 branches missed.">        &amp;&amp; Objects.equal(totalDamageDealtToChampions, other.totalDamageDealtToChampions)</span>
+<span class="nc bnc" id="L522" title="All 2 branches missed.">        &amp;&amp; Objects.equal(totalDamageTaken, other.totalDamageTaken)</span>
+<span class="nc bnc" id="L523" title="All 2 branches missed.">        &amp;&amp; Objects.equal(totalHeal, other.totalHeal)</span>
+<span class="nc bnc" id="L524" title="All 2 branches missed.">        &amp;&amp; Objects.equal(totalMinionsKilled, other.totalMinionsKilled)</span>
+<span class="nc bnc" id="L525" title="All 2 branches missed.">        &amp;&amp; Objects.equal(totalPlayerScore, other.totalPlayerScore)</span>
+<span class="nc bnc" id="L526" title="All 2 branches missed.">        &amp;&amp; Objects.equal(totalScoreRank, other.totalScoreRank)</span>
+<span class="nc bnc" id="L527" title="All 2 branches missed.">        &amp;&amp; Objects.equal(totalTimeCrowdControlDealt, other.totalTimeCrowdControlDealt)</span>
+<span class="nc bnc" id="L528" title="All 2 branches missed.">        &amp;&amp; Objects.equal(totalUnitsHealed, other.totalUnitsHealed)</span>
+<span class="nc bnc" id="L529" title="All 2 branches missed.">        &amp;&amp; Objects.equal(tripleKills, other.tripleKills)</span>
+<span class="nc bnc" id="L530" title="All 2 branches missed.">        &amp;&amp; Objects.equal(trueDamageDealt, other.trueDamageDealt)</span>
+<span class="nc bnc" id="L531" title="All 2 branches missed.">        &amp;&amp; Objects.equal(trueDamageDealtToChampions, other.trueDamageDealtToChampions)</span>
+<span class="nc bnc" id="L532" title="All 2 branches missed.">        &amp;&amp; Objects.equal(trueDamageTaken, other.trueDamageTaken)</span>
+<span class="nc bnc" id="L533" title="All 2 branches missed.">        &amp;&amp; Objects.equal(turretKills, other.turretKills)</span>
+<span class="nc bnc" id="L534" title="All 2 branches missed.">        &amp;&amp; Objects.equal(unrealKills, other.unrealKills)</span>
+<span class="nc bnc" id="L535" title="All 2 branches missed.">        &amp;&amp; Objects.equal(visionScore, other.visionScore)</span>
+<span class="nc bnc" id="L536" title="All 2 branches missed.">        &amp;&amp; Objects.equal(visionWardsBoughtInGame, other.visionWardsBoughtInGame)</span>
+<span class="nc bnc" id="L537" title="All 2 branches missed.">        &amp;&amp; Objects.equal(wardsKilled, other.wardsKilled)</span>
+<span class="nc bnc" id="L538" title="All 2 branches missed.">        &amp;&amp; Objects.equal(wardsPlaced, other.wardsPlaced)</span>
+<span class="nc bnc" id="L539" title="All 2 branches missed.">        &amp;&amp; Objects.equal(win, other.win);}</span>
+
+  @Override
+  public int hashCode() {
+<span class="nc" id="L543">    return Objects.hashCode(0,</span>
+<span class="nc" id="L544">        altarsCaptured,</span>
+<span class="nc" id="L545">        altarsNeutralized,</span>
+<span class="nc" id="L546">        assists,</span>
+<span class="nc" id="L547">        champLevel,</span>
+<span class="nc" id="L548">        combatPlayerScore,</span>
+<span class="nc" id="L549">        damageDealtToObjectives,</span>
+<span class="nc" id="L550">        damageDealtToTurrets,</span>
+<span class="nc" id="L551">        damageSelfMitigated,</span>
+<span class="nc" id="L552">        deaths,</span>
+<span class="nc" id="L553">        doubleKills,</span>
+<span class="nc" id="L554">        firstBloodAssist,</span>
+<span class="nc" id="L555">        firstBloodKill,</span>
+<span class="nc" id="L556">        firstInhibitorAssist,</span>
+<span class="nc" id="L557">        firstInhibitorKill,</span>
+<span class="nc" id="L558">        firstTowerAssist,</span>
+<span class="nc" id="L559">        firstTowerKill,</span>
+<span class="nc" id="L560">        goldEarned,</span>
+<span class="nc" id="L561">        goldSpent,</span>
+<span class="nc" id="L562">        inhibitorKills,</span>
+<span class="nc" id="L563">        item0,</span>
+<span class="nc" id="L564">        item1,</span>
+<span class="nc" id="L565">        item2,</span>
+<span class="nc" id="L566">        item3,</span>
+<span class="nc" id="L567">        item4,</span>
+<span class="nc" id="L568">        item5,</span>
+<span class="nc" id="L569">        item6,</span>
+<span class="nc" id="L570">        killingSprees,</span>
+<span class="nc" id="L571">        kills,</span>
+<span class="nc" id="L572">        largestCriticalStrike,</span>
+<span class="nc" id="L573">        largestKillingSpree,</span>
+<span class="nc" id="L574">        largestMultiKill,</span>
+<span class="nc" id="L575">        longestTimeSpentLiving,</span>
+<span class="nc" id="L576">        magicDamageDealt,</span>
+<span class="nc" id="L577">        magicDamageDealtToChampions,</span>
+<span class="nc" id="L578">        magicalDamageTaken,</span>
+<span class="nc" id="L579">        neutralMinionsKilled,</span>
+<span class="nc" id="L580">        neutralMinionsKilledEnemyJungle,</span>
+<span class="nc" id="L581">        neutralMinionsKilledTeamJungle,</span>
+<span class="nc" id="L582">        nodeCapture,</span>
+<span class="nc" id="L583">        nodeCaptureAssist,</span>
+<span class="nc" id="L584">        nodeNeutralize,</span>
+<span class="nc" id="L585">        nodeNeutralizeAssist,</span>
+<span class="nc" id="L586">        objectivePlayerScore,</span>
+<span class="nc" id="L587">        participantId,</span>
+<span class="nc" id="L588">        pentaKills,</span>
+<span class="nc" id="L589">        perk0,</span>
+<span class="nc" id="L590">        perk0Var1,</span>
+<span class="nc" id="L591">        perk0Var2,</span>
+<span class="nc" id="L592">        perk0Var3,</span>
+<span class="nc" id="L593">        perk1,</span>
+<span class="nc" id="L594">        perk1Var1,</span>
+<span class="nc" id="L595">        perk1Var2,</span>
+<span class="nc" id="L596">        perk1Var3,</span>
+<span class="nc" id="L597">        perk2,</span>
+<span class="nc" id="L598">        perk2Var1,</span>
+<span class="nc" id="L599">        perk2Var2,</span>
+<span class="nc" id="L600">        perk2Var3,</span>
+<span class="nc" id="L601">        perk3,</span>
+<span class="nc" id="L602">        perk3Var1,</span>
+<span class="nc" id="L603">        perk3Var2,</span>
+<span class="nc" id="L604">        perk3Var3,</span>
+<span class="nc" id="L605">        perk4,</span>
+<span class="nc" id="L606">        perk4Var1,</span>
+<span class="nc" id="L607">        perk4Var2,</span>
+<span class="nc" id="L608">        perk4Var3,</span>
+<span class="nc" id="L609">        perk5,</span>
+<span class="nc" id="L610">        perk5Var1,</span>
+<span class="nc" id="L611">        perk5Var2,</span>
+<span class="nc" id="L612">        perk5Var3,</span>
+<span class="nc" id="L613">        perkPrimaryStyle,</span>
+<span class="nc" id="L614">        perkSubStyle,</span>
+<span class="nc" id="L615">        physicalDamageDealt,</span>
+<span class="nc" id="L616">        physicalDamageDealtToChampions,</span>
+<span class="nc" id="L617">        physicalDamageTaken,</span>
+<span class="nc" id="L618">        playerScore0,</span>
+<span class="nc" id="L619">        playerScore1,</span>
+<span class="nc" id="L620">        playerScore2,</span>
+<span class="nc" id="L621">        playerScore3,</span>
+<span class="nc" id="L622">        playerScore4,</span>
+<span class="nc" id="L623">        playerScore5,</span>
+<span class="nc" id="L624">        playerScore6,</span>
+<span class="nc" id="L625">        playerScore7,</span>
+<span class="nc" id="L626">        playerScore8,</span>
+<span class="nc" id="L627">        playerScore9,</span>
+<span class="nc" id="L628">        quadraKills,</span>
+<span class="nc" id="L629">        sightWardsBoughtInGame,</span>
+<span class="nc" id="L630">        teamObjective,</span>
+<span class="nc" id="L631">        timeCCingOthers,</span>
+<span class="nc" id="L632">        totalDamageDealt,</span>
+<span class="nc" id="L633">        totalDamageDealtToChampions,</span>
+<span class="nc" id="L634">        totalDamageTaken,</span>
+<span class="nc" id="L635">        totalHeal,</span>
+<span class="nc" id="L636">        totalMinionsKilled,</span>
+<span class="nc" id="L637">        totalPlayerScore,</span>
+<span class="nc" id="L638">        totalScoreRank,</span>
+<span class="nc" id="L639">        totalTimeCrowdControlDealt,</span>
+<span class="nc" id="L640">        totalUnitsHealed,</span>
+<span class="nc" id="L641">        tripleKills,</span>
+<span class="nc" id="L642">        trueDamageDealt,</span>
+<span class="nc" id="L643">        trueDamageDealtToChampions,</span>
+<span class="nc" id="L644">        trueDamageTaken,</span>
+<span class="nc" id="L645">        turretKills,</span>
+<span class="nc" id="L646">        unrealKills,</span>
+<span class="nc" id="L647">        visionScore,</span>
+<span class="nc" id="L648">        visionWardsBoughtInGame,</span>
+<span class="nc" id="L649">        wardsKilled,</span>
+<span class="nc" id="L650">        wardsPlaced,</span>
+<span class="nc" id="L651">        win);}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

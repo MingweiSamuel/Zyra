@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EntityApi.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra.entity</a> &gt; <span class="el_source">EntityApi.java</span></div><h1>EntityApi.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra.entity;
+
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.mingweisamuel.zyra.RiotApi;
+import com.mingweisamuel.zyra.enums.Region;
+import com.mingweisamuel.zyra.matchV4.Player;
+import com.mingweisamuel.zyra.summonerV4.Summoner;
+
+import java.io.Closeable;
+import java.io.IOException;
+import java.util.Objects;
+import java.util.concurrent.ExecutionException;
+
+//TODO configurable caches
+//TODO better caching for summoners
+/**
+ * API for interacting with entities. Also acts as a builder and cache for entity instances.&lt;br&gt;&lt;br&gt;
+ *
+ * MatchEntities are always cached by their match ID and duplicate instances will not be created unless the
+ * previous instance has left the cache.&lt;br&gt;&lt;br&gt;
+ *
+ * SummonerEntities are unambitiously cached by summoner ID or account ID, or both depending on what is supplied. Any
+ * summoners with matching IDs will not be duplicated unless the previous instance has left the cache.
+ * Summoners created using the {@link #getSummonerByName} method are not put into any cache. This may change in the
+ * future.
+ */
+public class EntityApi implements Closeable {
+
+    /** RiotApi instance. */
+    final RiotApi riotApi;
+
+    /** Cache for summoner entities by summonerId. */
+<span class="fc" id="L34">    private final Cache&lt;EntityKey, SummonerEntity&gt; summonerIdEntityCache =</span>
+<span class="fc" id="L35">        CacheBuilder.newBuilder().softValues().build();</span>
+    /** Cache for summoner entities by accountId. */
+<span class="fc" id="L37">    private final Cache&lt;EntityKey, SummonerEntity&gt; summonerAccountIdEntityCache =</span>
+<span class="fc" id="L38">        CacheBuilder.newBuilder().softValues().build();</span>
+
+    /** Cache for match entities. */
+<span class="fc" id="L41">    private final Cache&lt;EntityKey, MatchEntity&gt; matchEntityCache = CacheBuilder.newBuilder().softValues().build();</span>
+
+<span class="fc" id="L43">    public EntityApi(RiotApi riotApi) {</span>
+<span class="fc" id="L44">        this.riotApi = riotApi;</span>
+<span class="fc" id="L45">    }</span>
+
+    /** @return The RiotApi this EntityApi uses. */
+    public RiotApi getApi() {
+<span class="nc" id="L49">        return riotApi;</span>
+    }
+
+    @Override
+    public void close() throws IOException {
+<span class="nc" id="L54">        riotApi.close();</span>
+<span class="nc" id="L55">    }</span>
+
+    //region summoner
+    /**
+     * Gets a summoner entity by region and summoner ID. Will return a cached instance with matching summoner ID if
+     * found.
+     *
+     * @param region Summoner's region.
+     * @param summonerIdEnc Summoner's ID.
+     * @return A SummonerEntity instance.
+     */
+    public SummonerEntity getSummoner(Region region, String summonerIdEnc) {
+        try {
+<span class="fc" id="L68">            return summonerIdEntityCache.get(new EntityKey(region, summonerIdEnc),</span>
+<span class="nc" id="L69">                () -&gt; SummonerEntity.create(this, region, summonerIdEnc));</span>
+<span class="nc" id="L70">        } catch (ExecutionException e) {</span>
+<span class="nc" id="L71">            throw new RuntimeException(&quot;Failed to create summoner.&quot;, e);</span>
+        }
+    }
+
+    /**
+     * Gets a summoner entity by region, summoner ID, and account ID. Will return a cached instance with matching
+     * summoner ID or account ID if found.&lt;br&gt;&lt;br&gt;
+     *
+     * Summoner ID and account ID should belong to the same summoner to prevent undefined behavior. Use
+     * {@link #getSummoner(Region, String)} or {@link #getSummonerByAccountId(Region, String)} for whichever field is known.
+     *
+     * @param region Summoner's region.
+     * @param summonerIdEnc Summoner's ID.
+     * @param accountIdEnc Summoner's account ID.
+     * @return A SummonerEntity instance.
+     */
+    public SummonerEntity getSummoner(Region region, String summonerIdEnc, String accountIdEnc) {
+        try {
+<span class="fc" id="L89">            return summonerIdEntityCache.get(new EntityKey(region, summonerIdEnc),</span>
+<span class="fc" id="L90">                () -&gt; summonerAccountIdEntityCache.get(new EntityKey(region, accountIdEnc),</span>
+<span class="fc" id="L91">                    () -&gt; SummonerEntity.create(this, region, summonerIdEnc, accountIdEnc)));</span>
+<span class="nc" id="L92">        } catch (ExecutionException e) {</span>
+<span class="nc" id="L93">            throw new RuntimeException(&quot;Failed to create summoner.&quot;, e);</span>
+        }
+    }
+
+    /**
+     * Gets a summoner entity by region, summoner ID, and a supplied summoner name (which will be normalized). Will
+     * return a cached instance with matching summoner ID or account ID if found.&lt;br&gt;&lt;br&gt;
+     *
+     * Summoner ID and account ID should belong to the same summoner to prevent undefined behavior. Use
+     * {@link #getSummoner(Region, String)} or {@link #getSummonerByAccountId(Region, String)} for whichever field is known.
+     *
+     * @param region Summoner's region.
+     * @param summonerIdEnc Summoner's ID.
+     * @param accountIdEnc Summoner's account ID.
+     * @param name Summoner's name. Will be normalized, so capitalization and whitespace do not matter.
+     * @return A SummonerEntity instance.
+     */
+    public SummonerEntity getSummoner(Region region, String summonerIdEnc, String accountIdEnc, String name) {
+<span class="nc bnc" id="L111" title="All 2 branches missed.">        if (name == null)</span>
+<span class="nc" id="L112">            throw new NullPointerException(&quot;NAME should not be null. Instead, do not supply a fourth argument.&quot;);</span>
+        try {
+<span class="nc" id="L114">            return summonerIdEntityCache.get(new EntityKey(region, summonerIdEnc),</span>
+<span class="nc" id="L115">                () -&gt; summonerAccountIdEntityCache.get(new EntityKey(region, accountIdEnc),</span>
+<span class="nc" id="L116">                    () -&gt; SummonerEntity.create(this, region, summonerIdEnc, accountIdEnc, name)));</span>
+<span class="nc" id="L117">        } catch (ExecutionException e) {</span>
+<span class="nc" id="L118">            throw new RuntimeException(&quot;Failed to create summoner.&quot;, e);</span>
+        }
+    }
+
+    /**
+     * Gets a summoner entity by a {@link Summoner} instance. Will return a cached instance with matching summoner ID or
+     * account ID if found.
+     *
+     * @param region Summoner's Region.
+     * @param summoner Summoner instance.
+     * @return SummonerEntity instance.
+     */
+    public SummonerEntity getSummoner(Region region, Summoner summoner) {
+        try {
+<span class="nc" id="L132">            return summonerIdEntityCache.get(new EntityKey(region, summoner.id),</span>
+<span class="nc" id="L133">                () -&gt; summonerAccountIdEntityCache.get(new EntityKey(region, summoner.accountId),</span>
+<span class="nc" id="L134">                    () -&gt; SummonerEntity.create(this, region, summoner)));</span>
+<span class="nc" id="L135">        } catch (ExecutionException e) {</span>
+<span class="nc" id="L136">            throw new RuntimeException(&quot;Failed to create summoner.&quot;, e);</span>
+        }
+    }
+
+    /**
+     * Gets a summoner by region and account ID. Will return a cached instance with matching account ID if found.
+     *
+     * @param region Summoner's region.
+     * @param accountIdEnc Summoner's account ID.
+     * @return A SummonerEntity instance.
+     */
+    public SummonerEntity getSummonerByAccountId(Region region, String accountIdEnc) {
+        try {
+<span class="fc" id="L149">            return summonerAccountIdEntityCache.get(new EntityKey(region, accountIdEnc),</span>
+<span class="nc" id="L150">                () -&gt; SummonerEntity.createFromAccountId(this, region, accountIdEnc));</span>
+<span class="nc" id="L151">        } catch (ExecutionException e) {</span>
+<span class="nc" id="L152">            throw new RuntimeException(&quot;Failed to create summoner.&quot;, e);</span>
+        }
+    }
+
+    /**
+     * Gets a summoner by region and a supplied summoner name (which will be normalized). Always returns a new
+     * instance (never caches).
+     *
+     * @param region Summoner's region.
+     * @param name Summoner's name.
+     * @return A SummonerEntity instance.
+     */
+    public SummonerEntity getSummonerByName(Region region, String name) {
+<span class="pc bpc" id="L165" title="1 of 2 branches missed.">        if (name == null)</span>
+<span class="nc" id="L166">            throw new NullPointerException(&quot;NAME should not be null.&quot;);</span>
+<span class="fc" id="L167">        return SummonerEntity.createFromName(this, region, name);</span>
+    }
+
+    /**
+     * Gets a summoner entity by a {@link Player} instance. Will return a cached instance with matching summoner ID or
+     * account ID if found.
+     *
+     * @param player Player instance from the particular summoner's game.
+     * @return SummonerEntity instance.
+     */
+    public SummonerEntity getSummonerFromPlayer(Player player) {
+<span class="nc" id="L178">        Region region = Region.parse(player.currentPlatformId);</span>
+<span class="nc" id="L179">        return getSummoner(region, player.summonerId, player.accountId, player.summonerName);</span>
+    }
+    //endregion
+
+    //region match
+    /**
+     * Gets a match entity by region and match ID. Will return a matching cached instance if found.
+     *
+     * @param region Match's region.
+     * @param matchId Match's ID.
+     * @param forAccountIdEnc Account ID for non-public (unranked) match participant identification.
+     * @return MatchEntity instance.
+     */
+    public MatchEntity getMatch(Region region, long matchId, String forAccountIdEnc) {
+        // TODO method not super thread-reliable.
+<span class="fc" id="L194">        EntityKey entityKey = new EntityKey(region, &quot;&quot; + matchId);</span>
+<span class="fc" id="L195">        MatchEntity entity = matchEntityCache.getIfPresent(entityKey);</span>
+<span class="pc bpc" id="L196" title="3 of 4 branches missed.">        if (entity != null &amp;&amp; Objects.equals(forAccountIdEnc, entity.getForAccountIdEnc()))</span>
+<span class="nc" id="L197">            return entity;</span>
+<span class="fc" id="L198">        entity = MatchEntity.create(this, region, matchId, forAccountIdEnc);</span>
+<span class="fc" id="L199">        matchEntityCache.put(entityKey, entity);</span>
+<span class="fc" id="L200">        return entity;</span>
+    }
+
+    /**
+     * Gets a match entity by region and match ID. Will return a matching cached instance if found.
+     *
+     * @param region Match's region.
+     * @param matchId Match's ID.
+     * @return MatchEntity instance.
+     */
+    public MatchEntity getMatch(Region region, long matchId) {
+        try {
+<span class="fc" id="L212">            return matchEntityCache.get(new EntityKey(region, &quot;&quot; + matchId),</span>
+<span class="fc" id="L213">                    () -&gt; MatchEntity.create(this, region, matchId, null));</span>
+<span class="nc" id="L214">        } catch (ExecutionException e) {</span>
+<span class="nc" id="L215">            throw new RuntimeException(&quot;Failed to create match.&quot;, e);</span>
+        }
+    }
+    //endregion
+
+    //region entity key
+    /**
+     * Tuple of Region and long encId to be used as cache keys.
+     */
+    private static class EntityKey {
+
+        public final Region region;
+        public final String encId;
+
+<span class="fc" id="L229">        public EntityKey(Region region, String encId) {</span>
+<span class="pc bpc" id="L230" title="1 of 2 branches missed.">            if (region == null)</span>
+<span class="nc" id="L231">                throw new NullPointerException(&quot;Region cannot be null&quot;);</span>
+<span class="fc" id="L232">            this.region = region;</span>
+<span class="fc" id="L233">            this.encId = encId;</span>
+<span class="fc" id="L234">        }</span>
+
+        @Override
+        public boolean equals(Object o) {
+<span class="pc bpc" id="L238" title="1 of 2 branches missed.">            if (this == o) return true;</span>
+<span class="pc bpc" id="L239" title="2 of 4 branches missed.">            if (o == null || getClass() != o.getClass()) return false;</span>
+
+<span class="fc" id="L241">            EntityKey entityKey = (EntityKey) o;</span>
+
+<span class="pc bpc" id="L243" title="2 of 4 branches missed.">            return encId.equals(entityKey.encId) &amp;&amp; region == entityKey.region;</span>
+        }
+
+        @Override
+        public int hashCode() {
+<span class="fc" id="L248">            return 31 * encId.hashCode() + region.hashCode();</span>
+        }
+    }
+    //endregion
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

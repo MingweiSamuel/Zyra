@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MatchEvent.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">zyra</a> &gt; <a href="index.source.html" class="el_package">com.mingweisamuel.zyra.matchV4</a> &gt; <span class="el_source">MatchEvent.java</span></div><h1>MatchEvent.java</h1><pre class="source lang-java linenums">package com.mingweisamuel.zyra.matchV4;
+
+import com.google.common.base.Objects;
+import java.io.Serializable;
+import java.lang.Integer;
+import java.lang.Object;
+import java.lang.Override;
+import java.lang.String;
+import java.util.List;
+
+/**
+ * MatchEvent.&lt;br&gt;&lt;br&gt;
+ *
+ * This class was automatically generated from the &lt;a href=&quot;http://www.mingweisamuel.com/riotapi-schema/openapi-3.0.0.min.json&quot;&gt;Riot API reference&lt;/a&gt;. */
+public class MatchEvent implements Serializable {
+  public final int afterId;
+
+  public final String ascendedType;
+
+  public final List&lt;Integer&gt; assistingParticipantIds;
+
+  public final int beforeId;
+
+  public final String buildingType;
+
+  public final int creatorId;
+
+  public final String eventType;
+
+  public final int itemId;
+
+  public final int killerId;
+
+  public final String laneType;
+
+  public final String levelUpType;
+
+  public final String monsterSubType;
+
+  public final String monsterType;
+
+  public final int participantId;
+
+  public final String pointCaptured;
+
+  public final MatchPosition position;
+
+  public final int skillSlot;
+
+  public final int teamId;
+
+  public final long timestamp;
+
+  public final String towerType;
+
+  /**
+   * (Legal values:  CHAMPION_KILL,  WARD_PLACED,  WARD_KILL,  BUILDING_KILL,  ELITE_MONSTER_KILL,  ITEM_PURCHASED,  ITEM_SOLD,  ITEM_DESTROYED,  ITEM_UNDO,  SKILL_LEVEL_UP,  ASCENDED_EVENT,  CAPTURE_POINT,  PORO_KING_SUMMON) */
+  public final String type;
+
+  public final int victimId;
+
+  public final String wardType;
+
+  public MatchEvent(final int afterId, final String ascendedType,
+      final List&lt;Integer&gt; assistingParticipantIds, final int beforeId, final String buildingType,
+      final int creatorId, final String eventType, final int itemId, final int killerId,
+      final String laneType, final String levelUpType, final String monsterSubType,
+      final String monsterType, final int participantId, final String pointCaptured,
+      final MatchPosition position, final int skillSlot, final int teamId, final long timestamp,
+<span class="nc" id="L70">      final String towerType, final String type, final int victimId, final String wardType) {</span>
+<span class="nc" id="L71">    this.afterId = afterId;</span>
+<span class="nc" id="L72">    this.ascendedType = ascendedType;</span>
+<span class="nc" id="L73">    this.assistingParticipantIds = assistingParticipantIds;</span>
+<span class="nc" id="L74">    this.beforeId = beforeId;</span>
+<span class="nc" id="L75">    this.buildingType = buildingType;</span>
+<span class="nc" id="L76">    this.creatorId = creatorId;</span>
+<span class="nc" id="L77">    this.eventType = eventType;</span>
+<span class="nc" id="L78">    this.itemId = itemId;</span>
+<span class="nc" id="L79">    this.killerId = killerId;</span>
+<span class="nc" id="L80">    this.laneType = laneType;</span>
+<span class="nc" id="L81">    this.levelUpType = levelUpType;</span>
+<span class="nc" id="L82">    this.monsterSubType = monsterSubType;</span>
+<span class="nc" id="L83">    this.monsterType = monsterType;</span>
+<span class="nc" id="L84">    this.participantId = participantId;</span>
+<span class="nc" id="L85">    this.pointCaptured = pointCaptured;</span>
+<span class="nc" id="L86">    this.position = position;</span>
+<span class="nc" id="L87">    this.skillSlot = skillSlot;</span>
+<span class="nc" id="L88">    this.teamId = teamId;</span>
+<span class="nc" id="L89">    this.timestamp = timestamp;</span>
+<span class="nc" id="L90">    this.towerType = towerType;</span>
+<span class="nc" id="L91">    this.type = type;</span>
+<span class="nc" id="L92">    this.victimId = victimId;</span>
+<span class="nc" id="L93">    this.wardType = wardType;</span>
+<span class="nc" id="L94">  }</span>
+
+  @Override
+  public boolean equals(final Object obj) {
+<span class="nc bnc" id="L98" title="All 2 branches missed.">    if (obj == this) return true;</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">    if (!(obj instanceof MatchEvent)) return false;</span>
+<span class="nc" id="L100">    final MatchEvent other = (MatchEvent) obj;</span>
+<span class="nc" id="L101">    return true</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        &amp;&amp; Objects.equal(afterId, other.afterId)</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        &amp;&amp; Objects.equal(ascendedType, other.ascendedType)</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        &amp;&amp; Objects.equal(assistingParticipantIds, other.assistingParticipantIds)</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        &amp;&amp; Objects.equal(beforeId, other.beforeId)</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        &amp;&amp; Objects.equal(buildingType, other.buildingType)</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        &amp;&amp; Objects.equal(creatorId, other.creatorId)</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">        &amp;&amp; Objects.equal(eventType, other.eventType)</span>
+<span class="nc bnc" id="L109" title="All 2 branches missed.">        &amp;&amp; Objects.equal(itemId, other.itemId)</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        &amp;&amp; Objects.equal(killerId, other.killerId)</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">        &amp;&amp; Objects.equal(laneType, other.laneType)</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        &amp;&amp; Objects.equal(levelUpType, other.levelUpType)</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">        &amp;&amp; Objects.equal(monsterSubType, other.monsterSubType)</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">        &amp;&amp; Objects.equal(monsterType, other.monsterType)</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        &amp;&amp; Objects.equal(participantId, other.participantId)</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">        &amp;&amp; Objects.equal(pointCaptured, other.pointCaptured)</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">        &amp;&amp; Objects.equal(position, other.position)</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">        &amp;&amp; Objects.equal(skillSlot, other.skillSlot)</span>
+<span class="nc bnc" id="L119" title="All 2 branches missed.">        &amp;&amp; Objects.equal(teamId, other.teamId)</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">        &amp;&amp; Objects.equal(timestamp, other.timestamp)</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">        &amp;&amp; Objects.equal(towerType, other.towerType)</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">        &amp;&amp; Objects.equal(type, other.type)</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">        &amp;&amp; Objects.equal(victimId, other.victimId)</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">        &amp;&amp; Objects.equal(wardType, other.wardType);}</span>
+
+  @Override
+  public int hashCode() {
+<span class="nc" id="L128">    return Objects.hashCode(0,</span>
+<span class="nc" id="L129">        afterId,</span>
+        ascendedType,
+        assistingParticipantIds,
+<span class="nc" id="L132">        beforeId,</span>
+        buildingType,
+<span class="nc" id="L134">        creatorId,</span>
+        eventType,
+<span class="nc" id="L136">        itemId,</span>
+<span class="nc" id="L137">        killerId,</span>
+        laneType,
+        levelUpType,
+        monsterSubType,
+        monsterType,
+<span class="nc" id="L142">        participantId,</span>
+        pointCaptured,
+        position,
+<span class="nc" id="L145">        skillSlot,</span>
+<span class="nc" id="L146">        teamId,</span>
+<span class="nc" id="L147">        timestamp,</span>
+        towerType,
+        type,
+<span class="nc" id="L150">        victimId,</span>
+        wardType);}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

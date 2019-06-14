@@ -1,0 +1,110 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+zyra,com.mingweisamuel.zyra.lolStatusV3,Incident,91,0,12,0,17,0,9,0,3,0
+zyra,com.mingweisamuel.zyra.lolStatusV3,Translation,71,0,10,0,13,0,8,0,3,0
+zyra,com.mingweisamuel.zyra.lolStatusV3,Message,127,0,18,0,21,0,12,0,3,0
+zyra,com.mingweisamuel.zyra.lolStatusV3,Service,85,0,12,0,15,0,9,0,3,0
+zyra,com.mingweisamuel.zyra.lolStatusV3,ShardStatus,113,0,16,0,19,0,11,0,3,0
+zyra,com.mingweisamuel.zyra.leagueV4,LeagueEntry,246,0,32,0,42,0,19,0,3,0
+zyra,com.mingweisamuel.zyra.leagueV4,MiniSeries,94,0,12,0,18,0,9,0,3,0
+zyra,com.mingweisamuel.zyra.leagueV4,LeagueList,99,0,14,0,17,0,10,0,3,0
+zyra,com.mingweisamuel.zyra.leagueV4,LeaguePosition,274,0,36,0,46,0,21,0,3,0
+zyra,com.mingweisamuel.zyra.leagueV4,LeagueItem,204,0,26,0,36,0,16,0,3,0
+zyra,com.mingweisamuel.zyra.entity,MatchEntity.TeamEntity,46,0,2,0,9,0,7,0,6,0
+zyra,com.mingweisamuel.zyra.entity,MatchEntity.ParticipantEntity,135,0,8,0,22,0,16,0,12,0
+zyra,com.mingweisamuel.zyra.entity,SummonerEntity,466,430,37,19,90,80,57,35,34,30
+zyra,com.mingweisamuel.zyra.entity,Entity,3,9,0,0,1,4,1,1,1,1
+zyra,com.mingweisamuel.zyra.entity,EntityApi.EntityKey,10,48,6,6,1,10,6,3,0,3
+zyra,com.mingweisamuel.zyra.entity,MatchEntity,163,79,10,0,21,12,22,7,17,7
+zyra,com.mingweisamuel.zyra.entity,EntityApi,166,153,6,2,29,23,15,10,11,10
+zyra,com.mingweisamuel.zyra,LeagueV4Endpoints.new TypeToken() {...},6,0,0,0,1,0,1,0,1,0
+zyra,com.mingweisamuel.zyra,ThirdPartyCodeV4Endpoints,41,4,0,0,6,2,2,1,2,1
+zyra,com.mingweisamuel.zyra,Endpoints,0,6,0,0,0,3,0,1,0,1
+zyra,com.mingweisamuel.zyra,MatchV4Endpoints,349,170,0,0,31,17,19,6,19,6
+zyra,com.mingweisamuel.zyra,LeagueV4Endpoints,436,53,0,0,58,10,18,3,18,3
+zyra,com.mingweisamuel.zyra,TournamentStubV4Endpoints,41,4,0,0,6,2,2,1,2,1
+zyra,com.mingweisamuel.zyra,RiotApi,47,229,2,12,7,36,7,16,5,11
+zyra,com.mingweisamuel.zyra,ChampionMasteryV4Endpoints,0,145,0,0,0,22,0,7,0,7
+zyra,com.mingweisamuel.zyra,TournamentV4Endpoints,82,4,0,0,12,2,4,1,4,1
+zyra,com.mingweisamuel.zyra,LolStatusV3Endpoints,0,31,0,0,0,8,0,3,0,3
+zyra,com.mingweisamuel.zyra,SpectatorV4Endpoints,0,72,0,0,0,14,0,5,0,5
+zyra,com.mingweisamuel.zyra,ChampionV3Endpoints,0,31,0,0,0,8,0,3,0,3
+zyra,com.mingweisamuel.zyra,SummonerV4Endpoints,41,127,0,0,6,20,2,7,2,7
+zyra,com.mingweisamuel.zyra,LeagueV4Endpoints.new TypeToken() {...},6,0,0,0,1,0,1,0,1,0
+zyra,com.mingweisamuel.zyra,ChampionMasteryV4Endpoints.new TypeToken() {...},0,6,0,0,0,1,0,1,0,1
+zyra,com.mingweisamuel.zyra,ChampionMasteryV4Endpoints.new TypeToken() {...},0,6,0,0,0,1,0,1,0,1
+zyra,com.mingweisamuel.zyra,LeagueV4Endpoints.new TypeToken() {...},6,0,0,0,1,0,1,0,1,0
+zyra,com.mingweisamuel.zyra,LeagueV4Endpoints.new TypeToken() {...},6,0,0,0,1,0,1,0,1,0
+zyra,com.mingweisamuel.zyra,LeagueV4Endpoints.new TypeToken() {...},0,6,0,0,0,1,0,1,0,1
+zyra,com.mingweisamuel.zyra,LeagueV4Endpoints.new TypeToken() {...},6,0,0,0,1,0,1,0,1,0
+zyra,com.mingweisamuel.zyra,LeagueV4Endpoints.new TypeToken() {...},6,0,0,0,1,0,1,0,1,0
+zyra,com.mingweisamuel.zyra,LeagueV4Endpoints.new TypeToken() {...},0,6,0,0,0,1,0,1,0,1
+zyra,com.mingweisamuel.zyra,LeagueV4Endpoints.new TypeToken() {...},6,0,0,0,1,0,1,0,1,0
+zyra,com.mingweisamuel.zyra,LeagueV4Endpoints.new TypeToken() {...},6,0,0,0,1,0,1,0,1,0
+zyra,com.mingweisamuel.zyra,MatchV4Endpoints.new TypeToken() {...},6,0,0,0,1,0,1,0,1,0
+zyra,com.mingweisamuel.zyra,RiotApiConfig,175,58,36,0,21,15,20,5,2,5
+zyra,com.mingweisamuel.zyra,RiotApiConfig.Builder,55,62,2,2,18,17,15,4,13,4
+zyra,com.mingweisamuel.zyra,MatchV4Endpoints.new TypeToken() {...},6,0,0,0,1,0,1,0,1,0
+zyra,com.mingweisamuel.zyra.tournamentV4,TournamentCode,223,0,30,0,37,0,18,0,3,0
+zyra,com.mingweisamuel.zyra.tournamentV4,LobbyEventDTOWrapper,39,0,4,0,9,0,5,0,3,0
+zyra,com.mingweisamuel.zyra.tournamentV4,ProviderRegistrationParameters,57,0,8,0,11,0,7,0,3,0
+zyra,com.mingweisamuel.zyra.tournamentV4,TournamentRegistrationParameters,60,0,8,0,12,0,7,0,3,0
+zyra,com.mingweisamuel.zyra.tournamentV4,TournamentCodeUpdateParameters,85,0,12,0,15,0,9,0,3,0
+zyra,com.mingweisamuel.zyra.tournamentV4,LobbyEvent,71,0,10,0,13,0,8,0,3,0
+zyra,com.mingweisamuel.zyra.tournamentV4,TournamentCodeParameters,116,0,16,0,20,0,11,0,3,0
+zyra,com.mingweisamuel.zyra.tournamentStubV4,TournamentRegistrationParameters,60,0,8,0,12,0,7,0,3,0
+zyra,com.mingweisamuel.zyra.tournamentStubV4,TournamentCodeParameters,116,0,16,0,20,0,11,0,3,0
+zyra,com.mingweisamuel.zyra.tournamentStubV4,LobbyEventDTOWrapper,39,0,4,0,9,0,5,0,3,0
+zyra,com.mingweisamuel.zyra.tournamentStubV4,ProviderRegistrationParameters,57,0,8,0,11,0,7,0,3,0
+zyra,com.mingweisamuel.zyra.tournamentStubV4,LobbyEvent,71,0,10,0,13,0,8,0,3,0
+zyra,com.mingweisamuel.zyra.spectatorV4,CurrentGameParticipant,187,0,24,0,33,0,15,0,3,0
+zyra,com.mingweisamuel.zyra.spectatorV4,CurrentGameInfo,198,0,26,0,34,0,16,0,3,0
+zyra,com.mingweisamuel.zyra.spectatorV4,Perks,77,0,10,0,15,0,8,0,3,0
+zyra,com.mingweisamuel.zyra.spectatorV4,FeaturedGameInfo,198,0,26,0,34,0,16,0,3,0
+zyra,com.mingweisamuel.zyra.spectatorV4,Participant,145,0,18,0,27,0,12,0,3,0
+zyra,com.mingweisamuel.zyra.spectatorV4,FeaturedGames,60,0,8,0,12,0,7,0,3,0
+zyra,com.mingweisamuel.zyra.spectatorV4,Observer,39,0,4,0,9,0,5,0,3,0
+zyra,com.mingweisamuel.zyra.spectatorV4,BannedChampion,80,0,10,0,16,0,8,0,3,0
+zyra,com.mingweisamuel.zyra.spectatorV4,GameCustomizationObject,57,0,8,0,11,0,7,0,3,0
+zyra,org.eclipse.milo.opcua.stack.core.util,AsyncSemaphore.PermitImpl,5,38,0,4,0,7,0,4,0,2
+zyra,org.eclipse.milo.opcua.stack.core.util,AsyncSemaphore,0,41,0,2,0,10,0,3,0,2
+zyra,com.mingweisamuel.zyra.championV3,ChampionInfo,74,0,10,0,14,0,8,0,3,0
+zyra,com.mingweisamuel.zyra.summonerV4,Summoner,136,0,18,0,24,0,12,0,3,0
+zyra,com.mingweisamuel.zyra.enums,Season,6,0,0,0,2,0,2,0,2,0
+zyra,com.mingweisamuel.zyra.enums,Queue,3,0,0,0,1,0,1,0,1,0
+zyra,com.mingweisamuel.zyra.enums,Queue.SummaryType,3,0,0,0,1,0,1,0,1,0
+zyra,com.mingweisamuel.zyra.enums,LocaleUtil,135,0,0,0,4,0,4,0,4,0
+zyra,com.mingweisamuel.zyra.enums,TeamId,3,0,0,0,1,0,1,0,1,0
+zyra,com.mingweisamuel.zyra.enums,Region,54,202,9,1,11,22,9,3,4,3
+zyra,com.mingweisamuel.zyra.enums,ChampionId,3,0,0,0,1,0,1,0,1,0
+zyra,com.mingweisamuel.zyra.enums,Tier,3,0,0,0,1,0,1,0,1,0
+zyra,com.mingweisamuel.zyra.championMasteryV4,ChampionMastery,179,0,22,0,33,0,14,0,3,0
+zyra,com.mingweisamuel.zyra.matchV4,TeamStats,295,0,36,0,53,0,21,0,3,0
+zyra,com.mingweisamuel.zyra.matchV4,Mastery,63,0,8,0,13,0,7,0,3,0
+zyra,com.mingweisamuel.zyra.matchV4,Rune,63,0,8,0,13,0,7,0,3,0
+zyra,com.mingweisamuel.zyra.matchV4,MatchPosition,63,0,8,0,13,0,7,0,3,0
+zyra,com.mingweisamuel.zyra.matchV4,Match,229,0,30,0,39,0,18,0,3,0
+zyra,com.mingweisamuel.zyra.matchV4,Matchlist,94,0,12,0,18,0,9,0,3,0
+zyra,com.mingweisamuel.zyra.matchV4,Player,144,0,20,0,24,0,13,0,3,0
+zyra,com.mingweisamuel.zyra.matchV4,ParticipantStats,1865,0,220,0,331,0,113,0,3,0
+zyra,com.mingweisamuel.zyra.matchV4,TeamBans,63,0,8,0,13,0,7,0,3,0
+zyra,com.mingweisamuel.zyra.matchV4,MatchReference,156,0,20,0,28,0,13,0,3,0
+zyra,com.mingweisamuel.zyra.matchV4,Participant,184,0,24,0,32,0,15,0,3,0
+zyra,com.mingweisamuel.zyra.matchV4,MatchTimeline,60,0,8,0,12,0,7,0,3,0
+zyra,com.mingweisamuel.zyra.matchV4,MatchParticipantFrame,196,0,24,0,36,0,15,0,3,0
+zyra,com.mingweisamuel.zyra.matchV4,MatchFrame,74,0,10,0,14,0,8,0,3,0
+zyra,com.mingweisamuel.zyra.matchV4,ParticipantTimeline,172,0,24,0,28,0,15,0,3,0
+zyra,com.mingweisamuel.zyra.matchV4,ParticipantIdentity,60,0,8,0,12,0,7,0,3,0
+zyra,com.mingweisamuel.zyra.matchV4,MatchEvent,381,0,50,0,63,0,28,0,3,0
+zyra,com.mingweisamuel.zyra.util,RateLimitedRequester,0,152,0,0,0,23,0,13,0,13
+zyra,com.mingweisamuel.zyra.util,Lazy,5,41,1,7,1,13,1,7,0,4
+zyra,com.mingweisamuel.zyra.util,RegionalRateLimiter,0,100,0,0,0,15,0,6,0,6
+zyra,com.mingweisamuel.zyra.util,LazyResetableFuture,540,43,0,4,38,6,75,9,75,7
+zyra,com.mingweisamuel.zyra.util,RegionalRateLimiter.RateLimitRetrierRunnable,64,94,9,7,8,21,7,5,1,3
+zyra,com.mingweisamuel.zyra.util,RiotResponseException,31,0,0,0,13,0,5,0,5,0
+zyra,com.mingweisamuel.zyra.util,Requester,4,35,0,0,2,8,1,2,1,2
+zyra,com.mingweisamuel.zyra.util,LazyResetable,5,42,1,3,0,15,1,5,0,4
+zyra,com.mingweisamuel.zyra.util,TokenTemporalBucket,39,273,6,20,3,52,6,19,1,11
+zyra,com.mingweisamuel.zyra.util,TemporalBucket,20,101,5,11,2,24,4,10,1,5
+zyra,com.mingweisamuel.zyra.util,RateLimit,4,94,2,10,2,14,2,5,0,1
+zyra,com.mingweisamuel.zyra.util,TokenRateLimit,124,247,14,18,16,48,11,11,0,6
+zyra,com.mingweisamuel.zyra.util,TokenRateLimit.RateLimitType,9,44,0,0,0,8,2,2,2,2
