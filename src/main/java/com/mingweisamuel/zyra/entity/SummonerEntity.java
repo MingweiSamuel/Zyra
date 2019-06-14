@@ -2,18 +2,19 @@ package com.mingweisamuel.zyra.entity;
 
 import com.google.common.collect.Lists;
 import com.mingweisamuel.zyra.RiotApi;
-import com.mingweisamuel.zyra.championMastery.ChampionMastery;
+import com.mingweisamuel.zyra.championMasteryV4.ChampionMastery;
 import com.mingweisamuel.zyra.enums.Region;
-import com.mingweisamuel.zyra.league.LeaguePosition;
-import com.mingweisamuel.zyra.match.Matchlist;
-import com.mingweisamuel.zyra.spectator.CurrentGameInfo;
-import com.mingweisamuel.zyra.summoner.Summoner;
+import com.mingweisamuel.zyra.leagueV4.LeaguePosition;
+import com.mingweisamuel.zyra.matchV4.Matchlist;
+import com.mingweisamuel.zyra.spectatorV4.CurrentGameInfo;
+import com.mingweisamuel.zyra.summonerV4.Summoner;
 import com.mingweisamuel.zyra.util.LazyResetableFuture;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 /**
  * A high-level representation of a Summoner. Thread-safe.
@@ -21,31 +22,31 @@ import java.util.concurrent.CompletableFuture;
 public class SummonerEntity extends Entity {
 
     //region static constructors
-    static SummonerEntity create(EntityApi entityApi, Region region, long summonerId) {
+    static SummonerEntity create(EntityApi entityApi, Region region, String summonerIdEnc) {
         LazyResetableFuture<Summoner> summonerFuture = new LazyResetableFuture<>(() ->
-            entityApi.riotApi.summoners.getBySummonerIdAsync(region, summonerId));
-        LazyResetableFuture<Long> summonerIdFuture = LazyResetableFuture.completedFuture(summonerId);
-        LazyResetableFuture<Long> accountIdFuture = summonerFuture.thenApply(s -> s.accountId);
+            entityApi.riotApi.summonersV4.getBySummonerIdAsync(region, summonerIdEnc));
+        LazyResetableFuture<String> summonerIdFuture = LazyResetableFuture.completedFuture(summonerIdEnc);
+        LazyResetableFuture<String> accountIdFuture = summonerFuture.thenApply(s -> s.accountId);
         LazyResetableFuture<String> standardizedNameFuture =
             summonerFuture.thenApply(s -> RiotApi.standardizeName(s.name));
         return new SummonerEntity(entityApi, region, summonerFuture, summonerIdFuture,
             accountIdFuture, standardizedNameFuture);
     }
-    static SummonerEntity create(EntityApi entityApi, Region region, long summonerId, long accountId) {
+    static SummonerEntity create(EntityApi entityApi, Region region, String summonerIdEnc, String accountIdEnc) {
         LazyResetableFuture<Summoner> summonerFuture = new LazyResetableFuture<>(() ->
-            entityApi.riotApi.summoners.getBySummonerIdAsync(region, summonerId));
-        LazyResetableFuture<Long> summonerIdFuture = LazyResetableFuture.completedFuture(summonerId);
-        LazyResetableFuture<Long> accountIdFuture = LazyResetableFuture.completedFuture(accountId);
+            entityApi.riotApi.summonersV4.getBySummonerIdAsync(region, summonerIdEnc));
+        LazyResetableFuture<String> summonerIdFuture = LazyResetableFuture.completedFuture(summonerIdEnc);
+        LazyResetableFuture<String> accountIdFuture = LazyResetableFuture.completedFuture(accountIdEnc);
         LazyResetableFuture<String> standardizedNameFuture =
             summonerFuture.thenApply(s -> RiotApi.standardizeName(s.name));
         return new SummonerEntity(entityApi, region, summonerFuture, summonerIdFuture,
             accountIdFuture, standardizedNameFuture);
     }
-    static SummonerEntity create(EntityApi entityApi, Region region, long summonerId, long accountId, String name) {
+    static SummonerEntity create(EntityApi entityApi, Region region, String summonerIdEnc, String accountIdEnc, String name) {
         LazyResetableFuture<Summoner> summonerFuture = new LazyResetableFuture<>(() ->
-            entityApi.riotApi.summoners.getBySummonerIdAsync(region, summonerId));
-        LazyResetableFuture<Long> summonerIdFuture = LazyResetableFuture.completedFuture(summonerId);
-        LazyResetableFuture<Long> accountIdFuture = LazyResetableFuture.completedFuture(accountId);
+            entityApi.riotApi.summonersV4.getBySummonerIdAsync(region, summonerIdEnc));
+        LazyResetableFuture<String> summonerIdFuture = LazyResetableFuture.completedFuture(summonerIdEnc);
+        LazyResetableFuture<String> accountIdFuture = LazyResetableFuture.completedFuture(accountIdEnc);
         LazyResetableFuture<String> standardizedNameFuture =
             LazyResetableFuture.completedFuture(RiotApi.standardizeName(name));
         return new SummonerEntity(entityApi, region, summonerFuture, summonerIdFuture,
@@ -53,18 +54,18 @@ public class SummonerEntity extends Entity {
     }
     static SummonerEntity create(EntityApi entityApi, Region region, Summoner summoner) {
         LazyResetableFuture<Summoner> summonerFuture = LazyResetableFuture.completedFuture(summoner);
-        LazyResetableFuture<Long> summonerIdFuture = LazyResetableFuture.completedFuture(summoner.id);
-        LazyResetableFuture<Long> accountIdFuture = LazyResetableFuture.completedFuture(summoner.accountId);
+        LazyResetableFuture<String> summonerIdFuture = LazyResetableFuture.completedFuture(summoner.id);
+        LazyResetableFuture<String> accountIdFuture = LazyResetableFuture.completedFuture(summoner.accountId);
         LazyResetableFuture<String> standardizedNameFuture =
             LazyResetableFuture.completedFuture(RiotApi.standardizeName(summoner.name));
         return new SummonerEntity(entityApi, region, summonerFuture, summonerIdFuture,
             accountIdFuture, standardizedNameFuture);
     }
-    static SummonerEntity createFromAccountId(EntityApi entityApi, Region region, long accountId) {
+    static SummonerEntity createFromAccountId(EntityApi entityApi, Region region, String accountIdEnc) {
         LazyResetableFuture<Summoner> summonerFuture = new LazyResetableFuture<>(() ->
-            entityApi.riotApi.summoners.getByAccountIdAsync(region, accountId));
-        LazyResetableFuture<Long> summonerIdFuture = summonerFuture.thenApply(s -> s.id);
-        LazyResetableFuture<Long> accountIdFuture = LazyResetableFuture.completedFuture(accountId);
+            entityApi.riotApi.summonersV4.getByAccountIdAsync(region, accountIdEnc));
+        LazyResetableFuture<String> summonerIdFuture = summonerFuture.thenApply(s -> s.id);
+        LazyResetableFuture<String> accountIdFuture = LazyResetableFuture.completedFuture(accountIdEnc);
         LazyResetableFuture<String> standardizedNameFuture =
             summonerFuture.thenApply(s -> RiotApi.standardizeName(s.name));
         return new SummonerEntity(entityApi, region, summonerFuture, summonerIdFuture,
@@ -72,9 +73,9 @@ public class SummonerEntity extends Entity {
     }
     static SummonerEntity createFromName(EntityApi entityApi, Region region, String name) {
         LazyResetableFuture<Summoner> summonerFuture = new LazyResetableFuture<>(() ->
-            entityApi.riotApi.summoners.getBySummonerNameAsync(region, name));
-        LazyResetableFuture<Long> summonerIdFuture = summonerFuture.thenApply(s -> s.id);
-        LazyResetableFuture<Long> accountIdFuture = summonerFuture.thenApply(s -> s.accountId);
+            entityApi.riotApi.summonersV4.getBySummonerNameAsync(region, name));
+        LazyResetableFuture<String> summonerIdFuture = summonerFuture.thenApply(s -> s.id);
+        LazyResetableFuture<String> accountIdFuture = summonerFuture.thenApply(s -> s.accountId);
         LazyResetableFuture<String> standardizedNameFuture =
             LazyResetableFuture.completedFuture(RiotApi.standardizeName(name));
         return new SummonerEntity(entityApi, region, summonerFuture, summonerIdFuture,
@@ -83,9 +84,9 @@ public class SummonerEntity extends Entity {
     //endregion
 
     /** Unique summoner ID, used in most endpoints. */
-    private final LazyResetableFuture<Long> summonerId;
+    private final LazyResetableFuture<String> summonerIdEnc;
     /** Unique Riot account ID, used to obtain matchlist. */
-    private final LazyResetableFuture<Long> accountId;
+    private final LazyResetableFuture<String> accountIdEnc;
     /** Summoner name standardized, {@link com.mingweisamuel.zyra.RiotApi#standardizeName(String)}. */
     private final LazyResetableFuture<String> standardizedName;
 
@@ -97,8 +98,6 @@ public class SummonerEntity extends Entity {
     private final LazyResetableFuture<List<LeaguePosition>> leaguePositions;
     /** Current game information. */
     private final LazyResetableFuture<CurrentGameInfo> currentGameInfo;
-    /** Recent match list information. */
-    private final LazyResetableFuture<Matchlist> recentMatchlist;
 
     /** Lock on updating the query parameters. */
     private final Object queryLock = new Object();
@@ -118,56 +117,54 @@ public class SummonerEntity extends Entity {
 
     /**
      * Creates an uninitialized SummonerEntity. This constructor should not be used directly.
-     * Instead use {@link #create(EntityApi, Region, long)}, {@link #createFromAccountId(EntityApi, Region, long)},
+     * Instead use {@link #create(EntityApi, Region, String)}, {@link #createFromAccountId(EntityApi, Region, String)},
      * or {@link #createFromName(EntityApi, Region, String)}.
      *
      * @param entityApi EntityApi reference. {@link #entityApi}.
      * @param region Region this summoner exists in. {@link #region}.
-     * @param summonerId
-     * @param accountId
+     * @param summonerIdEnc
+     * @param accountIdEnc
      * @param standardizedName
      */
     private SummonerEntity(EntityApi entityApi, Region region, LazyResetableFuture<Summoner> summonerInfo,
-                           LazyResetableFuture<Long> summonerId, LazyResetableFuture<Long> accountId,
+                           LazyResetableFuture<String> summonerIdEnc, LazyResetableFuture<String> accountIdEnc,
                            LazyResetableFuture<String> standardizedName) {
         super(entityApi, region);
         this.summonerInfo = summonerInfo;
-        this.summonerId = summonerId;
-        this.accountId = accountId;
+        this.summonerIdEnc = summonerIdEnc;
+        this.accountIdEnc = accountIdEnc;
         this.standardizedName = standardizedName;
 
         this.championMasteries = new LazyResetableFuture<>(() ->
-            entityApi.riotApi.championMasteries.getAllChampionMasteriesAsync(region, summonerId.join()));
+            entityApi.riotApi.championMasteriesV4.getAllChampionMasteriesAsync(region, summonerIdEnc.join()));
         this.leaguePositions = new LazyResetableFuture<>(() ->
-            entityApi.riotApi.leagues.getAllLeaguePositionsForSummonerAsync(region, summonerId.join()));
+            entityApi.riotApi.leaguesV4.getAllLeaguePositionsForSummonerAsync(region, summonerIdEnc.join()));
         this.currentGameInfo = new LazyResetableFuture<>(() ->
-            entityApi.riotApi.spectator.getCurrentGameInfoBySummonerAsync(region, summonerId.join()));
-        this.recentMatchlist = new LazyResetableFuture<>(() ->
-            entityApi.riotApi.matches.getRecentMatchlistAsync(region, accountId.join()));
+            entityApi.riotApi.spectatorV4.getCurrentGameInfoBySummonerAsync(region, summonerIdEnc.join()));
         this.queryMatchlist = new LazyResetableFuture<>(() ->
-            entityApi.riotApi.matches.getMatchlistAsync(region, accountId.join(), queryQueues, queryBeginTime,
-                queryEndTime, queryChampions, querySeasons, queryBeginIndex, queryEndIndex));
+            entityApi.riotApi.matchesV4.getMatchlistAsync(region, accountIdEnc.join(), queryChampions, queryQueues,
+                querySeasons, queryBeginTime, queryEndTime, queryBeginIndex, queryEndIndex));
     }
 
     // region IDs
     public boolean loadedSummonerId() {
-        return summonerId.created();
+        return summonerIdEnc.created();
     }
-    public CompletableFuture<Long> getSummonerIdAsync() {
-        return summonerId.get();
+    public CompletableFuture<String> getSummonerIdAsync() {
+        return summonerIdEnc.get();
     }
-    public long getSummonerId() {
-        return summonerId.join();
+    public String getSummonerIdEnc() {
+        return summonerIdEnc.join();
     }
 
     public boolean loadedAccountId() {
-        return accountId.created();
+        return accountIdEnc.created();
     }
-    public CompletableFuture<Long> getAccountIdAsync() {
-        return accountId.get();
+    public CompletableFuture<String> getAccountIdAsync() {
+        return accountIdEnc.get();
     }
-    public long getAccountId() {
-        return accountId.join();
+    public String getAccountIdEnc() {
+        return accountIdEnc.join();
     }
 
     public CompletableFuture<String> getStandardizedNameAsync() {
@@ -238,39 +235,6 @@ public class SummonerEntity extends Entity {
     }
     //endregion
 
-    //region matches recent
-    public boolean loadedRecentMatchlist() {
-        return recentMatchlist.isDone();
-    }
-    public CompletableFuture<Matchlist> getRecentMatchlistAsync() {
-        return recentMatchlist.get();
-    }
-    public Matchlist getRecentMatchlist() {
-        return recentMatchlist.join();
-    }
-    public void resetRecentMatchlist() {
-        recentMatchlist.reset();
-    }
-
-    /**
-     * Gets a CompletableFuture of a list of the recent matches as MatchEntities. May return cached instances as
-     * described in {@link EntityApi#getMatch}.
-     * @return CompletableFuture of List of MatchEntities.
-     */
-    public CompletableFuture<List<MatchEntity>> getRecentMatchEntitiesAsync() {
-        return getRecentMatchlistAsync().thenApply(this::matchlistToMatches);
-    }
-
-    /**
-     * Gets the recent matches as MatchEntities synchronously. May return cached instances as described in
-     * {@link EntityApi#getMatch}.
-     * @return List of MatchEntities.
-     */
-    public List<MatchEntity> getRecentMatchEntities() {
-        return matchlistToMatches(getRecentMatchlist());
-    }
-    //endregion
-
     //region matches query
     /**
      * Checks if the query is dirty. Returning true means that the match query parameters have been updated and a new
@@ -323,7 +287,7 @@ public class SummonerEntity extends Entity {
 
     /**
      * Sets the queues parameter for a match query.
-     * @param queues Queue id list, or null to remove.
+     * @param queues Queue encId list, or null to remove.
      * @return Whether the query is dirty.
      */
     public boolean setMatchQueryQueues(List<Integer> queues) {
@@ -474,8 +438,9 @@ public class SummonerEntity extends Entity {
     //endregion
 
     private List<MatchEntity> matchlistToMatches(Matchlist ml) {
-        return new ArrayList<>(Lists.transform(ml.matches,
-            m -> entityApi.getMatch(region, m.gameId, accountId.join())));
+        return new ArrayList<>(
+            ml.matches.stream().map(m -> entityApi.getMatch(region, m.gameId, accountIdEnc.join()))
+                .collect(Collectors.toList()));
     }
 
     //region equals hashCode
@@ -493,7 +458,7 @@ public class SummonerEntity extends Entity {
 
         SummonerEntity entity = (SummonerEntity) other;
 
-        if (getSummonerId() != entity.getSummonerId()) return false;
+        if (getSummonerIdEnc() != entity.getSummonerIdEnc()) return false;
         return getRegion() == entity.getRegion();
     }
 
@@ -504,9 +469,7 @@ public class SummonerEntity extends Entity {
      */
     @Override
     public int hashCode() {
-        int result = (int) (getSummonerId() ^ (getSummonerId() >>> 32));
-        result = 31 * result + region.hashCode();
-        return result;
+        return 31 * getSummonerIdEnc().hashCode() + region.hashCode();
     }
 
     //endregion

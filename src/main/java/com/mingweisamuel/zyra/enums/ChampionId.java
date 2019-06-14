@@ -1,7 +1,7 @@
 package com.mingweisamuel.zyra.enums;
 
 /**
- * This class contains static int id fields for current (as of last file update) champions.
+ * This class contains static int encId fields for current (as of last file update) champions.
  */
 public class ChampionId {
     private ChampionId() {}

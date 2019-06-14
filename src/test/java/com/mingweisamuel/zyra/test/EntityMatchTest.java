@@ -18,8 +18,8 @@ public class EntityMatchTest extends EntityTest {
     }
     public static void testBasicValidate(MatchEntity match) {
         assertEquals(2357244372L, match.getMatchId());
-        ApiMatchTest.checkGet(match.getInfo());
-        ApiMatchTest.checkGetTimeline(match.getTimeline());
+        ApiMatchV4Test.checkGet(match.getInfo());
+        ApiMatchV4Test.checkGetTimeline(match.getTimeline());
     }
 
     public static void testBasicValidate2(MatchEntity match) {

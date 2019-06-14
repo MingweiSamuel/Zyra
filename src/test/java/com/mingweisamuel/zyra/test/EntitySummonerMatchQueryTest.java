@@ -3,7 +3,7 @@ package com.mingweisamuel.zyra.test;
 import com.mingweisamuel.zyra.entity.SummonerEntity;
 import com.mingweisamuel.zyra.enums.ChampionId;
 import com.mingweisamuel.zyra.enums.Region;
-import com.mingweisamuel.zyra.match.Matchlist;
+import com.mingweisamuel.zyra.matchV4.Matchlist;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -19,14 +19,14 @@ public class EntitySummonerMatchQueryTest extends EntityTest {
 
     @Test
     public void getQuery1() {
-        SummonerEntity sneaky = eApi.getSummoner(Region.NA, 51405);
+        SummonerEntity sneaky = eApi.getSummoner(Region.NA, SUMMONER_ID_C9SNEAKY);
 
         // set query params. query is always dirty before any requests.
         assertTrue(sneaky.isMatchQueryDirty());
         assertTrue(sneaky.setMatchQueryChampions(Collections.singletonList(ChampionId.KALISTA)));
         assertTrue(sneaky.setMatchQueryTimeRange(123L, 456L));
         assertTrue(sneaky.setMatchQueryTimeRange(
-            ApiMatchListTest.queryTime - ApiMatchListTest.MILLIS_PER_WEEK, ApiMatchListTest.queryTime));
+            ApiMatchListV4Test.queryTime - ApiMatchListV4Test.MILLIS_PER_WEEK, ApiMatchListV4Test.queryTime));
         assertTrue(sneaky.setMatchQueryQueues(Collections.singletonList(420)));
         assertTrue(sneaky.setMatchQuerySeasons(Collections.singletonList(9)));
         assertTrue(sneaky.isMatchQueryDirty());
@@ -39,13 +39,13 @@ public class EntitySummonerMatchQueryTest extends EntityTest {
         // wait for completion
         Matchlist matchlist = sneaky.getMatchQuery();
         // check
-        ApiMatchListTest.checkGetQuery(matchlist);
+        ApiMatchListV4Test.checkGetQuery(matchlist);
         assertFalse(sneaky.isMatchQueryDirty());
         assertTrue(sneaky.loadedMatchQuery());
 
         // same params no dirty
         assertFalse(sneaky.setMatchQueryTimeRange(
-            ApiMatchListTest.queryTime - ApiMatchListTest.MILLIS_PER_WEEK, ApiMatchListTest.queryTime));
+            ApiMatchListV4Test.queryTime - ApiMatchListV4Test.MILLIS_PER_WEEK, ApiMatchListV4Test.queryTime));
         assertFalse(sneaky.isMatchQueryDirty());
 
         // test match

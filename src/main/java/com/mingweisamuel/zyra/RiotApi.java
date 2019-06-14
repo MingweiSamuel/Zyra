@@ -26,17 +26,16 @@ public class RiotApi implements Closeable {
     /** Web requester. */
     private final Lazy<RateLimitedRequester> requester;
 
-    public final ChampionEndpoints champions = new ChampionEndpoints(this);
-    public final ChampionMasteryEndpoints championMasteries = new ChampionMasteryEndpoints(this);
-    public final LeagueEndpoints leagues = new LeagueEndpoints(this);
-    public final LolStaticDataEndpoints staticData = new LolStaticDataEndpoints(this);
-    public final LolStatusEndpoints status = new LolStatusEndpoints(this);
-    public final MatchEndpoints matches = new MatchEndpoints(this);
-    public final SpectatorEndpoints spectator = new SpectatorEndpoints(this);
-    public final SummonerEndpoints summoners = new SummonerEndpoints(this);
-    public final ThirdPartyCodeEndpoints thirdPartyCode = new ThirdPartyCodeEndpoints(this);
-    public final TournamentEndpoints tournament = new TournamentEndpoints(this);
-    public final TournamentStubEndpoints tournamentStub = new TournamentStubEndpoints(this);
+    public final ChampionV3Endpoints championsV3 = new ChampionV3Endpoints(this);
+    public final ChampionMasteryV4Endpoints championMasteriesV4 = new ChampionMasteryV4Endpoints(this);
+    public final LeagueV4Endpoints leaguesV4 = new LeagueV4Endpoints(this);
+    public final LolStatusV3Endpoints statusV3 = new LolStatusV3Endpoints(this);
+    public final MatchV4Endpoints matchesV4 = new MatchV4Endpoints(this);
+    public final SpectatorV4Endpoints spectatorV4 = new SpectatorV4Endpoints(this);
+    public final SummonerV4Endpoints summonersV4 = new SummonerV4Endpoints(this);
+    public final ThirdPartyCodeV4Endpoints thirdPartyCodeV4 = new ThirdPartyCodeV4Endpoints(this);
+    public final TournamentV4Endpoints tournamentV4 = new TournamentV4Endpoints(this);
+    public final TournamentStubV4Endpoints tournamentStubV4 = new TournamentStubV4Endpoints(this);
 
     /**
      * Creates a new RiotApi instance with default configuration.

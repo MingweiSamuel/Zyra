@@ -1,16 +1,15 @@
 package com.mingweisamuel.zyra.entity;
 
-import com.google.common.collect.Lists;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.enums.TeamId;
-import com.mingweisamuel.zyra.match.Match;
-import com.mingweisamuel.zyra.match.MatchFrame;
-import com.mingweisamuel.zyra.match.MatchParticipantFrame;
-import com.mingweisamuel.zyra.match.MatchTimeline;
-import com.mingweisamuel.zyra.match.Participant;
-import com.mingweisamuel.zyra.match.ParticipantIdentity;
-import com.mingweisamuel.zyra.match.Player;
-import com.mingweisamuel.zyra.match.TeamStats;
+import com.mingweisamuel.zyra.matchV4.Match;
+import com.mingweisamuel.zyra.matchV4.MatchFrame;
+import com.mingweisamuel.zyra.matchV4.MatchParticipantFrame;
+import com.mingweisamuel.zyra.matchV4.MatchTimeline;
+import com.mingweisamuel.zyra.matchV4.Participant;
+import com.mingweisamuel.zyra.matchV4.ParticipantIdentity;
+import com.mingweisamuel.zyra.matchV4.Player;
+import com.mingweisamuel.zyra.matchV4.TeamStats;
 import com.mingweisamuel.zyra.util.LazyResetableFuture;
 
 import java.util.ArrayList;
@@ -25,14 +24,14 @@ import java.util.stream.Collectors;
  */
 public class MatchEntity extends Entity {
 
-    static MatchEntity create(EntityApi entityApi, Region region, long matchId, Long forAccountId) {
+    static MatchEntity create(EntityApi entityApi, Region region, long matchId, String forAccountId) {
         return new MatchEntity(entityApi, region, matchId, forAccountId);
     }
 
-    /** This match's unique id. Set from initialization. */
+    /** This match's unique encId. Set from initialization. */
     private final long matchId;
     /** Account ID for non-public (unranked) match participant identification. */
-    private final Long forAccountId;
+    private final String forAccountIdEnc;
 
     /** The match's general information.  */
     private final LazyResetableFuture<Match> matchInfo;
@@ -45,20 +44,21 @@ public class MatchEntity extends Entity {
     /** The match's team entities. */
     private final LazyResetableFuture<List<TeamEntity>> teams;
 
-    private MatchEntity(EntityApi entityApi, Region region, long matchId, Long forAccountId) {
+    private MatchEntity(EntityApi entityApi, Region region, long matchId, String forAccountIdEnc) {
         super(entityApi, region);
         this.matchId = matchId;
-        this.forAccountId = forAccountId;
+        this.forAccountIdEnc = forAccountIdEnc;
 
-        matchInfo = new LazyResetableFuture<>(() -> entityApi.riotApi.matches.getMatchAsync(region, matchId));
-        timeline = new LazyResetableFuture<>(() -> entityApi.riotApi.matches.getMatchTimelineAsync(region, matchId));
-        participants = matchInfo.thenApply(m -> new ArrayList<>(Lists.transform(
-            m.participantIdentities, pid -> new ParticipantEntity(
-                pid.participantId, m, pid.player != null ? entityApi.getSummonerFromPlayer(pid.player) : null))));
-        teams = matchInfo.thenApply(m -> new ArrayList<>(Lists.transform(m.teams, TeamEntity::new)));
+        matchInfo = new LazyResetableFuture<>(() -> entityApi.riotApi.matchesV4.getMatchAsync(region, matchId));
+        timeline = new LazyResetableFuture<>(() -> entityApi.riotApi.matchesV4.getMatchTimelineAsync(region, matchId));
+        participants = matchInfo.thenApply(m -> new ArrayList<>(
+            m.participantIdentities.stream().map(pid -> new ParticipantEntity(
+            pid.participantId, m, pid.player != null ? entityApi.getSummonerFromPlayer(pid.player) : null)).collect(Collectors.toList())));
+        teams = matchInfo.thenApply(m -> new ArrayList<>(
+            m.teams.stream().map(TeamEntity::new).collect(Collectors.toList())));
     }
 
-    /** Returns the unique match id. Does not need to wait for any tasks to complete. */
+    /** Returns the unique match encId. Does not need to wait for any tasks to complete. */
     public long getMatchId() {
         return matchId;
     }
@@ -68,8 +68,8 @@ public class MatchEntity extends Entity {
      * identification.
      * @return NULL if no account ID was originally supplied.
      */
-    public Long getForAccountId() {
-        return forAccountId;
+    public String getForAccountIdEnc() {
+        return forAccountIdEnc;
     }
 
     //region info methods
@@ -110,7 +110,7 @@ public class MatchEntity extends Entity {
     }
     /**
      * Gets the Participant corresponding to the given SummonerEntity. Will return {@code null} if the summoner was
-     * not found. This usually occurs in unranked games where identity information is not available and forAccountId
+     * not found. This usually occurs in unranked games where identity information is not available and forAccountIdEnc
      * was not provided..
      * @param summonerEntity Summoner to find.
      * @return ParticipantEntity, or {@code null} if not found.
@@ -175,7 +175,7 @@ public class MatchEntity extends Entity {
 
         /**
          * Creates a participant entity.
-         * @param participantId The participant id. Required.
+         * @param participantId The participant encId. Required.
          * @param matchInfo Match information. Calling {@code MatchEntity.this.matchInfo.join()} will deadlock.
          * @param summonerEntity Summoner entity, can be null if {@link ParticipantIdentity#player} not provided by api.
          */
@@ -188,7 +188,7 @@ public class MatchEntity extends Entity {
             // doesn't need async because getInfo() must already have been pulled.
             this.participantInfo = matchInfo.participants.stream()
                 .filter(p -> this.participantId == p.participantId).findAny()
-                .orElseThrow(() -> new IllegalStateException("Participant with id not found: " + participantId));
+                .orElseThrow(() -> new IllegalStateException("Participant with encId not found: " + participantId));
 
             //noinspection ConstantConditions
             this.timeline = MatchEntity.this.timeline
@@ -200,7 +200,7 @@ public class MatchEntity extends Entity {
                 });
         }
 
-        /** @return The participant's unique id for the match. */
+        /** @return The participant's unique encId for the match. */
         public int getParticipantId() {
             return participantId;
         }

@@ -100,7 +100,7 @@ public class ZyraExample {
     public static void main(String[] args) throws ExecutionException, IOException {
         try (RiotApi api = RiotApi.builder("RGAPI-example-api-key").build()) {
 
-            // get champion data (ignoring locale, version) by champion id
+            encId
             ChampionList champList = api.staticData.getChampions(Region.NA, null, null, true);
             Map<String, Champion> champs = champList.data;
 
@@ -180,11 +180,12 @@ Example:
 
 ```java
 // get summoners by name
-Map<String, Summoner> summoners =
-        api.summoners.getByName(Region.NA, Arrays.asList("C9 Sneaky", "Doublelift"));
-for (Summoner summoner : summoners.values()) {
+List<Summoner> summoners = Arrays.asList(
+    api.summoners.getBySummonerName(Region.NA, "C9 Sneaky"),
+    api.summoners.getBySummonerName(Region.NA, "Dou ble lift"));
+for (Summoner summoner : summoners) {
     // get total champion mastery points for each summoner
-    int score = api.championMasteries.getScore(Region.NA, summoner.id);
+    int score = api.championMasteries.getChampionMasteryScore(Region.NA, summoner.id);
     System.out.println(summoner.name + ": " + score);
 }
 ```

@@ -227,16 +227,17 @@ public class SwaggerGen {
                     });
             }
 
-            // SORT OPTIONAL PARAMETERS IF APPLICABLE.
+            // SORT PARAMETERS IF APPLICABLE.
             String endpointsNormalizedName = CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, this.pack);
-            List<String> order = PARAM_OPT_ORDERS.get(endpointsNormalizedName + '.' + name);
+            List<String> order = PARAM_ORDERS.get(endpointsNormalizedName + '.' + name);
             if (order == null)
-                order = PARAM_OPT_ORDERS.get(endpointsNormalizedName + ".*");
+                order = PARAM_ORDERS.get(endpointsNormalizedName + ".*");
             if (order != null) {
                 final List<String> order2 = order;
-                optionalParams.sort(Comparator.comparingInt(p -> order2.indexOf(p.name)));
-                if (!optionalParams.isEmpty() && !order.contains(optionalParams.get(0).name))
-                    throw new NoSuchElementException("Name missing: " + optionalParams.get(0).name);
+                Comparator<Param> comparator = Comparator.comparingInt(p -> order2.indexOf(p.name));
+                pathParams.sort(comparator);
+                requiredParams.sort(comparator);
+                optionalParams.sort(comparator);
             }
 
             // DOCSTRING.
@@ -570,7 +571,7 @@ public class SwaggerGen {
 
     /** Normalizes a endpointsNormalizedName of an endpoint (or dto ..?). */
     private static String normalizeEndpointPackage(String name) {
-        name = name.toLowerCase().replaceFirst("-v\\d+(?:\\.\\d+)?", "");
+        //name = name.toLowerCase().replaceFirst("-v\\d+(?:\\.\\d+)?", "");
         name = CaseFormat.LOWER_HYPHEN.to(CaseFormat.LOWER_CAMEL, name);
         return name;
     }
@@ -633,11 +634,11 @@ public class SwaggerGen {
     }
 
     /** Method param orders. */
-    private static final Map<String, List<String>> PARAM_OPT_ORDERS = new HashMap<>();
+    private static final Map<String, List<String>> PARAM_ORDERS = new HashMap<>();
     static {
-        PARAM_OPT_ORDERS.put("Match.getMatchlist", Arrays.asList("queue", "beginTime", "endTime", "champion", "season",
+        PARAM_ORDERS.put("MatchV4.getMatchlist", Arrays.asList("champion", "queue", "season", "beginTime", "endTime",
             "beginIndex", "endIndex"));
-        PARAM_OPT_ORDERS.put("LolStaticData.*", Arrays.asList("id", "tags", "dataById", "locale", "version"));
+        PARAM_ORDERS.put("ChampionMasteryV4.getChampionMastery", Arrays.asList("encryptedSummonerId", "championId"));
     }
 
     /** DTO field type overrides. */

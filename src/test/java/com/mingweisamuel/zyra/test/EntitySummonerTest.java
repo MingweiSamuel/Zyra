@@ -1,12 +1,12 @@
 package com.mingweisamuel.zyra.test;
 
-import com.mingweisamuel.zyra.championMastery.ChampionMastery;
+import com.mingweisamuel.zyra.championMasteryV4.ChampionMastery;
 import com.mingweisamuel.zyra.entity.SummonerEntity;
 import com.mingweisamuel.zyra.enums.Queue;
 import com.mingweisamuel.zyra.enums.Region;
 import com.mingweisamuel.zyra.enums.Tier;
-import com.mingweisamuel.zyra.league.LeaguePosition;
-import com.mingweisamuel.zyra.spectator.CurrentGameInfo;
+import com.mingweisamuel.zyra.leagueV4.LeaguePosition;
+import com.mingweisamuel.zyra.spectatorV4.CurrentGameInfo;
 import org.junit.Test;
 
 import java.util.List;
@@ -21,17 +21,17 @@ public class EntitySummonerTest extends EntityTest {
 
     @Test
     public void testById() {
-        SummonerEntity summoner = eApi.getSummoner(Region.NA, 51405);
+        SummonerEntity summoner = eApi.getSummoner(Region.NA, SUMMONER_ID_C9SNEAKY);
         validate(summoner);
     }
     @Test
     public void testByIdAndAccountId() {
-        SummonerEntity summoner = eApi.getSummoner(Region.NA, 51405, 78247);
+        SummonerEntity summoner = eApi.getSummoner(Region.NA, SUMMONER_ID_C9SNEAKY, ACCOUNT_ID_C9SNEAKY);
         validate(summoner);
     }
     @Test
     public void testByAccountId() {
-        SummonerEntity summoner = eApi.getSummonerByAccountId(Region.NA, 78247);
+        SummonerEntity summoner = eApi.getSummonerByAccountId(Region.NA, ACCOUNT_ID_C9SNEAKY);
         validate(summoner);
     }
     @Test
@@ -42,8 +42,8 @@ public class EntitySummonerTest extends EntityTest {
     public static void validate(SummonerEntity summoner) {
         // basic
         assertEquals("c9sneaky", summoner.getStandardizedName());
-        assertEquals(51405, summoner.getSummonerId());
-        assertEquals(78247, summoner.getAccountId());
+        assertEquals(SUMMONER_ID_C9SNEAKY, summoner.getSummonerIdEnc());
+        assertEquals(ACCOUNT_ID_C9SNEAKY, summoner.getAccountIdEnc());
 
         // summonerInfo
         assertTrue(summoner.getSummonerInfo().summonerLevel >= 45);
@@ -55,7 +55,7 @@ public class EntitySummonerTest extends EntityTest {
         // championMasteries
         List<ChampionMastery> masteries = summoner.getChampionMasteries();
         for (ChampionMastery mastery : masteries) {
-            assertEquals(51405, mastery.playerId);
+            assertEquals(SUMMONER_ID_C9SNEAKY, mastery.summonerId);
             assertTrue(mastery.championId + "", mastery.championId > 0);
             assertTrue(mastery.championLevel + "", mastery.championLevel >= 1);
             assertTrue(mastery.championPoints+ "", mastery.championPoints > 0);

@@ -4,8 +4,8 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.mingweisamuel.zyra.RiotApi;
 import com.mingweisamuel.zyra.enums.Region;
-import com.mingweisamuel.zyra.match.Player;
-import com.mingweisamuel.zyra.summoner.Summoner;
+import com.mingweisamuel.zyra.matchV4.Player;
+import com.mingweisamuel.zyra.summonerV4.Summoner;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -60,13 +60,13 @@ public class EntityApi implements Closeable {
      * found.
      *
      * @param region Summoner's region.
-     * @param summonerId Summoner's ID.
+     * @param summonerIdEnc Summoner's ID.
      * @return A SummonerEntity instance.
      */
-    public SummonerEntity getSummoner(Region region, long summonerId) {
+    public SummonerEntity getSummoner(Region region, String summonerIdEnc) {
         try {
-            return summonerIdEntityCache.get(new EntityKey(region, summonerId),
-                () -> SummonerEntity.create(this, region, summonerId));
+            return summonerIdEntityCache.get(new EntityKey(region, summonerIdEnc),
+                () -> SummonerEntity.create(this, region, summonerIdEnc));
         } catch (ExecutionException e) {
             throw new RuntimeException("Failed to create summoner.", e);
         }
@@ -77,18 +77,18 @@ public class EntityApi implements Closeable {
      * summoner ID or account ID if found.<br><br>
      *
      * Summoner ID and account ID should belong to the same summoner to prevent undefined behavior. Use
-     * {@link #getSummoner(Region, long)} or {@link #getSummonerByAccountId(Region, long)} for whichever field is known.
+     * {@link #getSummoner(Region, String)} or {@link #getSummonerByAccountId(Region, String)} for whichever field is known.
      *
      * @param region Summoner's region.
-     * @param summonerId Summoner's ID.
-     * @param accountId Summoner's account ID.
+     * @param summonerIdEnc Summoner's ID.
+     * @param accountIdEnc Summoner's account ID.
      * @return A SummonerEntity instance.
      */
-    public SummonerEntity getSummoner(Region region, long summonerId, long accountId) {
+    public SummonerEntity getSummoner(Region region, String summonerIdEnc, String accountIdEnc) {
         try {
-            return summonerIdEntityCache.get(new EntityKey(region, summonerId),
-                () -> summonerAccountIdEntityCache.get(new EntityKey(region, accountId),
-                    () -> SummonerEntity.create(this, region, summonerId, accountId)));
+            return summonerIdEntityCache.get(new EntityKey(region, summonerIdEnc),
+                () -> summonerAccountIdEntityCache.get(new EntityKey(region, accountIdEnc),
+                    () -> SummonerEntity.create(this, region, summonerIdEnc, accountIdEnc)));
         } catch (ExecutionException e) {
             throw new RuntimeException("Failed to create summoner.", e);
         }
@@ -99,21 +99,21 @@ public class EntityApi implements Closeable {
      * return a cached instance with matching summoner ID or account ID if found.<br><br>
      *
      * Summoner ID and account ID should belong to the same summoner to prevent undefined behavior. Use
-     * {@link #getSummoner(Region, long)} or {@link #getSummonerByAccountId(Region, long)} for whichever field is known.
+     * {@link #getSummoner(Region, String)} or {@link #getSummonerByAccountId(Region, String)} for whichever field is known.
      *
      * @param region Summoner's region.
-     * @param summonerId Summoner's ID.
-     * @param accountId Summoner's account ID.
+     * @param summonerIdEnc Summoner's ID.
+     * @param accountIdEnc Summoner's account ID.
      * @param name Summoner's name. Will be normalized, so capitalization and whitespace do not matter.
      * @return A SummonerEntity instance.
      */
-    public SummonerEntity getSummoner(Region region, long summonerId, long accountId, String name) {
+    public SummonerEntity getSummoner(Region region, String summonerIdEnc, String accountIdEnc, String name) {
         if (name == null)
             throw new NullPointerException("NAME should not be null. Instead, do not supply a fourth argument.");
         try {
-            return summonerIdEntityCache.get(new EntityKey(region, summonerId),
-                () -> summonerAccountIdEntityCache.get(new EntityKey(region, accountId),
-                    () -> SummonerEntity.create(this, region, summonerId, accountId, name)));
+            return summonerIdEntityCache.get(new EntityKey(region, summonerIdEnc),
+                () -> summonerAccountIdEntityCache.get(new EntityKey(region, accountIdEnc),
+                    () -> SummonerEntity.create(this, region, summonerIdEnc, accountIdEnc, name)));
         } catch (ExecutionException e) {
             throw new RuntimeException("Failed to create summoner.", e);
         }
@@ -141,13 +141,13 @@ public class EntityApi implements Closeable {
      * Gets a summoner by region and account ID. Will return a cached instance with matching account ID if found.
      *
      * @param region Summoner's region.
-     * @param accountId Summoner's account ID.
+     * @param accountIdEnc Summoner's account ID.
      * @return A SummonerEntity instance.
      */
-    public SummonerEntity getSummonerByAccountId(Region region, long accountId) {
+    public SummonerEntity getSummonerByAccountId(Region region, String accountIdEnc) {
         try {
-            return summonerAccountIdEntityCache.get(new EntityKey(region, accountId),
-                () -> SummonerEntity.createFromAccountId(this, region, accountId));
+            return summonerAccountIdEntityCache.get(new EntityKey(region, accountIdEnc),
+                () -> SummonerEntity.createFromAccountId(this, region, accountIdEnc));
         } catch (ExecutionException e) {
             throw new RuntimeException("Failed to create summoner.", e);
         }
@@ -186,16 +186,16 @@ public class EntityApi implements Closeable {
      *
      * @param region Match's region.
      * @param matchId Match's ID.
-     * @param forAccountId Account ID for non-public (unranked) match participant identification.
+     * @param forAccountIdEnc Account ID for non-public (unranked) match participant identification.
      * @return MatchEntity instance.
      */
-    public MatchEntity getMatch(Region region, long matchId, long forAccountId) {
+    public MatchEntity getMatch(Region region, long matchId, String forAccountIdEnc) {
         // TODO method not super thread-reliable.
-        EntityKey entityKey = new EntityKey(region, matchId);
+        EntityKey entityKey = new EntityKey(region, "" + matchId);
         MatchEntity entity = matchEntityCache.getIfPresent(entityKey);
-        if (entity != null && Objects.equals(forAccountId, entity.getForAccountId()))
+        if (entity != null && Objects.equals(forAccountIdEnc, entity.getForAccountIdEnc()))
             return entity;
-        entity = MatchEntity.create(this, region, matchId, forAccountId);
+        entity = MatchEntity.create(this, region, matchId, forAccountIdEnc);
         matchEntityCache.put(entityKey, entity);
         return entity;
     }
@@ -209,7 +209,7 @@ public class EntityApi implements Closeable {
      */
     public MatchEntity getMatch(Region region, long matchId) {
         try {
-            return matchEntityCache.get(new EntityKey(region, matchId),
+            return matchEntityCache.get(new EntityKey(region, "" + matchId),
                     () -> MatchEntity.create(this, region, matchId, null));
         } catch (ExecutionException e) {
             throw new RuntimeException("Failed to create match.", e);
@@ -219,18 +219,18 @@ public class EntityApi implements Closeable {
 
     //region entity key
     /**
-     * Tuple of Region and long id to be used as cache keys.
+     * Tuple of Region and long encId to be used as cache keys.
      */
     private static class EntityKey {
 
         public final Region region;
-        public final long id;
+        public final String encId;
 
-        public EntityKey(Region region, long id) {
+        public EntityKey(Region region, String encId) {
             if (region == null)
                 throw new NullPointerException("Region cannot be null");
             this.region = region;
-            this.id = id;
+            this.encId = encId;
         }
 
         @Override
@@ -240,14 +240,12 @@ public class EntityApi implements Closeable {
 
             EntityKey entityKey = (EntityKey) o;
 
-            return id == entityKey.id && region == entityKey.region;
+            return encId.equals(entityKey.encId) && region == entityKey.region;
         }
 
         @Override
         public int hashCode() {
-            int result = (int) (id ^ (id >>> 32));
-            result = 31 * result + region.hashCode();
-            return result;
+            return 31 * encId.hashCode() + region.hashCode();
         }
     }
     //endregion
